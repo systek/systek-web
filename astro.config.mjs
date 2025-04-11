@@ -8,8 +8,8 @@ import react from "@astrojs/react";
 export default defineConfig({
   integrations: [
     sanity({
-      projectId: "3do82whm",
-      dataset: "next",
+      projectId: "s9j0sgbs",
+      dataset: "production",
       useCdn: false,
     }),
     react(),
