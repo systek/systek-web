@@ -1,1 +1,14 @@
 @import "tailwindcss";
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+@theme {
+  --color-mint-500: oklch(0.72 0.11 178);
+  --font-sans: "Inter", sans-serif;
+  --font-serif: "Inter", sans-serif;
+}
+
+body {
+  background: var(--color-mint-500);
+  font-family: var(--font-sans);
+}
