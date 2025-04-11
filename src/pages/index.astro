@@ -1,6 +1,7 @@
 ---
 import { sanityClient } from "sanity:client";
 import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
 
 const posts = await sanityClient.fetch(
   `*[_type == "post" && defined(publishedAt)] | order(publishedAt desc)`
@@ -8,6 +9,7 @@ const posts = await sanityClient.fetch(
 ---
 
 <Layout title="Sanity.io blog">
+  <Header />
   <h1 class="text-3xl">Sanity.io blog</h1>
   <ul>
     {
