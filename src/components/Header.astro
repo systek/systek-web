@@ -1,4 +1,28 @@
-<header class="flex justify-between items-center p-4 bg-blue">
-  <h1>Systek</h1>
-  <nav>Posts</nav>
+---
+const links = [
+  { text: "Arbeider", href: "/" },
+  { text: "Tjenester", href: "/" },
+  { text: "Jobb hos oss", href: "/" },
+  { text: "Folka", href: "/" },
+];
+---
+
+<header class="flex items-center justify-between gap-4 p-4">
+  <img src="/images/systek-logo.svg" alt="Systek" class="" />
+  <nav>
+    <ul class="flex gap-8">
+      {
+        links.map((link) => (
+          <li>
+            <a href={link.href} class="hover:underline">
+              {link.text}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+  <a class="bg-neutral-1 text-off-white rounded-full px-5 py-2" href="/">
+    Kontakt
+  </a>
 </header>

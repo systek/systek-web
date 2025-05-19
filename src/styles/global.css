@@ -23,6 +23,6 @@
 }
 
 body {
-  @apply bg-off-white text-neutral-1;
+  @apply bg-off-white text-neutral-1 text-base antialiased;
   font-family: var(--font-sans);
 }
