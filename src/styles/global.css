@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-
 @import "tailwindcss";
+@import "./fonts.css";
 
 @theme {
   --color-mint-500: oklch(0.72 0.11 178);
@@ -18,8 +18,8 @@
   --color-neutral-6: #cfc8bf;
   --color-neutral-7: #eee9e2;
 
-  --font-sans: "Inter", sans-serif;
-  --font-serif: "Inter", sans-serif;
+  --font-sans: "KHTeka", "Inter", sans-serif;
+  --font-serif: "KHTeka", "Inter", sans-serif; /* todo: serif font? */
 }
 
 body {

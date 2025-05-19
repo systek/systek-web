@@ -1,0 +1,85 @@
+/* 
+  Supported Tailwind font weight classes:
+    font-light   (300)
+    font-normal  (400)
+    font-medium  (500)
+    font-bold    (700)
+    font-black   (900)
+
+  UNSUPPORTED Tailwind font weight classes:
+    font-thin      (100)
+    font-extralight(200)
+    font-semibold  (600)
+    font-extrabold (800)
+*/
+
+@font-face {
+  font-family: "KHTeka";
+  src: url("/fonts/KHTeka/KHTeka-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "KHTeka";
+  src: url("/fonts/KHTeka/KHTeka-RegularItalic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "KHTeka";
+  src: url("/fonts/KHTeka/KHTeka-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "KHTeka";
+  src: url("/fonts/KHTeka/KHTeka-LightItalic.woff2") format("woff2");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "KHTeka";
+  src: url("/fonts/KHTeka/KHTeka-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "KHTeka";
+  src: url("/fonts/KHTeka/KHTeka-MediumItalic.woff2") format("woff2");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "KHTeka";
+  src: url("/fonts/KHTeka/KHTeka-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "KHTeka";
+  src: url("/fonts/KHTeka/KHTeka-BoldItalic.woff2") format("woff2");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "KHTeka";
+  src: url("/fonts/KHTeka/KHTeka-Black.woff2") format("woff2");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "KHTeka";
+  src: url("/fonts/KHTeka/KHTeka-BlackItalic.woff2") format("woff2");
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
