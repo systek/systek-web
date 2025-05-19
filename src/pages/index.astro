@@ -1,11 +1,6 @@
 ---
-import { sanityClient } from "sanity:client";
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
-
-const posts = await sanityClient.fetch(
-  `*[_type == "post" && defined(publishedAt)] | order(publishedAt desc)`,
-);
 
 const arrows = [
   "top-0 left-0 rotate-[-90deg]",
@@ -20,7 +15,7 @@ const arrows = [
 
   <div class="px-5">
     <div
-      class="relative h-[66vh] min-h-[200px] w-full flex items-center justify-center bg-off-white"
+      class="relative h-[66vh] max-h-[50vw] min-h-[200px] w-full flex items-center justify-center bg-off-white"
     >
       <p class="text-9xl">:)</p>
       {
@@ -33,9 +28,11 @@ const arrows = [
       }
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 my-12 items-start">
+    <div
+      class="grid grid-cols-1 gap-2 items-start sm:gap-0 sm:grid-cols-2 my-12"
+    >
       <h2
-        class="text-4xl font-light mb-2 sm:text-[clamp(1.75rem,4.5vw,9999rem)] sm:leading-none"
+        class="text-4xl font-light sm:text-[clamp(1.75rem,4.5vw,9999rem)] sm:leading-none"
       >
         Vi bygger bro mellom folk og teknologi
       </h2>
@@ -47,17 +44,6 @@ const arrows = [
       </p>
     </div>
 
-    <h1 class="text-3xl">Systek</h1>
-    <ul>
-      {
-        posts.map((post: any) => (
-          <li>
-            <a href={"/posts/" + post.slug.current} class="post-link">
-              {post.title}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
+    <img src="/images/temp.png" class="pointer-events-none w-full" />
   </div>
 </Layout>
