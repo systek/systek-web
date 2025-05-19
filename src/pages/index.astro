@@ -6,10 +6,32 @@ import Header from "../components/Header.astro";
 const posts = await sanityClient.fetch(
   `*[_type == "post" && defined(publishedAt)] | order(publishedAt desc)`,
 );
+
+const arrows = [
+  "top-5 left-5 rotate-[-90deg]",
+  "top-5 right-5",
+  "bottom-5 left-5 rotate-[180deg]",
+  "bottom-0 right-5 rotate-[90deg]",
+];
 ---
 
 <Layout title="Systek">
   <Header />
+
+  <div
+    class="relative h-[75vh] min-h-[200px] w-full flex items-center justify-center bg-off-white"
+  >
+    <p class="text-9xl">:)</p>
+    {
+      arrows.map((arrow) => (
+        <img
+          src="/images/systek-arrow.svg"
+          class={`pointer-events-none absolute ${arrow}`}
+        />
+      ))
+    }
+  </div>
+
   <h1 class="text-3xl">Systek</h1>
   <ul>
     {
