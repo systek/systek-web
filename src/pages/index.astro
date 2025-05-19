@@ -8,40 +8,56 @@ const posts = await sanityClient.fetch(
 );
 
 const arrows = [
-  "top-5 left-5 rotate-[-90deg]",
-  "top-5 right-5",
-  "bottom-5 left-5 rotate-[180deg]",
-  "bottom-0 right-5 rotate-[90deg]",
+  "top-0 left-0 rotate-[-90deg]",
+  "top-0 right-0",
+  "bottom-0 left-0 rotate-[180deg]",
+  "bottom-0 right-0 rotate-[90deg]",
 ];
 ---
 
 <Layout title="Systek">
   <Header />
 
-  <div
-    class="relative h-[75vh] min-h-[200px] w-full flex items-center justify-center bg-off-white"
-  >
-    <p class="text-9xl">:)</p>
-    {
-      arrows.map((arrow) => (
-        <img
-          src="/images/systek-arrow.svg"
-          class={`pointer-events-none absolute ${arrow}`}
-        />
-      ))
-    }
-  </div>
+  <div class="px-5">
+    <div
+      class="relative h-[66vh] min-h-[200px] w-full flex items-center justify-center bg-off-white"
+    >
+      <p class="text-9xl">:)</p>
+      {
+        arrows.map((arrow) => (
+          <img
+            src="/images/systek-arrow.svg"
+            class={`pointer-events-none absolute ${arrow}`}
+          />
+        ))
+      }
+    </div>
 
-  <h1 class="text-3xl">Systek</h1>
-  <ul>
-    {
-      posts.map((post: any) => (
-        <li>
-          <a href={"/posts/" + post.slug.current} class="post-link">
-            {post.title}
-          </a>
-        </li>
-      ))
-    }
-  </ul>
+    <div class="grid grid-cols-1 sm:grid-cols-2 my-12 items-start">
+      <h2
+        class="text-4xl font-light mb-2 sm:text-[clamp(1.75rem,4.5vw,9999rem)] sm:leading-none"
+      >
+        Vi bygger bro mellom folk og teknologi
+      </h2>
+      <p
+        class="text-xl tracking-tight sm:text-[clamp(1rem,2.2vw,9999rem)] sm:leading-tight"
+      >
+        Introtext fusce dapibus, tellus ac cursus commodo, tortor mauris
+        condimentum nibh ut fermentum massa justo amet.
+      </p>
+    </div>
+
+    <h1 class="text-3xl">Systek</h1>
+    <ul>
+      {
+        posts.map((post: any) => (
+          <li>
+            <a href={"/posts/" + post.slug.current} class="post-link">
+              {post.title}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
 </Layout>
