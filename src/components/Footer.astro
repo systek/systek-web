@@ -1,0 +1,92 @@
+---
+const links = [
+  { text: "Følg oss på sosiale medier", href: "/" },
+  { text: "Les vår fagblogg", href: "/" },
+  { text: "Om systek", href: "/" },
+];
+---
+
+<footer class="p-5">
+  <div class="flex justify-between">
+    <img
+      alt=""
+      src="/images/systek-arrow.svg"
+      class="pointer-events-none rotate-[-90deg]"
+    />
+    <img alt="" src="/images/systek-arrow.svg" class="pointer-events-none" />
+  </div>
+
+  <div class="grid grid-cols-2 gap-2 mt-16">
+    <div class="grid grid-cols-2 gap-2">
+      <p class="leading-5">
+        Oslo<br />
+        <a class="underline" href="/">Pilestredet 28</a><br />
+        0166 Oslo<br />
+        +47 951 30 207<br />
+        <a class="underline" href="/">systek@systek.no</a>
+      </p>
+
+      <p class="leading-5">
+        Hamar<br />
+        <a class="underline" href="/">Brygga 20</a><br />
+        2317 Hamar<br />
+        +47 991 62 618<br />
+        <a class="underline" href="/">hamar@systek.no</a>
+      </p>
+    </div>
+    <div>
+      <ul class="border-t border-grey-10">
+        {
+          links.map((link) => (
+            <li class="border-b border-grey-10">
+              <a
+                href={link.href}
+                class="hover:underline flex justify-between gap-2 py-3.75"
+              >
+                {link.text}
+                <img
+                  alt=""
+                  src="/images/show-more.svg"
+                  class="pointer-events-none pr-2 shrink-0"
+                />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+
+  <div class="flex justify-between mt-30">
+    <img alt="" src="/images/systek-arrow-2.svg" class="pointer-events-none" />
+    <img
+      src="/images/systek-arrow-2.svg"
+      class="pointer-events-none rotate-[180deg]"
+    />
+  </div>
+
+  <img
+    alt=""
+    src="/images/systek-logo.svg"
+    alt="Systek"
+    class="w-full pointer-events-none mt-8"
+  />
+
+  <div class="flex justify-between items-end mt-8">
+    <img
+      alt=""
+      src="/images/systek-arrow.svg"
+      class="pointer-events-none rotate-[180deg]"
+    />
+
+    <p class="text-sm">
+      @{new Date().getFullYear()} Systek. All rights reserved
+    </p>
+
+    <img
+      alt=""
+      src="/images/systek-arrow.svg"
+      class="pointer-events-none rotate-[90deg]"
+    />
+  </div>
+</footer>

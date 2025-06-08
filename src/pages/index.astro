@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
 
 const arrows = [
   "top-0 left-0 rotate-[-90deg]",
@@ -15,7 +16,7 @@ const arrows = [
 
   <div class="px-5">
     <div
-      class="relative h-[66vh] max-h-[50vw] min-h-[200px] w-full flex items-center justify-center bg-off-white"
+      class="relative h-[66vh] max-h-[50vw] min-h-[200px] w-full flex items-center justify-center bg-background"
     >
       <p class="text-9xl">:)</p>
       {
@@ -42,4 +43,6 @@ const arrows = [
 
     <img src="/images/temp.png" class="pointer-events-none w-full" />
   </div>
+
+  <Footer />
 </Layout>
