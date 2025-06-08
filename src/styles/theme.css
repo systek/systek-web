@@ -1,0 +1,67 @@
+/* https://tailwindcss.com/docs/theme */
+@theme {
+  --font-*: initial;
+  --font-sans: "KHTeka", "Inter", system-ui, sans-serif;
+
+  --color-*: initial;
+  --color-mint-500: oklch(0.72 0.11 178);
+  --color-off-white: #fcf6ee;
+  --color-orange: #ff8c45;
+  --color-yellow: #ffd24c;
+  --color-blue: #97d2ec;
+  --color-grey-10: #1a1a1a;
+  --color-grey-17: #2b2b2b;
+  --color-grey-32: #54524f;
+  --color-grey-44: #74716d;
+  --color-grey-60: #9e9a94;
+  --color-grey-78: #cfc8bf;
+  --color-grey-91: #eee9e2;
+  --color-black: #000;
+  --color-white: #fff;
+
+  --text-*: initial;
+  --text-sm: 0.875rem;
+  --text-sm--line-height: calc(1.25 / 0.875);
+  --text-base: 1rem;
+  --text-base--line-height: calc(1.5 / 1);
+  --text-lg: 1.125rem;
+  --text-lg--line-height: calc(1.75 / 1.125);
+  --text-xl: 1.25rem;
+  --text-xl--line-height: calc(1.75 / 1.25);
+  --text-2xl: 1.5rem;
+  --text-2xl--line-height: calc(2 / 1.5);
+  --text-3xl: 1.75rem;
+  --text-3xl--line-height: calc(2.25 / 1.75);
+  --text-4xl: 2rem;
+  --text-4xl--line-height: calc(2.5 / 2);
+  --text-5xl: 2.25rem;
+  --text-5xl--line-height: calc(2.5 / 2.25);
+  --text-6xl: 3rem;
+  --text-6xl--line-height: 1;
+  --text-7xl: 3.75rem;
+  --text-7xl--line-height: 1;
+  --text-8xl: 4, 5rem;
+  --text-8xl--line-height: 1;
+  --text-9xl: 6rem;
+  --text-9xl--line-height: 1;
+  --text-10xl: 8rem;
+  --text-10xl--line-height: 1;
+
+  --font-weight-*: initial;
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+  --font-weight-black: 900;
+
+  --radius-*: initial;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+
+  --stroke-base: 1px;
+  --stroke-md: 2px;
+
+  --spacing-page: 10rem;
+  --spacing-section: 5rem;
+}
