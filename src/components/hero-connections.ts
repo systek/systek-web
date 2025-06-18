@@ -21,11 +21,15 @@ type Box = {
   render: () => void;
 };
 
-const constraints = function (
-  rootEl: HTMLElement,
-  width: number,
-  height: number
-) {
+const HeroConnections = function (rootEl: HTMLElement) {
+  if (!rootEl) {
+    return;
+  }
+
+  // TODO: Recalculate everything on window resize.
+  // Should probably not all be in one function
+
+  const { offsetHeight: height, offsetWidth: width } = rootEl;
   const texEls = [...rootEl.querySelectorAll("span")];
 
   // create engine
@@ -117,8 +121,8 @@ const constraints = function (
           x: -(bodyB.w / 2) - boxMargin,
           y: -(bodyB.h / 2) - boxMargin,
         },
-        stiffness: 0.00001,
-        damping: 0.0001,
+        stiffness: 0.00002,
+        damping: 0.001,
         render: {
           lineWidth: 1,
           strokeStyle: "#FCF6EE",
@@ -137,39 +141,8 @@ const constraints = function (
     requestAnimationFrame(rerender);
   })();
 
-  /*
-  // add soft global constraint
-  var bodyA = Bodies.rectangle(400, 300, 200, 50, {
-    render: { fillStyle: "red" },
-  });
-  var bodyB = Bodies.rectangle(400, 310, 200, 50, {
-    render: { fillStyle: "red" },
-  });
-  var bodyC = Bodies.rectangle(400, 320, 200, 50, {
-    render: { fillStyle: "red" },
-  });
-
-  var constraint = Constraint.create({
-    bodyA: bodyA,
-    pointA: { x: 100 + 4, y: 25 + 4 },
-    bodyB: bodyB,
-    pointB: { x: -100 - 4, y: -25 - 4 },
-    stiffness: 0.00001,
-    damping: 0.1,
-  });
-  var constraint2 = Constraint.create({
-    bodyA: bodyB,
-    pointA: { x: 100 + 4, y: 25 + 4 },
-    bodyB: bodyC,
-    pointB: { x: -100 - 4, y: -25 - 4 },
-    stiffness: 0.001,
-    damping: 0.1,
-  });
-
-  Composite.add(world, [bodyA, bodyB, bodyC, constraint, constraint2]);
-*/
+  // walls
   Composite.add(world, [
-    // walls
     Bodies.rectangle(width / 2, 0, width, 50, {
       isStatic: true,
       render: { fillStyle: "#97D2EC" },
@@ -225,7 +198,4 @@ const constraints = function (
   };
 };
 
-constraints.title = "Constraints";
-constraints.for = ">=0.14.2";
-
-export default constraints;
+export default HeroConnections;

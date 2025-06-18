@@ -10,14 +10,11 @@
 </div>
 
 <script>
-  import Connect from "./connect.ts";
+  import Connect from "./hero-connections.ts";
   (() => {
     const rootEl = document.getElementById("connections-canvas");
     if (!rootEl) return;
 
-    const width = rootEl.offsetWidth;
-    const height = rootEl.offsetHeight;
-
-    Connect(rootEl, width, height);
+    Connect(rootEl);
   })();
 </script>

@@ -2,7 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import ConnectionsIsland from "../components/Connections.astro";
+import ConnectionsIsland from "../components/HeroConnections.astro";
 
 const arrows = [
   "top-0 left-0 rotate-[-90deg]",
@@ -19,7 +19,7 @@ const arrows = [
     <div
       class="relative h-[66vh] max-h-[50vw] min-h-[200px] w-full flex items-center justify-center bg-background"
     >
-      <ConnectionsIsland client:load />
+      <ConnectionsIsland />
       {
         arrows.forEach((arrow) => (
           <img
