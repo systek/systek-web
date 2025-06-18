@@ -1,0 +1,23 @@
+---
+
+---
+
+<div id="connections-canvas" class="absolute top-0 left-0 w-full h-full">
+  <span class="absolute pointer-events-none text-5xl">Bra</span>
+  <span class="absolute pointer-events-none text-5xl">folk</span>
+  <span class="absolute pointer-events-none text-5xl">smarte</span>
+  <span class="absolute pointer-events-none text-5xl">løsninger</span>
+</div>
+
+<script>
+  import Connect from "./connect.ts";
+  (() => {
+    const rootEl = document.getElementById("connections-canvas");
+    if (!rootEl) return;
+
+    const width = rootEl.offsetWidth;
+    const height = rootEl.offsetHeight;
+
+    Connect(rootEl, width, height);
+  })();
+</script>
