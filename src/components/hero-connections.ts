@@ -45,7 +45,7 @@ const HeroConnections = function (rootEl: HTMLElement) {
     options: {
       width: width,
       height: height,
-      background: "#97D2EC",
+      background: "transparent",
       showAngleIndicator: false,
       showAxes: false,
       showBounds: false,
@@ -96,7 +96,7 @@ const HeroConnections = function (rootEl: HTMLElement) {
           friction: 0.1,
           frictionAir: 0.05,
           inertia: Infinity,
-        }
+        },
       ),
       elem: textEl,
       render() {
@@ -124,7 +124,7 @@ const HeroConnections = function (rootEl: HTMLElement) {
         stiffness: 0.00002,
         damping: 0.001,
         render: {
-          lineWidth: 1,
+          lineWidth: 2,
           strokeStyle: "#FCF6EE",
           type: "line",
           anchors: false,
@@ -145,19 +145,19 @@ const HeroConnections = function (rootEl: HTMLElement) {
   Composite.add(world, [
     Bodies.rectangle(width / 2, 0, width, 50, {
       isStatic: true,
-      render: { fillStyle: "#97D2EC" },
+      render: { fillStyle: "transparent" },
     }), // top
     Bodies.rectangle(width / 2, height, width, 50, {
       isStatic: true,
-      render: { fillStyle: "#97D2EC" },
+      render: { fillStyle: "transparent" },
     }), // bunn
     Bodies.rectangle(0, height / 2, 50, height, {
       isStatic: true,
-      render: { fillStyle: "#97D2EC" },
+      render: { fillStyle: "transparent" },
     }), // venstre
     Bodies.rectangle(width, height / 2, 50, height, {
       isStatic: true,
-      render: { fillStyle: "#97D2EC" },
+      render: { fillStyle: "transparent" },
     }), // høyre
   ]);
 

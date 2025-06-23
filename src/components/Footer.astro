@@ -1,4 +1,6 @@
 ---
+import Arrow from "./Arrow.astro";
+
 const links = [
   { text: "Følg oss på sosiale medier", href: "/" },
   { text: "Les vår fagblogg", href: "/" },
@@ -6,14 +8,10 @@ const links = [
 ];
 ---
 
-<footer class="p-5">
+<footer class="container-fluid py-5">
   <div class="flex justify-between">
-    <img
-      alt=""
-      src="/images/systek-arrow.svg"
-      class="pointer-events-none rotate-[-90deg]"
-    />
-    <img alt="" src="/images/systek-arrow.svg" class="pointer-events-none" />
+    <Arrow position="topLeft" class="pointer-events-none" />
+    <Arrow position="topRight" class="pointer-events-none" />
   </div>
 
   <div class="grid grid-cols-2 gap-2 mt-16">
@@ -58,11 +56,8 @@ const links = [
   </div>
 
   <div class="flex justify-between mt-30">
-    <img alt="" src="/images/systek-arrow-2.svg" class="pointer-events-none" />
-    <img
-      src="/images/systek-arrow-2.svg"
-      class="pointer-events-none rotate-[180deg]"
-    />
+    <Arrow position="middleLeft" class="pointer-events-none" />
+    <Arrow position="middleRight" class="pointer-events-none" />
   </div>
 
   <img
@@ -73,20 +68,12 @@ const links = [
   />
 
   <div class="flex justify-between items-end mt-8">
-    <img
-      alt=""
-      src="/images/systek-arrow.svg"
-      class="pointer-events-none rotate-[180deg]"
-    />
+    <Arrow position="bottomLeft" class="pointer-events-none" />
 
     <p class="text-sm">
       @{new Date().getFullYear()} Systek. All rights reserved
     </p>
 
-    <img
-      alt=""
-      src="/images/systek-arrow.svg"
-      class="pointer-events-none rotate-[90deg]"
-    />
+    <Arrow position="bottomRight" class="pointer-events-none" />
   </div>
 </footer>

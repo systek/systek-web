@@ -1,0 +1,25 @@
+---
+import clsx from "clsx";
+import type { HTMLAttributes } from "astro/types";
+
+type Color = "transparent" | "black";
+type ButtonProps = {
+  color?: Color;
+} & HTMLAttributes<"button">;
+const {
+  color = "transparent",
+  class: className,
+  ...buttonProps
+} = Astro.props as ButtonProps;
+
+const colors: Record<Color, string> = {
+  transparent: "bg-transparent border border-grey-10",
+  black: "bg-grey-10 text-off-white border border-grey-10",
+};
+
+const common = "rounded-full px-5 py-2.5 text-sm-fluid";
+---
+
+<button class={clsx(common, colors[color], className)} {...buttonProps}>
+  <slot />
+</button>

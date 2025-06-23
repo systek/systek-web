@@ -1,0 +1,38 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type ArrowPosition =
+  | "topLeft"
+  | "topRight"
+  | "middleLeft"
+  | "middleRight"
+  | "bottomLeft"
+  | "bottomRight";
+
+type ArrowProps = {
+  position?: ArrowPosition;
+} & HTMLAttributes<"picture">;
+
+const { position = "topLeft", ...pictureProps } = Astro.props as ArrowProps;
+
+const src: Record<ArrowPosition, string> = {
+  topLeft: "arrow-top-left.svg",
+  topRight: "arrow-top-right.svg",
+  middleLeft: "arrow-middle-left.svg",
+  middleRight: "arrow-middle-right.svg",
+  bottomLeft: "arrow-bottom-left.svg",
+  bottomRight: "arrow-bottom-right.svg",
+};
+---
+
+<picture {...pictureProps}>
+  <source
+    srcset={`/images/icon/arrow/mobile/${src[position]}`}
+    media="(max-width: 639px)"
+  />
+  <source
+    srcset={`/images/icon/arrow/tablet/${src[position]}`}
+    media="(min-width: 640px) and (max-width: 1023px)"
+  />
+  <img src={`/images/icon/arrow/desktop/${src[position]}`} />
+</picture>

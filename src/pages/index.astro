@@ -3,47 +3,49 @@ import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import ConnectionsIsland from "../components/HeroConnections.astro";
-
-const arrows = [
-  "top-0 left-0 rotate-[-90deg]",
-  "top-0 right-0",
-  "bottom-0 left-0 rotate-[180deg]",
-  "bottom-0 right-0 rotate-[90deg]",
-];
+import Arrow from "../components/Arrow.astro";
+import Button from "../components/Button.astro";
 ---
 
 <Layout title="Systek">
-  <Header />
-
-  <div class="px-5">
-    <div
-      class="relative h-[66vh] max-h-[50vw] min-h-[200px] w-full flex items-center justify-center bg-background"
-    >
+  <div class="bg-blue">
+    <div class="container-fluid h-[66vh] max-h-[50vw] min-h-[200px] relative">
       <ConnectionsIsland />
-      {
-        arrows.forEach((arrow) => (
-          <img
-            src="/images/systek-arrow.svg"
-            class={`pointer-events-none absolute ${arrow}`}
-          />
-        ))
-      }
+      <Arrow position="topLeft" class="absolute top-5 left-5" />
+      <Arrow position="topRight" class="absolute top-5 right-5" />
+      <Arrow position="bottomRight" class="absolute bottom-5 right-5" />
+      <Arrow position="bottomLeft" class="absolute bottom-5 left-5" />
     </div>
+
+    <Header />
 
     <div
-      class="grid grid-cols-1 gap-2 items-start sm:gap-0 sm:grid-cols-2 my-12"
+      class="container-fluid grid py-16 grid-cols-1 gap-2 items-start sm:gap-5 sm:grid-cols-2"
     >
-      <h2 class="text-4xl font-light sm:text-[4.5vw] sm:leading-none">
-        Vi bygger bro mellom folk og teknologi
-      </h2>
-      <p class="text-xl tracking-tight sm:text-[2.2vw] sm:leading-tight">
-        Introtext fusce dapibus, tellus ac cursus commodo, tortor mauris
-        condimentum nibh ut fermentum massa justo amet.
-      </p>
-    </div>
+      <h2 class="text-4xl-fluid font-light">Digital styrke – tett på</h2>
+      <div>
+        <p class="text-lg-fluid">
+          Hos oss møter du fagfolk som både kan og vil. Vi utforsker,
+          samarbeider og skaper muligheter som gjør en forskjell for mennesker,
+          virksomheter og samfunnet.
+        </p>
 
-    <img src="/images/temp.png" class="pointer-events-none w-full" />
+        <Button class="mt-8">Les om folka</Button>
+      </div>
+    </div>
   </div>
 
-  <Footer />
+  <div class="bg-linear-to-t from-off-white to-blue">
+    <div class="container-fluid py-5 bg-linear-to-t from-off-white to-blue">
+      <img
+        class="relative w-full"
+        src="/images/temp.png"
+        class="pointer-events-none w-full"
+      />
+    </div>
+  </div>
+
+  <div class="container-fluid py-5">
+    <Footer />
+  </div>
 </Layout>
