@@ -16,10 +16,15 @@ const colors: Record<Color, string> = {
   transparent: "bg-transparent border border-grey-10",
   black: "bg-grey-10 text-off-white border border-grey-10",
 };
-
-const common = "rounded-full px-5 py-2.5 text-sm-fluid";
 ---
 
-<button class={clsx(common, colors[color], className)} {...buttonProps}>
+<button
+  class={clsx(
+    "rounded-full px-5 py-2.5 text-sm-fluid",
+    colors[color],
+    className,
+  )}
+  {...buttonProps}
+>
   <slot />
 </button>

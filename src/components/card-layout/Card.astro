@@ -1,0 +1,33 @@
+---
+import clsx from "clsx";
+import type { HTMLAttributes } from "astro/types";
+import type { CardLayoutColor } from "./CardLayout.astro";
+
+type Size = "md" | "lg";
+type CardLayoutProps = {
+  color?: CardLayoutColor;
+  size?: Size;
+} & HTMLAttributes<"a">;
+const { color = "transparent", size = "md" } = Astro.props as CardLayoutProps;
+
+const sizes: Record<Size, string> = {
+  md: "sm:min-h-72",
+  lg: "sm:min-h-[29rem]",
+};
+
+const colors: Record<CardLayoutColor, string> = {
+  transparent: "bg-grey-91 hover:bg-grey-91/90",
+  orange: "bg-off-white hover:bg-off-white/90",
+};
+---
+
+<a
+  class={clsx(
+    "flex flex-col justify-between gap-10 p-6 rounded-lg group",
+    sizes[size],
+    colors[color],
+  )}
+  href={Astro.props.href}
+>
+  <slot />
+</a>

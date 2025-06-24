@@ -1,0 +1,24 @@
+---
+import clsx from "clsx";
+import type { HTMLAttributes } from "astro/types";
+
+export type CardLayoutColor = "transparent" | "orange";
+type CardLayoutProps = {
+  color?: CardLayoutColor;
+} & HTMLAttributes<"div">;
+const { color = "transparent" } = Astro.props as CardLayoutProps;
+
+const colors: Record<CardLayoutColor, string> = {
+  transparent: "py-3 sm:py-5",
+  orange: "bg-orange p-3 sm:p-5",
+};
+---
+
+<div
+  class={clsx(
+    "grid grid-cols-1 gap-2 rounded-lg sm:gap-5 sm:grid-cols-4",
+    colors[color],
+  )}
+>
+  <slot />
+</div>

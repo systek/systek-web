@@ -10,10 +10,18 @@
 }
 
 body {
-  @apply bg-background text-text text-base antialiased;
+  @apply text-base antialiased bg-background text-text;
   font-family: var(--font-sans);
 }
 
+/* 
+ * generic responsive container class
+ * todo: make one without (vertical) padding?
+ */
 .container-fluid {
-  @apply w-full max-w-lg mx-auto px-5;
+  @apply w-full max-w-lg p-5 mx-auto;
+}
+
+@utility text-underline {
+  @apply underline underline-offset-5 decoration-1;
 }
