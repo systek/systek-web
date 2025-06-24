@@ -2,14 +2,14 @@
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import ConnectionsIsland from "../components/HeroConnections.astro";
+import ConnectionsIsland from "../components/connections/Connections.astro";
 import Arrow from "../components/Arrow.astro";
 import Button from "../components/Button.astro";
 ---
 
 <Layout title="Systek">
   <div class="bg-blue">
-    <div class="container-fluid h-[66vh] max-h-[50vw] min-h-[200px] relative">
+    <div class="container-fluid h-[calc(100vh-32rem)] min-h-[50vh] relative">
       <ConnectionsIsland />
       <Arrow position="topLeft" class="absolute top-5 left-5" />
       <Arrow position="topRight" class="absolute top-5 right-5" />

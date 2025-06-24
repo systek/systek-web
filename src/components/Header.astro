@@ -1,4 +1,6 @@
 ---
+import Button from "./Button.astro";
+
 const links = [
   { text: "Arbeider", href: "/" },
   { text: "Tjenester", href: "/" },
@@ -24,8 +26,6 @@ const links = [
         }
       </ul>
     </nav>
-    <a class="bg-grey-10 text-off-white rounded-full px-5 py-2.5" href="/">
-      Jobbe her?
-    </a>
+    <Button color="black" href="/">Jobbe her?</Button>
   </header>
 </div>

@@ -1,0 +1,19 @@
+---
+import clsx from "clsx";
+import type { HTMLAttributes } from "astro/types";
+
+const { class: className, ...buttonProps } =
+  Astro.props as HTMLAttributes<"div">;
+---
+
+<div
+  class={clsx(
+    "connection-box absolute pointer-events-none rounded-sm p-1",
+    className,
+  )}
+  {...buttonProps}
+>
+  <span class="text-2xl-fluid font-light">
+    <slot />
+  </span>
+</div>
