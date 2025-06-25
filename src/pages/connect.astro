@@ -1,0 +1,125 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Arrow from "../components/Arrow.astro";
+import ConnectionsBox from "../components/connections/ConnectionsBox.astro";
+import CardLayout from "../components/card-layout/CardLayout.astro";
+import Card from "../components/card-layout/Card.astro";
+import Button from "../components/Button.astro";
+---
+
+<Layout title="Systek">
+  <div class="bg-blue">
+    <div class="container-fluid h-[calc(100vh-32rem)] min-h-[50vh] relative">
+      <div id="connections-canvas" class="absolute inset-0">
+        <ConnectionsBox class="bg-yellow">Bra</ConnectionsBox>
+        <ConnectionsBox class="bg-off-white">folk</ConnectionsBox>
+        <ConnectionsBox class="bg-off-white">smarte</ConnectionsBox>
+        <ConnectionsBox class="bg-off-white">løsninger</ConnectionsBox>
+      </div>
+
+      <Arrow position="topLeft" class="absolute top-5 left-5" />
+      <Arrow position="topRight" class="absolute top-5 right-5" />
+      <Arrow position="bottomRight" class="absolute bottom-5 right-5" />
+      <Arrow position="bottomLeft" class="absolute bottom-5 left-5" />
+    </div>
+    <CardLayout>
+      <Card>
+        <div>
+          <label>Margin</label>
+          <input
+            class="border p-2 rounded-md"
+            name="margin"
+            type="number"
+            value="4"
+          />
+        </div>
+        <div>
+          <label> Padding </label>
+          <input
+            class="border p-2 rounded-md"
+            name="padding"
+            type="number"
+            value="4"
+          />
+        </div>
+        <div>
+          <label> Stiffness </label>
+          <input
+            class="border p-2 rounded-md"
+            name="stiffness"
+            type="text"
+            value="0.00002"
+          />
+        </div>
+        <div>
+          <label> Damping </label>
+          <input
+            class="border p-2 rounded-md"
+            name="damping"
+            type="number"
+            value="0.001"
+          />
+        </div>
+      </Card>
+      <div class="flex flex-col gap-4">
+        <Button id="btn-refresh">Fetch config</Button>
+        <Button color="black" id="btn-rerender">Apply</Button>
+      </div>
+    </CardLayout>
+    <script>
+      import Connect from "../components/connections/connections.ts";
+      (() => {
+        let connect;
+        const rootEl = document.getElementById("connections-canvas");
+        if (!rootEl) return;
+
+        connect = Connect(rootEl);
+
+        const btnRerender = document.getElementById("btn-rerender");
+        btnRerender?.addEventListener("click", () => {
+          connect?.stop();
+
+          const margin = Number(
+            document.querySelector('[name="margin"]').value
+          );
+          const padding = Number(
+            document.querySelector('[name="padding"]').value
+          );
+          const stiffness = Number(
+            document.querySelector('[name="stiffness"]').value
+          );
+          const damping = Number(
+            document.querySelector('[name="damping"]').value
+          );
+
+          const options = {
+            boxMargin: margin,
+            boxPadding: padding,
+            stiffness: stiffness,
+            damping: damping,
+          };
+
+          console.log(options);
+
+          connect = Connect(rootEl, options);
+        });
+
+        const btnRefresh = document.getElementById("btn-refresh");
+        btnRefresh?.addEventListener("click", () => {
+          if (!connect) {
+            return;
+          }
+
+          const config = connect.getConfig();
+
+          document.querySelector('[name="margin"]').value = config.boxMargin;
+          document.querySelector('[name="padding"]').value = config.boxPadding;
+          document.querySelector('[name="stiffness"]').value = config.stiffness;
+          document.querySelector('[name="damping"]').value = config.damping;
+
+          console.log(config);
+        });
+      })();
+    </script>
+  </div>
+</Layout>

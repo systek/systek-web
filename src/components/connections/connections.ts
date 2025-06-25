@@ -10,13 +10,11 @@ import {
   Body,
 } from "matter-js";
 
-const boxMargin = 4;
-const boxPadding = 4;
-
 type Box = {
   id: string;
   w: number;
   h: number;
+  position: [number, number];
   body: any; // TODO: Body or Composite?
   elem: HTMLElement;
   render: () => void;
@@ -30,7 +28,7 @@ type Config = {
   damping: number;
 };
 
-const Connections = function (rootEl: HTMLElement) {
+const Connections = function (rootEl: HTMLElement, options?: Partial<Config>) {
   if (!rootEl) {
     return;
   }
@@ -39,6 +37,24 @@ const Connections = function (rootEl: HTMLElement) {
   const boxNodes = Array.from(
     rootEl.querySelectorAll(".connection-box")
   ) as HTMLElement[];
+
+  const config: Config = Object.assign(
+    {
+      positions: [
+        [0.2, 0.3],
+        [0.7, 0.15],
+        [0.4, 0.5],
+        [0.7, 0.8],
+      ],
+      boxMargin: 4,
+      boxPadding: 4,
+      stiffness: 0.00002,
+      damping: 0.001,
+    },
+    options
+  );
+
+  console.log("Config", config);
 
   // Setup starts
   // create engine
@@ -108,6 +124,10 @@ const Connections = function (rootEl: HTMLElement) {
     max: { x: width, y: height },
   });
 
+  function calculateOptimalPoisition(width: number, height: number) {
+    return config.positions.map((pos) => [pos[0] * width, pos[1] * height]);
+  }
+
   function renderBoxesAndLines(width: number, height: number) {
     if (boxes && boxes.length > 0) {
       Composite.remove(
@@ -120,26 +140,22 @@ const Connections = function (rootEl: HTMLElement) {
     }
 
     // Recalculate optimal positions
-    const OptimalPositions = [
-      [0.2 * width, 0.3 * height],
-      [0.7 * width, 0.15 * height],
-      [0.4 * width, 0.5 * height],
-      [0.7 * width, 0.8 * height],
-    ];
+    const optimalPositions = calculateOptimalPoisition(width, height);
 
     boxes = boxNodes.map((textEl, i) => {
       const { width: bW, height: bH } = textEl.getBoundingClientRect();
-      const posItem = OptimalPositions[i];
+      const posItem = optimalPositions[i];
 
       return {
         id: `box-${i}`,
-        w: bW + (boxPadding + boxPadding),
-        h: bH + (boxPadding + boxPadding),
+        position: posItem,
+        w: bW + (config.boxPadding + config.boxPadding),
+        h: bH + (config.boxPadding + config.boxPadding),
         body: Bodies.rectangle(
           posItem[0],
           posItem[1],
-          bW + (boxPadding + boxPadding),
-          bH + (boxPadding + boxPadding),
+          bW + (config.boxPadding + config.boxPadding),
+          bH + (config.boxPadding + config.boxPadding),
           {
             render: { fillStyle: "transparent" },
             angularVelocity: 0.3,
@@ -153,9 +169,11 @@ const Connections = function (rootEl: HTMLElement) {
         render() {
           const { x, y } = this.body.position;
 
-          textEl.style.top = `${y - this.h / 2 + boxPadding}px`;
-          textEl.style.left = `${x - this.w / 2 + boxPadding}px`;
+          textEl.style.top = `${y - this.h / 2 + config.boxPadding}px`;
+          textEl.style.left = `${x - this.w / 2 + config.boxPadding}px`;
           textEl.style.transform = `rotate(${this.body.angle}rad)`;
+
+          this.position = [x, y];
         },
       } as Box;
     });
@@ -166,14 +184,17 @@ const Connections = function (rootEl: HTMLElement) {
         const bodyA = boxes[i - 1];
         return Constraint.create({
           bodyA: bodyA.body,
-          pointA: { x: bodyA.w / 2 + boxMargin, y: bodyA.h / 2 + boxMargin },
+          pointA: {
+            x: bodyA.w / 2 + config.boxMargin,
+            y: bodyA.h / 2 + config.boxMargin,
+          },
           bodyB: bodyB.body,
           pointB: {
-            x: -(bodyB.w / 2) - boxMargin,
-            y: -(bodyB.h / 2) - boxMargin,
+            x: -(bodyB.w / 2) - config.boxMargin,
+            y: -(bodyB.h / 2) - config.boxMargin,
           },
-          stiffness: 0.00002,
-          damping: 0.001,
+          stiffness: config.stiffness,
+          damping: config.damping,
           render: {
             lineWidth: 2,
             strokeStyle: "#FCF6EE",
@@ -242,9 +263,16 @@ const Connections = function (rootEl: HTMLElement) {
     runner: runner,
     render: render,
     canvas: render.canvas,
+    getConfig: function () {
+      return {
+        ...config,
+        positions: boxes.map((box) => box.position),
+      };
+    },
     stop: function () {
       Render.stop(render);
       Runner.stop(runner);
+      render.canvas.remove();
       window.removeEventListener("resize", handleResize);
     },
   };
