@@ -17,6 +17,9 @@ type Box = {
   position: [number, number];
   body: any; // TODO: Body or Composite?
   elem: HTMLElement;
+  push: (x: number, y: number) => void;
+  addFriction: (friction: number, wait?: number) => void;
+  setReady: (wait?: number) => void;
   render: () => void;
 };
 
@@ -49,12 +52,10 @@ const Connections = function (rootEl: HTMLElement, options?: Partial<Config>) {
       boxMargin: 4,
       boxPadding: 4,
       stiffness: 0.00002,
-      damping: 0.001,
+      damping: 0.0001,
     },
     options
   );
-
-  console.log("Config", config);
 
   // Setup starts
   // create engine
@@ -86,8 +87,8 @@ const Connections = function (rootEl: HTMLElement, options?: Partial<Config>) {
   // Setup done
 
   // Object storage
-  let boxes: Box[];
-  let constraints: Constraint[];
+  let boxes: Box[] = [];
+  let lines: Constraint[] = [];
   let walls: Body[] = [];
 
   // Create initial walls
@@ -128,84 +129,143 @@ const Connections = function (rootEl: HTMLElement, options?: Partial<Config>) {
     return config.positions.map((pos) => [pos[0] * width, pos[1] * height]);
   }
 
-  function renderBoxesAndLines(width: number, height: number) {
+  function sleep(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  function renderBoxAndLine(boxIndex: number, center: [number, number]) {
+    const textEl = boxNodes[boxIndex];
+    const { width: bW, height: bH } = textEl.getBoundingClientRect();
+
+    const box = {
+      id: `box-${boxIndex}`,
+      position: center,
+      w: bW + (config.boxPadding + config.boxPadding),
+      h: bH + (config.boxPadding + config.boxPadding),
+      body: Bodies.rectangle(
+        center[0],
+        center[1],
+        bW + (config.boxPadding + config.boxPadding),
+        bH + (config.boxPadding + config.boxPadding),
+        {
+          render: { fillStyle: "transparent" },
+          angularVelocity: 0.6,
+          angularSpeed: 0.6,
+          friction: 0.01,
+          frictionAir: 0.02,
+          inertia: Infinity,
+        }
+      ),
+      elem: textEl,
+      async push(destX: number, destY: number) {
+        const dist = Math.sqrt(
+          (destX - this.position[0]) ** 2 + (destY - this.position[1]) ** 2
+        );
+        const dx = destX - this.position[0];
+        const dy = destY - this.position[1];
+        const theta = Math.atan2(dy, dx);
+        // TODO: force based on distance,,,
+        const f = dist / 1400; // < 70 ? Math.min(0.1, dist / 1000) : 0.1;
+
+        Body.applyForce(
+          this.body,
+          { x: destX, y: destY },
+          {
+            x: Math.cos(theta) * f,
+            y: Math.sin(theta) * f,
+          }
+        );
+      },
+      async addFriction(friction: number, wait = 0) {
+        if (wait) {
+          await sleep(wait);
+        }
+        this.body.friction = friction;
+        this.body.frictionAir = friction;
+      },
+      async setReady(wait?: number) {
+        if (wait) {
+          await sleep(wait);
+        }
+        this.elem.classList.remove("bg-yellow");
+        this.elem.classList.add("bg-off-white");
+      },
+      render() {
+        const { x, y } = this.body.position;
+
+        textEl.style.top = `${y - this.h / 2 + config.boxPadding}px`;
+        textEl.style.left = `${x - this.w / 2 + config.boxPadding}px`;
+        textEl.classList.remove("invisible");
+
+        this.position = [x, y];
+      },
+    } as Box;
+
+    boxes.push(box);
+    Composite.add(world, box.body);
+
+    if (boxIndex > 0) {
+      // Create line to previous one
+      const prevBox = boxes[boxIndex - 1];
+
+      const line = Constraint.create({
+        bodyA: prevBox.body,
+        pointA: {
+          x: prevBox.w / 2 + config.boxMargin,
+          y: prevBox.h / 2 + config.boxMargin,
+        },
+        bodyB: box.body,
+        pointB: {
+          x: -(box.w / 2) - config.boxMargin,
+          y: -(box.h / 2) - config.boxMargin,
+        },
+        length: 300 + Math.random() * 300,
+        stiffness: config.stiffness,
+        damping: config.damping,
+        render: {
+          lineWidth: 2,
+          strokeStyle: "#FCF6EE",
+          type: "line",
+          anchors: false,
+        },
+      });
+
+      lines.push(line);
+      Composite.add(world, line);
+    }
+
+    return box;
+  }
+
+  async function renderBoxesAndLines(width: number, height: number) {
+    // Remove old stuff
     if (boxes && boxes.length > 0) {
       Composite.remove(
         world,
         boxes.map((box) => box.body)
       );
     }
-    if (constraints && constraints.length > 0) {
-      Composite.remove(world, constraints);
+    if (lines && lines.length > 0) {
+      Composite.remove(world, lines);
     }
 
     // Recalculate optimal positions
     const optimalPositions = calculateOptimalPoisition(width, height);
 
-    boxes = boxNodes.map((textEl, i) => {
-      const { width: bW, height: bH } = textEl.getBoundingClientRect();
-      const posItem = optimalPositions[i];
+    const itemCount = boxNodes.length;
 
-      return {
-        id: `box-${i}`,
-        position: posItem,
-        w: bW + (config.boxPadding + config.boxPadding),
-        h: bH + (config.boxPadding + config.boxPadding),
-        body: Bodies.rectangle(
-          posItem[0],
-          posItem[1],
-          bW + (config.boxPadding + config.boxPadding),
-          bH + (config.boxPadding + config.boxPadding),
-          {
-            render: { fillStyle: "transparent" },
-            angularVelocity: 0.3,
-            angularSpeed: 0.3,
-            friction: 0.1,
-            frictionAir: 0.05,
-            inertia: Infinity,
-          }
-        ),
-        elem: textEl,
-        render() {
-          const { x, y } = this.body.position;
-
-          textEl.style.top = `${y - this.h / 2 + config.boxPadding}px`;
-          textEl.style.left = `${x - this.w / 2 + config.boxPadding}px`;
-          textEl.style.transform = `rotate(${this.body.angle}rad)`;
-
-          this.position = [x, y];
-        },
-      } as Box;
-    });
-
-    constraints = boxes
-      .map((bodyB, i) => {
-        if (i === 0) return null;
-        const bodyA = boxes[i - 1];
-        return Constraint.create({
-          bodyA: bodyA.body,
-          pointA: {
-            x: bodyA.w / 2 + config.boxMargin,
-            y: bodyA.h / 2 + config.boxMargin,
-          },
-          bodyB: bodyB.body,
-          pointB: {
-            x: -(bodyB.w / 2) - config.boxMargin,
-            y: -(bodyB.h / 2) - config.boxMargin,
-          },
-          stiffness: config.stiffness,
-          damping: config.damping,
-          render: {
-            lineWidth: 2,
-            strokeStyle: "#FCF6EE",
-            type: "line",
-            anchors: false,
-          },
-        });
-      })
-      .filter((b) => b !== null);
-
-    Composite.add(world, [...boxes.map((box) => box.body), ...constraints]);
+    // TODO: Cancel on resize
+    for (const [boxIndex, _val] of boxNodes.entries()) {
+      const startPos: [number, number] = [
+        width * 0.3 + ((width * 0.4) / itemCount) * (boxIndex + 1),
+        height / 2,
+      ];
+      const pos = optimalPositions[boxIndex];
+      const box = renderBoxAndLine(boxIndex, startPos);
+      await box.setReady(600);
+      box.push(pos[0], pos[1]);
+      box.addFriction(0.4, 200);
+    }
   }
 
   function renderWalls(width: number, height: number) {
