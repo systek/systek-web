@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import BackgroundColorIsland from "../islands/BackgroundColorIsland";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import ConnectionsIsland from "../components/connections/Connections.astro";
@@ -104,18 +105,20 @@ const logoBottomItems = [
 ];
 ---
 
-<Layout title="Systek">
-  <div class="bg-background">
-    <div class="w-full h-[calc(100vh-32rem)] min-h-[600px] relative">
-      <ConnectionsIsland />
-      <Arrow position="topLeft" class="absolute top-5 left-5" />
-      <Arrow position="topRight" class="absolute top-5 right-5" />
-      <Arrow position="bottomRight" class="absolute bottom-5 right-5" />
-      <Arrow position="bottomLeft" class="absolute bottom-5 left-5" />
-    </div>
+<Layout title="Systek" bodyStyle="--color-background: var(--color-blue);">
+  <BackgroundColorIsland client:load />
+
+  <div class="h-[calc(100vh-32rem)] min-h-[50vh] relative overflow-x-hidden">
+    <ConnectionsIsland />
+    <Arrow position="topLeft" class="absolute top-5 left-5" />
+    <Arrow position="topRight" class="absolute top-5 right-5" />
+    <Arrow position="bottomRight" class="absolute bottom-5 right-5" />
+    <Arrow position="bottomLeft" class="absolute bottom-5 left-5" />
   </div>
+
   <Header />
-  <div class="bg-background">
+
+  <div class="container-fluid">
     <div
       class="grid items-start grid-cols-1 gap-2 py-16 container-fluid sm:gap-5 sm:grid-cols-2"
     >
@@ -130,19 +133,16 @@ const logoBottomItems = [
         <Button class="mt-8">Les om folka</Button>
       </div>
     </div>
-  </div>
 
-  <div class="bg-background view-check">
-    <div class="container-fluid bg-linear-to-t">
+    <div class="relative overflow-hidden rounded-lg">
       <img
-        class="relative w-full"
+        class="w-full"
         src="/images/temp.png"
-        class="w-full pointer-events-none"
+        class="w-full"
+        draggable="false"
       />
     </div>
-  </div>
 
-  <div class="container-fluid">
     <CardLayout color="orange">
       <div class="sm:col-span-1">
         <p class="font-bold text-sm-fluid">Tjenester</p>
@@ -271,31 +271,7 @@ const logoBottomItems = [
         }
       </div>
     </div>
+
+    <Footer />
   </div>
-
-  <script>
-    (function () {
-      const el = document.querySelector(".view-check");
-      if (!el) return;
-      const checkInView = new IntersectionObserver(
-        (e) => {
-          if (e[0].intersectionRatio > 0.5) {
-            // Get the root element
-            var r = document.querySelector(":root");
-
-            document.body.classList.add("animate-bg-fade-in");
-            r.style.setProperty("--color-background", "var(--color-off-white)");
-          }
-        },
-        {
-          root: null,
-          threshold: 0.5,
-        }
-      );
-      // when the viewport is at least half inside BigScrolly
-      checkInView.observe(el);
-    })();
-  </script>
-
-  <Footer />
 </Layout>

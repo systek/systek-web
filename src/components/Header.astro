@@ -8,9 +8,11 @@ const links = [
 ];
 ---
 
-<div class="w-full sticky top-0 z-100 bg-background">
-  <header
-    class="flex items-center justify-between py-3 px-4 border-b gap-4 border-grey-10/10"
+<header
+  class="sticky top-0 px-5 backdrop-blur bg-background z-[var(--z-header)]"
+>
+  <div
+    class="flex items-center justify-between gap-4 py-3 border-b border-grey-10/10"
   >
     <img src="/images/systek-logo.svg" alt="Systek" class="h-7" />
     <nav>
@@ -27,5 +29,5 @@ const links = [
       </ul>
     </nav>
     <Button color="black" href="/">Jobbe her?</Button>
-  </header>
-</div>
+  </div>
+</header>

@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+const { bodyStyle = "" } = Astro.props;
 ---
 
 <!doctype html>
@@ -11,7 +12,7 @@ import "../styles/global.css";
     <meta name="generator" content={Astro.generator} />
     <title>Systek</title>
   </head>
-  <body>
+  <body style={bodyStyle}>
     <slot />
   </body>
 </html>
