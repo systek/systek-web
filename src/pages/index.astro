@@ -105,17 +105,17 @@ const logoBottomItems = [
 ---
 
 <Layout title="Systek">
-  <div class="bg-blue">
-    <div class="container-fluid h-[calc(100vh-32rem)] min-h-[50vh] relative">
+  <div class="bg-background">
+    <div class="w-full h-[calc(100vh-32rem)] min-h-[600px] relative">
       <ConnectionsIsland />
       <Arrow position="topLeft" class="absolute top-5 left-5" />
       <Arrow position="topRight" class="absolute top-5 right-5" />
       <Arrow position="bottomRight" class="absolute bottom-5 right-5" />
       <Arrow position="bottomLeft" class="absolute bottom-5 left-5" />
     </div>
-
-    <Header />
-
+  </div>
+  <Header />
+  <div class="bg-background">
     <div
       class="grid items-start grid-cols-1 gap-2 py-16 container-fluid sm:gap-5 sm:grid-cols-2"
     >
@@ -132,7 +132,7 @@ const logoBottomItems = [
     </div>
   </div>
 
-  <div class="bg-linear-to-t from-off-white to-blue">
+  <div class="bg-background view-check">
     <div class="container-fluid bg-linear-to-t">
       <img
         class="relative w-full"
@@ -272,6 +272,30 @@ const logoBottomItems = [
       </div>
     </div>
   </div>
+
+  <script>
+    (function () {
+      const el = document.querySelector(".view-check");
+      if (!el) return;
+      const checkInView = new IntersectionObserver(
+        (e) => {
+          if (e[0].intersectionRatio > 0.5) {
+            // Get the root element
+            var r = document.querySelector(":root");
+
+            document.body.classList.add("animate-bg-fade-in");
+            r.style.setProperty("--color-background", "var(--color-off-white)");
+          }
+        },
+        {
+          root: null,
+          threshold: 0.5,
+        }
+      );
+      // when the viewport is at least half inside BigScrolly
+      checkInView.observe(el);
+    })();
+  </script>
 
   <Footer />
 </Layout>

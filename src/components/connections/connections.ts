@@ -14,10 +14,14 @@ type Box = {
   id: string;
   w: number;
   h: number;
-  position: [number, number];
+  x: number;
+  y: number;
+  repulsionForce: number;
   body: any; // TODO: Body or Composite?
   elem: HTMLElement;
   push: (x: number, y: number) => void;
+  pullToPlace: (x: number, y: number) => void;
+  applyRepulsion: (otherBox: Box) => void;
   addFriction: (friction: number, wait?: number) => void;
   setReady: (wait?: number) => void;
   render: () => void;
@@ -44,10 +48,10 @@ const Connections = function (rootEl: HTMLElement, options?: Partial<Config>) {
   const config: Config = Object.assign(
     {
       positions: [
-        [0.2, 0.3],
+        [0.2, 0.5],
         [0.7, 0.15],
-        [0.4, 0.5],
-        [0.7, 0.8],
+        [0.3, 0.6],
+        [0.7, 0.5],
       ],
       boxMargin: 4,
       boxPadding: 4,
@@ -63,6 +67,7 @@ const Connections = function (rootEl: HTMLElement, options?: Partial<Config>) {
   const world = engine.world;
 
   engine.gravity.y = 0;
+  engine.timing.timeScale = 0.5;
 
   // create renderer
   var render = Render.create({
@@ -139,9 +144,11 @@ const Connections = function (rootEl: HTMLElement, options?: Partial<Config>) {
 
     const box = {
       id: `box-${boxIndex}`,
-      position: center,
       w: bW + (config.boxPadding + config.boxPadding),
       h: bH + (config.boxPadding + config.boxPadding),
+      x: center[0],
+      y: center[1],
+      repulsionForce: 100,
       body: Bodies.rectangle(
         center[0],
         center[1],
@@ -151,21 +158,19 @@ const Connections = function (rootEl: HTMLElement, options?: Partial<Config>) {
           render: { fillStyle: "transparent" },
           angularVelocity: 0.6,
           angularSpeed: 0.6,
-          friction: 0.01,
-          frictionAir: 0.02,
+          friction: 0,
+          frictionAir: 0.05,
           inertia: Infinity,
         }
       ),
       elem: textEl,
       async push(destX: number, destY: number) {
-        const dist = Math.sqrt(
-          (destX - this.position[0]) ** 2 + (destY - this.position[1]) ** 2
-        );
-        const dx = destX - this.position[0];
-        const dy = destY - this.position[1];
+        const dist = Math.sqrt((destX - this.x) ** 2 + (destY - this.y) ** 2);
+        const dx = destX - this.x;
+        const dy = destY - this.y;
         const theta = Math.atan2(dy, dx);
-        // TODO: force based on distance,,,
-        const f = dist / 1400; // < 70 ? Math.min(0.1, dist / 1000) : 0.1;
+
+        const f = Math.min(dist / 1400, 0.2); // < 70 ? Math.min(0.1, dist / 1000) : 0.1;
 
         Body.applyForce(
           this.body,
@@ -175,6 +180,44 @@ const Connections = function (rootEl: HTMLElement, options?: Partial<Config>) {
             y: Math.sin(theta) * f,
           }
         );
+      },
+      pullToPlace(optX: number, optY: number) {
+        const dx = optX - this.x;
+        const dy = optY - this.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance > 0) {
+          const force = this.repulsionForce / distance;
+          const angle = Math.atan2(dy, dx);
+
+          Body.applyForce(
+            this.body,
+            { x: this.x, y: this.y },
+            {
+              x: Math.cos(angle) * force,
+              y: Math.sin(angle) * force,
+            }
+          );
+        }
+      },
+      applyRepulsion(otherBox: Box) {
+        const dx = this.x - otherBox.x;
+        const dy = this.y - otherBox.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance > 0) {
+          const force = this.repulsionForce / (distance * 3);
+          const angle = Math.atan2(dy, dx);
+
+          Body.applyForce(
+            this.body,
+            { x: otherBox.x, y: otherBox.y },
+            {
+              x: Math.cos(angle) * force,
+              y: Math.sin(angle) * force,
+            }
+          );
+        }
       },
       async addFriction(friction: number, wait = 0) {
         if (wait) {
@@ -197,7 +240,8 @@ const Connections = function (rootEl: HTMLElement, options?: Partial<Config>) {
         textEl.style.left = `${x - this.w / 2 + config.boxPadding}px`;
         textEl.classList.remove("invisible");
 
-        this.position = [x, y];
+        this.x = x;
+        this.y = y;
       },
     } as Box;
 
@@ -250,21 +294,37 @@ const Connections = function (rootEl: HTMLElement, options?: Partial<Config>) {
     }
 
     // Recalculate optimal positions
-    const optimalPositions = calculateOptimalPoisition(width, height);
+    const renderWidth = 0.4 * width;
+    const renderHeight = 0.4 * height;
+    const optimalPositions = calculateOptimalPoisition(
+      renderWidth,
+      renderHeight
+    );
+
+    const endPositions = calculateOptimalPoisition(width, height);
 
     const itemCount = boxNodes.length;
 
     // TODO: Cancel on resize
     for (const [boxIndex, _val] of boxNodes.entries()) {
+      const endPos = endPositions[boxIndex];
       const startPos: [number, number] = [
         width * 0.3 + ((width * 0.4) / itemCount) * (boxIndex + 1),
         height / 2,
       ];
-      const pos = optimalPositions[boxIndex];
       const box = renderBoxAndLine(boxIndex, startPos);
-      await box.setReady(600);
-      box.push(pos[0], pos[1]);
-      box.addFriction(0.4, 200);
+
+      if (boxIndex !== 0) {
+        box.pullToPlace(endPos[0], endPos[1]);
+        await sleep(50);
+        for (const [otherIndex, otherBox] of boxes.entries()) {
+          if (otherIndex !== boxIndex) {
+            box.applyRepulsion(otherBox);
+            otherBox.applyRepulsion(box);
+          }
+        }
+      }
+      await box.setReady(1000);
     }
   }
 
@@ -315,7 +375,9 @@ const Connections = function (rootEl: HTMLElement, options?: Partial<Config>) {
     });
   }
 
-  window.addEventListener("resize", handleResize);
+  const handleResizeDebounced = debounce(handleResize, 600);
+
+  window.addEventListener("resize", handleResizeDebounced);
 
   // context for MatterTools.Demo
   return {
@@ -333,9 +395,28 @@ const Connections = function (rootEl: HTMLElement, options?: Partial<Config>) {
       Render.stop(render);
       Runner.stop(runner);
       render.canvas.remove();
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("resize", handleResizeDebounced);
     },
   };
 };
+
+function debounce<A = unknown>(
+  fn: (args: A) => void,
+  ms: number
+): (args: A) => void {
+  let timer: NodeJS.Timeout;
+
+  const debouncedFunc = (args: A) => {
+    if (timer) {
+      clearTimeout(timer);
+    }
+
+    timer = setTimeout(() => {
+      fn(args);
+    }, ms);
+  };
+
+  return debouncedFunc;
+}
 
 export default Connections;
