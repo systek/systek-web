@@ -6,13 +6,15 @@ const links = [
   { text: "Tjenester", href: "/" },
   { text: "Folka", href: "/" },
 ];
+
+// todo:
+// bottom stroke only applied when navbar becomes sticky
+// only desktop have sticky navbar
 ---
 
-<header
-  class="sticky top-0 px-5 backdrop-blur bg-background z-[var(--z-header)]"
->
+<header class="sticky top-0 px-5bg-background z-[var(--z-header)]">
   <div
-    class="flex items-center justify-between gap-4 py-3 border-b border-grey-10/10"
+    class="flex items-center justify-between py-3 border-b gap-4 border-grey-10/10"
   >
     <img src="/images/systek-logo.svg" alt="Systek" class="h-7" />
     <nav>
