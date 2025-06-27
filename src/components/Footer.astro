@@ -8,13 +8,13 @@ const links = [
 ];
 ---
 
-<footer class="w-full px-4">
+<footer class="w-full p-grid">
   <div class="flex justify-between">
     <Arrow position="topLeft" class="pointer-events-none" />
     <Arrow position="topRight" class="pointer-events-none" />
   </div>
 
-  <div class="mt-16 grid grid-cols-2 gap-2">
+  <div class="grid grid-cols-2 gap-2 mt-16 container-fluid">
     <div class="grid grid-cols-2 gap-2">
       <p class="leading-5">
         Oslo<br />
@@ -60,12 +60,14 @@ const links = [
     <Arrow position="middleRight" class="pointer-events-none" />
   </div>
 
-  <img
-    alt=""
-    src="/images/systek-logo.svg"
-    alt="Systek"
-    class="w-full mt-8 pointer-events-none"
-  />
+  <div class="mt-8 container-fluid">
+    <img
+      alt="Systek"
+      src="/images/systek-logo.svg"
+      class="w-full"
+      draggable="false"
+    />
+  </div>
 
   <div class="flex items-end justify-between mt-8">
     <Arrow position="bottomLeft" class="pointer-events-none" />

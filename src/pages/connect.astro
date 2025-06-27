@@ -17,10 +17,10 @@ import Button from "../components/Button.astro";
         <ConnectionsBox class="bg-yellow">løsninger</ConnectionsBox>
       </div>
 
-      <Arrow position="topLeft" class="absolute top-5 left-5" />
-      <Arrow position="topRight" class="absolute top-5 right-5" />
-      <Arrow position="bottomRight" class="absolute bottom-5 right-5" />
-      <Arrow position="bottomLeft" class="absolute bottom-5 left-5" />
+      <Arrow position="topLeft" class="absolute top-grid left-grid" />
+      <Arrow position="topRight" class="absolute top-grid right-grid" />
+      <Arrow position="bottomRight" class="absolute bottom-grid right-grid" />
+      <Arrow position="bottomLeft" class="absolute bottom-grid left-grid" />
     </div>
     <CardLayout>
       <Card>
@@ -80,16 +80,16 @@ import Button from "../components/Button.astro";
           connect?.stop();
 
           const margin = Number(
-            document.querySelector('[name="margin"]').value
+            document.querySelector('[name="margin"]').value,
           );
           const padding = Number(
-            document.querySelector('[name="padding"]').value
+            document.querySelector('[name="padding"]').value,
           );
           const stiffness = Number(
-            document.querySelector('[name="stiffness"]').value
+            document.querySelector('[name="stiffness"]').value,
           );
           const damping = Number(
-            document.querySelector('[name="damping"]').value
+            document.querySelector('[name="damping"]').value,
           );
 
           const options = {

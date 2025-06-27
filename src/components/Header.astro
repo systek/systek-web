@@ -12,24 +12,26 @@ const links = [
 // only desktop have sticky navbar
 ---
 
-<header class="sticky top-0 px-5bg-background z-[var(--z-header)]">
-  <div
-    class="flex items-center justify-between py-3 border-b gap-4 border-grey-10/10"
-  >
-    <img src="/images/systek-logo.svg" alt="Systek" class="h-7" />
-    <nav>
-      <ul class="flex gap-8">
-        {
-          links.map((link) => (
-            <li>
-              <a href={link.href} class="hover:underline">
-                {link.text}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </nav>
-    <Button color="black" href="/">Jobbe her?</Button>
+<header class="sticky top-0 bg-background z-[var(--z-header)]">
+  <div class="py-0 container-fluid">
+    <div
+      class="flex items-center justify-between py-3 border-b gap-4 border-grey-10/10"
+    >
+      <img src="/images/systek-logo.svg" alt="Systek" class="h-7" />
+      <nav>
+        <ul class="flex gap-8">
+          {
+            links.map((link) => (
+              <li>
+                <a href={link.href} class="hover:underline">
+                  {link.text}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+      <Button color="black" href="/">Jobbe her?</Button>
+    </div>
   </div>
 </header>

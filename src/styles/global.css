@@ -22,7 +22,7 @@ body {
  * generic responsive container class
  * todo: make one without (vertical) padding?
  */
-.container-fluid {
+@utility container-fluid {
   @apply w-full max-w-lg p-5 mx-auto;
 }
 

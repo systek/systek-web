@@ -110,17 +110,17 @@ const logoBottomItems = [
 
   <div class="h-[calc(100vh-32rem)] min-h-[50vh] relative overflow-x-hidden">
     <ConnectionsIsland />
-    <Arrow position="topLeft" class="absolute top-5 left-5" />
-    <Arrow position="topRight" class="absolute top-5 right-5" />
-    <Arrow position="bottomRight" class="absolute bottom-5 right-5" />
-    <Arrow position="bottomLeft" class="absolute bottom-5 left-5" />
+    <Arrow position="topLeft" class="absolute top-grid left-grid" />
+    <Arrow position="topRight" class="absolute top-grid right-grid" />
+    <Arrow position="bottomRight" class="absolute bottom-grid right-grid" />
+    <Arrow position="bottomLeft" class="absolute bottom-grid left-grid" />
   </div>
 
   <Header />
 
   <div class="container-fluid">
     <div
-      class="items-start py-16 grid grid-cols-1 gap-2 container-fluid sm:gap-5 sm:grid-cols-2"
+      class="items-start py-16 grid grid-cols-1 gap-2 sm:gap-5 sm:grid-cols-2"
     >
       <h2 class="font-light text-4xl-fluid">Digital styrke – tett på</h2>
       <div>
@@ -271,7 +271,7 @@ const logoBottomItems = [
         }
       </div>
     </div>
-
-    <Footer />
   </div>
+
+  <Footer />
 </Layout>

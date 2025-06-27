@@ -41,6 +41,8 @@
   --stroke-base: 1px;
   --stroke-md: 2px;
 
-  --spacing-page: 10rem;
-  --spacing-section: 5rem;
+  --spacing-grid: 1.25rem; /* todo desktop: 20px, tablet: 20px, mobile: 16px */
+  --spacing-gutter: 1.25rem; /* todo desktop: 20px, tablet: 20px, mobile: 12px */
+  --spacing-page: 10rem; /* todo desktop: 144px, tablet: 128px, mobile: 64px */
+  --spacing-section: 5rem; /* todo desktop: 64px, tablet: 56px, mobile: 40px */
 }
