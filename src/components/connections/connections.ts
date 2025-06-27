@@ -1,30 +1,27 @@
-import {
-  Engine,
-  Render,
-  Runner,
-  Constraint,
-  MouseConstraint,
-  Mouse,
-  Composite,
-  Bodies,
-  Body,
-} from "matter-js";
+import Konva from "konva";
 
 type Box = {
-  id: string;
   w: number;
   h: number;
+  isDragged?: boolean;
+  repulsionForce: number;
+  body: Konva.Rect;
+  elem: HTMLElement;
+  pullToPlace: (x: number, y: number, time?: number) => void;
+  applyRepulsion: (otherBox: Box, timeMs?: number) => void;
+  setReady: (wait?: number) => void;
+  renderText: (position?: Position) => void;
+};
+
+type Position = {
   x: number;
   y: number;
-  repulsionForce: number;
-  body: any; // TODO: Body or Composite?
-  elem: HTMLElement;
-  push: (x: number, y: number) => void;
-  pullToPlace: (x: number, y: number) => void;
-  applyRepulsion: (otherBox: Box) => void;
-  addFriction: (friction: number, wait?: number) => void;
-  setReady: (wait?: number) => void;
-  render: () => void;
+};
+
+type Line = {
+  boxA: Box;
+  boxB: Box;
+  body: Konva.Line;
 };
 
 type Config = {
@@ -33,9 +30,14 @@ type Config = {
   boxPadding: number;
   stiffness: number;
   damping: number;
+  white: string;
+  yellow: string;
 };
 
-const Connections = function (rootEl: HTMLElement, options?: Partial<Config>) {
+const Connections = function (
+  rootEl: HTMLDivElement,
+  options?: Partial<Config>
+) {
   if (!rootEl) {
     return;
   }
@@ -44,11 +46,13 @@ const Connections = function (rootEl: HTMLElement, options?: Partial<Config>) {
   const boxNodes = Array.from(
     rootEl.querySelectorAll(".connection-box")
   ) as HTMLElement[];
+  const canvasWrapper = document.createElement("div");
+  rootEl.appendChild(canvasWrapper);
 
   const config: Config = Object.assign(
     {
       positions: [
-        [0.2, 0.5],
+        [0.2, 0.3],
         [0.7, 0.15],
         [0.3, 0.6],
         [0.7, 0.5],
@@ -57,347 +61,260 @@ const Connections = function (rootEl: HTMLElement, options?: Partial<Config>) {
       boxPadding: 4,
       stiffness: 0.00002,
       damping: 0.0001,
+      white: "#fcf6ee",
+      yellow: "#ffd24c",
     },
     options
   );
 
   // Setup starts
-  // create engine
-  const engine = Engine.create();
-  const world = engine.world;
-
-  engine.gravity.y = 0;
-  engine.timing.timeScale = 0.5;
-
-  // create renderer
-  var render = Render.create({
-    element: rootEl,
-    engine: engine,
-    options: {
-      width: width,
-      height: height,
-      background: "transparent",
-      showAngleIndicator: false,
-      showAxes: false,
-      showBounds: false,
-      wireframes: false,
-    },
+  var stage = new Konva.Stage({
+    container: canvasWrapper,
+    width: window.innerWidth,
+    height: window.innerHeight,
   });
 
-  Render.run(render);
-
-  // create runner
-  var runner = Runner.create();
-  Runner.run(runner, engine);
+  var layer = new Konva.Layer();
+  stage.add(layer);
   // Setup done
 
   // Object storage
   let boxes: Box[] = [];
-  let lines: Constraint[] = [];
+  let lines: Line[] = [];
   let walls: Body[] = [];
 
-  // Create initial walls
-  renderWalls(width, height);
-  renderBoxesAndLines(width, height);
-
-  (function rerender() {
-    boxes.forEach((box) => box.render());
-    Engine.update(engine);
-    requestAnimationFrame(rerender);
-  })();
-
-  // add mouse control
-  var mouse = Mouse.create(render.canvas),
-    mouseConstraint = MouseConstraint.create(engine, {
-      mouse: mouse,
-      constraint: {
-        // allow bodies on mouse to rotate
-        //angularStiffness: 1,
-        render: {
-          visible: false,
-        },
-      },
-    });
-
-  Composite.add(world, mouseConstraint);
-
-  // keep the mouse in sync with rendering
-  render.mouse = mouse;
-
-  // fit the render viewport to the scene
-  Render.lookAt(render, {
-    min: { x: 0, y: 0 },
-    max: { x: width, y: height },
-  });
-
-  function calculateOptimalPoisition(width: number, height: number) {
-    return config.positions.map((pos) => [pos[0] * width, pos[1] * height]);
-  }
-
-  function sleep(ms: number) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  }
-
-  function renderBoxAndLine(boxIndex: number, center: [number, number]) {
-    const textEl = boxNodes[boxIndex];
+  function createBox(textEl: HTMLElement, x: number, y: number) {
     const { width: bW, height: bH } = textEl.getBoundingClientRect();
 
     const box = {
-      id: `box-${boxIndex}`,
       w: bW + (config.boxPadding + config.boxPadding),
       h: bH + (config.boxPadding + config.boxPadding),
-      x: center[0],
-      y: center[1],
-      repulsionForce: 100,
-      body: Bodies.rectangle(
-        center[0],
-        center[1],
-        bW + (config.boxPadding + config.boxPadding),
-        bH + (config.boxPadding + config.boxPadding),
-        {
-          render: { fillStyle: "transparent" },
-          angularVelocity: 0.6,
-          angularSpeed: 0.6,
-          friction: 0,
-          frictionAir: 0.05,
-          inertia: Infinity,
-        }
-      ),
+      repulsionForce: 8000,
+      body: new Konva.Rect({
+        x: x,
+        y: y,
+        width: bW + (config.boxPadding + config.boxPadding),
+        height: bH + (config.boxPadding + config.boxPadding),
+        fill: "transparent",
+        draggable: true,
+      }),
       elem: textEl,
-      async push(destX: number, destY: number) {
-        const dist = Math.sqrt((destX - this.x) ** 2 + (destY - this.y) ** 2);
-        const dx = destX - this.x;
-        const dy = destY - this.y;
-        const theta = Math.atan2(dy, dx);
+      pullToPlace(optX, optY, time = 0.5) {
+        const tween = new Konva.Tween({
+          node: this.body,
+          x: optX,
+          y: optY,
+          duration: time || 0.5,
+          easing: Konva.Easings.EaseInOut,
+        });
 
-        const f = Math.min(dist / 1400, 0.2); // < 70 ? Math.min(0.1, dist / 1000) : 0.1;
+        console.log("tween", tween);
 
-        Body.applyForce(
-          this.body,
-          { x: destX, y: destY },
-          {
-            x: Math.cos(theta) * f,
-            y: Math.sin(theta) * f,
-          }
-        );
+        tween.play();
       },
-      pullToPlace(optX: number, optY: number) {
-        const dx = optX - this.x;
-        const dy = optY - this.y;
+      applyRepulsion(otherBox: Box, timeMS = 1000) {
+        const { x, y } = this.body.getPosition();
+        const otherBoxPos = otherBox.body.getPosition();
+        const dx = x - otherBoxPos.x;
+        const dy = y - otherBoxPos.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
 
-        if (distance > 0) {
-          const force = this.repulsionForce / distance;
-          const angle = Math.atan2(dy, dx);
-
-          Body.applyForce(
-            this.body,
-            { x: this.x, y: this.y },
-            {
-              x: Math.cos(angle) * force,
-              y: Math.sin(angle) * force,
-            }
-          );
+        if (distance < 10) {
+          return;
         }
+
+        const force = this.repulsionForce / distance;
+        const angle = Math.atan2(dy, dx);
+
+        const endX = x + Math.cos(angle) * force;
+        const endY = y + Math.sin(angle) * force;
+
+        // Apply force to this box
+        const tween = new Konva.Tween({
+          node: this.body,
+          duration: timeMS / 1000,
+          x: endX,
+          y: endY,
+          easing: Konva.Easings.EaseOut,
+        });
+        tween.play();
       },
-      applyRepulsion(otherBox: Box) {
-        const dx = this.x - otherBox.x;
-        const dy = this.y - otherBox.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
+      renderText(position) {
+        textEl.classList.remove("invisible");
+        const { x, y } = position || this.body.getPosition();
 
-        if (distance > 0) {
-          const force = this.repulsionForce / (distance * 3);
-          const angle = Math.atan2(dy, dx);
-
-          Body.applyForce(
-            this.body,
-            { x: otherBox.x, y: otherBox.y },
-            {
-              x: Math.cos(angle) * force,
-              y: Math.sin(angle) * force,
-            }
-          );
-        }
-      },
-      async addFriction(friction: number, wait = 0) {
-        if (wait) {
-          await sleep(wait);
-        }
-        this.body.friction = friction;
-        this.body.frictionAir = friction;
+        textEl.style.top = `${y + config.boxPadding}px`;
+        textEl.style.left = `${x + config.boxPadding}px`;
       },
       async setReady(wait?: number) {
+        textEl.classList.remove("invisible");
         if (wait) {
           await sleep(wait);
         }
         this.elem.classList.remove("bg-yellow");
         this.elem.classList.add("bg-off-white");
       },
-      render() {
-        const { x, y } = this.body.position;
-
-        textEl.style.top = `${y - this.h / 2 + config.boxPadding}px`;
-        textEl.style.left = `${x - this.w / 2 + config.boxPadding}px`;
-        textEl.classList.remove("invisible");
-
-        this.x = x;
-        this.y = y;
-      },
     } as Box;
 
-    boxes.push(box);
-    Composite.add(world, box.body);
+    // box.body.on("dragmove", ({ evt }) => {
+    //   box.renderText();
+    // });
 
-    if (boxIndex > 0) {
-      // Create line to previous one
-      const prevBox = boxes[boxIndex - 1];
-
-      const line = Constraint.create({
-        bodyA: prevBox.body,
-        pointA: {
-          x: prevBox.w / 2 + config.boxMargin,
-          y: prevBox.h / 2 + config.boxMargin,
-        },
-        bodyB: box.body,
-        pointB: {
-          x: -(box.w / 2) - config.boxMargin,
-          y: -(box.h / 2) - config.boxMargin,
-        },
-        length: 300 + Math.random() * 300,
-        stiffness: config.stiffness,
-        damping: config.damping,
-        render: {
-          lineWidth: 2,
-          strokeStyle: "#FCF6EE",
-          type: "line",
-          anchors: false,
-        },
-      });
-
-      lines.push(line);
-      Composite.add(world, line);
-    }
+    // First render
+    box.renderText();
 
     return box;
   }
 
-  async function renderBoxesAndLines(width: number, height: number) {
-    // Remove old stuff
-    if (boxes && boxes.length > 0) {
-      Composite.remove(
-        world,
-        boxes.map((box) => box.body)
-      );
+  function updateLines() {
+    for (const line of lines) {
+      const { boxA, boxB } = line;
+      const { x: xA, y: yA } = boxA.body.getClientRect();
+      const { x: xB, y: yB } = boxB.body.getClientRect();
+
+      line.body.points([xA + boxA.w, yA + boxA.h, xB, yB]);
     }
-    if (lines && lines.length > 0) {
-      Composite.remove(world, lines);
+    layer.batchDraw();
+  }
+
+  function createLine(boxA: Box, boxB: Box) {
+    // Create line between each box
+    const { x: xA, y: yA } = boxA.body.getPosition();
+    const { x: xB, y: yB } = boxB.body.getPosition();
+
+    const line: Line = {
+      boxA: boxA,
+      boxB: boxB,
+      body: new Konva.Line({
+        points: [xA + boxA.w, yA + boxA.h, xB, yB],
+        stroke: config.white,
+        strokeWidth: 1,
+      }),
+    };
+
+    lines.push(line);
+
+    return line;
+  }
+
+  async function createBoxesRecursively(
+    index = 0,
+    nodes: HTMLElement[],
+    positions: [number, number][] = [],
+    startPositions: [number, number][] = []
+  ) {
+    if (index >= nodes.length) {
+      return;
+    }
+    const textEl = nodes[index];
+    const [x, y] = positions[index];
+    const [startX, startY] = startPositions[index];
+    const box = createBox(textEl, startX, startY);
+    boxes.push(box);
+
+    box.renderText();
+
+    layer.add(box.body);
+
+    //await sleep(1000);
+
+    if (index !== 0) {
+      const prevBox = boxes[index - 1];
+      const line = createLine(prevBox, box);
+
+      layer.add(line.body);
+
+      box.applyRepulsion(prevBox);
+      prevBox.applyRepulsion(box);
+      layer.batchDraw();
+
+      //const [prevX, prevY] = positions[index - 1];
+      //prevBox.pullToPlace(prevX, prevY);
+      //box.pullToPlace(x, y);
+      await sleep(1000);
+      //for (const [otherIndex, otherBox] of boxes.entries()) {
+      // if (otherIndex !== index) {
+      //   box.applyRepulsion(otherBox);
+      //   otherBox.applyRepulsion(box);
+      // }
+      //}
     }
 
-    // Recalculate optimal positions
-    const renderWidth = 0.4 * width;
-    const renderHeight = 0.4 * height;
-    const optimalPositions = calculateOptimalPoisition(
+    box.setReady(200);
+
+    return createBoxesRecursively(index + 1, nodes, positions, startPositions);
+  }
+
+  async function createBoxes() {
+    const renderWidth = 0.4 * stage.width();
+    const renderHeight = 0.4 * stage.height();
+    const startPositions = calculateOptimalPoisition(
       renderWidth,
-      renderHeight
+      renderHeight,
+      0.2 * stage.width(),
+      0.2 * stage.height()
     );
+    const positions = calculateOptimalPoisition(stage.width(), stage.height());
 
-    const endPositions = calculateOptimalPoisition(width, height);
+    createBoxesRecursively(0, boxNodes, positions, startPositions);
+  }
 
-    const itemCount = boxNodes.length;
+  function collisionCheck() {
+    // Check for collisions
+    for (let i = 0; i < boxes.length; i++) {
+      const boxA = boxes[i];
+      for (let j = i + 1; j < boxes.length; j++) {
+        const boxB = boxes[j];
+        // Check if boxes are colliding
 
-    // TODO: Cancel on resize
-    for (const [boxIndex, _val] of boxNodes.entries()) {
-      const endPos = endPositions[boxIndex];
-      const startPos: [number, number] = [
-        width * 0.3 + ((width * 0.4) / itemCount) * (boxIndex + 1),
-        height / 2,
-      ];
-      const box = renderBoxAndLine(boxIndex, startPos);
-
-      if (boxIndex !== 0) {
-        box.pullToPlace(endPos[0], endPos[1]);
-        await sleep(50);
-        for (const [otherIndex, otherBox] of boxes.entries()) {
-          if (otherIndex !== boxIndex) {
-            box.applyRepulsion(otherBox);
-            otherBox.applyRepulsion(box);
+        if (haveIntersection(boxA, boxB)) {
+          // Boxes are colliding, apply repulsion
+          console.log("Collision detected between", boxA.elem, boxB.elem);
+          const boxADragged = boxA.body.isDragging();
+          const boxBDragged = boxB.body.isDragging();
+          if (!boxADragged) {
+            boxA.applyRepulsion(boxB, 1000);
+          }
+          if (!boxBDragged) {
+            boxB.applyRepulsion(boxA, 1000);
           }
         }
       }
-      await box.setReady(1000);
     }
   }
 
-  function renderWalls(width: number, height: number) {
-    // Remove old walls if any
-    if (walls && walls.length > 0) {
-      Composite.remove(world, walls);
-    }
-    // Create Walls
-    walls = [
-      Bodies.rectangle(width / 2, 0, width, 50, {
-        isStatic: true,
-        render: { fillStyle: "transparent" },
-      }),
-      Bodies.rectangle(width / 2, height, width, 50, {
-        isStatic: true,
-        render: { fillStyle: "transparent" },
-      }),
-      Bodies.rectangle(0, height / 2, 50, height, {
-        isStatic: true,
-        render: { fillStyle: "transparent" },
-      }),
-      Bodies.rectangle(width, height / 2, 50, height, {
-        isStatic: true,
-        render: { fillStyle: "transparent" },
-      }),
-    ];
-    Composite.add(world, walls);
-  }
-
-  function handleResize() {
-    const { offsetHeight: height, offsetWidth: width } = rootEl;
-    render.options.width = width;
-    render.options.height = height;
-    render.canvas.width = width;
-    render.canvas.height = height;
-
-    // Update walls
-    renderWalls(width, height);
-
-    // Update Boxes and lines
-    renderBoxesAndLines(width, height);
-
-    // Optionally, reposition or resize bodies here if needed
-    Render.lookAt(render, {
-      min: { x: 0, y: 0 },
-      max: { x: width, y: height },
+  // Update lines
+  function animate() {
+    updateLines();
+    boxes.forEach((box) => {
+      box.renderText();
     });
+
+    collisionCheck();
+
+    requestAnimationFrame(animate);
   }
 
-  const handleResizeDebounced = debounce(handleResize, 600);
+  async function start() {
+    await createBoxes();
+    //createLines();
 
-  window.addEventListener("resize", handleResizeDebounced);
+    animate();
+  }
 
-  // context for MatterTools.Demo
-  return {
-    engine: engine,
-    runner: runner,
-    render: render,
-    canvas: render.canvas,
-    getConfig: function () {
-      return {
-        ...config,
-        positions: boxes.map((box) => box.position),
-      };
-    },
-    stop: function () {
-      Render.stop(render);
-      Runner.stop(runner);
-      render.canvas.remove();
-      window.removeEventListener("resize", handleResizeDebounced);
-    },
-  };
+  start();
+
+  function calculateOptimalPoisition(
+    width: number,
+    height: number,
+    paddingX = 0,
+    paddingY = 0
+  ) {
+    return config.positions.map((pos) => [
+      pos[0] * width + paddingX,
+      pos[1] * height + paddingY,
+    ]);
+  }
 };
 
 function debounce<A = unknown>(
@@ -417,6 +334,21 @@ function debounce<A = unknown>(
   };
 
   return debouncedFunc;
+}
+
+function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function haveIntersection(boxA: Box, boxB: Box) {
+  const { x: xA, y: yA, width: wA, height: hA } = boxA.body.getClientRect();
+  const { x: xB, y: yB, width: wB, height: hB } = boxB.body.getClientRect();
+  return !(
+    xA + wA < xB || // A is left of B
+    xB + wB < xA || // B is left of A
+    yA + hA < yB || // A is above B
+    yB + hB < yA // B is above A
+  );
 }
 
 export default Connections;

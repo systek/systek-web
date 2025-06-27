@@ -196,9 +196,7 @@ const blogItems = [
 <Layout title="Systek" bodyStyle="--color-background: var(--color-blue);">
   <BackgroundColorIsland client:load />
 
-  <div
-    class="aspect-[5/8] md:aspect-[4/3] lg:aspect-[21/10] relative overflow-x-hidden"
-  >
+  <div class="h-[50vh] min-h-[600px] max-h-[800px] relative overflow-x-hidden">
     <ConnectionsIsland />
     <Arrow position="topLeft" class="absolute top-grid left-grid" />
     <Arrow position="topRight" class="absolute top-grid right-grid" />
@@ -350,7 +348,7 @@ const blogItems = [
             <img
               class={clsx(
                 "w-full rounded-md object-cover",
-                index % 3 === 2 ? "aspect-[1/1]" : "aspect-[4/3]",
+                index % 3 === 2 ? "aspect-[1/1]" : "aspect-[4/3]"
               )}
               src={item.image.src}
               alt={item.image.alt}
@@ -410,7 +408,7 @@ const blogItems = [
               <div
                 class={clsx(
                   "flex md:hidden justify-between items-center py-5 border-b gap-gutter border-stroke",
-                  index > 1 && "line-through",
+                  index > 1 && "line-through"
                 )}
               >
                 {index <= 1 && item.href ? (
@@ -427,7 +425,7 @@ const blogItems = [
               <div
                 class={clsx(
                   "hidden md:grid grid-cols-4 py-5 border-b gap-gutter border-stroke",
-                  index > 1 && "line-through",
+                  index > 1 && "line-through"
                 )}
               >
                 <p class="text-xs-fluid">{item.title}</p>

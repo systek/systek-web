@@ -11,7 +11,9 @@ import ConnectionsBox from "./ConnectionsBox.astro";
   <script>
     import Connect from "./connections.ts";
     (() => {
-      const rootEl = document.getElementById("connections-canvas");
+      const rootEl = document.getElementById(
+        "connections-canvas"
+      ) as HTMLDivElement;
       if (!rootEl) return;
 
       Connect(rootEl);
