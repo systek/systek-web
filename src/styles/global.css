@@ -1,7 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 @import "tailwindcss";
-@import "./fonts.css";
 @import "./theme.css";
+@import "./fonts.css";
+@import "./spacing.css";
 
 @theme {
   --color-text: var(--color-grey-10);
@@ -18,14 +18,14 @@ body {
   font-family: var(--font-sans);
 }
 
-/* 
- * generic responsive container class
- * todo: make one without (vertical) padding?
- */
-@utility container-fluid {
-  @apply w-full max-w-lg p-5 mx-auto;
-}
-
 @utility text-underline {
   @apply underline underline-offset-5 decoration-1;
+}
+
+/*
+* todo: check figma before using this
+* it might not be the border radius to use
+*/
+@utility rounded-grid {
+  @apply rounded-md lg:rounded-lg;
 }

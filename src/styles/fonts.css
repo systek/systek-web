@@ -1,17 +1,5 @@
-/* 
-  Supported Tailwind font weight classes:
-    font-light   (300)
-    font-normal  (400)
-    font-medium  (500)
-    font-bold    (700)
-    font-black   (900)
-
-  UNSUPPORTED Tailwind font weight classes:
-    font-thin      (100)
-    font-extralight(200)
-    font-semibold  (600)
-    font-extrabold (800)
-*/
+/*
+todo: dont know why this breaks
 
 @font-face {
   font-family: "KHTeka";
@@ -83,3 +71,4 @@
   font-style: italic;
   font-display: swap;
 }
+*/

@@ -26,13 +26,16 @@ const src: Record<ArrowPosition, string> = {
 ---
 
 <picture {...pictureProps}>
+  <!-- mobile: var(--breakpoint-sm) -->
   <source
     srcset={`/images/icon/arrow/mobile/${src[position]}`}
-    media="(max-width: 639px)"
+    media="(max-width: 24rem)"
   />
+  <!-- tablet: var(--breakpoint-md) -->
   <source
     srcset={`/images/icon/arrow/tablet/${src[position]}`}
-    media="(min-width: 640px) and (max-width: 1023px)"
+    media="(max-width: 50rem)"
   />
+  <!-- desktop: var(--breakpoint-lg) -->
   <img src={`/images/icon/arrow/desktop/${src[position]}`} />
 </picture>

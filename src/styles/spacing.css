@@ -1,0 +1,422 @@
+@theme {
+  /* grid desktop: 20px, tablet: 20px, mobile: 16px */
+  --spacing-grid-sm: 1rem;
+  --spacing-grid-md: 1.25rem;
+  --spacing-grid-lg: 1.25rem;
+
+  /* gutter desktop: 20px, tablet: 20px, mobile: 12px */
+  --spacing-gutter-sm: 0.75rem;
+  --spacing-gutter-md: 1.25rem;
+  --spacing-gutter-lg: 1.25rem;
+
+  /* section desktop: 64px, tablet: 56px, mobile: 40px */
+  --spacing-section-sm: 2.5rem;
+  --spacing-section-md: 3.5rem;
+  --spacing-section-lg: 4rem;
+
+  /* page desktop: 144px, tablet: 128px, mobile: 64px */
+  --spacing-page-sm: 4rem;
+  --spacing-page-md: 8rem;
+  --spacing-page-lg: 9rem;
+}
+
+/*
+* responsive spacing and sizing for grid, gutter, section, and page
+* for all tailwind spacing and sizing utilities like px-*, max-h-*, and many more
+*/
+
+/* Padding */
+.p-grid {
+  @apply p-grid-sm md:p-grid-md lg:p-grid-lg;
+}
+.p-gutter {
+  @apply p-gutter-sm md:p-gutter-md lg:p-gutter-lg;
+}
+.p-section {
+  @apply p-section-sm md:p-section-md lg:p-section-lg;
+}
+.p-page {
+  @apply p-page-sm md:p-page-md lg:p-page-lg;
+}
+
+.px-grid {
+  @apply px-grid-sm md:px-grid-md lg:px-grid-lg;
+}
+.px-gutter {
+  @apply px-gutter-sm md:px-gutter-md lg:px-gutter-lg;
+}
+.px-section {
+  @apply px-section-sm md:px-section-md lg:px-section-lg;
+}
+.px-page {
+  @apply px-page-sm md:px-page-md lg:px-page-lg;
+}
+
+.py-grid {
+  @apply py-grid-sm md:py-grid-md lg:py-grid-lg;
+}
+.py-gutter {
+  @apply py-gutter-sm md:py-gutter-md lg:py-gutter-lg;
+}
+.py-section {
+  @apply py-section-sm md:py-section-md lg:py-section-lg;
+}
+.py-page {
+  @apply py-page-sm md:py-page-md lg:py-page-lg;
+}
+
+.pt-grid {
+  @apply pt-grid-sm md:pt-grid-md lg:pt-grid-lg;
+}
+.pt-gutter {
+  @apply pt-gutter-sm md:pt-gutter-md lg:pt-gutter-lg;
+}
+.pt-section {
+  @apply pt-section-sm md:pt-section-md lg:pt-section-lg;
+}
+.pt-page {
+  @apply pt-page-sm md:pt-page-md lg:pt-page-lg;
+}
+
+.pr-grid {
+  @apply pr-grid-sm md:pr-grid-md lg:pr-grid-lg;
+}
+.pr-gutter {
+  @apply pr-gutter-sm md:pr-gutter-md lg:pr-gutter-lg;
+}
+.pr-section {
+  @apply pr-section-sm md:pr-section-md lg:pr-section-lg;
+}
+.pr-page {
+  @apply pr-page-sm md:pr-page-md lg:pr-page-lg;
+}
+
+.pb-grid {
+  @apply pb-grid-sm md:pb-grid-md lg:pb-grid-lg;
+}
+.pb-gutter {
+  @apply pb-gutter-sm md:pb-gutter-md lg:pb-gutter-lg;
+}
+.pb-section {
+  @apply pb-section-sm md:pb-section-md lg:pb-section-lg;
+}
+.pb-page {
+  @apply pb-page-sm md:pb-page-md lg:pb-page-lg;
+}
+
+.pl-grid {
+  @apply pl-grid-sm md:pl-grid-md lg:pl-grid-lg;
+}
+.pl-gutter {
+  @apply pl-gutter-sm md:pl-gutter-md lg:pl-gutter-lg;
+}
+.pl-section {
+  @apply pl-section-sm md:pl-section-md lg:pl-section-lg;
+}
+.pl-page {
+  @apply pl-page-sm md:pl-page-md lg:pl-page-lg;
+}
+
+/* Margin */
+.m-grid {
+  @apply m-grid-sm md:m-grid-md lg:m-grid-lg;
+}
+.m-gutter {
+  @apply m-gutter-sm md:m-gutter-md lg:m-gutter-lg;
+}
+.m-section {
+  @apply m-section-sm md:m-section-md lg:m-section-lg;
+}
+.m-page {
+  @apply m-page-sm md:m-page-md lg:m-page-lg;
+}
+
+.mx-grid {
+  @apply mx-grid-sm md:mx-grid-md lg:mx-grid-lg;
+}
+.mx-gutter {
+  @apply mx-gutter-sm md:mx-gutter-md lg:mx-gutter-lg;
+}
+.mx-section {
+  @apply mx-section-sm md:mx-section-md lg:mx-section-lg;
+}
+.mx-page {
+  @apply mx-page-sm md:mx-page-md lg:mx-page-lg;
+}
+
+.my-grid {
+  @apply my-grid-sm md:my-grid-md lg:my-grid-lg;
+}
+.my-gutter {
+  @apply my-gutter-sm md:my-gutter-md lg:my-gutter-lg;
+}
+.my-section {
+  @apply my-section-sm md:my-section-md lg:my-section-lg;
+}
+.my-page {
+  @apply my-page-sm md:my-page-md lg:my-page-lg;
+}
+
+.mt-grid {
+  @apply mt-grid-sm md:mt-grid-md lg:mt-grid-lg;
+}
+.mt-gutter {
+  @apply mt-gutter-sm md:mt-gutter-md lg:mt-gutter-lg;
+}
+.mt-section {
+  @apply mt-section-sm md:mt-section-md lg:mt-section-lg;
+}
+.mt-page {
+  @apply mt-page-sm md:mt-page-md lg:mt-page-lg;
+}
+
+.mr-grid {
+  @apply mr-grid-sm md:mr-grid-md lg:mr-grid-lg;
+}
+.mr-gutter {
+  @apply mr-gutter-sm md:mr-gutter-md lg:mr-gutter-lg;
+}
+.mr-section {
+  @apply mr-section-sm md:mr-section-md lg:mr-section-lg;
+}
+.mr-page {
+  @apply mr-page-sm md:mr-page-md lg:mr-page-lg;
+}
+
+.mb-grid {
+  @apply mb-grid-sm md:mb-grid-md lg:mb-grid-lg;
+}
+.mb-gutter {
+  @apply mb-gutter-sm md:mb-gutter-md lg:mb-gutter-lg;
+}
+.mb-section {
+  @apply mb-section-sm md:mb-section-md lg:mb-section-lg;
+}
+.mb-page {
+  @apply mb-page-sm md:mb-page-md lg:mb-page-lg;
+}
+
+.ml-grid {
+  @apply ml-grid-sm md:ml-grid-md lg:ml-grid-lg;
+}
+.ml-gutter {
+  @apply ml-gutter-sm md:ml-gutter-md lg:ml-gutter-lg;
+}
+.ml-section {
+  @apply ml-section-sm md:ml-section-md lg:ml-section-lg;
+}
+.ml-page {
+  @apply ml-page-sm md:ml-page-md lg:ml-page-lg;
+}
+
+/* Gap */
+.gap-grid {
+  @apply gap-grid-sm md:gap-grid-md lg:gap-grid-lg;
+}
+.gap-gutter {
+  @apply gap-gutter-sm md:gap-gutter-md lg:gap-gutter-lg;
+}
+.gap-section {
+  @apply gap-section-sm md:gap-section-md lg:gap-section-lg;
+}
+.gap-page {
+  @apply gap-page-sm md:gap-page-md lg:gap-page-lg;
+}
+
+.gap-x-grid {
+  @apply gap-x-grid-sm md:gap-x-grid-md lg:gap-x-grid-lg;
+}
+.gap-x-gutter {
+  @apply gap-x-gutter-sm md:gap-x-gutter-md lg:gap-x-gutter-lg;
+}
+.gap-x-section {
+  @apply gap-x-section-sm md:gap-x-section-md lg:gap-x-section-lg;
+}
+.gap-x-page {
+  @apply gap-x-page-sm md:gap-x-page-md lg:gap-x-page-lg;
+}
+
+.gap-y-grid {
+  @apply gap-y-grid-sm md:gap-y-grid-md lg:gap-y-grid-lg;
+}
+.gap-y-gutter {
+  @apply gap-y-gutter-sm md:gap-y-gutter-md lg:gap-y-gutter-lg;
+}
+.gap-y-section {
+  @apply gap-y-section-sm md:gap-y-section-md lg:gap-y-section-lg;
+}
+.gap-y-page {
+  @apply gap-y-page-sm md:gap-y-page-md lg:gap-y-page-lg;
+}
+
+/* Width */
+.w-grid {
+  @apply w-grid-sm md:w-grid-md lg:w-grid-lg;
+}
+.w-gutter {
+  @apply w-gutter-sm md:w-gutter-md lg:w-gutter-lg;
+}
+.w-section {
+  @apply w-section-sm md:w-section-md lg:w-section-lg;
+}
+.w-page {
+  @apply w-page-sm md:w-page-md lg:w-page-lg;
+}
+
+.min-w-grid {
+  @apply min-w-grid-sm md:min-w-grid-md lg:min-w-grid-lg;
+}
+.min-w-gutter {
+  @apply min-w-gutter-sm md:min-w-gutter-md lg:min-w-gutter-lg;
+}
+.min-w-section {
+  @apply min-w-section-sm md:min-w-section-md lg:min-w-section-lg;
+}
+.min-w-page {
+  @apply min-w-page-sm md:min-w-page-md lg:min-w-page-lg;
+}
+
+.max-w-grid {
+  @apply max-w-grid-sm md:max-w-grid-md lg:max-w-grid-lg;
+}
+.max-w-gutter {
+  @apply max-w-gutter-sm md:max-w-gutter-md lg:max-w-gutter-lg;
+}
+.max-w-section {
+  @apply max-w-section-sm md:max-w-section-md lg:max-w-section-lg;
+}
+.max-w-page {
+  @apply max-w-page-sm md:max-w-page-md lg:max-w-page-lg;
+}
+
+/* Height */
+.h-grid {
+  @apply h-grid-sm md:h-grid-md lg:h-grid-lg;
+}
+.h-gutter {
+  @apply h-gutter-sm md:h-gutter-md lg:h-gutter-lg;
+}
+.h-section {
+  @apply h-section-sm md:h-section-md lg:h-section-lg;
+}
+.h-page {
+  @apply h-page-sm md:h-page-md lg:h-page-lg;
+}
+
+.min-h-grid {
+  @apply min-h-grid-sm md:min-h-grid-md lg:min-h-grid-lg;
+}
+.min-h-gutter {
+  @apply min-h-gutter-sm md:min-h-gutter-md lg:min-h-gutter-lg;
+}
+.min-h-section {
+  @apply min-h-section-sm md:min-h-section-md lg:min-h-section-lg;
+}
+.min-h-page {
+  @apply min-h-page-sm md:min-h-page-md lg:min-h-page-lg;
+}
+
+.max-h-grid {
+  @apply max-h-grid-sm md:max-h-grid-md lg:max-h-grid-lg;
+}
+.max-h-gutter {
+  @apply max-h-gutter-sm md:max-h-gutter-md lg:max-h-gutter-lg;
+}
+.max-h-section {
+  @apply max-h-section-sm md:max-h-section-md lg:max-h-section-lg;
+}
+.max-h-page {
+  @apply max-h-page-sm md:max-h-page-md lg:max-h-page-lg;
+}
+
+/* Other Sizing */
+.inset-grid {
+  @apply inset-grid-sm md:inset-grid-md lg:inset-grid-lg;
+}
+.inset-gutter {
+  @apply inset-gutter-sm md:inset-gutter-md lg:inset-gutter-lg;
+}
+.inset-section {
+  @apply inset-section-sm md:inset-section-md lg:inset-section-lg;
+}
+.inset-page {
+  @apply inset-page-sm md:inset-page-md lg:inset-page-lg;
+}
+
+.top-grid {
+  @apply top-grid-sm md:top-grid-md lg:top-grid-lg;
+}
+.right-grid {
+  @apply right-grid-sm md:right-grid-md lg:right-grid-lg;
+}
+.bottom-grid {
+  @apply bottom-grid-sm md:bottom-grid-md lg:bottom-grid-lg;
+}
+.left-grid {
+  @apply left-grid-sm md:left-grid-md lg:left-grid-lg;
+}
+
+.top-gutter {
+  @apply top-gutter-sm md:top-gutter-md lg:top-gutter-lg;
+}
+.right-gutter {
+  @apply right-gutter-sm md:right-gutter-md lg:right-gutter-lg;
+}
+.bottom-gutter {
+  @apply bottom-gutter-sm md:bottom-gutter-md lg:bottom-gutter-lg;
+}
+.left-gutter {
+  @apply left-gutter-sm md:left-gutter-md lg:left-gutter-lg;
+}
+
+.top-section {
+  @apply top-section-sm md:top-section-md lg:top-section-lg;
+}
+.right-section {
+  @apply right-section-sm md:right-section-md lg:right-section-lg;
+}
+.bottom-section {
+  @apply bottom-section-sm md:bottom-section-md lg:bottom-section-lg;
+}
+.left-section {
+  @apply left-section-sm md:left-section-md lg:left-section-lg;
+}
+
+.top-page {
+  @apply top-page-sm md:top-page-md lg:top-page-lg;
+}
+.right-page {
+  @apply right-page-sm md:right-page-md lg:right-page-lg;
+}
+.bottom-page {
+  @apply bottom-page-sm md:bottom-page-md lg:bottom-page-lg;
+}
+.left-page {
+  @apply left-page-sm md:left-page-md lg:left-page-lg;
+}
+
+.space-x-grid {
+  @apply space-x-grid-sm md:space-x-grid-md lg:space-x-grid-lg;
+}
+.space-x-gutter {
+  @apply space-x-gutter-sm md:space-x-gutter-md lg:space-x-gutter-lg;
+}
+.space-x-section {
+  @apply space-x-section-sm md:space-x-section-md lg:space-x-section-lg;
+}
+.space-x-page {
+  @apply space-x-page-sm md:space-x-page-md lg:space-x-page-lg;
+}
+
+.space-y-grid {
+  @apply space-y-grid-sm md:space-y-grid-md lg:space-y-grid-lg;
+}
+.space-y-gutter {
+  @apply space-y-gutter-sm md:space-y-gutter-md lg:space-y-gutter-lg;
+}
+.space-y-section {
+  @apply space-y-section-sm md:space-y-section-md lg:space-y-section-lg;
+}
+.space-y-page {
+  @apply space-y-page-sm md:space-y-page-md lg:space-y-page-lg;
+}

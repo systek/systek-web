@@ -21,10 +21,20 @@
   --color-black: #000;
   --color-white: #fff;
 
+  /* inferred colors */
+  --color-text: var(--color-grey-10);
+  --color-background: var(--color-off-white);
+  --color-stroke: var(--color-grey-78);
+
+  --breakpoint-*: initial;
+  --breakpoint-sm: 24rem;
+  --breakpoint-md: 50rem;
+  --breakpoint-lg: 105rem;
+
   --container-*: initial;
-  --container-sm: 24rem;
-  --container-md: 50rem;
-  --container-lg: 105rem;
+  --container-sm: var(--breakpoint-sm);
+  --container-md: var(--breakpoint-md);
+  --container-lg: var(--breakpoint-lg);
 
   --font-weight-*: initial;
   --font-weight-light: 300;
@@ -38,11 +48,10 @@
   --radius-md: 0.5rem;
   --radius-lg: 1rem;
 
+  /* non-tailwind */
   --stroke-base: 1px;
   --stroke-md: 2px;
 
-  --spacing-grid: 1.25rem; /* todo desktop: 20px, tablet: 20px, mobile: 16px */
-  --spacing-gutter: 1.25rem; /* todo desktop: 20px, tablet: 20px, mobile: 12px */
-  --spacing-page: 10rem; /* todo desktop: 144px, tablet: 128px, mobile: 64px */
-  --spacing-section: 5rem; /* todo desktop: 64px, tablet: 56px, mobile: 40px */
+  --z-base: auto;
+  --z-header: 1;
 }
