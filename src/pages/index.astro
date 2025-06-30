@@ -1,4 +1,5 @@
 ---
+import clsx from "clsx";
 import Layout from "../layouts/Layout.astro";
 import BackgroundColorIsland from "../islands/BackgroundColorIsland";
 import Header from "../components/Header.astro";
@@ -70,38 +71,124 @@ const newsItems = [
 const logoTopItems = [
   {
     alt: "Oslo kommune",
-    src: "oslo-kommune.svg",
+    src: "/images/logo/oslo-kommune.svg",
   },
   {
     alt: "NAV",
-    src: "nav.svg",
+    src: "/images/logo/nav.svg",
   },
   {
     alt: "Telenor",
-    src: "telenor.svg",
+    src: "/images/logo/telenor.svg",
   },
   {
     alt: "Mastercard",
-    src: "mastercard.svg",
+    src: "/images/logo/mastercard.svg",
   },
 ];
 
 const logoBottomItems = [
   {
     alt: "Å Energi",
-    src: "a-energi.svg",
+    src: "/images/logo/a-energi.svg",
   },
   {
     alt: "Digdir",
-    src: "digdir.svg",
+    src: "/images/logo/digdir.svg",
   },
   {
     alt: "Miljødirektoratet",
-    src: "miljodirektoratet.svg",
+    src: "/images/logo/miljodirektoratet.svg",
   },
   {
     alt: "Hydro",
-    src: "hydro.svg",
+    src: "/images/logo/hydro.svg",
+  },
+];
+
+const workItems = [
+  {
+    title: "TechnipFMC",
+    description: "En moderne og digital utviklerplattform",
+    href: "/",
+    image: {
+      alt: "",
+      src: "/images/temp.png",
+    },
+  },
+  {
+    title: "Elvia",
+    description: "Digitalisering av Norges største nettselskap",
+    href: "/",
+    image: {
+      alt: "",
+      src: "/images/temp.png",
+    },
+  },
+  {
+    title: "LO Favør",
+    description: "Utvikling og arkitektur",
+    href: "/",
+    image: {
+      alt: "",
+      src: "/images/temp.png",
+    },
+  },
+];
+
+const activityItems = [
+  {
+    title: "Fagmøte: Lag din egen iPhone app",
+    date: "17. juni",
+    location: "Oslo",
+    href: undefined,
+  },
+  {
+    title: "Frokost og fag: Kafka",
+    date: "28. mai",
+    location: "Oslo",
+    href: "/",
+  },
+  {
+    title: "Faggruppemøte: Hjemmebygget Tastatur",
+    date: "27. mai",
+    location: "Oslo",
+    href: undefined,
+  },
+  {
+    title: "Faggruppemøte: Lag din egen iPhone app",
+    date: "17. juni",
+    location: "Oslo",
+    href: undefined,
+  },
+  {
+    title: "Fagmøte: Hvordan bli en (bedre) leder",
+    date: "20. juni",
+    location: "Oslo",
+    href: undefined,
+  },
+];
+
+const blogItems = [
+  {
+    title: "Del 2: Designsystem",
+    description: "Fra zero til hero — brukeropplevelse",
+    author: "Skrevet av Johan Magne Haugland",
+    href: "/",
+    image: {
+      alt: "",
+      src: "/images/temp.png",
+    },
+  },
+  {
+    title: "Del 1: Designsystem",
+    description: "Fra zero til hero",
+    author: "Skrevet av Johan Magne Haugland",
+    href: "/",
+    image: {
+      alt: "",
+      src: "/images/temp.png",
+    },
   },
 ];
 ---
@@ -122,7 +209,7 @@ const logoBottomItems = [
   <Header />
 
   <div
-    class="grid items-start grid-cols-1 px-grid mt-section gap-gutter lg:grid-cols-2"
+    class="grid items-start grid-cols-1 mx-grid mt-section gap-gutter lg:grid-cols-2"
   >
     <h2 class="font-light text-4xl-fluid">Digital styrke – tett på</h2>
     <div>
@@ -136,13 +223,15 @@ const logoBottomItems = [
     </div>
   </div>
 
-  <div class="overflow-hidden rounded-md mt-section px-grid">
-    <img
-      class="w-full aspect-[4:3] lg:aspect-[2/1] object-cover"
-      src="/images/temp.png"
-      class="w-full"
-      draggable="false"
-    />
+  <div class="mt-section mx-grid">
+    <picture>
+      <img
+        class="w-full aspect-[4:3] lg:aspect-[2/1] object-cover rounded-md"
+        src="/images/temp.png"
+        class="w-full"
+        draggable="false"
+      />
+    </picture>
   </div>
 
   <CardLayout class="border-t mt-section border-stroke">
@@ -214,7 +303,7 @@ const logoBottomItems = [
             <img
               alt={item.alt}
               class="w-[128px] h-[62px] aspect-[2/1]"
-              src={`/images/logo/${item.src}`}
+              src={item.src}
               draggable="false"
             />
           ))
@@ -226,7 +315,7 @@ const logoBottomItems = [
             <img
               alt={item.alt}
               class="w-[128px] h-[62px] aspect-[2/1]"
-              src={`/images/logo/${item.src}`}
+              src={item.src}
               draggable="false"
             />
           ))
@@ -248,25 +337,212 @@ const logoBottomItems = [
     </div>
   </CardLayout>
 
+  <!-- todo: make CardLayout with 1 column below for this -->
   <!-- todo: check mt, should be "Section-L". Not implemented? -->
-  <div class="grid grid-cols-2 gap-gutter mt-section">
+  <div class="mx-grid grid grid-cols-2 md:grid-cols-4 gap-gutter mt-section">
     {
-      newsItems.map((item) => (
-        <div>
-          <div>
-            <p class="mb-1 text-xs-fluid">
-              Publisert {item.published}{" "}
-              {item.updated && `· Oppdatert ${item.updated}`}
-            </p>
-            <p class="font-medium text-underline text-lg-fluid group-hover:no-underline">
-              {item.title}
-            </p>
-          </div>
-          <p class="text-sm-fluid">{item.description}</p>
-        </div>
+      workItems.map((item, index) => (
+        <a
+          href={item.href}
+          class={clsx(index % 3 === 0 ? "col-span-2" : "col-span-1")}
+        >
+          <picture>
+            <img
+              class={clsx(
+                "w-full rounded-md object-cover",
+                index % 3 === 2 ? "aspect-[1/1]" : "aspect-[4/3]",
+              )}
+              src={item.image.src}
+              alt={item.image.alt}
+              draggable="false"
+            />
+          </picture>
+          <p class="mt-3 sm:mt-4 text-md-fluid font-bold text-underline">
+            {item.title}
+          </p>
+          <p class="text-md-fluid">{item.description}</p>
+        </a>
       ))
     }
   </div>
+
+  <CardLayout class="border-t mt-page border-stroke">
+    <div class="lg:col-span-1">
+      <p class="font-bold text-sm-fluid">Foredrag og fagmøter</p>
+    </div>
+    <div class="lg:col-span-3">
+      <p class="font-light text-2xl-fluid">
+        Systek arrangerer både interne fagmøter samt åpne arrangementer for
+        eksterne
+      </p>
+
+      <div class="mt-section">
+        <picture>
+          <img
+            class="w-full rounded-md"
+            src="/images/temp.png"
+            class="w-full"
+            draggable="false"
+          />
+        </picture>
+      </div>
+
+      <div class="md:border-t md:border-stroke mt-section">
+        <!-- seperate markup for mobile and desktop -->
+        <div
+          class="flex md:hidden justify-between py-5 border-b gap-gutter border-stroke"
+        >
+          <p class="text-xs-fluid font-bold">Hva skjer</p>
+          <p class="text-xs-fluid font-bold">Dato</p>
+        </div>
+
+        <div
+          class="hidden md:grid grid-cols-4 py-5 border-b gap-gutter border-stroke"
+        >
+          <p class="text-xs-fluid font-bold">Hva skjer</p>
+          <p class="text-xs-fluid font-bold">Dato</p>
+          <p class="text-xs-fluid font-bold">Sted</p>
+          <p class="text-xs-fluid font-bold">Påmelding</p>
+        </div>
+        {
+          activityItems.map((item, index) => (
+            <div>
+              <div
+                class={clsx(
+                  "flex md:hidden justify-between items-center py-5 border-b gap-gutter border-stroke",
+                  index > 1 && "line-through",
+                )}
+              >
+                {index <= 1 && item.href ? (
+                  <a href={item.href} class="flex items-center gap-2">
+                    <ExternalIcon class="size-2.5" />
+                    <p class="text-underline text-xs-fluid">{item.title}</p>
+                  </a>
+                ) : (
+                  <p class="text-xs-fluid">{item.title}</p>
+                )}
+                <p class="text-xs-fluid">{item.date}</p>
+              </div>
+
+              <div
+                class={clsx(
+                  "hidden md:grid grid-cols-4 py-5 border-b gap-gutter border-stroke",
+                  index > 1 && "line-through",
+                )}
+              >
+                <p class="text-xs-fluid">{item.title}</p>
+                <p class="text-xs-fluid">{item.date}</p>
+                <p class="text-xs-fluid">{item.location}</p>
+                <p class="text-xs-fluid">
+                  {index > 1 ? (
+                    "Avsluttet"
+                  ) : item.href ? (
+                    <Button size="sm">Meld meg på</Button>
+                  ) : (
+                    "Internt"
+                  )}
+                </p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </CardLayout>
+
+  <!-- todo: need to refactor columns of CardLayout to fix this -->
+  <CardLayout class="border-t mt-page border-stroke">
+    <div class="lg:col-span-1">
+      <p class="font-bold text-sm-fluid">Jobbe her?</p>
+    </div>
+    <div class="lg:col-span-3">
+      <p class="font-light text-2xl-fluid">
+        Bli med og bygg konsulentselskapet du selv ønsker å jobbe i
+      </p>
+      <!-- check if change sm: -> md: is correct -->
+      <Button class="mt-6 sm:mt-7">Se ledige stillinger</Button>
+
+      <div class="mt-section">
+        <picture>
+          <img
+            class="w-full aspect-[4:3] lg:aspect-[2/1] object-cover rounded-md"
+            src="/images/temp.png"
+            class="w-full"
+            draggable="false"
+          />
+        </picture>
+      </div>
+    </div>
+  </CardLayout>
+
+  <!-- todo: need to refactor columns of CardLayout to fix this -->
+  <CardLayout class="border-t mt-page border-stroke">
+    <div class="lg:col-span-1">
+      <p class="font-bold text-sm-fluid">Blogg</p>
+    </div>
+    <div class="lg:col-span-3">
+      <p class="font-light text-2xl-fluid">
+        Les våre siste artikler fra fag-bloggen
+      </p>
+      <!-- check if change sm: -> md: is correct -->
+      <Button class="mt-6 sm:mt-7">Se alle blogginnlegg</Button>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter mt-section">
+        {
+          blogItems.map((item) => (
+            <a href={item.href}>
+              <picture>
+                <img
+                  class="w-full rounded-md object-cover aspect-[4/3]"
+                  src={item.image.src}
+                  alt={item.image.alt}
+                  draggable="false"
+                />
+              </picture>
+              <p class="mt-3 sm:mt-4 text-md-fluid font-bold text-underline">
+                {item.title}
+              </p>
+              <p class="text-md-fluid">{item.description}</p>
+              <p class="text-sm-fluid">{item.author}</p>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </CardLayout>
+
+  <CardLayout
+    breakpoint="md"
+    class="border-t mt-page border-stroke gap-section"
+  >
+    <div class="md:col-span-2 flex flex-col gap-gutter">
+      <p class="font-bold text-sm-fluid">Kontakt</p>
+
+      <div class="mt-auto">
+        <p class="text-2xl-fluid font-light">Nysjerrig?</p>
+        <p class="text-md-fluid mt-5 md:mt-6">
+          Om du er faglig dyktig, brenner for det du jobber med og har lyst til
+          å være en del av et miljø hvor kunnskap, nysgjerrighet og inkludering
+          er viktig, så vil vi gjerne snakke med deg!
+        </p>
+
+        <div class="flex items-center gap-grid mt-6 md:mt-8">
+          <Button>Send en mail</Button>
+          <a class="text-underline text-sm-fluid" href="/">Se kontakt siden</a>
+        </div>
+      </div>
+    </div>
+    <div class="md:col-span-2">
+      <picture>
+        <img
+          class="w-full rounded-md aspect-[4/3] object-cover"
+          src="/images/temp.png"
+          class="w-full"
+          draggable="false"
+        />
+      </picture>
+    </div>
+  </CardLayout>
 
   <Footer />
 </Layout>

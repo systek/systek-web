@@ -3,14 +3,22 @@ import clsx from "clsx";
 import type { HTMLAttributes } from "astro/types";
 
 type Color = "transparent" | "black";
+type Size = "sm" | "md";
 type ButtonProps = {
   color?: Color;
+  size?: Size;
 } & HTMLAttributes<"button">;
 const {
   color = "transparent",
+  size = "md",
   class: className,
   ...buttonProps
 } = Astro.props as ButtonProps;
+
+const sizes: Record<Size, string> = {
+  sm: "px-3 py-0 text-xs-fluid",
+  md: "px-5 py-2.5 text-sm-fluid",
+};
 
 const colors: Record<Color, string> = {
   transparent: "bg-transparent border border-grey-10",
@@ -19,11 +27,7 @@ const colors: Record<Color, string> = {
 ---
 
 <button
-  class={clsx(
-    "rounded-full px-5 py-2.5 text-sm-fluid",
-    colors[color],
-    className,
-  )}
+  class={clsx("rounded-full", sizes[size], colors[color], className)}
   {...buttonProps}
 >
   <slot />

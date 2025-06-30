@@ -4,10 +4,14 @@ import type { HTMLAttributes } from "astro/types";
 
 export type CardLayoutColor = "transparent" | "grey";
 type CardLayoutProps = {
+  breakpoint?: "sm" | "md" | "lg";
   color?: CardLayoutColor;
 } & HTMLAttributes<"div">;
-const { color = "transparent", class: className } =
-  Astro.props as CardLayoutProps;
+const {
+  breakpoint = "lg",
+  color = "transparent",
+  class: className,
+} = Astro.props as CardLayoutProps;
 
 const colors: Record<CardLayoutColor, string> = {
   transparent: "",
@@ -17,7 +21,8 @@ const colors: Record<CardLayoutColor, string> = {
 
 <div
   class={clsx(
-    "mx-grid pt-grid grid grid-cols-1 gap-gutter lg:grid-cols-4",
+    "mx-grid pt-grid grid grid-cols-1 gap-gutter",
+    `${breakpoint}:grid-cols-4`,
     colors[color],
     className,
   )}
