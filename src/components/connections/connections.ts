@@ -125,8 +125,8 @@ const Connections = function (
   function createBox(text: string, x: number, y: number) {
     const textItem = new Konva.Text({
       fontSize: config.fontSize,
-      fontFamily: "KHTeka",
-      fontWeight: "regular",
+      fontFamily: `"KHTeka", "Inter", system-ui, sans-serif`,
+      fontWeight: 300,
       fontStyle: "normal",
       text: text,
       fill: config.textColor,
@@ -158,17 +158,13 @@ const Connections = function (
       background: textBackground,
       repulsionForce: config.repulsionForce,
       pullToPlace(optX, optY, time = 0.5) {
-        const tween = new Konva.Tween({
+        new Konva.Tween({
           node: this.body,
           x: optX,
           y: optY,
           duration: time || 0.5,
           easing: Konva.Easings.EaseInOut,
-        });
-
-        console.log("tween", tween);
-
-        tween.play();
+        }).play();
       },
       applyRepulsion(otherBox: Box, forceMultiplier = 1, timeMS = 1000) {
         const { x, y } = this.body.getPosition();
@@ -383,7 +379,6 @@ const Connections = function (
   start();
 
   window.addEventListener("resize", () => {
-    console.log("Resize event triggered");
     cancelAnimationFrame(raf!);
 
     stage.setSize({ width: rootEl.offsetWidth, height: rootEl.offsetHeight });
