@@ -16,7 +16,9 @@ import ConnectionsBox from "./ConnectionsBox.astro";
       ) as HTMLDivElement;
       if (!rootEl) return;
 
-      Connect(rootEl);
+      const texts = ["Bra", "folk", "smarte", "løsninger"];
+      console.log(texts);
+      Connect(rootEl, { texts });
     })();
   </script>
 </div>
