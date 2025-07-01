@@ -1,5 +1,26 @@
 ---
 import type { HTMLAttributes } from "astro/types";
+import clsx from "clsx";
+import ArrowMobileTopLeft from "../assets/arrows/mobile/arrow-top-left.svg";
+import ArrowMobileTopRight from "../assets/arrows/mobile/arrow-top-right.svg";
+import ArrowMobileMiddleLeft from "../assets/arrows/mobile/arrow-middle-left.svg";
+import ArrowMobileMiddleRight from "../assets/arrows/mobile/arrow-middle-right.svg";
+import ArrowMobileBottomLeft from "../assets/arrows/mobile/arrow-bottom-left.svg";
+import ArrowMobileBottomRight from "../assets/arrows/mobile/arrow-bottom-right.svg";
+import ArrowTabletTopLeft from "../assets/arrows/tablet/arrow-top-left.svg";
+import ArrowTabletTopRight from "../assets/arrows/tablet/arrow-top-right.svg";
+import ArrowTabletMiddleLeft from "../assets/arrows/tablet/arrow-middle-left.svg";
+import ArrowTabletMiddleRight from "../assets/arrows/tablet/arrow-middle-right.svg";
+import ArrowTabletBottomLeft from "../assets/arrows/tablet/arrow-bottom-left.svg";
+import ArrowTabletBottomRight from "../assets/arrows/tablet/arrow-bottom-right.svg";
+import ArrowDesktopTopLeft from "../assets/arrows/desktop/arrow-top-left.svg";
+import ArrowDesktopTopRight from "../assets/arrows/desktop/arrow-top-right.svg";
+import ArrowDesktopMiddleLeft from "../assets/arrows/desktop/arrow-middle-left.svg";
+import ArrowDesktopMiddleRight from "../assets/arrows/desktop/arrow-middle-right.svg";
+import ArrowDesktopBottomLeft from "../assets/arrows/desktop/arrow-bottom-left.svg";
+import ArrowDesktopBottomRight from "../assets/arrows/desktop/arrow-bottom-right.svg";
+
+type Color = "black" | "blue";
 
 type ArrowPosition =
   | "topLeft"
@@ -10,32 +31,55 @@ type ArrowPosition =
   | "bottomRight";
 
 type ArrowProps = {
+  color?: Color;
   position?: ArrowPosition;
 } & HTMLAttributes<"picture">;
 
-const { position = "topLeft", ...pictureProps } = Astro.props as ArrowProps;
+const {
+  color = "blue",
+  position = "topLeft",
+  ...pictureProps
+} = Astro.props as ArrowProps;
 
-const src: Record<ArrowPosition, string> = {
-  topLeft: "arrow-top-left.svg",
-  topRight: "arrow-top-right.svg",
-  middleLeft: "arrow-middle-left.svg",
-  middleRight: "arrow-middle-right.svg",
-  bottomLeft: "arrow-bottom-left.svg",
-  bottomRight: "arrow-bottom-right.svg",
+const colors: Record<Color, string> = {
+  blue: "stroke-blue",
+  black: "stroke-text",
 };
+
+const icons = {
+  mobile: {
+    topLeft: ArrowMobileTopLeft,
+    topRight: ArrowMobileTopRight,
+    middleLeft: ArrowMobileMiddleLeft,
+    middleRight: ArrowMobileMiddleRight,
+    bottomLeft: ArrowMobileBottomLeft,
+    bottomRight: ArrowMobileBottomRight,
+  },
+  tablet: {
+    topLeft: ArrowTabletTopLeft,
+    topRight: ArrowTabletTopRight,
+    middleLeft: ArrowTabletMiddleLeft,
+    middleRight: ArrowTabletMiddleRight,
+    bottomLeft: ArrowTabletBottomLeft,
+    bottomRight: ArrowTabletBottomRight,
+  },
+  desktop: {
+    topLeft: ArrowDesktopTopLeft,
+    topRight: ArrowDesktopTopRight,
+    middleLeft: ArrowDesktopMiddleLeft,
+    middleRight: ArrowDesktopMiddleRight,
+    bottomLeft: ArrowDesktopBottomLeft,
+    bottomRight: ArrowDesktopBottomRight,
+  },
+};
+
+const MobileArrow = icons.mobile[position];
+const TabletArrow = icons.tablet[position];
+const DesktopArrow = icons.desktop[position];
 ---
 
-<picture {...pictureProps}>
-  <!-- mobile: var(--breakpoint-sm) -->
-  <source
-    srcset={`/images/icon/arrow/mobile/${src[position]}`}
-    media="(max-width: 24rem)"
-  />
-  <!-- tablet: var(--breakpoint-md) -->
-  <source
-    srcset={`/images/icon/arrow/tablet/${src[position]}`}
-    media="(max-width: 50rem)"
-  />
-  <!-- desktop: var(--breakpoint-lg) -->
-  <img src={`/images/icon/arrow/desktop/${src[position]}`} />
-</picture>
+<div {...pictureProps}>
+  <MobileArrow class={clsx(colors[color], "block md:hidden")} />
+  <TabletArrow class={clsx(colors[color], "hidden md:block lg:hidden")} />
+  <DesktopArrow class={clsx(colors[color], "hidden lg:block")} />
+</div>

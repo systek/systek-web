@@ -1,4 +1,4 @@
 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M14 8H2H2.33333" stroke="#1A1A1A" stroke-miterlimit="10" stroke-linecap="square"/>
-<path d="M6.66667 12.6668L2 8.00016L6.66667 3.3335" stroke="#1A1A1A" stroke-miterlimit="10" stroke-linecap="square"/>
+<path d="M14 8H2H2.33333" stroke="inherit" stroke-miterlimit="10" stroke-linecap="square"/>
+<path d="M6.66667 12.6668L2 8.00016L6.66667 3.3335" stroke="inherit" stroke-miterlimit="10" stroke-linecap="square"/>
 </svg>
