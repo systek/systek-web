@@ -225,7 +225,7 @@ const blogItems = [
   <Header />
 
   <div
-    class="grid items-start grid-cols-1 mx-grid mt-section gap-gutter lg:grid-cols-2"
+    class="items-start grid grid-cols-1 mx-grid mt-section gap-gutter lg:grid-cols-2"
   >
     <h2 class="font-light text-4xl-fluid">Digital styrke – tett på</h2>
     <div>
@@ -373,7 +373,7 @@ const blogItems = [
               draggable="false"
             />
           </picture>
-          <p class="mt-3 sm:mt-4 text-md-fluid font-bold text-underline">
+          <p class="mt-3 font-bold sm:mt-4 text-md-fluid text-underline">
             {item.title}
           </p>
           <p class="text-md-fluid">{item.description}</p>
@@ -406,19 +406,19 @@ const blogItems = [
       <div class="md:border-t md:border-stroke mt-section">
         <!-- seperate markup for mobile and desktop -->
         <div
-          class="flex md:hidden justify-between py-5 border-b gap-gutter border-stroke"
+          class="flex justify-between py-5 border-b md:hidden gap-gutter border-stroke"
         >
-          <p class="text-xs-fluid font-bold">Hva skjer</p>
-          <p class="text-xs-fluid font-bold">Dato</p>
+          <p class="font-bold text-xs-fluid">Hva skjer</p>
+          <p class="font-bold text-xs-fluid">Dato</p>
         </div>
 
         <div
-          class="hidden md:grid grid-cols-4 py-5 border-b gap-gutter border-stroke"
+          class="hidden py-5 border-b md:grid grid-cols-4 gap-gutter border-stroke"
         >
-          <p class="text-xs-fluid font-bold">Hva skjer</p>
-          <p class="text-xs-fluid font-bold">Dato</p>
-          <p class="text-xs-fluid font-bold">Sted</p>
-          <p class="text-xs-fluid font-bold">Påmelding</p>
+          <p class="font-bold text-xs-fluid">Hva skjer</p>
+          <p class="font-bold text-xs-fluid">Dato</p>
+          <p class="font-bold text-xs-fluid">Sted</p>
+          <p class="font-bold text-xs-fluid">Påmelding</p>
         </div>
         {
           activityItems.map((item, index) => (
@@ -515,7 +515,7 @@ const blogItems = [
                   draggable="false"
                 />
               </picture>
-              <p class="mt-3 sm:mt-4 text-md-fluid font-bold text-underline">
+              <p class="mt-3 font-bold sm:mt-4 text-md-fluid text-underline">
                 {item.title}
               </p>
               <p class="text-md-fluid">{item.description}</p>
@@ -531,18 +531,18 @@ const blogItems = [
     breakpoint="md"
     class="border-t mt-page border-stroke gap-section"
   >
-    <div class="md:col-span-2 flex flex-col gap-gutter">
+    <div class="flex flex-col md:col-span-2 gap-gutter">
       <p class="font-bold text-sm-fluid">Kontakt</p>
 
       <div class="mt-auto">
-        <p class="text-2xl-fluid font-light">Nysjerrig?</p>
-        <p class="text-md-fluid mt-5 md:mt-6">
+        <p class="font-light text-2xl-fluid">Nysjerrig?</p>
+        <p class="mt-5 text-md-fluid md:mt-6">
           Om du er faglig dyktig, brenner for det du jobber med og har lyst til
           å være en del av et miljø hvor kunnskap, nysgjerrighet og inkludering
           er viktig, så vil vi gjerne snakke med deg!
         </p>
 
-        <div class="flex items-center gap-grid mt-6 md:mt-8">
+        <div class="flex items-center mt-6 gap-grid md:mt-8">
           <Button>Send en mail</Button>
           <a class="text-underline text-sm-fluid" href="/">Se kontakt siden</a>
         </div>

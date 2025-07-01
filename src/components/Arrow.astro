@@ -33,17 +33,17 @@ type ArrowPosition =
 type ArrowProps = {
   color?: Color;
   position?: ArrowPosition;
-} & HTMLAttributes<"picture">;
+} & HTMLAttributes<"div">;
 
 const {
   color = "blue",
   position = "topLeft",
-  ...pictureProps
+  ...divProps
 } = Astro.props as ArrowProps;
 
 const colors: Record<Color, string> = {
-  blue: "stroke-blue",
-  black: "stroke-text",
+  blue: "text-blue",
+  black: "text-text",
 };
 
 const icons = {
@@ -78,7 +78,7 @@ const TabletArrow = icons.tablet[position];
 const DesktopArrow = icons.desktop[position];
 ---
 
-<div {...pictureProps}>
+<div {...divProps}>
   <MobileArrow class={clsx(colors[color], "block md:hidden")} />
   <TabletArrow class={clsx(colors[color], "hidden md:block lg:hidden")} />
   <DesktopArrow class={clsx(colors[color], "hidden lg:block")} />

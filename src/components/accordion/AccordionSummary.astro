@@ -1,0 +1,14 @@
+---
+import ClosedIcon from "../../assets/icons/closed.svg";
+import OpenIcon from "../../assets/icons/open.svg";
+---
+
+<summary
+  class="flex items-center justify-between my-4 cursor-pointer select-none gap-gutter"
+>
+  <span class="text-md-fluid">
+    <slot />
+  </span>
+  <ClosedIcon class="hidden group-open:block" />
+  <OpenIcon class="block group-open:hidden" />
+</summary>

@@ -1,81 +1,82 @@
 ---
+import Accordion from "./accordion/Accordion.astro";
+import AccordionDetails from "./accordion/AccordionDetails.astro";
+import AccordionSummary from "./accordion/AccordionSummary.astro";
 import Arrow from "./Arrow.astro";
-
-const links = [
-  { text: "Følg oss på sosiale medier", href: "/" },
-  { text: "Les vår fagblogg", href: "/" },
-  { text: "Om systek", href: "/" },
-];
 ---
 
-<footer class="w-full p-grid mt-page">
+<footer class="mb-8 mx-grid mt-page">
   <div class="flex justify-between">
-    <Arrow position="topLeft" class="pointer-events-none" />
-    <Arrow position="topRight" class="pointer-events-none" />
+    <Arrow position="topLeft" />
+    <Arrow position="topRight" />
   </div>
 
-  <div class="grid grid-cols-2 gap-2 mt-16 container-fluid">
-    <div class="grid grid-cols-2 gap-2">
-      <p class="leading-5">
-        Oslo<br />
-        <a class="underline" href="/">Pilestredet 28</a><br />
+  <div class="grid lg:grid-cols-2 gap-grid mt-section">
+    <div class="border-t border-stroke lg:mr-20">
+      <Accordion>
+        <AccordionSummary slot="summary">Om Systek</AccordionSummary>
+        <AccordionDetails slot="details"> Todo </AccordionDetails>
+      </Accordion>
+      <Accordion>
+        <AccordionSummary slot="summary">Nyttige lenker</AccordionSummary>
+        <AccordionDetails slot="details"> Todo </AccordionDetails>
+      </Accordion>
+      <Accordion>
+        <AccordionSummary slot="summary">Sosiale medier</AccordionSummary>
+        <AccordionDetails slot="details"> Todo </AccordionDetails>
+      </Accordion>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-gutter">
+      <p class="text-sm-fluid">
+        <span class="font-bold">Oslo</span><br />
+        <a class="text-underline" href="/">Pilestredet 28</a><br />
         0166 Oslo<br />
         +47 951 30 207<br />
-        <a class="underline" href="/">systek@systek.no</a>
+        <a class="text-underline" href="/">systek@systek.no</a>
       </p>
 
-      <p class="leading-5">
-        Hamar<br />
-        <a class="underline" href="/">Brygga 20</a><br />
+      <p class="text-sm-fluid">
+        <span class="font-bold">Hamar</span><br />
+        <a class="text-underline" href="/">Brygga 20</a><br />
         2317 Hamar<br />
         +47 991 62 618<br />
-        <a class="underline" href="/">hamar@systek.no</a>
+        <a class="text-underline" href="/">hamar@systek.no</a>
+      </p>
+
+      <p class="text-sm-fluid">
+        <span class="font-bold">Arendal</span><br />
+        <a class="text-underline" href="/">Gatenavn 360</a><br />
+        1312 Arendal<br />
+        +47 991 62 618<br />
+        <a class="text-underline" href="/">arendal@systek.no</a>
       </p>
     </div>
-    <div>
-      <ul class="border-t border-grey-10">
-        {
-          links.map((link) => (
-            <li class="border-b border-grey-10">
-              <a
-                href={link.href}
-                class="hover:underline flex justify-between gap-2 py-3.75"
-              >
-                {link.text}
-                <img
-                  alt=""
-                  src="/images/show-more.svg"
-                  class="pr-2 pointer-events-none shrink-0"
-                />
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
   </div>
 
-  <div class="flex justify-between mt-30">
-    <Arrow position="middleLeft" class="pointer-events-none" />
-    <Arrow position="middleRight" class="pointer-events-none" />
+  <div class="flex justify-between mt-section">
+    <Arrow position="middleLeft" />
+    <Arrow position="middleRight" />
   </div>
 
-  <div class="mt-8 container-fluid">
-    <img
-      alt="Systek"
-      src="/images/systek-logo.svg"
-      class="w-full"
-      draggable="false"
-    />
+  <div class="mt-section">
+    <picture>
+      <img
+        alt="Systek"
+        src="/images/systek-logo.svg"
+        class="w-full"
+        draggable="false"
+      />
+    </picture>
   </div>
 
-  <div class="flex items-end justify-between mt-8">
-    <Arrow position="bottomLeft" class="pointer-events-none" />
+  <div class="flex items-end justify-between mt-section">
+    <Arrow position="bottomLeft" />
 
-    <p class="text-sm">
+    <p class="text-xs-fluid">
       @{new Date().getFullYear()} Systek. All rights reserved
     </p>
 
-    <Arrow position="bottomRight" class="pointer-events-none" />
+    <Arrow position="bottomRight" />
   </div>
 </footer>
