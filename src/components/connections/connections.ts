@@ -133,6 +133,13 @@ const Connections = function (
       x: config.textPadding[1],
       y: config.textPadding[0],
     });
+    const textBackground = new Konva.Rect({
+      width: textItem.width() + config.textPadding[1] + config.textPadding[3],
+      height: textItem.height() + config.textPadding[0] + config.textPadding[2],
+      fill: config.yellow,
+      strokeWidth: 0,
+      cornerRadius: 4,
+    });
     const textGroup = new Konva.Group({
       x: x - textItem.width() / 2 - config.textPadding[1],
       y: y - textItem.height() / 2 - config.textPadding[0],
@@ -140,13 +147,6 @@ const Connections = function (
       height: textItem.height() + config.textPadding[0] + config.textPadding[2],
       draggable: true,
       opacity: 0,
-    });
-    const textBackground = new Konva.Rect({
-      width: textItem.width() + config.textPadding[1] + config.textPadding[3],
-      height: textItem.height() + config.textPadding[0] + config.textPadding[2],
-      fill: config.yellow,
-      strokeWidth: 0,
-      roundness: 4,
     });
     textGroup.add(textBackground).add(textItem);
 
@@ -379,6 +379,10 @@ const Connections = function (
   start();
 
   window.addEventListener("resize", () => {
+    if (stage.width() === rootEl.offsetWidth) {
+      return;
+    }
+
     cancelAnimationFrame(raf!);
 
     stage.setSize({ width: rootEl.offsetWidth, height: rootEl.offsetHeight });
