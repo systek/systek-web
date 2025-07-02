@@ -11,7 +11,7 @@ export async function getStaticPaths() {
 			authors[]-> {
 				name
 			}
-		}`
+		}`,
   );
   return posts.map((post: any) => ({
     params: { slug: post.slug.current },
@@ -23,7 +23,7 @@ const { post } = Astro.props;
 const byline = (post.authors || []).map((a: any) => a.name).join(", ");
 ---
 
-<Layout title={post.title}>
+<Layout>
   <article>
     <h1>{post.title}</h1>
     <p>Written by {byline}</p>

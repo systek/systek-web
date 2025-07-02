@@ -1,6 +1,4 @@
 ---
-import type { HTMLAttributes } from "astro/types";
-import clsx from "clsx";
 import ArrowMobileTopLeft from "../assets/arrows/mobile/arrow-top-left.svg";
 import ArrowMobileTopRight from "../assets/arrows/mobile/arrow-top-right.svg";
 import ArrowMobileMiddleLeft from "../assets/arrows/mobile/arrow-middle-left.svg";
@@ -20,31 +18,17 @@ import ArrowDesktopMiddleRight from "../assets/arrows/desktop/arrow-middle-right
 import ArrowDesktopBottomLeft from "../assets/arrows/desktop/arrow-bottom-left.svg";
 import ArrowDesktopBottomRight from "../assets/arrows/desktop/arrow-bottom-right.svg";
 
-type Color = "black" | "blue";
-
-type ArrowPosition =
-  | "topLeft"
-  | "topRight"
-  | "middleLeft"
-  | "middleRight"
-  | "bottomLeft"
-  | "bottomRight";
-
-type ArrowProps = {
-  color?: Color;
-  position?: ArrowPosition;
-} & HTMLAttributes<"div">;
-
-const {
-  color = "blue",
-  position = "topLeft",
-  ...divProps
-} = Astro.props as ArrowProps;
-
-const colors: Record<Color, string> = {
-  blue: "text-blue",
-  black: "text-text",
-};
+interface Props {
+  class?: string;
+  color?: "black" | "blue";
+  position?:
+    | "topLeft"
+    | "topRight"
+    | "middleLeft"
+    | "middleRight"
+    | "bottomLeft"
+    | "bottomRight";
+}
 
 const icons = {
   mobile: {
@@ -73,13 +57,20 @@ const icons = {
   },
 };
 
+const { class: className, color = "blue", position = "topLeft" } = Astro.props;
+
 const MobileArrow = icons.mobile[position];
 const TabletArrow = icons.tablet[position];
 const DesktopArrow = icons.desktop[position];
+
+const colorClasses = {
+  blue: "text-blue",
+  black: "text-text",
+}[color];
 ---
 
-<div {...divProps}>
-  <MobileArrow class={clsx(colors[color], "block md:hidden")} />
-  <TabletArrow class={clsx(colors[color], "hidden md:block lg:hidden")} />
-  <DesktopArrow class={clsx(colors[color], "hidden lg:block")} />
+<div class={className}>
+  <MobileArrow class:list={[colorClasses, "block md:hidden"]} />
+  <TabletArrow class:list={[colorClasses, "hidden md:block lg:hidden"]} />
+  <DesktopArrow class:list={[colorClasses, "hidden lg:block"]} />
 </div>

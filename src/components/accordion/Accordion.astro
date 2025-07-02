@@ -1,4 +1,16 @@
-<details class="border-b group border-stroke">
-  <slot name="summary" />
-  <slot name="details" />
-</details>
+---
+import AccordionItem from "./AccordionItem.astro";
+
+type AccordionItem = typeof AccordionItem;
+
+interface Props {
+  class?: string;
+  children: AccordionItem | AccordionItem[];
+}
+
+const { class: className } = Astro.props;
+---
+
+<div class:list={["border-t border-stroke", className]}>
+  <slot />
+</div>

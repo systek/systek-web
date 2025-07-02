@@ -1,0 +1,30 @@
+---
+import ClosedIcon from "../../assets/icons/closed.svg";
+import OpenIcon from "../../assets/icons/open.svg";
+
+interface Props {
+  open?: boolean;
+  title: string;
+  name?: string;
+  class?: string;
+}
+
+const { open, title, name, class: className } = Astro.props;
+---
+
+<details
+  class:list={["border-b group border-stroke", className]}
+  name={name}
+  open={open}
+>
+  <summary
+    class="flex items-center justify-between py-4 cursor-pointer select-none gap-gutter"
+  >
+    <span class="text-md-fluid">{title}</span>
+    <ClosedIcon class="hidden group-open:block" />
+    <OpenIcon class="block group-open:hidden" />
+  </summary>
+  <div class="my-4">
+    <slot />
+  </div>
+</details>

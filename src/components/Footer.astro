@@ -1,7 +1,6 @@
 ---
 import Accordion from "./accordion/Accordion.astro";
-import AccordionDetails from "./accordion/AccordionDetails.astro";
-import AccordionSummary from "./accordion/AccordionSummary.astro";
+import AccordionItem from "./accordion/AccordionItem.astro";
 import Arrow from "./Arrow.astro";
 ---
 
@@ -12,20 +11,17 @@ import Arrow from "./Arrow.astro";
   </div>
 
   <div class="grid lg:grid-cols-2 gap-grid mt-section">
-    <div class="border-t border-stroke lg:mr-20">
-      <Accordion>
-        <AccordionSummary slot="summary">Om Systek</AccordionSummary>
-        <AccordionDetails slot="details"> Todo </AccordionDetails>
-      </Accordion>
-      <Accordion>
-        <AccordionSummary slot="summary">Nyttige lenker</AccordionSummary>
-        <AccordionDetails slot="details"> Todo </AccordionDetails>
-      </Accordion>
-      <Accordion>
-        <AccordionSummary slot="summary">Sosiale medier</AccordionSummary>
-        <AccordionDetails slot="details"> Todo </AccordionDetails>
-      </Accordion>
-    </div>
+    <Accordion class="lg:mr-20">
+      <AccordionItem title="Om Systek">
+        <div>Todo</div>
+      </AccordionItem>
+      <AccordionItem title="Nyttige lenker">
+        <div>Todo</div>
+      </AccordionItem>
+      <AccordionItem title="Sosiale medier">
+        <div>Todo</div>
+      </AccordionItem>
+    </Accordion>
 
     <div class="grid grid-cols-2 md:grid-cols-3 gap-gutter">
       <p class="text-sm-fluid">

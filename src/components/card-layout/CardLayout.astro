@@ -1,33 +1,35 @@
 ---
-import clsx from "clsx";
-import type { HTMLAttributes } from "astro/types";
-
-export type CardLayoutColor = "transparent" | "grey";
-type CardLayoutProps = {
+interface Props {
   breakpoint?: "sm" | "md" | "lg";
-  color?: CardLayoutColor;
-} & HTMLAttributes<"div">;
+  class?: string;
+  color?: "transparent" | "grey";
+}
+
 const {
   breakpoint = "lg",
   color = "transparent",
   class: className,
-} = Astro.props as CardLayoutProps;
+} = Astro.props;
 
-const colors: Record<CardLayoutColor, string> = {
+const colorClasses = {
   transparent: "",
   grey: "",
-};
+}[color];
+
+const breakpointClasses = {
+  sm: "sm:grid-cols-4",
+  md: "md:grid-cols-4",
+  lg: "lg:grid-cols-4",
+}[breakpoint];
 ---
 
 <div
-  class={clsx(
+  class:list={[
     "mx-grid pt-grid grid grid-cols-1 gap-gutter",
-    breakpoint === "sm" && "sm:grid-cols-4",
-    breakpoint === "md" && "md:grid-cols-4",
-    breakpoint === "lg" && "lg:grid-cols-4",
-    colors[color],
+    breakpointClasses,
+    colorClasses,
     className,
-  )}
+  ]}
 >
   <slot />
 </div>

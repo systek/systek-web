@@ -1,34 +1,40 @@
 ---
-import clsx from "clsx";
-import type { HTMLAttributes } from "astro/types";
+interface Props {
+  color?: "transparent" | "black";
+  href?: string;
+  size?: "sm" | "md";
+  class?: string;
+}
 
-type Color = "transparent" | "black";
-type Size = "sm" | "md";
-type ButtonProps = {
-  color?: Color;
-  size?: Size;
-} & HTMLAttributes<"button">;
 const {
+  href,
   color = "transparent",
   size = "md",
   class: className,
-  ...buttonProps
-} = Astro.props as ButtonProps;
+  ...props
+} = Astro.props;
 
-const sizes: Record<Size, string> = {
+const sizeClasses = {
   sm: "px-3 py-0 text-xs-fluid",
   md: "px-5 py-2.5 text-sm-fluid",
-};
+}[size];
 
-const colors: Record<Color, string> = {
+const colorClasses = {
   transparent: "bg-transparent border border-grey-10",
   black: "bg-grey-10 text-off-white border border-grey-10",
-};
+}[color];
+
+const buttonClasses = ["rounded-full", sizeClasses, colorClasses, className];
 ---
 
-<button
-  class={clsx("rounded-full", sizes[size], colors[color], className)}
-  {...buttonProps}
->
-  <slot />
-</button>
+{
+  href ? (
+    <a class:list={buttonClasses} href={href} {...props}>
+      <slot />
+    </a>
+  ) : (
+    <button class:list={buttonClasses} {...props}>
+      <slot />
+    </button>
+  )
+}
