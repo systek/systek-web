@@ -23,6 +23,7 @@
 
   /* inferred colors */
   --color-text: var(--color-grey-10);
+  --color-text-secondary: var(--color-grey-32);
   --color-background: var(--color-off-white);
   --color-stroke: var(--color-grey-78);
 
