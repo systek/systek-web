@@ -4,132 +4,134 @@ import AccordionItem from "./accordion/AccordionItem.astro";
 import Arrow from "./Arrow.astro";
 ---
 
-<footer class="mb-8 mx-grid mt-page">
-  <div class="flex justify-between">
-    <Arrow position="topLeft" />
-    <Arrow position="topRight" />
-  </div>
-
-  <div class="grid lg:grid-cols-2 gap-grid mt-section">
-    <Accordion class="lg:mr-20">
-      <AccordionItem title="Om Systek">
-        <div
-          class="grid grid-cols-2 gap-gutter mr-9 max-w-[35rem] lg:max-w-[33.14vw]"
-        >
-          <div class="flex flex-col gap-2">
-            <p class="text-text-secondary text-sm-fluid">Systek AS</p>
-            <p class="text-text-secondary text-sm-fluid">
-              Org.nr: 927 415 305 <span class="hidden md:inline">MVA</span>
-            </p>
-            <p class="text-text-secondary text-sm-fluid">
-              Denne siden bruker ikke cookies
-            </p>
-          </div>
-          <div class="flex flex-col gap-2">
-            <p class="text-sm-fluid">
-              <a class="text-underline" href="/">Personvernerklæring</a>
-            </p>
-            <p class="text-sm-fluid">
-              <a class="text-underline" href="/">Bærekraft</a>
-            </p>
-          </div>
-        </div>
-      </AccordionItem>
-      <AccordionItem title="Nyttige lenker">
-        <div
-          class="grid grid-cols-2 gap-gutter mr-9 max-w-[35rem] lg:max-w-[33.14vw]"
-        >
-          <div class="flex flex-col gap-2">
-            <p class="text-sm-fluid">
-              <a class="text-underline" href="/">Om oss</a>
-            </p>
-            <p class="text-sm-fluid">
-              <a class="text-underline" href="/">Kontakt</a>
-            </p>
-          </div>
-          <div class="flex flex-col gap-2">
-            <p class="text-sm-fluid">
-              <a class="text-underline" href="/">Nyheter</a>
-            </p>
-          </div>
-        </div>
-      </AccordionItem>
-      <AccordionItem title="Sosiale medier">
-        <div
-          class="grid grid-cols-2 gap-gutter mr-9 max-w-[35rem] lg:max-w-[33.14vw]"
-        >
-          <div class="flex flex-col gap-2">
-            <p class="text-sm-fluid">
-              <a class="text-underline" href="/">Facebook</a>
-            </p>
-            <p class="text-sm-fluid">
-              <a class="text-underline" href="/">Instagram</a>
-            </p>
-          </div>
-          <div class="flex flex-col gap-2">
-            <p class="text-sm-fluid">
-              <p class="text-sm-fluid">
-                <a class="text-underline" href="/">LinkedIn</a>
-              </p>
-              <p class="text-sm-fluid">
-                <a class="text-underline" href="/">Medium</a>
-              </p>
-            </p>
-          </div>
-        </div>
-      </AccordionItem>
-    </Accordion>
-
-    <div class="grid grid-cols-2 md:grid-cols-3 gap-gutter">
-      <p class="text-sm-fluid">
-        <span class="font-bold">Oslo</span><br />
-        <a class="text-underline" href="/">Pilestredet 28</a><br />
-        0166 Oslo<br />
-        +47 951 30 207<br />
-        <a class="text-underline" href="/">systek@systek.no</a>
-      </p>
-
-      <p class="text-sm-fluid">
-        <span class="font-bold">Hamar</span><br />
-        <a class="text-underline" href="/">Brygga 20</a><br />
-        2317 Hamar<br />
-        +47 991 62 618<br />
-        <a class="text-underline" href="/">hamar@systek.no</a>
-      </p>
-
-      <p class="text-sm-fluid">
-        <span class="font-bold">Arendal</span><br />
-        <a class="text-underline" href="/">Gatenavn 360</a><br />
-        1312 Arendal<br />
-        +47 991 62 618<br />
-        <a class="text-underline" href="/">arendal@systek.no</a>
-      </p>
+<div class="pt-page">
+  <footer class="mb-8 mx-grid mt-page">
+    <div class="flex justify-between">
+      <Arrow position="topLeft" />
+      <Arrow position="topRight" />
     </div>
-  </div>
 
-  <div class="flex justify-between mt-section">
-    <Arrow position="middleLeft" />
-    <Arrow position="middleRight" />
-  </div>
+    <div class="grid lg:grid-cols-2 gap-grid mt-section">
+      <Accordion class="lg:mr-20">
+        <AccordionItem title="Om Systek">
+          <div
+            class="grid grid-cols-2 gap-gutter mr-9 max-w-[35rem] lg:max-w-[33.14vw]"
+          >
+            <div class="flex flex-col gap-2">
+              <p class="text-text-secondary text-sm-fluid">Systek AS</p>
+              <p class="text-text-secondary text-sm-fluid">
+                Org.nr: 927 415 305 <span class="hidden md:inline">MVA</span>
+              </p>
+              <p class="text-text-secondary text-sm-fluid">
+                Denne siden bruker ikke cookies
+              </p>
+            </div>
+            <div class="flex flex-col gap-2">
+              <p class="text-sm-fluid">
+                <a class="link-underline" href="/">Personvernerklæring</a>
+              </p>
+              <p class="text-sm-fluid">
+                <a class="link-underline" href="/">Bærekraft</a>
+              </p>
+            </div>
+          </div>
+        </AccordionItem>
+        <AccordionItem title="Nyttige lenker">
+          <div
+            class="grid grid-cols-2 gap-gutter mr-9 max-w-[35rem] lg:max-w-[33.14vw]"
+          >
+            <div class="flex flex-col gap-2">
+              <p class="text-sm-fluid">
+                <a class="link-underline" href="/">Om oss</a>
+              </p>
+              <p class="text-sm-fluid">
+                <a class="link-underline" href="/">Kontakt</a>
+              </p>
+            </div>
+            <div class="flex flex-col gap-2">
+              <p class="text-sm-fluid">
+                <a class="link-underline" href="/">Nyheter</a>
+              </p>
+            </div>
+          </div>
+        </AccordionItem>
+        <AccordionItem title="Sosiale medier">
+          <div
+            class="grid grid-cols-2 gap-gutter mr-9 max-w-[35rem] lg:max-w-[33.14vw]"
+          >
+            <div class="flex flex-col gap-2">
+              <p class="text-sm-fluid">
+                <a class="link-underline" href="/">Facebook</a>
+              </p>
+              <p class="text-sm-fluid">
+                <a class="link-underline" href="/">Instagram</a>
+              </p>
+            </div>
+            <div class="flex flex-col gap-2">
+              <p class="text-sm-fluid">
+                <p class="text-sm-fluid">
+                  <a class="link-underline" href="/">LinkedIn</a>
+                </p>
+                <p class="text-sm-fluid">
+                  <a class="link-underline" href="/">Medium</a>
+                </p>
+              </p>
+            </div>
+          </div>
+        </AccordionItem>
+      </Accordion>
 
-  <div class="mt-section">
-    <picture>
-      <img
-        alt="Systek"
-        src="/images/systek-logo.svg"
-        class="w-full"
-        draggable="false"
-      />
-    </picture>
-  </div>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-gutter">
+        <p class="text-sm-fluid">
+          <span class="font-bold">Oslo</span><br />
+          <a class="link-underline" href="/">Pilestredet 28</a><br />
+          0166 Oslo<br />
+          +47 951 30 207<br />
+          <a class="link-underline" href="/">systek@systek.no</a>
+        </p>
 
-  <div class="flex items-end justify-between mt-section">
-    <Arrow position="bottomLeft" />
+        <p class="text-sm-fluid">
+          <span class="font-bold">Hamar</span><br />
+          <a class="link-underline" href="/">Brygga 20</a><br />
+          2317 Hamar<br />
+          +47 991 62 618<br />
+          <a class="link-underline" href="/">hamar@systek.no</a>
+        </p>
 
-    <p class="text-xs-fluid">
-      @{new Date().getFullYear()} Systek. All rights reserved
-    </p>
+        <p class="text-sm-fluid">
+          <span class="font-bold">Arendal</span><br />
+          <a class="link-underline" href="/">Gatenavn 360</a><br />
+          1312 Arendal<br />
+          +47 991 62 618<br />
+          <a class="link-underline" href="/">arendal@systek.no</a>
+        </p>
+      </div>
+    </div>
 
-    <Arrow position="bottomRight" />
-  </div>
-</footer>
+    <div class="flex justify-between mt-section">
+      <Arrow position="middleLeft" />
+      <Arrow position="middleRight" />
+    </div>
+
+    <div class="mt-section">
+      <picture>
+        <img
+          alt="Systek"
+          src="/images/systek-logo.svg"
+          class="w-full"
+          draggable="false"
+        />
+      </picture>
+    </div>
+
+    <div class="flex items-end justify-between mt-section">
+      <Arrow position="bottomLeft" />
+
+      <p class="text-xs-fluid">
+        @{new Date().getFullYear()} Systek. All rights reserved
+      </p>
+
+      <Arrow position="bottomRight" />
+    </div>
+  </footer>
+</div>

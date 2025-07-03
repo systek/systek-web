@@ -13,16 +13,20 @@ const { open, title, name, class: className } = Astro.props;
 ---
 
 <details
-  class:list={["border-b group border-stroke", className]}
+  class:list={["border-b border-stroke group/details", className]}
   name={name}
   open={open}
 >
   <summary
-    class="flex items-center justify-between py-4 cursor-pointer select-none gap-gutter"
+    class="flex items-center justify-between py-4 cursor-pointer select-none gap-gutter group/summary"
   >
     <span class="text-md-fluid">{title}</span>
-    <ClosedIcon class="hidden group-open:block" />
-    <OpenIcon class="block group-open:hidden" />
+    <div
+      class="border border-transparent p-1.75 rounded-full duration-250 transition-colors group-hover/summary:bg-yellow group-hover/summary:border-yellow-31"
+    >
+      <ClosedIcon class="hidden group-open/details:block" />
+      <OpenIcon class="block group-open/details:hidden" />
+    </div>
   </summary>
   <div class="mb-4">
     <slot />

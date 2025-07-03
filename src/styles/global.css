@@ -18,14 +18,40 @@ body {
   font-family: var(--font-sans);
 }
 
-@utility text-underline {
-  @apply underline underline-offset-5 decoration-1;
-}
-
 /*
 * todo: check figma before using this
 * it might not be the border radius to use
 */
 @utility rounded-grid {
   @apply rounded-md lg:rounded-lg;
+}
+
+@utility link-underline {
+  @apply relative inline-block;
+
+  &::after {
+    @apply content-[""] absolute w-full h-px bottom-0 left-0 bg-grey-10 origin-bottom-left;
+    transform: scaleX(1);
+    transition: transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  &:hover::after {
+    @apply origin-bottom-right;
+    transform: scaleX(0);
+  }
+}
+
+@utility group-link-underline {
+  @apply relative inline-block;
+
+  &::after {
+    @apply content-[""] absolute w-full h-px bottom-0 left-0 bg-grey-10 origin-bottom-left;
+    transform: scaleX(1);
+    transition: transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  .group:hover &::after {
+    @apply origin-bottom-right;
+    transform: scaleX(0);
+  }
 }

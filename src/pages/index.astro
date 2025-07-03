@@ -225,7 +225,7 @@ const blogItems = [
   <Header />
 
   <div
-    class="items-start grid grid-cols-1 mx-grid mt-section gap-gutter lg:grid-cols-2"
+    class="grid items-start grid-cols-1 mx-grid mt-section gap-gutter lg:grid-cols-2"
   >
     <h2 class="font-light text-4xl-fluid">Digital styrke – tett på</h2>
     <div>
@@ -255,20 +255,22 @@ const blogItems = [
       <p class="font-bold text-sm-fluid">Tjenester</p>
     </div>
     <div class="lg:col-span-3">
-      <p class="font-light text-2xl-fluid">
+      <p class="max-w-[65rem] md:pr-20 font-light text-2xl-fluid">
         Vi hjelper deg fra idé til drift og videreutvikling av digitale
         løsninger
       </p>
       <!-- check if change sm: -> md: is correct -->
-      <Button class="mt-6 sm:mt-7">Se våre tjenester</Button>
+      <Button href="/tjenester" class="mt-6 sm:mt-7">Se våre tjenester</Button>
 
       <div class="grid grid-cols-1 gap-gutter mt-section md:grid-cols-3">
         {
           serviceItems.map((item) => (
             <Card href={item.href} color="grey">
-              <p class="font-medium text-underline text-lg-fluid group-hover:no-underline">
-                {item.title}
-              </p>
+              <div>
+                <p class="font-medium text-lg-fluid group-link-underline">
+                  {item.title}
+                </p>
+              </div>
               <p class="text-sm-fluid">{item.description}</p>
             </Card>
           ))
@@ -282,7 +284,9 @@ const blogItems = [
       <p class="font-bold text-sm-fluid">Nyheter</p>
     </div>
     <div class="lg:col-span-3">
-      <p class="font-light text-2xl-fluid">Siste nytt fra Systek</p>
+      <p class="max-w-[65rem] md:pr-20 font-light text-2xl-fluid">
+        Siste nytt fra Systek
+      </p>
       <!-- check if change sm: -> md: is correct -->
       <Button class="mt-6 sm:mt-7">Se alle nyheter</Button>
 
@@ -292,17 +296,17 @@ const blogItems = [
       <div class="border-t border-stroke mt-section">
         {
           newsItems.map((item) => (
-            <a
-              class="flex justify-between py-5 border-b gap-gutter text-xs-fluid border-stroke"
-              href={item.href}
-            >
-              <div class="flex items-center gap-2">
+            <div class="flex justify-between py-5 border-b gap-gutter border-stroke">
+              <a
+                class="flex items-center gap-2 link-underline"
+                href={item.href}
+              >
                 <ExternalIcon class="size-2.5" />
-                <p class="text-underline">{item.title}</p>
-              </div>
+                <p class="text-xs-fluid">{item.title}</p>
+              </a>
 
-              <p class="md:pr-64">{item.published}</p>
-            </a>
+              <p class="md:pr-64 text-xs-fluid">{item.published}</p>
+            </div>
           ))
         }
       </div>
@@ -345,7 +349,7 @@ const blogItems = [
       <p class="font-bold text-sm-fluid">Arbeider</p>
     </div>
     <div class="lg:col-span-3">
-      <p class="font-light text-2xl-fluid">
+      <p class="max-w-[65rem] md:pr-20 font-light text-2xl-fluid">
         Vi har lang erfaring med komplekse prosjekter fra ledende virksomheter
       </p>
       <!-- check if change sm: -> md: is correct -->
@@ -355,12 +359,12 @@ const blogItems = [
 
   <!-- todo: make CardLayout with 1 column below for this -->
   <!-- todo: check mt, should be "Section-L". Not implemented? -->
-  <div class="mx-grid grid grid-cols-2 md:grid-cols-4 gap-gutter mt-section">
+  <div class="grid grid-cols-2 mx-grid md:grid-cols-4 gap-gutter mt-section">
     {
       workItems.map((item, index) => (
         <a
           href={item.href}
-          class={clsx(index % 3 === 0 ? "col-span-2" : "col-span-1")}
+          class={clsx("group", index % 3 === 0 ? "col-span-2" : "col-span-1")}
         >
           <picture>
             <img
@@ -373,7 +377,7 @@ const blogItems = [
               draggable="false"
             />
           </picture>
-          <p class="mt-3 font-bold sm:mt-4 text-md-fluid text-underline">
+          <p class="mt-3 font-bold sm:mt-4 text-md-fluid group-link-underline">
             {item.title}
           </p>
           <p class="text-md-fluid">{item.description}</p>
@@ -387,7 +391,7 @@ const blogItems = [
       <p class="font-bold text-sm-fluid">Foredrag og fagmøter</p>
     </div>
     <div class="lg:col-span-3">
-      <p class="font-light text-2xl-fluid">
+      <p class="max-w-[65rem] md:pr-20 font-light text-2xl-fluid">
         Systek arrangerer både interne fagmøter samt åpne arrangementer for
         eksterne
       </p>
@@ -413,7 +417,7 @@ const blogItems = [
         </div>
 
         <div
-          class="hidden py-5 border-b md:grid grid-cols-4 gap-gutter border-stroke"
+          class="hidden grid-cols-4 py-5 border-b md:grid gap-gutter border-stroke"
         >
           <p class="font-bold text-xs-fluid">Hva skjer</p>
           <p class="font-bold text-xs-fluid">Dato</p>
@@ -432,7 +436,7 @@ const blogItems = [
                 {index <= 1 && item.href ? (
                   <a href={item.href} class="flex items-center gap-2">
                     <ExternalIcon class="size-2.5" />
-                    <p class="text-underline text-xs-fluid">{item.title}</p>
+                    <p class="link-underline text-xs-fluid">{item.title}</p>
                   </a>
                 ) : (
                   <p class="text-xs-fluid">{item.title}</p>
@@ -472,7 +476,7 @@ const blogItems = [
       <p class="font-bold text-sm-fluid">Jobbe her?</p>
     </div>
     <div class="lg:col-span-3">
-      <p class="font-light text-2xl-fluid">
+      <p class="max-w-[65rem] md:pr-20 font-light text-2xl-fluid">
         Bli med og bygg konsulentselskapet du selv ønsker å jobbe i
       </p>
       <!-- check if change sm: -> md: is correct -->
@@ -497,7 +501,7 @@ const blogItems = [
       <p class="font-bold text-sm-fluid">Blogg</p>
     </div>
     <div class="lg:col-span-3">
-      <p class="font-light text-2xl-fluid">
+      <p class="max-w-[65rem] md:pr-20 font-light text-2xl-fluid">
         Les våre siste artikler fra fag-bloggen
       </p>
       <!-- check if change sm: -> md: is correct -->
@@ -506,7 +510,7 @@ const blogItems = [
       <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter mt-section">
         {
           blogItems.map((item) => (
-            <a href={item.href}>
+            <a class="group" href={item.href}>
               <picture>
                 <img
                   class="w-full rounded-md object-cover aspect-[4/3]"
@@ -515,7 +519,7 @@ const blogItems = [
                   draggable="false"
                 />
               </picture>
-              <p class="mt-3 font-bold sm:mt-4 text-md-fluid text-underline">
+              <p class="mt-3 font-bold sm:mt-4 text-md-fluid group-link-underline">
                 {item.title}
               </p>
               <p class="text-md-fluid">{item.description}</p>
@@ -544,7 +548,8 @@ const blogItems = [
 
         <div class="flex items-center mt-6 gap-grid md:mt-8">
           <Button>Send en mail</Button>
-          <a class="text-underline text-sm-fluid" href="/">Se kontakt siden</a>
+          <!-- typo -->
+          <a class="link-underline text-sm-fluid" href="/">Se kontakt siden</a>
         </div>
       </div>
     </div>
@@ -560,9 +565,5 @@ const blogItems = [
     </div>
   </CardLayout>
 
-  <!-- todo: move margin into footer? -->
-  <!-- double margin between last card and footer -->
-  <div class="pt-page">
-    <Footer />
-  </div>
+  <Footer />
 </Layout>

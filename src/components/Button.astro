@@ -19,12 +19,21 @@ const sizeClasses = {
   md: "px-5 py-2.5 text-sm-fluid",
 }[size];
 
+// todo: should have active styles but figma has none
 const colorClasses = {
-  transparent: "bg-transparent border border-grey-10",
-  black: "bg-grey-10 text-off-white border border-grey-10",
+  transparent:
+    "bg-transparent text-text border border-grey-10 hover:bg-grey-10 hover:text-off-white",
+  black:
+    "bg-grey-10 text-off-white border border-grey-10 hover:bg-transparent hover:text-text",
 }[color];
 
-const buttonClasses = ["rounded-full", sizeClasses, colorClasses, className];
+const buttonClasses = [
+  "block w-max rounded-full cursor-pointer transition-colors duration-250",
+  "focus:outline-none focus-visible:ring-3 focus-visible:ring-grey-10 focus-visible:ring-offset-3",
+  sizeClasses,
+  colorClasses,
+  className,
+];
 ---
 
 {
