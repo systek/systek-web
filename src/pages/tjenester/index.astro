@@ -1,15 +1,10 @@
 ---
-import clsx from "clsx";
 import Layout from "../../layouts/Layout.astro";
-import BackgroundColorIsland from "../../islands/BackgroundColorIsland";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
-import ConnectionsIsland from "../../components/connections/Connections.astro";
-import Arrow from "../../components/Arrow.astro";
 import Button from "../../components/Button.astro";
 import CardLayout from "../../components/card-layout/CardLayout.astro";
 import Card from "../../components/card-layout/Card.astro";
-import ExternalIcon from "../../assets/icons/external.svg";
 
 const serviceItems = [
   {
@@ -111,7 +106,7 @@ const serviceItems = [
   </CardLayout>
 
   <div
-    class="items-start grid grid-cols-1 mx-grid mt-section gap-gutter lg:grid-cols-2"
+    class="grid items-start grid-cols-1 mx-grid mt-section gap-gutter lg:grid-cols-2"
   >
     <h2 class="font-light text-4xl-fluid">Digital styrke – tett på</h2>
     <div>

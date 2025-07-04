@@ -1,0 +1,47 @@
+---
+import Arrow from "./Arrow.astro";
+---
+
+<div class="aspect-[5/8] md:aspect-[4/3] lg:aspect-[21/10] relative">
+  <Arrow color="black" position="topLeft" class="absolute top-grid left-grid" />
+  <Arrow
+    color="black"
+    position="topRight"
+    class="absolute top-grid right-grid"
+  />
+  <Arrow
+    color="black"
+    position="bottomRight"
+    class="absolute bottom-grid right-grid"
+  />
+  <Arrow
+    color="black"
+    position="bottomLeft"
+    class="absolute bottom-grid left-grid"
+  />
+  <div data-connections-canvas class="absolute inset-0 overflow-hidden"></div>
+</div>
+
+<script>
+  import {
+    DOMLoaded,
+    handleResize,
+    hasViewportWidthChanged,
+  } from "../utils/utils";
+  import { setupConnections, setupObserver } from "../utils/connections";
+
+  DOMLoaded(() => {
+    const canvas = document.querySelector(
+      "[data-connections-canvas]",
+    ) as HTMLDivElement;
+
+    setupConnections(canvas);
+    setupObserver(canvas);
+
+    handleResize(() => {
+      if (hasViewportWidthChanged()) {
+        setupConnections(canvas);
+      }
+    });
+  });
+</script>
