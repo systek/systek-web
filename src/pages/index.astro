@@ -1,52 +1,16 @@
 ---
 import clsx from "clsx";
-import Layout from "../layouts/Layout.astro";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
-import Button from "../components/Button.astro";
-import CardLayout from "../components/card-layout/CardLayout.astro";
-import Card from "../components/card-layout/Card.astro";
 import ExternalIcon from "../assets/icons/external.svg";
+import Button from "../components/Button.astro";
+import Card from "../components/card-layout/Card.astro";
+import CardLayout from "../components/card-layout/CardLayout.astro";
 import Connections from "../components/Connections.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import Layout from "../layouts/Layout.astro";
+import { fetchServiceItems } from "../queries/sanity.queries";
 
-const serviceItems = [
-  {
-    title: "Utvikling og arkitektur",
-    description:
-      "Systek har lang erfaring med design og utvikling av bærekraftige løsninger og kritiske systemer i offentlig og privat digitalisering.",
-    href: "/",
-  },
-  {
-    title: "Test og automatisering",
-    description:
-      "Våre konsulenter har lang erfaring og spiss-kompetanse innen testfaget. Vi benytter standardiserte metoder og rammeverk.",
-    href: "/",
-  },
-  {
-    title: "Prosjektledelse og rådgivning",
-    description:
-      "Våre prosjektledere og rådgivere har teknisk bakgrunn og lang erfaring i å lede digitaliseringsprosjekter.",
-    href: "/",
-  },
-  {
-    title: "Plattform og skytjenester",
-    description:
-      "Vi kjenner løsningene og kan bidra med å velge, sette opp og forvalte plattformen på egne servere eller hos en tredjeparts leverandør.",
-    href: "/",
-  },
-  {
-    title: "Data og analyse",
-    description:
-      "Vi hjelper våre kunder med å omdanne data til smartere beslutninger, raskere innovasjon og økt konkurransekraft.",
-    href: "/",
-  },
-  {
-    title: "Design og brukeropplevelse",
-    description:
-      "Vi hjelper deg med å lage digitale løsninger som bidrar til å oppnå ønsket effekt for brukerne og selskapet ditt.",
-    href: "/",
-  },
-];
+const serviceItems = await fetchServiceItems();
 
 const newsItems = [
   {
@@ -237,7 +201,8 @@ const blogItems = [
       <div class="grid grid-cols-1 gap-gutter mt-section md:grid-cols-3">
         {
           serviceItems.map((item) => (
-            <Card href={item.href} color="grey">
+            item.slug?.current &&
+            <Card href={item.slug?.current} color="grey">
               <div>
                 <p class="font-medium text-lg-fluid group-link-underline">
                   {item.title}

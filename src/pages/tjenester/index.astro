@@ -1,21 +1,13 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import Header from "../../components/Header.astro";
-import Footer from "../../components/Footer.astro";
 import Button from "../../components/Button.astro";
-import CardLayout from "../../components/card-layout/CardLayout.astro";
 import Card from "../../components/card-layout/Card.astro";
-import { sanityClient } from "sanity:client";
+import CardLayout from "../../components/card-layout/CardLayout.astro";
+import Footer from "../../components/Footer.astro";
+import Header from "../../components/Header.astro";
+import Layout from "../../layouts/Layout.astro";
+import { fetchServiceItems } from "../../queries/sanity.queries";
 
-const serviceItems =
-  await sanityClient.fetch(`*[_type == "service" && defined(slug)]
-  | order(order asc) {
-    _id,
-    title,
-    description,
-    "href": slug.current
-  }`);
-
+const serviceItems = await fetchServiceItems();
 ---
 
 <Layout>
@@ -64,8 +56,9 @@ const serviceItems =
 
       <div class="grid grid-cols-1 gap-gutter mt-section md:grid-cols-3">
         {
-          serviceItems.map((item: { href: string; title: string; description: string; }) => (
-            <Card href={item.href} color="grey">
+          serviceItems.map((item) => (
+            item.slug?.current &&
+            <Card href={item.slug?.current} color="grey">
               <p class="font-medium link-underline text-lg-fluid group-hover:no-underline">
                 {item.title}
               </p>
