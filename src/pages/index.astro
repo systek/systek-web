@@ -8,151 +8,19 @@ import Connections from "../components/Connections.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import Layout from "../layouts/Layout.astro";
-import { fetchServiceItems } from "../queries/sanity.queries";
+import { urlFor } from "../lib/sanity";
+import { fetchActivityItems, fetchBlogItems, fetchLogoItems, fetchNewsItems, fetchServiceItems, fetchWorkItems } from "../lib/sanity.queries";
 
 const serviceItems = await fetchServiceItems();
+const newsItems = await fetchNewsItems();
+const workItems = await fetchWorkItems();
+const activityItems = await fetchActivityItems();
+const blogItems = await fetchBlogItems();
+const logoItems = await fetchLogoItems();
 
-const newsItems = [
-  {
-    title: "Opptak av summer internship",
-    description:
-      "Vi starter nyåret med å minne om frist for å søke på summer internship hos oss. Er deg eller noen du kjenner?",
-    href: "/",
-    published: "22. juni",
-    updated: "3. juli",
-  },
-  {
-    title: "Styring av strømnett",
-    description:
-      "Å Energi Fleksibilitet (tidligere Agder Energi) utvikler en ny verdikjede for styring av strømnettet, bestående av nettoperatørverktøyet GridTools, markedsplassen NODES og fleksibilitetstilbyderens verktøy, flextools.",
-    href: "/",
-    published: "12. mai",
-  },
-];
-
-const logoTopItems = [
-  {
-    alt: "Oslo kommune",
-    src: "/images/logo/oslo-kommune.svg",
-  },
-  {
-    alt: "NAV",
-    src: "/images/logo/nav.svg",
-  },
-  {
-    alt: "Telenor",
-    src: "/images/logo/telenor.svg",
-  },
-  {
-    alt: "Mastercard",
-    src: "/images/logo/mastercard.svg",
-  },
-];
-
-const logoBottomItems = [
-  {
-    alt: "Å Energi",
-    src: "/images/logo/a-energi.svg",
-  },
-  {
-    alt: "Digdir",
-    src: "/images/logo/digdir.svg",
-  },
-  {
-    alt: "Miljødirektoratet",
-    src: "/images/logo/miljodirektoratet.svg",
-  },
-  {
-    alt: "Hydro",
-    src: "/images/logo/hydro.svg",
-  },
-];
-
-const workItems = [
-  {
-    title: "TechnipFMC",
-    description: "En moderne og digital utviklerplattform",
-    href: "/",
-    image: {
-      alt: "",
-      src: "/images/temp.png",
-    },
-  },
-  {
-    title: "Elvia",
-    description: "Digitalisering av Norges største nettselskap",
-    href: "/",
-    image: {
-      alt: "",
-      src: "/images/temp.png",
-    },
-  },
-  {
-    title: "LO Favør",
-    description: "Utvikling og arkitektur",
-    href: "/",
-    image: {
-      alt: "",
-      src: "/images/temp.png",
-    },
-  },
-];
-
-const activityItems = [
-  {
-    title: "Fagmøte: Lag din egen iPhone app",
-    date: "17. juni",
-    location: "Oslo",
-    href: undefined,
-  },
-  {
-    title: "Frokost og fag: Kafka",
-    date: "28. mai",
-    location: "Oslo",
-    href: "/",
-  },
-  {
-    title: "Faggruppemøte: Hjemmebygget Tastatur",
-    date: "27. mai",
-    location: "Oslo",
-    href: undefined,
-  },
-  {
-    title: "Faggruppemøte: Lag din egen iPhone app",
-    date: "17. juni",
-    location: "Oslo",
-    href: undefined,
-  },
-  {
-    title: "Fagmøte: Hvordan bli en (bedre) leder",
-    date: "20. juni",
-    location: "Oslo",
-    href: undefined,
-  },
-];
-
-const blogItems = [
-  {
-    title: "Del 2: Designsystem",
-    description: "Fra zero til hero — brukeropplevelse",
-    author: "Skrevet av Johan Magne Haugland",
-    href: "/",
-    image: {
-      alt: "",
-      src: "/images/temp.png",
-    },
-  },
-  {
-    title: "Del 1: Designsystem",
-    description: "Fra zero til hero",
-    author: "Skrevet av Johan Magne Haugland",
-    href: "/",
-    image: {
-      alt: "",
-      src: "/images/temp.png",
-    },
-  },
-];
+const index = Math.ceil(logoItems.length / 2);
+const logoTopItems = logoItems.slice(0, index);
+const logoBottomItems = logoItems.slice(index)
 ---
 
 <Layout bodyStyle="--color-background: var(--color-blue);">
@@ -201,8 +69,7 @@ const blogItems = [
       <div class="grid grid-cols-1 gap-gutter mt-section md:grid-cols-3">
         {
           serviceItems.map((item) => (
-            item.slug?.current &&
-            <Card href={item.slug?.current} color="grey">
+            <Card href={item.slug.current} color="grey">
               <div>
                 <p class="font-medium text-lg-fluid group-link-underline">
                   {item.title}
@@ -236,13 +103,12 @@ const blogItems = [
             <div class="flex justify-between py-5 border-b gap-gutter border-stroke">
               <a
                 class="flex items-center gap-2 link-underline"
-                href={item.href}
+                href={item.slug.current}
               >
                 <ExternalIcon class="size-2.5" />
                 <p class="text-xs-fluid">{item.title}</p>
               </a>
-
-              <p class="md:pr-64 text-xs-fluid">{item.published}</p>
+              <p class="md:pr-64 text-xs-fluid">{item.publishedAt}</p>
             </div>
           ))
         }
@@ -258,9 +124,9 @@ const blogItems = [
         {
           logoTopItems.map((item) => (
             <img
-              alt={item.alt}
+              alt={item.image.alt}
               class="w-[128px] h-[62px] aspect-[2/1]"
-              src={item.src}
+              src={urlFor(item.image).url()}
               draggable="false"
             />
           ))
@@ -270,9 +136,9 @@ const blogItems = [
         {
           logoBottomItems.map((item) => (
             <img
-              alt={item.alt}
+              alt={item.image.alt}
               class="w-[128px] h-[62px] aspect-[2/1]"
-              src={item.src}
+              src={urlFor(item.image).url()}
               draggable="false"
             />
           ))
@@ -300,7 +166,7 @@ const blogItems = [
     {
       workItems.map((item, index) => (
         <a
-          href={item.href}
+          href={item.slug.current}
           class={clsx("group", index % 3 === 0 ? "col-span-2" : "col-span-1")}
         >
           <picture>
@@ -309,7 +175,7 @@ const blogItems = [
                 "w-full rounded-md object-cover",
                 index % 3 === 2 ? "aspect-[1/1]" : "aspect-[4/3]",
               )}
-              src={item.image.src}
+              src={urlFor(item.image).url()}
               alt={item.image.alt}
               draggable="false"
             />
@@ -361,6 +227,7 @@ const blogItems = [
           <p class="font-bold text-xs-fluid">Sted</p>
           <p class="font-bold text-xs-fluid">Påmelding</p>
         </div>
+        <!-- todo: add logic for line through, format date -->
         {
           activityItems.map((item, index) => (
             <div>
@@ -370,8 +237,8 @@ const blogItems = [
                   index > 1 && "line-through",
                 )}
               >
-                {index <= 1 && item.href ? (
-                  <a href={item.href} class="flex items-center gap-2">
+                {index <= 1 && item.slug?.current ? (
+                  <a href={item.slug.current} class="flex items-center gap-2">
                     <ExternalIcon class="size-2.5" />
                     <p class="link-underline text-xs-fluid">{item.title}</p>
                   </a>
@@ -393,7 +260,7 @@ const blogItems = [
                 <p class="text-xs-fluid">
                   {index > 1 ? (
                     "Avsluttet"
-                  ) : item.href ? (
+                  ) : item.slug?.current ? (
                     <Button size="sm">Meld meg på</Button>
                   ) : (
                     "Internt"
@@ -447,11 +314,11 @@ const blogItems = [
       <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter mt-section">
         {
           blogItems.map((item) => (
-            <a class="group" href={item.href}>
+            <a class="group" href={item.slug.current}>
               <picture>
                 <img
                   class="w-full rounded-md object-cover aspect-[4/3]"
-                  src={item.image.src}
+                  src={urlFor(item.image).url()}
                   alt={item.image.alt}
                   draggable="false"
                 />
@@ -460,7 +327,7 @@ const blogItems = [
                 {item.title}
               </p>
               <p class="text-md-fluid">{item.description}</p>
-              <p class="text-sm-fluid">{item.author}</p>
+              <p class="text-sm-fluid">Skrevet av {item.author}</p>
             </a>
           ))
         }
