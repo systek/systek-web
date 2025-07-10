@@ -13,7 +13,7 @@
     "sanity:build": "sanity build",
     "sanity:deploy": "sanity deploy",
     "sanity:deploy-graphql": "sanity graphql deploy",
-    "sanity:generate-types": "sanity schema extract && sanity typegen generate"
+    "sanity:generate-types": "sanity schema extract --enforce-required-fields && sanity typegen generate"
   },
   "dependencies": {
     "@astrojs/react": "^4.3.0",

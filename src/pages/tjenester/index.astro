@@ -5,7 +5,7 @@ import CardLayout from "../../components/card-layout/CardLayout.astro";
 import Footer from "../../components/Footer.astro";
 import Header from "../../components/Header.astro";
 import Layout from "../../layouts/Layout.astro";
-import { fetchServiceItems } from "../../queries/sanity.queries";
+import { fetchServiceItems } from "../../lib/sanity.queries";
 
 const serviceItems = await fetchServiceItems();
 ---
@@ -57,8 +57,7 @@ const serviceItems = await fetchServiceItems();
       <div class="grid grid-cols-1 gap-gutter mt-section md:grid-cols-3">
         {
           serviceItems.map((item) => (
-            item.slug?.current &&
-            <Card href={item.slug?.current} color="grey">
+            <Card href={item.slug.current} color="grey">
               <p class="font-medium link-underline text-lg-fluid group-hover:no-underline">
                 {item.title}
               </p>
