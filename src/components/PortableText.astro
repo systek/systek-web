@@ -2,14 +2,18 @@
 import { PortableText as PortableTextInternal } from "astro-portabletext";
 import SanityImage from "./SanityImage.astro";
 import InternalLink from "./InternalLink.astro";
+import PortableBlock from "./PortableBlock.astro";
+import ListGroup from "./ListGroup.astro";
 
 const components = {
   type: {
     image: SanityImage,
+    "list-group": ListGroup,
   },
   mark: {
     internalLink: InternalLink,
   },
+  block: PortableBlock,
 };
 ---
 

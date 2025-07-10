@@ -5,7 +5,7 @@ import { sanityClient } from "sanity:client";
 
 const builder = imageUrlBuilder(sanityClient);
 
-const { node } = Astro.props;
+const { node, class: className } = Astro.props;
 const { width = 960 } = Astro.props;
 let image: ImageUrlBuilder | undefined;
 
@@ -22,4 +22,13 @@ try {
 }
 ---
 
-{image && <img src={image.url()} alt={node.alt || ""} title={node.alt} />}
+{
+  image && (
+    <img
+      src={image.url()}
+      class={className || ""}
+      alt={node.alt || ""}
+      title={node.alt}
+    />
+  )
+}

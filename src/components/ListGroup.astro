@@ -1,0 +1,16 @@
+---
+const { node } = Astro.props;
+
+const {
+  title,
+  items,
+  _key: key,
+} = node as { title?: string; items?: string[]; _key: string };
+---
+
+<div class="p-4 rounded-lg flex flex-col border-grey-78 border-1 max-w-md">
+  {title && <label for={key}>{title}</label>}
+  <ul id={key} class="list-disc pl-4">
+    {items?.map((item) => <li>{item}</li>)}
+  </ul>
+</div>

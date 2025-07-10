@@ -179,6 +179,20 @@ export type Service = {
   title: string;
   slug: Slug;
   description: string;
+  heroImage: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    caption?: string;
+    _type: "image";
+  };
   content: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -186,7 +200,7 @@ export type Service = {
       _type: "span";
       _key: string;
     }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+    style?: "normal" | "blockquote" | "h2";
     listItem?: "bullet" | "number";
     markDefs?: Array<{
       href?: string;
@@ -194,7 +208,12 @@ export type Service = {
       _key: string;
     }>;
     level?: number;
-    _type: "block";
+    _type: "data";
+    _key: string;
+  } | {
+    title: string;
+    items: Array<string>;
+    _type: "list-group";
     _key: string;
   } | {
     asset?: {
@@ -206,9 +225,12 @@ export type Service = {
     media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
+    alt?: string;
+    caption?: string;
     _type: "image";
     _key: string;
   }>;
+  tags?: Array<string>;
 };
 
 export type Post = {

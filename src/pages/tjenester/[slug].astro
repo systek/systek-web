@@ -1,0 +1,60 @@
+---
+import { sanityClient } from "sanity:client";
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import PortableText from "../../components/PortableText.astro";
+import SanityImage from "../../components/SanityImage.astro";
+import CardLayout from "../../components/card-layout/CardLayout.astro";
+import type { Service } from "../../lib/sanity.types";
+
+export async function getStaticPaths() {
+  const services = await sanityClient.fetch(`*[_type == "service"] { ... }`);
+  return services.map((service: any) => ({
+    params: { slug: service.slug.current },
+    props: { service },
+  }));
+}
+
+const { service } = Astro.props as { service: Service };
+---
+
+<Layout>
+  <Header />
+  <article>
+    <div class="flex justify-center mb-section mt-section">
+      <h1 class="text-4xl-fluid">
+        {service.title}
+      </h1>
+    </div>
+    <picture>
+      <SanityImage
+        class="w-full rounded-md aspect-[16/9] object-cover"
+        node={service.heroImage}
+        alt={service.heroImage?.alt || service.title}
+        width="1200"
+        draggable={false}
+      />
+    </picture>
+    <CardLayout class="mt-section">
+      <div class="lg:col-span-1"></div>
+      <div class="lg:col-span-3 flex flex-col gap-4">
+        <PortableText value={service.description} />
+        <PortableText value={service.content} />
+        {
+          service.tags && service.tags.length > 0 && (
+            <div class="mt-4">
+              <h3 class="text-lg font-semibold">Stikkord</h3>
+              <ul class="flex flex-row gap-4 list-disc list-inside">
+                {service.tags.map((tag) => (
+                  <li>{tag}</li>
+                ))}
+              </ul>
+            </div>
+          )
+        }
+      </div>
+    </CardLayout>
+  </article>
+  <Footer />
+</Layout>

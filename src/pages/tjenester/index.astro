@@ -57,7 +57,7 @@ const serviceItems = await fetchServiceItems();
       <div class="grid grid-cols-1 gap-gutter mt-section md:grid-cols-3">
         {
           serviceItems.map((item) => (
-            <Card href={item.slug.current} color="grey">
+            <Card href={`/tjenester/${item.slug.current}`} color="grey">
               <p class="font-medium link-underline text-lg-fluid group-hover:no-underline">
                 {item.title}
               </p>
