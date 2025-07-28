@@ -21,7 +21,7 @@
     "@sanity/client": "^6.1.4",
     "@sanity/vision": "^3.98.1",
     "@tailwindcss/vite": "^4.1.11",
-    "astro": "^5.10.1",
+    "astro": "^5.12.4",
     "astro-portabletext": "^0.11.1",
     "chroma-js": "^3.1.2",
     "clsx": "^2.1.1",
