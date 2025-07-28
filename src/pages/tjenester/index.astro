@@ -58,9 +58,11 @@ const serviceItems = await fetchServiceItems();
         {
           serviceItems.map((item) => (
             <Card href={`/tjenester/${item.slug.current}`} color="grey">
-              <p class="font-medium link-underline text-lg-fluid group-hover:no-underline">
-                {item.title}
-              </p>
+              <div>
+                <p class="font-medium text-lg-fluid group-link-underline">
+                  {item.title}
+                </p>
+              </div>
               <p class="text-sm-fluid">{item.description}</p>
             </Card>
           ))

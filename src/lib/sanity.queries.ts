@@ -2,7 +2,7 @@ import { sanityClient } from "sanity:client";
 import type { Activity, Blog, Logo, News, Service, Work } from "./sanity.types";
 
 export async function fetchServiceItems(): Promise<Service[]> {
-  return await sanityClient.fetch(`*[_type == "service" && defined(slug)] | order(order asc) {
+  return sanityClient.fetch(`*[_type == "service" && defined(slug)] | order(order asc) {
     _id,
     title,
     description,
@@ -11,7 +11,7 @@ export async function fetchServiceItems(): Promise<Service[]> {
 }
 
 export async function fetchNewsItems(): Promise<News[]> {
-  return await sanityClient.fetch(`*[_type == "news" && defined(slug)] | order(order asc) {
+  return sanityClient.fetch(`*[_type == "news" && defined(slug)] | order(order asc) {
     _id,
     title,
     description,
@@ -22,7 +22,7 @@ export async function fetchNewsItems(): Promise<News[]> {
 }
 
 export async function fetchLogoItems(): Promise<Logo[]> {
-  return await sanityClient.fetch(`*[_type == "logo" && defined(image)] | order(order asc) {
+  return sanityClient.fetch(`*[_type == "logo" && defined(image)] | order(order asc) {
     _id,
     title,
     image
@@ -30,7 +30,7 @@ export async function fetchLogoItems(): Promise<Logo[]> {
 }
 
 export async function fetchWorkItems(): Promise<Work[]> {
-  return await sanityClient.fetch(`*[_type == "work" && defined(slug)] | order(order asc) {
+  return sanityClient.fetch(`*[_type == "work" && defined(slug)] | order(order asc) {
     _id,
     title,
     description,
@@ -40,7 +40,7 @@ export async function fetchWorkItems(): Promise<Work[]> {
 }
 
 export async function fetchActivityItems(): Promise<Activity[]> {
-  return await sanityClient.fetch(`*[_type == "activity"] | order(order asc) {
+  return sanityClient.fetch(`*[_type == "activity"] | order(order asc) {
     _id,
     title,
     date,
@@ -50,7 +50,7 @@ export async function fetchActivityItems(): Promise<Activity[]> {
 }
 
 export async function fetchBlogItems(): Promise<Blog[]> {
-  return await sanityClient.fetch(`*[_type == "blog" && defined(slug)] | order(order asc) {
+  return sanityClient.fetch(`*[_type == "blog" && defined(slug)] | order(order asc) {
     _id,
     title,
     description,
