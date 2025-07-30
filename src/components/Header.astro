@@ -1,4 +1,5 @@
 ---
+import Arrow from "./Arrow.astro";
 import Button from "./Button.astro";
 
 const links = [
@@ -10,14 +11,19 @@ const links = [
 
 <div data-header-observer class="hidden h-px md:block"></div>
 <div class="md:sticky md:top-0 md:bg-background md:z-[var(--z-header)] px-grid">
-  <header data-header class="flex items-center justify-between gap-4 py-3">
-    <img src="/images/systek-logo.svg" alt="Systek" class="h-7" />
-    <nav>
+  <header
+    data-header
+    class="flex items-center justify-between gap-4 py-5 md:py-3"
+  >
+    <a href="/">
+      <img src="/images/systek-logo.svg" alt="Systek" class="h-7" />
+    </a>
+    <nav class="hidden md:block">
       <ul class="flex gap-8">
         {
           links.map((link) => (
             <li>
-              <a href={link.href} class="text-sm-fluid hover:underline">
+              <a href={link.href} class="text-sm-fluid hover:regular-underline">
                 {link.text}
               </a>
             </li>
@@ -25,8 +31,50 @@ const links = [
         }
       </ul>
     </nav>
-    <Button color="black" href="/">Jobbe her?</Button>
+    <Button class="hidden md:block" color="black" href="/">Jobbe her?</Button>
+
+    <Button data-modal-trigger class="md:hidden" color="black" size="sm">
+      Meny
+    </Button>
   </header>
+
+  <dialog
+    class="flex backdrop:bg-transparent bg-off-white top-auto flex-col h-full max-w-full bottom-0 max-h-[calc(100%-68px)] w-full fixed p-grid z-[var(--z-dialog)] modal-animate hidden"
+    data-modal
+  >
+    <div class="flex justify-between">
+      <Arrow position="topLeft" />
+      <Arrow position="topRight" />
+    </div>
+    <nav class="flex-1 flex items-center justify-center">
+      <ul class="flex flex-col gap-10 py-grid">
+        {
+          links.map((link) => (
+            <li class="text-center">
+              <a
+                href={link.href}
+                class="text-4xl font-light hover:regular-underline"
+              >
+                {link.text}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="flex justify-between">
+      <Arrow position="middleLeft" />
+      <Arrow position="middleRight" />
+    </div>
+
+    <Button class="my-grid mx-auto" color="black" href="/">Jobbe her?</Button>
+
+    <div class="flex justify-between">
+      <Arrow position="bottomLeft" />
+      <Arrow position="bottomRight" />
+    </div>
+  </dialog>
 </div>
 
 <script>
@@ -35,13 +83,19 @@ const links = [
     handleResize,
     hasViewportWidthChanged,
   } from "../utils/utils";
-  import { setupHeader } from "../utils/header";
+  import { setupHeader, openModal } from "../utils/header";
 
   DOMLoaded(() => {
     const header = document.querySelector("[data-header]") as HTMLElement;
     const sentinel = document.querySelector(
       "[data-header-observer]",
     ) as HTMLElement;
+    const modal = document.querySelector("[data-modal]") as HTMLDialogElement;
+    const modalTrigger = document.querySelector(
+      "[data-modal-trigger]",
+    ) as HTMLButtonElement;
+
+    modalTrigger.addEventListener("click", () => openModal(modal, header));
 
     setupHeader(header, sentinel);
 

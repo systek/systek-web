@@ -27,3 +27,42 @@ export function setupHeader(header: HTMLElement, sentinel: HTMLElement) {
   );
   observer.observe(sentinel);
 }
+
+export const openModal = (
+  modal: HTMLDialogElement,
+  scrollTarget: HTMLElement,
+) => {
+  scrollTarget.scrollIntoView({
+    behavior: "instant",
+    block: "start",
+  });
+
+  modal.classList.remove("hidden");
+  modal.showModal();
+
+  modal.addEventListener(
+    "click",
+    (event) => {
+      if (event.target === modal) {
+        closeModal(modal);
+      }
+    },
+    { once: true },
+  );
+
+  requestAnimationFrame(() => {
+    window.addEventListener("scroll", () => closeModal(modal), { once: true });
+  });
+};
+
+export const closeModal = (modal: HTMLDialogElement) => {
+  const body = document.body;
+  modal.classList.add("modal-animate");
+
+  modal.close();
+
+  setTimeout(() => {
+    modal.classList.add("hidden");
+    body.style.overflow = "auto";
+  }, 150);
+};

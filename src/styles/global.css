@@ -41,6 +41,10 @@ body {
   }
 }
 
+@utility regular-underline {
+  @apply underline underline-offset-5 decoration-1;
+}
+
 @utility group-link-underline {
   @apply relative inline-block;
 
@@ -53,5 +57,36 @@ body {
   .group:hover &::after {
     @apply origin-bottom-right;
     transform: scaleX(0);
+  }
+}
+
+.modal-animate {
+  animation: slide-out-down 0.15s forwards;
+}
+
+.modal-animate[open] {
+  animation: slide-in-up 0.25s linear;
+}
+
+/* 
+ todo: make tailwind theme vars for animation timing, duration, etc
+ */
+@keyframes slide-in-up {
+  0% {
+    transform: translateY(100%);
+    animation-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  100% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+}
+
+@keyframes slide-out-down {
+  100% {
+    transform: translateY(100%);
+    display: none;
+    animation-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);
   }
 }
