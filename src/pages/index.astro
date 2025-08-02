@@ -8,8 +8,8 @@ import Connections from "../components/Connections.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import Layout from "../layouts/Layout.astro";
-import { urlFor } from "../lib/sanity";
 import { fetchActivityItems, fetchBlogItems, fetchLogoItems, fetchNewsItems, fetchServiceItems, fetchWorkItems } from "../lib/sanity.queries";
+import SanityImage from "../components/SanityImage.astro";
 
 const serviceItems = await fetchServiceItems();
 const newsItems = await fetchNewsItems();
@@ -123,10 +123,10 @@ const logoBottomItems = logoItems.slice(index)
       <div class="flex justify-between gap-3">
         {
           logoTopItems.map((item) => (
-            <img
+            <SanityImage
               alt={item.image.alt}
               class="w-[128px] h-[62px] aspect-[2/1]"
-              src={urlFor(item.image).url()}
+              node={item.image}
               draggable="false"
             />
           ))
@@ -135,10 +135,10 @@ const logoBottomItems = logoItems.slice(index)
       <div class="flex justify-between gap-3 mt-14">
         {
           logoBottomItems.map((item) => (
-            <img
+            <SanityImage
               alt={item.image.alt}
               class="w-[128px] h-[62px] aspect-[2/1]"
-              src={urlFor(item.image).url()}
+              node={item.image}
               draggable="false"
             />
           ))
@@ -170,12 +170,12 @@ const logoBottomItems = logoItems.slice(index)
           class={clsx("group", index % 3 === 0 ? "col-span-2" : "col-span-1")}
         >
           <picture>
-            <img
+            <SanityImage
               class={clsx(
                 "w-full rounded-md object-cover",
                 index % 3 === 2 ? "aspect-[1/1]" : "aspect-[4/3]",
               )}
-              src={urlFor(item.image).url()}
+              node={item.image}
               alt={item.image.alt}
               draggable="false"
             />
@@ -316,9 +316,9 @@ const logoBottomItems = logoItems.slice(index)
           blogItems.map((item) => (
             <a class="group" href={item.slug.current}>
               <picture>
-                <img
+                <SanityImage
                   class="w-full rounded-md object-cover aspect-[4/3]"
-                  src={urlFor(item.image).url()}
+                  node={item.image}
                   alt={item.image.alt}
                   draggable="false"
                 />
