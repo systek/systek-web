@@ -8,7 +8,14 @@ import Connections from "../components/Connections.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import Layout from "../layouts/Layout.astro";
-import { fetchActivityItems, fetchBlogItems, fetchLogoItems, fetchNewsItems, fetchServiceItems, fetchWorkItems } from "../lib/sanity.queries";
+import {
+  fetchActivityItems,
+  fetchBlogItems,
+  fetchLogoItems,
+  fetchNewsItems,
+  fetchServiceItems,
+  fetchWorkItems,
+} from "../lib/sanity.queries";
 import SanityImage from "../components/SanityImage.astro";
 
 const serviceItems = await fetchServiceItems();
@@ -20,7 +27,7 @@ const logoItems = await fetchLogoItems();
 
 const index = Math.ceil(logoItems.length / 2);
 const logoTopItems = logoItems.slice(0, index);
-const logoBottomItems = logoItems.slice(index)
+const logoBottomItems = logoItems.slice(index);
 ---
 
 <Layout bodyStyle="--color-background: var(--color-blue);">
@@ -69,7 +76,7 @@ const logoBottomItems = logoItems.slice(index)
       <div class="grid grid-cols-1 gap-gutter mt-section md:grid-cols-3">
         {
           serviceItems.map((item) => (
-            <Card href={item.slug.current} color="grey">
+            <Card href={`/tjenester/${item.slug.current}`} color="grey">
               <div>
                 <p class="font-medium text-lg-fluid group-link-underline">
                   {item.title}
@@ -173,7 +180,7 @@ const logoBottomItems = logoItems.slice(index)
             <SanityImage
               class={clsx(
                 "w-full rounded-md object-cover",
-                index % 3 === 2 ? "aspect-[1/1]" : "aspect-[4/3]",
+                index % 3 === 2 ? "aspect-[1/1]" : "aspect-[4/3]"
               )}
               node={item.image}
               alt={item.image.alt}
@@ -234,7 +241,7 @@ const logoBottomItems = logoItems.slice(index)
               <div
                 class={clsx(
                   "flex md:hidden justify-between items-center py-5 border-b gap-gutter border-stroke",
-                  index > 1 && "line-through",
+                  index > 1 && "line-through"
                 )}
               >
                 {index <= 1 && item.slug?.current ? (
@@ -251,7 +258,7 @@ const logoBottomItems = logoItems.slice(index)
               <div
                 class={clsx(
                   "hidden md:grid grid-cols-4 py-5 border-b gap-gutter border-stroke",
-                  index > 1 && "line-through",
+                  index > 1 && "line-through"
                 )}
               >
                 <p class="text-xs-fluid">{item.title}</p>

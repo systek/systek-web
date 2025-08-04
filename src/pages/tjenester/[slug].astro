@@ -41,18 +41,6 @@ const { service } = Astro.props as { service: Service };
       <div class="lg:col-span-3 flex flex-col gap-4">
         <PortableText value={service.description} />
         <PortableText value={service.content} />
-        {
-          service.tags && service.tags.length > 0 && (
-            <div class="mt-4">
-              <h3 class="text-lg font-semibold">Stikkord</h3>
-              <ul class="flex flex-row gap-4 list-disc list-inside">
-                {service.tags.map((tag) => (
-                  <li>{tag}</li>
-                ))}
-              </ul>
-            </div>
-          )
-        }
       </div>
     </CardLayout>
   </article>
