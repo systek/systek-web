@@ -23,17 +23,14 @@ import Arrow from "./Arrow.astro";
 </div>
 
 <script>
-  import {
-    DOMLoaded,
-    handleResize,
-    hasViewportWidthChanged,
-  } from "../utils/utils";
+  import { DOMLoaded, handleResize, widthChecker } from "../utils/utils";
   import { setupConnections, setupObserver } from "../utils/connections";
 
   DOMLoaded(() => {
     const canvas = document.querySelector(
       "[data-connections-canvas]",
     ) as HTMLDivElement;
+    const hasViewportWidthChanged = widthChecker();
 
     setupConnections(canvas);
     setupObserver(canvas);

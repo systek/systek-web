@@ -1,5 +1,3 @@
-let lastWidth: number;
-
 export const DOMLoaded = (callback: () => void) => {
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", callback);
@@ -26,8 +24,10 @@ export const handleResize = (callback: () => void) => {
   };
 };
 
-export const hasViewportWidthChanged = (): boolean => {
-  if (typeof window !== "undefined") {
+export function widthChecker() {
+  let lastWidth: number = window.innerWidth;
+
+  function hasViewportWidthChanged(): boolean {
     const currentWidth = window.innerWidth;
     const widthChanged = currentWidth !== lastWidth;
 
@@ -38,8 +38,8 @@ export const hasViewportWidthChanged = (): boolean => {
     return widthChanged;
   }
 
-  return false;
-};
+  return hasViewportWidthChanged;
+}
 
 export function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
