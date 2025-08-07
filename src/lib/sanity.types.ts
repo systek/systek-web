@@ -229,8 +229,11 @@ export type Service = {
     caption?: string;
     _type: "image";
     _key: string;
+  } | {
+    items: Array<string>;
+    _type: "tags-list";
+    _key: string;
   }>;
-  tags?: Array<string>;
 };
 
 export type Post = {

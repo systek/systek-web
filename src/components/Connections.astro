@@ -2,7 +2,7 @@
 import Arrow from "./Arrow.astro";
 ---
 
-<div class="aspect-[5/8] md:aspect-[4/3] lg:aspect-[21/10] relative">
+<div class="w-screen h-[90vh] relative">
   <Arrow color="black" position="topLeft" class="absolute top-grid left-grid" />
   <Arrow
     color="black"
@@ -32,7 +32,7 @@ import Arrow from "./Arrow.astro";
 
   DOMLoaded(() => {
     const canvas = document.querySelector(
-      "[data-connections-canvas]",
+      "[data-connections-canvas]"
     ) as HTMLDivElement;
 
     setupConnections(canvas);
