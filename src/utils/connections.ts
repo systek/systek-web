@@ -9,11 +9,12 @@ type Box = {
   text: Konva.Text;
   background: Konva.Rect;
   repulsionForce: number;
-  pullToPlace: (x: number, y: number, time?: number) => void;
+  activeTween: Konva.Tween | null;
+  applyPull: (otherBox: Box, timeMs?: number) => void;
   applyRepulsion: (
     otherBox: Box,
     forceMultiplier?: number,
-    timeMs?: number,
+    timeMs?: number
   ) => void;
   setVisible: (timeMs?: number) => void;
   setReady: () => void;
@@ -86,23 +87,31 @@ const breakpoints: BreakpointConfig[] = [
 // Find matching breakpoint config
 const breakpointConfig: BreakpointConfig =
   breakpoints.find(
-    (bp) => bp.minWidth <= window.innerWidth && window.innerWidth < bp.maxWidth,
+    (bp) => bp.minWidth <= window.innerWidth && window.innerWidth < bp.maxWidth
   ) || breakpoints[0];
 
-const config: Config & BreakpointConfig = Object.assign(
+let config: Config & BreakpointConfig = Object.assign(
   {
     texts: ["Bra", "folk", "smarte", "løsninger"],
     white: "#fcf6ee",
     yellow: "#ffd24c",
     textColor: "rgb(26, 26, 26)",
   },
-  breakpointConfig,
+  breakpointConfig
 );
 
 export const setupConnections = function (rootEl: HTMLDivElement) {
   let boxes: Box[] = [];
   let lines: Line[] = [];
   let raf: number | null = null;
+
+  // Reset config based on current breakpoint
+  const breakpointConfig: BreakpointConfig =
+    breakpoints.find(
+      (bp) =>
+        bp.minWidth <= window.innerWidth && window.innerWidth < bp.maxWidth
+    ) || breakpoints[0];
+  config = Object.assign(config, breakpointConfig);
 
   // Setup starts
   const stage = new Konva.Stage({
@@ -133,8 +142,6 @@ export const setupConnections = function (rootEl: HTMLDivElement) {
       const line = createLine(prevBox, box);
       lines.push(line);
       layer.add(line.body);
-      box.applyRepulsion(prevBox, 4, 1000);
-      prevBox.applyRepulsion(box, 4, 1000);
     }
 
     box.setReady();
@@ -150,11 +157,12 @@ export const setupConnections = function (rootEl: HTMLDivElement) {
   }
 
   function collisionCheck() {
+    const padding = 20; //stage.width() * 0.05; // 5% of stage width
     for (let i = 0; i < boxes.length; i++) {
       const boxA = boxes[i];
       for (let j = i + 1; j < boxes.length; j++) {
         const boxB = boxes[j];
-        if (haveIntersection(boxA, boxB, 20)) {
+        if (haveIntersection(boxA, boxB, padding)) {
           if (!boxA.body.isDragging()) boxA.applyRepulsion(boxB, 1.5, 500);
           if (!boxB.body.isDragging()) boxB.applyRepulsion(boxA, 1.5, 500);
         }
@@ -162,10 +170,74 @@ export const setupConnections = function (rootEl: HTMLDivElement) {
     }
   }
 
+  // Check that distance between boxes is between 100px and 600px
+  function checkDistance() {
+    const minDistance = 100;
+    const maxDistance = 600;
+    if (boxes.length < 2) {
+      return;
+    }
+    // Check each boxe and the next box, that is the once with line between them
+    for (let i = 0; i < boxes.length - 1; i++) {
+      const boxA = boxes[i];
+      const boxB = boxes[i + 1];
+
+      const { w: wA, h: hA } = boxA;
+      const { w: wB, h: hB } = boxB;
+      const { x: xA, y: yA } = boxA.body.getPosition();
+      const { x: xB, y: yB } = boxB.body.getPosition();
+      // Get center of the boxes
+      const dx = xA + wA / 2 - (xB + wB / 2);
+      const dy = yA + hA / 2 - (yB + hB / 2);
+      const distance = Math.sqrt(dx * dx + dy * dy);
+
+      if (distance < minDistance) {
+        if (!boxA.body.isDragging()) boxA.applyRepulsion(boxB, 1, 1000);
+        if (!boxB.body.isDragging()) boxB.applyRepulsion(boxA, 1, 1000);
+      }
+      if (distance > maxDistance) {
+        if (!boxA.body.isDragging()) boxA.applyPull(boxB, 1000);
+        if (!boxB.body.isDragging()) boxB.applyPull(boxA, 1000);
+      }
+    }
+  }
+
+  // Check length of lines and apply repulsion if too short
+  function checkLineLength() {
+    const minLineLength = 100;
+    const maxLineLength = 600;
+    for (const line of lines) {
+      const [xA, yA, xB, yB] = line.body.points();
+      const dx = xA - xB;
+      const dy = yA - yB;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+      const boxA = line.boxA;
+      const boxB = line.boxB;
+
+      if (distance > maxLineLength) {
+        if (!boxA.body.isDragging()) {
+          boxA.applyPull(boxB, 1000);
+        }
+        if (!boxB.body.isDragging()) {
+          boxB.applyPull(boxA, 1000);
+        }
+      }
+      if (distance < minLineLength) {
+        if (!boxA.body.isDragging()) {
+          boxA.applyRepulsion(boxB, 1.5, 1000);
+        }
+        if (!boxB.body.isDragging()) {
+          boxB.applyRepulsion(boxA, 1.5, 1000);
+        }
+      }
+    }
+  }
+
   function animate() {
     updateLines();
+    checkDistance();
     collisionCheck();
-    layer.batchDraw();
+
     raf = requestAnimationFrame(animate);
   }
 
@@ -179,7 +251,7 @@ export const setupConnections = function (rootEl: HTMLDivElement) {
         drawBox(index, text);
         await sleep(1000);
       }),
-    Promise.resolve(),
+    Promise.resolve()
   );
 
   animate();
@@ -203,7 +275,7 @@ function createBox(
   text: string,
   x: number,
   y: number,
-  stage: Konva.Stage,
+  stage: Konva.Stage
 ): Box {
   const textItem = new Konva.Text({
     fontSize: config.fontSize,
@@ -239,16 +311,50 @@ function createBox(
     text: textItem,
     background: textBackground,
     repulsionForce: config.repulsionForce,
-    pullToPlace(optX, optY, time = 0.5) {
-      new Konva.Tween({
+    activeTween: null,
+    applyPull(otherBox: Box, timeMS = 1000) {
+      if (this.activeTween) {
+        return;
+      }
+      const { x, y } = this.body.getPosition();
+      const otherBoxPos = otherBox.body.getPosition();
+      const dx = otherBoxPos.x - x;
+      const dy = otherBoxPos.y - y;
+      const angle = Math.atan2(dy, dx);
+      const distance = Math.sqrt(dx * dx + dy * dy);
+
+      if (distance < 100) {
+        return;
+      }
+
+      // Pull box towards otherBox
+      // The boxes want to be atleast 600px apart so we target 500 and devide them by the 2 boxes
+      const targetDistance = 500;
+      const forceX = (Math.cos(angle) * (distance - targetDistance)) / 2;
+      const forceY = (Math.sin(angle) * (distance - targetDistance)) / 2;
+
+      const destX = x + forceX;
+      const destY = y + forceY;
+
+      // Apply force to this box
+      const tween = new Konva.Tween({
         node: this.body,
-        x: optX,
-        y: optY,
-        duration: time || 0.5,
-        easing: Konva.Easings.EaseInOut,
-      }).play();
+        duration: timeMS / 1000,
+        x: destX,
+        y: destY,
+        easing: Konva.Easings.EaseOut,
+      });
+      tween.play();
+
+      this.activeTween = tween;
+      tween.onFinish = () => {
+        this.activeTween = null;
+      };
     },
     applyRepulsion(otherBox: Box, forceMultiplier = 1, timeMS = 1000) {
+      if (this.activeTween) {
+        return;
+      }
       const { x, y } = this.body.getPosition();
       const otherBoxPos = otherBox.body.getPosition();
       const dx = x - otherBoxPos.x;
@@ -274,7 +380,7 @@ function createBox(
         destY,
         this.body.width(),
         this.body.height(),
-        stage,
+        stage
       );
 
       // Apply force to this box
@@ -286,6 +392,11 @@ function createBox(
         easing: Konva.Easings.EaseOut,
       });
       tween.play();
+
+      this.activeTween = tween;
+      tween.onFinish = () => {
+        this.activeTween = null;
+      };
     },
     setVisible(timeMs = 400) {
       new Konva.Tween({
@@ -305,13 +416,17 @@ function createBox(
     },
   } as Box;
 
+  box.body.on("dragstart", () => {
+    box.activeTween?.destroy();
+  });
+
   box.body.on("dragmove", ({ target }) => {
     const { x, y } = ensureInsideStage(
       target.x(),
       target.y(),
       target.width(),
       target.height(),
-      stage,
+      stage
     );
 
     target.x(x);
@@ -357,15 +472,15 @@ function ensureInsideStage(
   y: number,
   width: number,
   height: number,
-  stage: Konva.Stage,
+  stage: Konva.Stage
 ) {
   const newY = Math.min(
     Math.max(y, config.stagePadding),
-    stage.height() - config.stagePadding - height,
+    stage.height() - config.stagePadding - height
   );
   const newX = Math.min(
     Math.max(x, config.stagePadding),
-    stage.width() - config.stagePadding - width,
+    stage.width() - config.stagePadding - width
   );
   return { x: newX, y: newY };
 }
@@ -377,12 +492,12 @@ export function setupObserver(canvas: HTMLDivElement): void {
     ([entry]) => {
       document.body.style.setProperty(
         "--color-background",
-        chroma.mix(colorEnd, colorStart, entry.intersectionRatio).css(),
+        chroma.mix(colorEnd, colorStart, entry.intersectionRatio).css()
       );
     },
     {
       threshold: Array.from({ length: 101 }, (_, i) => i / 100),
-    },
+    }
   );
   observer.observe(canvas);
 }
