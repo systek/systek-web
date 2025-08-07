@@ -18,12 +18,21 @@ import {
 } from "../lib/sanity.queries";
 import SanityImage from "../components/SanityImage.astro";
 
-const serviceItems = await fetchServiceItems();
-const newsItems = await fetchNewsItems();
-const workItems = await fetchWorkItems();
-const activityItems = await fetchActivityItems();
-const blogItems = await fetchBlogItems();
-const logoItems = await fetchLogoItems();
+const [
+  serviceItems,
+  newsItems,
+  workItems,
+  activityItems,
+  blogItems,
+  logoItems,
+] = await Promise.all([
+  fetchServiceItems(),
+  fetchNewsItems(),
+  fetchWorkItems(),
+  fetchActivityItems(),
+  fetchBlogItems(),
+  fetchLogoItems(),
+]);
 
 const index = Math.ceil(logoItems.length / 2);
 const logoTopItems = logoItems.slice(0, index);
@@ -180,7 +189,7 @@ const logoBottomItems = logoItems.slice(index);
             <SanityImage
               class={clsx(
                 "w-full rounded-md object-cover",
-                index % 3 === 2 ? "aspect-[1/1]" : "aspect-[4/3]"
+                index % 3 === 2 ? "aspect-[1/1]" : "aspect-[4/3]",
               )}
               node={item.image}
               alt={item.image.alt}
@@ -241,7 +250,7 @@ const logoBottomItems = logoItems.slice(index);
               <div
                 class={clsx(
                   "flex md:hidden justify-between items-center py-5 border-b gap-gutter border-stroke",
-                  index > 1 && "line-through"
+                  index > 1 && "line-through",
                 )}
               >
                 {index <= 1 && item.slug?.current ? (
@@ -258,7 +267,7 @@ const logoBottomItems = logoItems.slice(index);
               <div
                 class={clsx(
                   "hidden md:grid grid-cols-4 py-5 border-b gap-gutter border-stroke",
-                  index > 1 && "line-through"
+                  index > 1 && "line-through",
                 )}
               >
                 <p class="text-xs-fluid">{item.title}</p>

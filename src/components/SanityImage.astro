@@ -5,8 +5,7 @@ import { sanityClient } from "sanity:client";
 
 const builder = imageUrlBuilder(sanityClient);
 
-const { node, class: className } = Astro.props;
-const { width = 960 } = Astro.props;
+const { node, class: className, width = 960 } = Astro.props;
 let image: ImageUrlBuilder | undefined;
 
 // See https://www.sanity.io/docs/presenting-images for general documentation on
