@@ -13,7 +13,31 @@ const serviceItems = await fetchServiceItems();
 <Layout>
   <Header />
 
-  <div class="grid grid-cols-1 mx-grid gap-gutter md:grid-cols-2 mt-section">
+  <div class="grid grid-cols-1 mx-grid lg:grid-cols-2 mt-section">
+    <div class="flex flex-col lg:flex-row-reverse lg:pr-35 lg:mt-46 lg:order-2">
+      <p
+        class="px-1 py-1 mb-auto font-light rounded-sm bg-yellow md:px-3 md:py-2 text-4xl-fluid"
+      >
+        Tjenester
+      </p>
+      <div class="p-1 lg:min-w-12">
+        <svg
+          class="w-full h-full pointer-events-none stroke-blue-dark"
+          viewBox="0 0 402 362"
+          preserveAspectRatio="none"
+        >
+          <line
+            x1="0"
+            y1="362"
+            x2="402"
+            y2="0"
+            stroke="inherit"
+            stroke-width="2"
+            vector-effect="non-scaling-stroke"></line>
+        </svg>
+      </div>
+    </div>
+
     <div>
       <picture>
         <img
@@ -23,15 +47,6 @@ const serviceItems = await fetchServiceItems();
           draggable="false"
         />
       </picture>
-    </div>
-    <div class="relative">
-      <div class="absolute -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2">
-        <p
-          class="px-1 py-1 font-light rounded-sm bg-yellow sm:px-2 sm:py-3 text-4xl-fluid"
-        >
-          Tjenester
-        </p>
-      </div>
     </div>
   </div>
 
