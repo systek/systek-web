@@ -197,18 +197,10 @@
         },
         "optional": false
       },
-      "internal": {
+      "href": {
         "type": "objectAttribute",
         "value": {
-          "type": "boolean"
-        },
-        "optional": false
-      },
-      "slug": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "inline",
-          "name": "slug"
+          "type": "string"
         },
         "optional": true
       }

@@ -40,12 +40,12 @@ export async function fetchWorkItems(): Promise<Work[]> {
 }
 
 export async function fetchActivityItems(): Promise<Activity[]> {
-  return sanityClient.fetch(`*[_type == "activity"] | order(order asc) {
+  return sanityClient.fetch(`*[_type == "activity"] | order(date desc)[0...5] {
     _id,
     title,
     date,
     location,
-    slug
+    href
   }`);
 }
 

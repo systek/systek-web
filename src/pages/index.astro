@@ -1,5 +1,6 @@
 ---
 import clsx from "clsx";
+import { parseISO } from "date-fns";
 import ExternalIcon from "../assets/icons/external.svg";
 import Button from "../components/Button.astro";
 import Card from "../components/card-layout/Card.astro";
@@ -7,6 +8,7 @@ import CardLayout from "../components/card-layout/CardLayout.astro";
 import Connections from "../components/Connections.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
+import SanityImage from "../components/SanityImage.astro";
 import Layout from "../layouts/Layout.astro";
 import {
   fetchActivityItems,
@@ -16,7 +18,7 @@ import {
   fetchServiceItems,
   fetchWorkItems,
 } from "../lib/sanity.queries";
-import SanityImage from "../components/SanityImage.astro";
+import { formatISODateString } from "../utils/format-date";
 
 const [
   serviceItems,
@@ -37,6 +39,8 @@ const [
 const index = Math.ceil(logoItems.length / 2);
 const logoTopItems = logoItems.slice(0, index);
 const logoBottomItems = logoItems.slice(index);
+
+const currentDate = new Date();
 ---
 
 <Layout bodyStyle="--color-background: var(--color-blue);">
@@ -128,7 +132,9 @@ const logoBottomItems = logoItems.slice(index);
                 <ExternalIcon class="size-2.5" />
                 <p class="text-xs-fluid">{item.title}</p>
               </a>
-              <p class="md:pr-64 text-xs-fluid">{item.publishedAt}</p>
+              <p class="md:pr-64 text-xs-fluid">
+                {formatISODateString(item.publishedAt)}
+              </p>
             </div>
           ))
         }
@@ -195,7 +201,7 @@ const logoBottomItems = logoItems.slice(index);
             <SanityImage
               class={clsx(
                 "w-full rounded-md object-cover",
-                index % 3 === 2 ? "aspect-[1/1]" : "aspect-[4/3]",
+                index % 3 === 2 ? "aspect-[1/1]" : "aspect-[4/3]"
               )}
               node={item.image}
               alt={item.image.alt}
@@ -251,48 +257,52 @@ const logoBottomItems = logoItems.slice(index);
           <p class="font-bold text-xs-fluid">Sted</p>
           <p class="font-bold text-xs-fluid">Påmelding</p>
         </div>
-        <!-- todo: add logic for line through, format date -->
         {
-          activityItems.map((item, index) => (
-            <div>
-              <div
-                class={clsx(
-                  "flex md:hidden justify-between items-center py-5 border-b gap-gutter border-stroke",
-                  index > 1 && "line-through",
-                )}
-              >
-                {index <= 1 && item.slug?.current ? (
-                  <a href={item.slug.current} class="flex items-center gap-2">
-                    <ExternalIcon class="size-2.5" />
-                    <p class="link-underline text-xs-fluid">{item.title}</p>
-                  </a>
-                ) : (
-                  <p class="text-xs-fluid">{item.title}</p>
-                )}
-                <p class="text-xs-fluid">{item.date}</p>
-              </div>
-
-              <div
-                class={clsx(
-                  "hidden md:grid grid-cols-4 py-5 border-b gap-gutter border-stroke",
-                  index > 1 && "line-through",
-                )}
-              >
-                <p class="text-xs-fluid">{item.title}</p>
-                <p class="text-xs-fluid">{item.date}</p>
-                <p class="text-xs-fluid">{item.location}</p>
-                <p class="text-xs-fluid">
-                  {index > 1 ? (
-                    "Avsluttet"
-                  ) : item.slug?.current ? (
-                    <Button size="sm">Meld meg på</Button>
-                  ) : (
-                    "Internt"
+          activityItems.map((item) => {
+            const isPastDate = parseISO(item.date) < currentDate;
+            return (
+              <div>
+                <div
+                  class={clsx(
+                    "flex md:hidden justify-between items-center py-5 border-b gap-gutter border-stroke",
+                    isPastDate && "line-through"
                   )}
-                </p>
+                >
+                  {item.href ? (
+                    <a href={item.href} class="flex items-center gap-2">
+                      <ExternalIcon class="size-2.5" />
+                      <p class="link-underline text-xs-fluid">{item.title}</p>
+                    </a>
+                  ) : (
+                    <p class="text-xs-fluid">{item.title}</p>
+                  )}
+                  <p class="text-xs-fluid">{formatISODateString(item.date)}</p>
+                </div>
+
+                <div
+                  class={clsx(
+                    "hidden md:grid grid-cols-4 py-5 border-b gap-gutter border-stroke",
+                    isPastDate && "line-through"
+                  )}
+                >
+                  <p class="text-xs-fluid">{item.title}</p>
+                  <p class="text-xs-fluid">{formatISODateString(item.date)}</p>
+                  <p class="text-xs-fluid">{item.location}</p>
+                  <p class="text-xs-fluid">
+                    {isPastDate ? (
+                      "Avsluttet"
+                    ) : item.href ? (
+                      <Button href={item.href} size="sm">
+                        Meld meg på
+                      </Button>
+                    ) : (
+                      "Internt"
+                    )}
+                  </p>
+                </div>
               </div>
-            </div>
-          ))
+            );
+          })
         }
       </div>
     </div>

@@ -18,18 +18,12 @@ export const activityType = defineType({
     }),
     defineField({
       name: "location",
-      type: "text",
+      type: "string",
       validation: (rule) => rule.required(),
     }),
     defineField({
-      name: "internal",
-      type: "boolean",
-      validation: (rule) => rule.required(),
-    }),
-    defineField({
-      name: "slug",
-      type: "slug",
-      options: { source: "title" },
+      name: "href",
+      type: "url",
     }),
   ],
 });

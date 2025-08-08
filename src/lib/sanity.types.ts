@@ -47,8 +47,7 @@ export type Activity = {
   title: string;
   date: string;
   location: string;
-  internal: boolean;
-  slug?: Slug;
+  href?: string;
 };
 
 export type Work = {
