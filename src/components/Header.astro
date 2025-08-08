@@ -1,12 +1,20 @@
 ---
+import clsx from "clsx";
+
 import Arrow from "./Arrow.astro";
 import Button from "./Button.astro";
 
+interface Props {
+  active?: (typeof links)[number]["href"];
+}
+
+const { active } = Astro.props;
+
 const links = [
-  { text: "Arbeider", href: "/" },
+  { text: "Arbeider", href: "/arbeider" },
   { text: "Tjenester", href: "/tjenester" },
-  { text: "Folka", href: "/" },
-];
+  { text: "Folka", href: "/folka" },
+] as const;
 ---
 
 <div data-header-observer class="hidden h-px md:block"></div>
@@ -23,7 +31,15 @@ const links = [
         {
           links.map((link) => (
             <li>
-              <a href={link.href} class="text-sm-fluid hover:regular-underline">
+              <a
+                href={link.href}
+                class={clsx(
+                  "text-sm-fluid inline-block",
+                  active === link.href
+                    ? "regular-underline"
+                    : "hover:regular-underline",
+                )}
+              >
                 {link.text}
               </a>
             </li>
@@ -31,7 +47,11 @@ const links = [
         }
       </ul>
     </nav>
-    <Button class="hidden md:block" color="black" href="/">Jobbe her?</Button>
+    <Button
+      class="hidden md:block"
+      color="black"
+      href="https://systek.homerun.co">Jobbe her?</Button
+    >
 
     <Button data-modal-trigger class="md:hidden" color="black" size="sm">
       Meny
@@ -46,7 +66,7 @@ const links = [
       <Arrow position="topLeft" />
       <Arrow position="topRight" />
     </div>
-    <nav class="flex-1 flex items-center justify-center">
+    <nav class="flex items-center justify-center flex-1">
       <ul class="flex flex-col gap-10 py-grid">
         {
           links.map((link) => (
@@ -68,7 +88,11 @@ const links = [
       <Arrow position="middleRight" />
     </div>
 
-    <Button class="my-grid mx-auto" color="black" href="/">Jobbe her?</Button>
+    <Button
+      class="mx-auto my-grid"
+      color="black"
+      href="https://systek.homerun.co">Jobbe her?</Button
+    >
 
     <div class="flex justify-between">
       <Arrow position="bottomLeft" />

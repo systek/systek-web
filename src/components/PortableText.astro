@@ -1,6 +1,6 @@
 ---
 import { PortableText as PortableTextInternal } from "astro-portabletext";
-import SanityImage from "./SanityImage.astro";
+import ImageOne from "./image/ImageOne.astro";
 import InternalLink from "./InternalLink.astro";
 import PortableBlock from "./PortableBlock.astro";
 import ListGroup from "./ListGroup.astro";
@@ -8,7 +8,9 @@ import TagsList from "./TagsList.astro";
 
 const components = {
   type: {
-    image: SanityImage,
+    // todo: add different image components
+    image: ImageOne,
+    // imageTwo: ImageTwo,
     "list-group": ListGroup,
     "tags-list": TagsList,
   },

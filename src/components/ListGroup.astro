@@ -8,9 +8,9 @@ const {
 } = node as { title?: string; items?: string[]; _key: string };
 ---
 
-<div class="p-4 rounded-lg flex flex-col border-grey-78 border-1 max-w-md">
-  {title && <label for={key}>{title}</label>}
-  <ul id={key} class="list-disc pl-4">
-    {items?.map((item) => <li>{item}</li>)}
+<div class="p-4 border rounded-lg border-stroke">
+  {title && <p class="text-md-fluid hyphens-auto">{title}</p>}
+  <ul id={key} class="ml-4 list-disc list-inside">
+    {items?.map((item) => <li class="text-md-fluid hyphens-auto">{item}</li>)}
   </ul>
 </div>

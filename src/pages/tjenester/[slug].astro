@@ -1,11 +1,12 @@
 ---
 import { sanityClient } from "sanity:client";
+
 import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import PortableText from "../../components/PortableText.astro";
 import SanityImage from "../../components/SanityImage.astro";
-import CardLayout from "../../components/card-layout/CardLayout.astro";
+import Arrow from "../../components/Arrow.astro";
 import type { Service } from "../../lib/sanity.types";
 
 export async function getStaticPaths() {
@@ -21,28 +22,39 @@ const { service } = Astro.props as { service: Service };
 
 <Layout>
   <Header />
-  <article>
-    <div class="flex justify-center mb-section mt-section">
-      <h1 class="text-4xl-fluid">
-        {service.title}
-      </h1>
+
+  <div class="flex flex-col m-grid gap-section">
+    <div class="flex justify-between">
+      <Arrow position="topLeft" />
+      <Arrow position="topRight" />
     </div>
+
+    <h1 class="font-light text-4xl-fluid hyphens-auto md:text-center">
+      {service.title}
+    </h1>
+
+    <div class="flex justify-between">
+      <Arrow position="bottomLeft" />
+      <Arrow position="bottomRight" />
+    </div>
+  </div>
+
+  <div class="mx-grid">
     <picture>
       <SanityImage
-        class="w-full rounded-md aspect-[16/9] object-cover"
+        class="w-full rounded-md aspect-[1.33/1] md:aspect-[2/1] object-cover"
         node={service.heroImage}
         alt={service.heroImage?.alt || service.title}
-        width="1200"
         draggable={false}
       />
     </picture>
-    <CardLayout class="mt-section">
-      <div class="lg:col-span-1"></div>
-      <div class="lg:col-span-3 flex flex-col gap-4">
-        <PortableText value={service.description} />
-        <PortableText value={service.content} />
-      </div>
-    </CardLayout>
-  </article>
+  </div>
+
+  <div class="mx-grid mt-section">
+    <div class="mx-auto max-w-[50rem] lg:max-w-[47.6vw]">
+      <PortableText value={service.content} />
+    </div>
+  </div>
+
   <Footer />
 </Layout>

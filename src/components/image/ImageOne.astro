@@ -1,0 +1,26 @@
+---
+import SanityImage from "../SanityImage.astro";
+
+// todo: infer type from sanity schema
+interface Props {
+  node: {
+    _key: string;
+    _type: "image";
+    alt?: string;
+    asset: {
+      _ref: string;
+      _type: "reference";
+    };
+    caption?: string;
+  };
+}
+
+const { node } = Astro.props;
+---
+
+<div class="my-section md:mr-[calc(50%-47.6vw)]">
+  <SanityImage
+    node={node}
+    class="w-full object-cover rounded-md md:rounded-lg aspect-[1.33/1] md:aspect-[2/1]"
+  />
+</div>

@@ -15,35 +15,23 @@ const UnknownStyle = getUnknownComponent();
 
 {
   styleIs("h1") ? (
-    <h1 class="text-2xl-fluid" {...attrs}>
+    <h1 class="my-5 font-light text-4xl-fluid hyphens-auto lg:my-7" {...attrs}>
       <slot />
     </h1>
-  ) : styleIs("h2") ? (
-    <h2 class="text-xl-fluid" {...attrs}>
+  ) : styleIs("h2") ||
+    styleIs("h3") ||
+    styleIs("h4") ||
+    styleIs("h5") ||
+    styleIs("h6") ? (
+    <h2 class="my-5 font-medium text-lg-fluid lg:my-7 hyphens-auto" {...attrs}>
       <slot />
     </h2>
-  ) : styleIs("h3") ? (
-    <h3 class="text-lg-fluid" {...attrs}>
-      <slot />
-    </h3>
-  ) : styleIs("h4") ? (
-    <h4 {...attrs}>
-      <slot />
-    </h4>
-  ) : styleIs("h5") ? (
-    <h5 {...attrs}>
-      <slot />
-    </h5>
-  ) : styleIs("h6") ? (
-    <h6 {...attrs}>
-      <slot />
-    </h6>
   ) : styleIs("blockquote") ? (
     <blockquote {...attrs}>
       <slot />
     </blockquote>
   ) : styleIs("normal") ? (
-    <p {...attrs}>
+    <p class="my-5 text-md-fluid hyphens-auto lg:my-7" {...attrs}>
       <slot />
     </p>
   ) : (

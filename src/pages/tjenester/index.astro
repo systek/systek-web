@@ -12,7 +12,7 @@ const serviceItems = await fetchServiceItems();
 ---
 
 <Layout>
-  <Header />
+  <Header active="/tjenester" />
 
   <div class="grid grid-cols-1 mx-grid lg:grid-cols-2 mt-section">
     <div class="flex flex-col lg:flex-row-reverse lg:pr-35 lg:mt-46 lg:order-2">
@@ -110,11 +110,8 @@ const serviceItems = await fetchServiceItems();
     </div>
   </CardLayout>
 
-  <CardLayout
-    breakpoint="md"
-    class="border-t mt-page border-stroke gap-section"
-  >
-    <div class="flex flex-col md:col-span-2 gap-gutter">
+  <CardLayout class="border-t mt-page border-stroke gap-section">
+    <div class="flex flex-col lg:col-span-2 gap-gutter">
       <p class="font-bold text-sm-fluid">Kontakt</p>
 
       <div class="mt-auto max-w-[37rem] lg:max-w-[35.2vw]">
@@ -126,13 +123,16 @@ const serviceItems = await fetchServiceItems();
 
         <div class="flex items-center mt-6 gap-grid md:mt-8">
           <Button href="mailto:charlotte.irgens@systek.no">Send en mail</Button>
-          <a class="link-underline text-sm-fluid" href="/kontakt">
+          <a
+            class="link-underline text-sm-fluid"
+            href="https://systek.homerun.co"
+          >
             Se kontakt-siden
           </a>
         </div>
       </div>
     </div>
-    <div class="md:col-span-2">
+    <div class="lg:col-span-2">
       <picture>
         <img
           class="w-full rounded-md aspect-[4/3] object-cover"

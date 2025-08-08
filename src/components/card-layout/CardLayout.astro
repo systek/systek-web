@@ -1,32 +1,20 @@
 ---
 interface Props {
-  breakpoint?: "sm" | "md" | "lg";
   class?: string;
   color?: "transparent" | "grey";
 }
 
-const {
-  breakpoint = "lg",
-  color = "transparent",
-  class: className,
-} = Astro.props;
+const { color = "transparent", class: className } = Astro.props;
 
 const colorClasses = {
   transparent: "",
   grey: "",
 }[color];
-
-const breakpointClasses = {
-  sm: "sm:grid-cols-4",
-  md: "md:grid-cols-4",
-  lg: "lg:grid-cols-4",
-}[breakpoint];
 ---
 
 <div
   class:list={[
-    "mx-grid pt-grid grid grid-cols-1 gap-gutter",
-    breakpointClasses,
+    "mx-grid pt-grid grid grid-cols-1 gap-gutter lg:grid-cols-4",
     colorClasses,
     className,
   ]}
