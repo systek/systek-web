@@ -64,7 +64,6 @@ const logoBottomItems = logoItems.slice(index);
       <img
         class="w-full aspect-[4:3] lg:aspect-[2/1] object-cover rounded-md"
         src="/images/temp.png"
-        class="w-full"
         draggable="false"
       />
     </picture>
@@ -228,7 +227,6 @@ const logoBottomItems = logoItems.slice(index);
           <img
             class="w-full rounded-md"
             src="/images/temp.png"
-            class="w-full"
             draggable="false"
           />
         </picture>
@@ -317,7 +315,6 @@ const logoBottomItems = logoItems.slice(index);
           <img
             class="w-full aspect-[4:3] lg:aspect-[2/1] object-cover rounded-md"
             src="/images/temp.png"
-            class="w-full"
             draggable="false"
           />
         </picture>
@@ -370,8 +367,8 @@ const logoBottomItems = logoItems.slice(index);
     <div class="flex flex-col md:col-span-2 gap-gutter">
       <p class="font-bold text-sm-fluid">Kontakt</p>
 
-      <div class="mt-auto">
-        <p class="font-light text-2xl-fluid">Nysjerrig?</p>
+      <div class="mt-auto max-w-[37rem] lg:max-w-[35.2vw]">
+        <p class="font-light text-2xl-fluid">Nysgjerrig?</p>
         <p class="mt-5 text-md-fluid md:mt-6">
           Om du er faglig dyktig, brenner for det du jobber med og har lyst til
           å være en del av et miljø hvor kunnskap, nysgjerrighet og inkludering
@@ -379,9 +376,10 @@ const logoBottomItems = logoItems.slice(index);
         </p>
 
         <div class="flex items-center mt-6 gap-grid md:mt-8">
-          <Button>Send en mail</Button>
-          <!-- typo -->
-          <a class="link-underline text-sm-fluid" href="/">Se kontakt siden</a>
+          <Button href="mailto:charlotte.irgens@systek.no">Send en mail</Button>
+          <a class="link-underline text-sm-fluid" href="/kontakt">
+            Se kontakt-siden
+          </a>
         </div>
       </div>
     </div>
@@ -390,7 +388,6 @@ const logoBottomItems = logoItems.slice(index);
         <img
           class="w-full rounded-md aspect-[4/3] object-cover"
           src="/images/temp.png"
-          class="w-full"
           draggable="false"
         />
       </picture>

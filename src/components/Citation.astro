@@ -1,0 +1,42 @@
+---
+interface Props {
+  title: string;
+  subtitle: string;
+  image: "todo";
+  class?: string;
+}
+
+const { title, subtitle, image, class: className } = Astro.props;
+---
+
+<div class:list={["flex gap-3", className]}>
+  <div class="size-10">
+    <picture>
+      <img
+        class="w-full rounded-full aspect-square object-cover"
+        src="/images/temp.png"
+        draggable="false"
+      />
+    </picture>
+  </div>
+
+  <div>
+    <p class="text-sm-fluid text-text-secondary font-bold leading-tight">
+      {title}
+    </p>
+    <p class="text-sm-fluid text-text-secondary leading-tight">{subtitle}</p>
+  </div>
+
+  <summary
+    class="hidden items-center justify-between py-4 cursor-pointer select-none gap-gutter group/summary"
+  >
+    <span class="text-md-fluid">{title}</span>
+    <div
+      class="border border-transparent p-1.75 rounded-full duration-250 transition-colors group-hover/summary:bg-yellow group-hover/summary:border-yellow-31"
+    >
+    </div>
+  </summary>
+  <div class="mb-4 hidden">
+    <slot />
+  </div>
+</div>
