@@ -55,7 +55,7 @@ const logoBottomItems = logoItems.slice(index);
         og samfunnet.
       </p>
 
-      <Button class="mt-8">Les om folka</Button>
+      <Button class="mt-8" href="/folka">Les om folka</Button>
     </div>
   </div>
 
@@ -111,7 +111,7 @@ const logoBottomItems = logoItems.slice(index);
         Siste nytt fra Systek
       </p>
       <!-- check if change sm: -> md: is correct -->
-      <Button class="mt-6 sm:mt-7">Se alle nyheter</Button>
+      <Button class="mt-6 sm:mt-7" href="/nyheter">Se alle nyheter</Button>
 
       <!-- todo: use <time> -->
       <!-- todo: time element does not match figma on desktop -->
@@ -177,7 +177,7 @@ const logoBottomItems = logoItems.slice(index);
         Vi har lang erfaring med komplekse prosjekter fra ledende virksomheter
       </p>
       <!-- check if change sm: -> md: is correct -->
-      <Button class="mt-6 sm:mt-7">Se alle arbeider</Button>
+      <Button class="mt-6 sm:mt-7" href="/arbeider">Se alle arbeider</Button>
     </div>
   </CardLayout>
 
@@ -260,9 +260,12 @@ const logoBottomItems = logoItems.slice(index);
                 )}
               >
                 {index <= 1 && item.slug?.current ? (
-                  <a href={item.slug.current} class="flex items-center gap-2">
+                  <a
+                    href={item.slug.current}
+                    class="flex items-center gap-2 link-underline"
+                  >
                     <ExternalIcon class="size-2.5" />
-                    <p class="link-underline text-xs-fluid">{item.title}</p>
+                    <p class="text-xs-fluid">{item.title}</p>
                   </a>
                 ) : (
                   <p class="text-xs-fluid">{item.title}</p>
@@ -283,7 +286,9 @@ const logoBottomItems = logoItems.slice(index);
                   {index > 1 ? (
                     "Avsluttet"
                   ) : item.slug?.current ? (
-                    <Button size="sm">Meld meg på</Button>
+                    <Button size="sm" href={item.slug.current}>
+                      Meld meg på
+                    </Button>
                   ) : (
                     "Internt"
                   )}
@@ -320,44 +325,6 @@ const logoBottomItems = logoItems.slice(index);
             draggable="false"
           />
         </picture>
-      </div>
-    </div>
-  </CardLayout>
-
-  <!-- todo: need to refactor columns of CardLayout to fix this -->
-  <CardLayout class="border-t mt-page border-stroke">
-    <div class="lg:col-span-1">
-      <p class="font-bold text-sm-fluid">Blogg</p>
-    </div>
-    <div class="lg:col-span-3">
-      <p
-        class="max-w-[65rem] lg:max-w-[61.9vw] md:pr-20 font-light text-2xl-fluid"
-      >
-        Les våre siste artikler fra fag-bloggen
-      </p>
-      <!-- check if change sm: -> md: is correct -->
-      <Button class="mt-6 sm:mt-7">Se alle blogginnlegg</Button>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter mt-section">
-        {
-          blogItems.map((item) => (
-            <a class="group" href={item.slug.current}>
-              <picture>
-                <SanityImage
-                  class="w-full rounded-md object-cover aspect-[4/3]"
-                  node={item.image}
-                  alt={item.image.alt}
-                  draggable="false"
-                />
-              </picture>
-              <p class="mt-3 font-bold sm:mt-4 text-md-fluid group-link-underline">
-                {item.title}
-              </p>
-              <p class="text-md-fluid">{item.description}</p>
-              <p class="text-sm-fluid">Skrevet av {item.author}</p>
-            </a>
-          ))
-        }
       </div>
     </div>
   </CardLayout>
