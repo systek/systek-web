@@ -17,7 +17,7 @@ const links = [
 ] as const;
 ---
 
-<div data-header-observer class="hidden h-px md:block"></div>
+<div data-header-sentinel class="hidden h-px md:block"></div>
 <div class="md:sticky md:top-0 md:bg-background md:z-[var(--z-header)] px-grid">
   <header
     data-header
@@ -108,7 +108,7 @@ const links = [
   DOMLoaded(() => {
     const header = document.querySelector("[data-header]") as HTMLElement;
     const sentinel = document.querySelector(
-      "[data-header-observer]",
+      "[data-header-sentinel]",
     ) as HTMLElement;
     const modal = document.querySelector("[data-modal]") as HTMLDialogElement;
     const modalTrigger = document.querySelector(
@@ -118,12 +118,12 @@ const links = [
 
     setupHeader(header, sentinel);
 
-    modalTrigger.addEventListener("click", () => openModal(modal, header));
-
     handleResize(() => {
       if (hasViewportWidthChanged()) {
         setupHeader(header, sentinel);
       }
     });
+
+    modalTrigger.addEventListener("click", () => openModal(modal, header));
   });
 </script>

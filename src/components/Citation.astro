@@ -13,7 +13,7 @@ const { title, subtitle, image, class: className } = Astro.props;
   <div class="size-10">
     <picture>
       <img
-        class="w-full rounded-full aspect-square object-cover"
+        class="object-cover w-full rounded-full aspect-square"
         src="/images/temp.png"
         draggable="false"
       />
@@ -21,14 +21,14 @@ const { title, subtitle, image, class: className } = Astro.props;
   </div>
 
   <div>
-    <p class="text-sm-fluid text-text-secondary font-bold leading-tight">
+    <p class="font-bold leading-tight text-sm-fluid text-text-secondary">
       {title}
     </p>
-    <p class="text-sm-fluid text-text-secondary leading-tight">{subtitle}</p>
+    <p class="leading-tight text-sm-fluid text-text-secondary">{subtitle}</p>
   </div>
 
   <summary
-    class="hidden items-center justify-between py-4 cursor-pointer select-none gap-gutter group/summary"
+    class="items-center justify-between hidden py-4 cursor-pointer select-none gap-gutter group/summary"
   >
     <span class="text-md-fluid">{title}</span>
     <div
@@ -36,7 +36,7 @@ const { title, subtitle, image, class: className } = Astro.props;
     >
     </div>
   </summary>
-  <div class="mb-4 hidden">
+  <div class="hidden mb-4">
     <slot />
   </div>
 </div>

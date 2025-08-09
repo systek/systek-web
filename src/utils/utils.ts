@@ -16,7 +16,7 @@ export const debounce = (callback: (...args: any[]) => void, delay: number) => {
 };
 
 export const handleResize = (callback: () => void) => {
-  const debouncedCallback = debounce(callback, 250);
+  const debouncedCallback = debounce(callback, 100);
   window.addEventListener("resize", debouncedCallback);
 
   return () => {
