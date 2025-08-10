@@ -18,14 +18,6 @@ body {
   font-family: var(--font-sans);
 }
 
-/*
-* todo: check figma before using this
-* it might not be the border radius to use
-*/
-@utility rounded-grid {
-  @apply rounded-md lg:rounded-lg;
-}
-
 @utility link-underline {
   @apply relative inline-block;
 

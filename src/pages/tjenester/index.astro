@@ -1,12 +1,13 @@
 ---
 import Button from "../../components/Button.astro";
-import Card from "../../components/card-layout/Card.astro";
+import LinkBox from "../../components/LinkBox.astro";
 import CardLayout from "../../components/card-layout/CardLayout.astro";
 import Citation from "../../components/Citation.astro";
 import Footer from "../../components/Footer.astro";
 import Header from "../../components/Header.astro";
 import Layout from "../../layouts/Layout.astro";
 import { fetchServiceItems } from "../../lib/sanity.queries";
+import CardHeader from "../../components/card-layout/CardHeader.astro";
 
 const serviceItems = await fetchServiceItems();
 ---
@@ -50,49 +51,48 @@ const serviceItems = await fetchServiceItems();
     </div>
   </div>
 
-  <CardLayout class="mt-section">
-    <div class="lg:col-span-1"></div>
-    <div class="lg:col-span-3">
+  <CardLayout class="mt-section mx-grid">
+    <CardHeader>
       <p
         class="max-w-[65rem] lg:max-w-[61.9vw] md:pr-20 font-light text-2xl-fluid"
       >
         Vi hjelper deg fra idé til drift og videreutvikling av digitale
         løsninger
       </p>
-
+    </CardHeader>
+    <div></div>
+    <div class="lg:col-span-3">
       <div class="mt-section">
         <picture>
           <img
-            class="w-full rounded-md aspect-[4/3] object-cover"
+            class="w-full object-cover rounded-md lg:rounded-lg aspect-[4/3] lg:aspect-[2/1]"
             src="/images/temp.png"
-            class="w-full"
             draggable="false"
           />
         </picture>
       </div>
 
-      <div class="grid grid-cols-1 gap-gutter mt-section md:grid-cols-3">
+      <div
+        class="grid grid-cols-1 lg:col-span-3 gap-gutter mt-section md:grid-cols-3"
+      >
         {
           serviceItems.map((item) => (
-            <Card href={`/tjenester/${item.slug.current}`} color="grey">
+            <LinkBox href={`/tjenester/${item.slug.current}`} color="grey">
               <div>
                 <p class="font-medium text-lg-fluid group-link-underline">
                   {item.title}
                 </p>
               </div>
               <p class="text-sm-fluid">{item.description}</p>
-            </Card>
+            </LinkBox>
           ))
         }
       </div>
     </div>
   </CardLayout>
 
-  <CardLayout class="border-t mt-page border-stroke">
-    <div class="lg:col-span-1">
-      <p class="font-bold text-sm-fluid">Design og brukeropplevelse</p>
-    </div>
-    <div class="lg:col-span-3">
+  <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
+    <CardHeader title="Design og brukeropplevelse">
       <p class="max-w-[50rem] lg:max-w-[47.6vw] font-light text-xl-fluid">
         “Systek har levert skalerbare og brukervennlige løsninger som
         understøtter Elvias kjerneprosesser, og gir både ansatte og kunder bedre
@@ -107,15 +107,14 @@ const serviceItems = await fetchServiceItems();
       <Button class="mt-6 sm:mt-8" href="/tjenester/design-og-brukeropplevelse">
         Les om tjenesten
       </Button>
-    </div>
+    </CardHeader>
   </CardLayout>
 
-  <CardLayout class="border-t mt-page border-stroke gap-section">
-    <div class="flex flex-col lg:col-span-2 gap-gutter">
+  <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
+    <div class="flex flex-col lg:col-span-2">
       <p class="font-bold text-sm-fluid">Kontakt</p>
-
       <div class="mt-auto max-w-[37rem] lg:max-w-[35.2vw]">
-        <p class="font-light text-2xl-fluid">Ta kontakt med Charlotte</p>
+        <p class="mt-2 font-light text-2xl-fluid">Ta kontakt med Charlotte</p>
         <p class="mt-5 text-md-fluid md:mt-6">
           Ta kontakt med vår forretningsutvikler Charlotte dersom du lurer på
           hva vi kan hjelpe deg med.
@@ -134,10 +133,10 @@ const serviceItems = await fetchServiceItems();
         </div>
       </div>
     </div>
-    <div class="lg:col-span-2">
+    <div class="mt-10 lg:col-span-2 lg:mt-0">
       <picture>
         <img
-          class="w-full rounded-md aspect-[4/3] object-cover"
+          class="w-full rounded-md aspect-square md:aspect-[4/3] object-cover"
           src="/images/temp.png"
           draggable="false"
         />

@@ -1,0 +1,153 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import Arrow from "../../components/Arrow.astro";
+import CardLayout from "../../components/card-layout/CardLayout.astro";
+import CardHeader from "../../components/card-layout/CardHeader.astro";
+import Button from "../../components/Button.astro";
+import CheckIcon from "../../assets/icons/check.svg";
+
+const {} = Astro.props;
+---
+
+<Layout>
+  <Header />
+
+  <div class="flex flex-col m-grid gap-section">
+    <div class="flex justify-between">
+      <Arrow position="topLeft" />
+      <Arrow position="topRight" />
+    </div>
+
+    <CardLayout>
+      <CardHeader title="Folka">
+        <p
+          class="max-w-[72rem] lg:max-w-[68.6vw] md:pr-20 font-light text-3xl-fluid"
+        >
+          Møt gjengen vår – den perfekte miksen av flinke folk, nysgjerrige
+          eksperter og ekte lagspillere med sans for gode løsninger
+        </p>
+      </CardHeader>
+    </CardLayout>
+
+    <div class="flex justify-between">
+      <Arrow position="middleLeft" />
+      <Arrow position="middleRight" />
+    </div>
+
+    <picture>
+      <img
+        class="w-full rounded-md aspect-[4/3] lg:aspect-[2/1] object-cover"
+        src="/images/temp.png"
+        draggable="false"
+      />
+    </picture>
+
+    <div class="flex justify-between">
+      <Arrow position="bottomLeft" />
+      <Arrow position="bottomRight" />
+    </div>
+  </div>
+
+  <CardLayout class="mt-page mx-grid">
+    <CardHeader>
+      <p
+        class="max-w-[65rem] lg:max-w-[61.9vw] md:pr-20 font-light text-2xl-fluid"
+      >
+        Vi arrangerer fellesturer, sommerfester, fagdager, sosiale samlinger,
+        turneringer og spillkvelder
+      </p>
+    </CardHeader>
+
+    <div
+      class="grid grid-cols-2 gap-gutter mt-section lg:grid-cols-2 lg:col-span-4"
+    >
+      <div class="flex flex-col gap-gutter lg:flex-row">
+        <picture>
+          <img
+            class="object-cover w-full rounded-md aspect-square"
+            src="/images/temp.png"
+            draggable="false"
+          />
+        </picture>
+
+        <picture>
+          <img
+            class="w-full object-cover rounded-md aspect-square lg:aspect-[4/5]"
+            src="/images/temp.png"
+            draggable="false"
+          />
+        </picture>
+      </div>
+
+      <div class="flex flex-col gap-gutter lg:flex-row">
+        <picture>
+          <img
+            class="w-full object-cover rounded-md aspect-[4/5] lg:aspect-[4/3]"
+            src="/images/temp.png"
+            draggable="false"
+          />
+        </picture>
+
+        <picture>
+          <img
+            class="w-full object-cover rounded-md aspect-[4/3] lg:aspect-square"
+            src="/images/temp.png"
+            draggable="false"
+          />
+        </picture>
+      </div>
+    </div>
+  </CardLayout>
+</Layout>
+
+<CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
+  <div class="flex flex-col lg:col-span-2">
+    <p class="font-bold text-sm-fluid">Ledige stillinger</p>
+    <div class="mt-auto max-w-[37rem] lg:max-w-[35.2vw]">
+      <p class="mt-2 font-light text-2xl-fluid">Jobbe i Systek?</p>
+      <p class="mt-5 text-md-fluid md:mt-6">
+        Vi er interessert å komme i kontakt med hyggelige og kunnskapsrike folk
+        som passer til profilen vår og som har lyst til å utvikle karrieren sin
+        videre i et spennende fagmiljø.
+      </p>
+
+      <ul class="mt-4 text-text-secondary">
+        <li class="flex items-center gap-2">
+          <CheckIcon class="size-4" />
+          <p class="text-sm-fluid">Fleksibilitet og frihet</p>
+        </li>
+        <li class="flex items-center gap-2">
+          <CheckIcon class="size-4" />
+          <p class="text-sm-fluid">Flinke kollegaer</p>
+        </li>
+        <li class="flex items-center gap-2">
+          <CheckIcon class="size-4" />
+          <p class="text-sm-fluid">Flat struktur</p>
+        </li>
+      </ul>
+
+      <div class="flex items-center mt-6 gap-grid md:mt-8">
+        <Button href="https://systek.homerun.co">Se ledige stillinger</Button>
+        <a
+          class="link-underline text-sm-fluid"
+          href="https://systek.homerun.co"
+        >
+          Se kontakt-siden
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="mt-10 lg:col-span-2 lg:mt-0">
+    <picture>
+      <img
+        class="w-full rounded-md aspect-square md:aspect-[4/3] object-cover"
+        src="/images/temp.png"
+        draggable="false"
+      />
+    </picture>
+  </div>
+</CardLayout>
+
+<Footer />

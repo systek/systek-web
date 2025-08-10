@@ -2,7 +2,7 @@
 import clsx from "clsx";
 import ExternalIcon from "../assets/icons/external.svg";
 import Button from "../components/Button.astro";
-import Card from "../components/card-layout/Card.astro";
+import LinkBox from "../components/LinkBox.astro";
 import CardLayout from "../components/card-layout/CardLayout.astro";
 import Connections from "../components/Connections.astro";
 import Footer from "../components/Footer.astro";
@@ -17,6 +17,9 @@ import {
   fetchWorkItems,
 } from "../lib/sanity.queries";
 import SanityImage from "../components/SanityImage.astro";
+import CardHeader from "../components/card-layout/CardHeader.astro";
+import Accordion from "../components/accordion/Accordion.astro";
+import AccordionItem from "../components/accordion/AccordionItem.astro";
 
 const [
   serviceItems,
@@ -62,82 +65,79 @@ const logoBottomItems = logoItems.slice(index);
   <div class="mt-section mx-grid">
     <picture>
       <img
-        class="w-full aspect-[4:3] lg:aspect-[2/1] object-cover rounded-md"
+        class="w-full aspect-[4:3] lg:aspect-[2/1] object-cover rounded-md lg:rounded-lg"
         src="/images/temp.png"
         draggable="false"
       />
     </picture>
   </div>
 
-  <CardLayout class="border-t mt-section border-stroke">
-    <div class="lg:col-span-1">
-      <p class="font-bold text-sm-fluid">Tjenester</p>
-    </div>
-    <div class="lg:col-span-3">
+  <CardLayout class="border-t mt-section border-stroke mx-grid pt-grid">
+    <CardHeader title="Tjenester">
       <p
         class="max-w-[65rem] lg:max-w-[61.9vw] md:pr-20 font-light text-2xl-fluid"
       >
         Vi hjelper deg fra idé til drift og videreutvikling av digitale
         løsninger
       </p>
+
       <!-- check if change sm: -> md: is correct -->
       <Button href="/tjenester" class="mt-6 sm:mt-7">Se våre tjenester</Button>
-
-      <div class="grid grid-cols-1 gap-gutter mt-section md:grid-cols-3">
-        {
-          serviceItems.map((item) => (
-            <Card href={`/tjenester/${item.slug.current}`} color="grey">
-              <div>
-                <p class="font-medium text-lg-fluid group-link-underline">
-                  {item.title}
-                </p>
-              </div>
-              <p class="text-sm-fluid">{item.description}</p>
-            </Card>
-          ))
-        }
-      </div>
+    </CardHeader>
+    <div></div>
+    <div
+      class="grid grid-cols-1 lg:col-span-3 gap-gutter mt-section md:grid-cols-3"
+    >
+      {
+        serviceItems.map((item) => (
+          <LinkBox href={`/tjenester/${item.slug.current}`} color="grey">
+            <div>
+              <p class="font-medium text-lg-fluid group-link-underline">
+                {item.title}
+              </p>
+            </div>
+            <p class="text-sm-fluid">{item.description}</p>
+          </LinkBox>
+        ))
+      }
     </div>
   </CardLayout>
 
-  <CardLayout class="border-t mt-page border-stroke">
-    <div class="lg:col-span-1">
-      <p class="font-bold text-sm-fluid">Nyheter</p>
-    </div>
-    <div class="lg:col-span-3">
+  <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
+    <CardHeader title="Nyheter">
       <p
         class="max-w-[65rem] lg:max-w-[61.9vw] md:pr-20 font-light text-2xl-fluid"
       >
         Siste nytt fra Systek
       </p>
+
       <!-- check if change sm: -> md: is correct -->
       <Button class="mt-6 sm:mt-7" href="/nyheter">Se alle nyheter</Button>
+    </CardHeader>
 
-      <!-- todo: use <time> -->
+    <div></div>
+    <div class="border-t border-stroke mt-section lg:col-span-3">
       <!-- todo: time element does not match figma on desktop -->
-      <!-- todo: underline should wrap icon -->
-      <div class="border-t border-stroke mt-section">
-        {
-          newsItems.map((item) => (
-            <div class="flex justify-between py-5 border-b gap-gutter border-stroke">
-              <a
-                class="flex items-center gap-2 link-underline"
-                href={item.slug.current}
-              >
-                <ExternalIcon class="size-2.5" />
-                <p class="text-xs-fluid">{item.title}</p>
-              </a>
-              <p class="md:pr-64 text-xs-fluid">{item.publishedAt}</p>
-            </div>
-          ))
-        }
-      </div>
+      {
+        newsItems.map((item) => (
+          <div class="flex justify-between py-5 border-b gap-gutter border-stroke">
+            <a
+              class="flex items-center gap-2 link-underline"
+              href={item.slug.current}
+            >
+              <ExternalIcon class="size-2.5" />
+              <p class="text-xs-fluid">{item.title}</p>
+            </a>
+            <p class="md:pr-64 text-xs-fluid">{item.publishedAt}</p>
+          </div>
+        ))
+      }
     </div>
   </CardLayout>
 
   <!-- todo: match with figma on mobile+tablet -->
-  <CardLayout class="mt-page">
-    <div class="lg:col-span-1"></div>
+  <CardLayout class="mt-page mx-grid">
+    <div></div>
     <div class="lg:col-span-3">
       <div class="flex justify-between gap-3">
         {
@@ -166,66 +166,63 @@ const logoBottomItems = logoItems.slice(index);
     </div>
   </CardLayout>
 
-  <CardLayout class="border-t mt-page border-stroke">
-    <div class="lg:col-span-1">
-      <p class="font-bold text-sm-fluid">Arbeider</p>
-    </div>
-    <div class="lg:col-span-3">
+  <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
+    <CardHeader title="Arbeider">
       <p
         class="max-w-[65rem] lg:max-w-[61.9vw] md:pr-20 font-light text-2xl-fluid"
       >
         Vi har lang erfaring med komplekse prosjekter fra ledende virksomheter
       </p>
+
       <!-- check if change sm: -> md: is correct -->
       <Button class="mt-6 sm:mt-7" href="/arbeider">Se alle arbeider</Button>
+    </CardHeader>
+
+    <div
+      class="grid grid-cols-2 lg:col-span-4 md:grid-cols-4 gap-gutter mt-section"
+    >
+      {
+        workItems.map((item, index) => (
+          <a
+            href={item.slug.current}
+            class={clsx("group", index % 3 === 0 && "col-span-2")}
+          >
+            <picture>
+              <SanityImage
+                class={clsx(
+                  "w-full rounded-md object-cover",
+                  index % 3 === 2 ? "aspect-[1/1]" : "aspect-[4/3]",
+                )}
+                node={item.image}
+                alt={item.image.alt}
+                draggable="false"
+              />
+            </picture>
+            <p class="mt-3 font-bold sm:mt-4 text-md-fluid group-link-underline">
+              {item.title}
+            </p>
+            <p class="text-md-fluid">{item.description}</p>
+          </a>
+        ))
+      }
     </div>
   </CardLayout>
 
-  <!-- todo: make CardLayout with 1 column below for this -->
-  <!-- todo: check mt, should be "Section-L". Not implemented? -->
-  <div class="grid grid-cols-2 mx-grid md:grid-cols-4 gap-gutter mt-section">
-    {
-      workItems.map((item, index) => (
-        <a
-          href={item.slug.current}
-          class={clsx("group", index % 3 === 0 ? "col-span-2" : "col-span-1")}
-        >
-          <picture>
-            <SanityImage
-              class={clsx(
-                "w-full rounded-md object-cover",
-                index % 3 === 2 ? "aspect-[1/1]" : "aspect-[4/3]",
-              )}
-              node={item.image}
-              alt={item.image.alt}
-              draggable="false"
-            />
-          </picture>
-          <p class="mt-3 font-bold sm:mt-4 text-md-fluid group-link-underline">
-            {item.title}
-          </p>
-          <p class="text-md-fluid">{item.description}</p>
-        </a>
-      ))
-    }
-  </div>
-
-  <CardLayout class="border-t mt-page border-stroke">
-    <div class="lg:col-span-1">
-      <p class="font-bold text-sm-fluid">Foredrag og fagmøter</p>
-    </div>
-    <div class="lg:col-span-3">
+  <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
+    <CardHeader title="Foredrag og fagmøter">
       <p
         class="max-w-[65rem] lg:max-w-[61.9vw] md:pr-20 font-light text-2xl-fluid"
       >
         Systek arrangerer både interne fagmøter samt åpne arrangementer for
         eksterne
       </p>
-
+    </CardHeader>
+    <div></div>
+    <div class="lg:col-span-3">
       <div class="mt-section">
         <picture>
           <img
-            class="w-full rounded-md"
+            class="w-full rounded-md lg:rounded-lg"
             src="/images/temp.png"
             draggable="false"
           />
@@ -235,7 +232,7 @@ const logoBottomItems = logoItems.slice(index);
       <div class="md:border-t md:border-stroke mt-section">
         <!-- seperate markup for mobile and desktop -->
         <div
-          class="flex justify-between py-5 border-b md:hidden gap-gutter border-stroke"
+          class="flex justify-between py-4 border-b md:hidden gap-gutter border-stroke"
         >
           <p class="font-bold text-xs-fluid">Hva skjer</p>
           <p class="font-bold text-xs-fluid">Dato</p>
@@ -255,7 +252,7 @@ const logoBottomItems = logoItems.slice(index);
             <div>
               <div
                 class={clsx(
-                  "flex md:hidden justify-between items-center py-5 border-b gap-gutter border-stroke",
+                  "flex md:hidden justify-between items-center py-4 border-b gap-gutter border-stroke",
                   index > 1 && "line-through",
                 )}
               >
@@ -301,40 +298,99 @@ const logoBottomItems = logoItems.slice(index);
     </div>
   </CardLayout>
 
-  <!-- todo: need to refactor columns of CardLayout to fix this -->
-  <CardLayout class="border-t mt-page border-stroke">
-    <div class="lg:col-span-1">
-      <p class="font-bold text-sm-fluid">Jobbe her?</p>
-    </div>
-    <div class="lg:col-span-3">
+  <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
+    <CardHeader title="Jobbe her?">
       <p
         class="max-w-[65rem] lg:max-w-[61.9vw] md:pr-20 font-light text-2xl-fluid"
       >
         Bli med og bygg konsulentselskapet du selv ønsker å jobbe i
       </p>
+
       <!-- check if change sm: -> md: is correct -->
       <Button class="mt-6 sm:mt-7" href="https://systek.homerun.co">
         Se ledige stillinger
       </Button>
+    </CardHeader>
 
-      <div class="mt-section">
-        <picture>
-          <img
-            class="w-full aspect-[4:3] lg:aspect-[2/1] object-cover rounded-md"
-            src="/images/temp.png"
-            draggable="false"
-          />
-        </picture>
-      </div>
+    <Accordion class="mt-section">
+      <AccordionItem bold open size="lg" title="Fleksibilitet og frihet">
+        <p class="text-sm-fluid text-text-secondary">
+          Vi ser etter deg som er selvgående, løsningsorientert og faglig
+          dyktig. Hos oss får du fleksibilitet til å finne arbeidshverdagen som
+          passer for deg og frihet til å selv bestemme hvilke oppdrag du synes
+          er spennende.
+        </p>
+      </AccordionItem>
+      <AccordionItem bold size="lg" title="Flinke kollegaer">
+        <p class="text-sm-fluid text-text-secondary">
+          ⚠️ LAG TEKST ⚠️ Vi har et sterkt fagmiljø med dyktige kollegaer som
+          deler kunnskap og erfaringer. Sammen jobber vi for å skape de beste
+          løsningene for våre kunder.
+        </p>
+      </AccordionItem>
+      <AccordionItem bold size="lg" title="Flat struktur">
+        <p class="text-sm-fluid text-text-secondary">
+          ⚠️ LAG TEKST ⚠️ Vi har en flat organisasjonsstruktur som fremmer
+          åpenhet og samarbeid. Hos oss får du muligheten til å påvirke og bidra
+          til utviklingen av selskapet.
+        </p>
+      </AccordionItem>
+    </Accordion>
+
+    <div class="mt-section lg:col-span-3">
+      <picture>
+        <img
+          class="w-full aspect-[4:3] lg:aspect-[2/1] object-cover rounded-md lg:rounded-lg"
+          src="/images/temp.png"
+          draggable="false"
+        />
+      </picture>
     </div>
   </CardLayout>
 
-  <CardLayout class="border-t mt-page border-stroke gap-section">
-    <div class="flex flex-col lg:col-span-2 gap-gutter">
-      <p class="font-bold text-sm-fluid">Kontakt</p>
+  <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
+    <CardHeader title="Blogg">
+      <p
+        class="max-w-[65rem] lg:max-w-[61.9vw] md:pr-20 font-light text-2xl-fluid"
+      >
+        Les våre siste artikler fra fag-bloggen
+      </p>
 
+      <!-- check if change sm: -> md: is correct -->
+      <Button class="mt-6 sm:mt-7">Se alle blogginnlegg</Button>
+    </CardHeader>
+
+    <div></div>
+    <div
+      class="grid grid-cols-1 lg:col-span-3 md:grid-cols-2 gap-gutter mt-section"
+    >
+      {
+        blogItems.map((item) => (
+          <a class="group" href={item.slug.current}>
+            <picture>
+              <SanityImage
+                class="w-full rounded-md object-cover aspect-[4/3]"
+                node={item.image}
+                alt={item.image.alt}
+                draggable="false"
+              />
+            </picture>
+            <p class="mt-3 font-bold sm:mt-4 text-md-fluid group-link-underline">
+              {item.title}
+            </p>
+            <p class="text-md-fluid">{item.description}</p>
+            <p class="text-sm-fluid">Skrevet av {item.author}</p>
+          </a>
+        ))
+      }
+    </div>
+  </CardLayout>
+
+  <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
+    <div class="flex flex-col lg:col-span-2">
+      <p class="font-bold text-sm-fluid">Kontakt</p>
       <div class="mt-auto max-w-[37rem] lg:max-w-[35.2vw]">
-        <p class="font-light text-2xl-fluid">Nysgjerrig?</p>
+        <p class="mt-2 font-light text-2xl-fluid">Nysgjerrig?</p>
         <p class="mt-5 text-md-fluid md:mt-6">
           Om du er faglig dyktig, brenner for det du jobber med og har lyst til
           å være en del av et miljø hvor kunnskap, nysgjerrighet og inkludering
@@ -352,10 +408,10 @@ const logoBottomItems = logoItems.slice(index);
         </div>
       </div>
     </div>
-    <div class="lg:col-span-2">
+    <div class="mt-10 lg:col-span-2 lg:mt-0">
       <picture>
         <img
-          class="w-full rounded-md aspect-[4/3] object-cover"
+          class="w-full rounded-md aspect-square md:aspect-[4/3] object-cover"
           src="/images/temp.png"
           draggable="false"
         />
