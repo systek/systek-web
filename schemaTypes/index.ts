@@ -5,6 +5,7 @@ import { newsType } from "./newsType";
 import { postType } from "./postType";
 import { serviceType } from "./serviceType";
 import { workType } from "./workType";
+import { staffType } from "./staffType";
 
 export const schemaTypes = [
   postType,
@@ -14,4 +15,5 @@ export const schemaTypes = [
   workType,
   activityType,
   blogType,
+  staffType,
 ];

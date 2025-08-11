@@ -13,6 +13,31 @@
  */
 
 // Source: schema.json
+export type Staff = {
+  _id: string;
+  _type: "staff";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name: string;
+  slug: Slug;
+  position: string;
+  location: "oslo" | "hamar" | "grimstad";
+  department: "administration" | "arkitektur" | "analyse" | "design" | "plattform" | "prosjektledelse" | "test" | "utvikling";
+  image: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+};
+
 export type Blog = {
   _id: string;
   _type: "blog";
@@ -395,5 +420,5 @@ export type SanityAssetSourceData = {
   url?: string;
 };
 
-export type AllSanitySchemaTypes = Blog | Activity | Work | Logo | News | Service | Post | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
+export type AllSanitySchemaTypes = Staff | Blog | Activity | Work | Logo | News | Service | Post | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;

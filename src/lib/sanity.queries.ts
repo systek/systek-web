@@ -1,5 +1,13 @@
 import { sanityClient } from "sanity:client";
-import type { Activity, Blog, Logo, News, Service, Work } from "./sanity.types";
+import type {
+  Activity,
+  Blog,
+  Logo,
+  News,
+  Service,
+  Staff,
+  Work,
+} from "./sanity.types";
 
 export async function fetchServiceItems(): Promise<Service[]> {
   return sanityClient.fetch(`*[_type == "service" && defined(slug)] | order(order asc) {
@@ -56,6 +64,18 @@ export async function fetchBlogItems(): Promise<Blog[]> {
     description,
     author,
     slug, 
+    image
+  }`);
+}
+
+export async function fetchStaffItems(): Promise<Staff[]> {
+  return sanityClient.fetch(`*[_type == "staff" && defined(slug)] | order(order asc) {
+    _id,
+    name,
+    position,
+    location,
+    department,
+    slug,
     image
   }`);
 }
