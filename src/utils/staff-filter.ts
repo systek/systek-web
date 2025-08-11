@@ -1,24 +1,26 @@
 // src/utils/staff-filter.ts
 
-type FilterType = "location" | "department";
-
-interface FilterOptions {
-  type: FilterType;
-  value: string;
-}
-
 export function filterStaff(
   staffElements: HTMLElement[],
-  { type, value }: FilterOptions
+  locationFilter: string,
+  departmentFilter: string
 ): void {
-  const dataAttr = type === "location" ? "data-location" : "data-department";
-
   staffElements.forEach((el) => {
-    const attrValue = el.getAttribute(dataAttr);
-    if (!value || attrValue === value) {
+    const location = el.getAttribute("data-location") || "";
+    const department = el.getAttribute("data-department") || "";
+    // No filter applied
+    if (!locationFilter && !departmentFilter) {
       el.style.display = "";
-    } else {
+      return;
+    }
+    // Check if the element matches the filter criteria
+    if (
+      (departmentFilter && department !== departmentFilter) ||
+      (locationFilter && location !== locationFilter)
+    ) {
       el.style.display = "none";
+    } else {
+      el.style.display = "";
     }
   });
 }
@@ -28,28 +30,25 @@ export function filterSetup(
   locationRadio: HTMLInputElement[],
   departmentRadio: HTMLInputElement[]
 ): void {
+  let location = locationRadio.find((el) => el.checked)?.value || "";
+  let department = departmentRadio.find((el) => el.checked)?.value || "";
+
   locationRadio.map((el) =>
     el.addEventListener("change", () => {
       if (!el.checked) return;
-      const value = el.value;
-      filterStaff(elements, { type: "location", value });
+      location = el.value;
+      filterStaff(elements, location, department);
     })
   );
 
   departmentRadio.map((el) =>
     el.addEventListener("change", () => {
       if (!el.checked) return;
-      const value = el.value;
-      filterStaff(elements, { type: "department", value });
+      department = el.value;
+      filterStaff(elements, location, department);
     })
   );
 
-  // Get initial values from radio buttons
-  const initialLocation = locationRadio.find((el) => el.checked)?.value || "";
-  const initialDepartment =
-    departmentRadio.find((el) => el.checked)?.value || "";
-
   // Initial filter
-  filterStaff(elements, { type: "location", value: initialLocation });
-  filterStaff(elements, { type: "department", value: initialDepartment });
+  filterStaff(elements, location, department);
 }
