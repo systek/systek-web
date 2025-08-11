@@ -8,6 +8,7 @@ import Connections from "../components/Connections.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import Layout from "../layouts/Layout.astro";
+import ServiceSection from "../components/ServicesSection.astro";
 import {
   fetchActivityItems,
   fetchBlogItems,
@@ -72,36 +73,7 @@ const logoBottomItems = logoItems.slice(index);
     </picture>
   </div>
 
-  <CardLayout class="border-t mt-section border-stroke mx-grid pt-grid">
-    <CardHeader title="Tjenester">
-      <p
-        class="max-w-[65rem] lg:max-w-[61.9vw] md:pr-20 font-light text-2xl-fluid"
-      >
-        Vi hjelper deg fra idé til drift og videreutvikling av digitale
-        løsninger
-      </p>
-
-      <!-- check if change sm: -> md: is correct -->
-      <Button href="/tjenester" class="mt-6 sm:mt-7">Se våre tjenester</Button>
-    </CardHeader>
-    <div></div>
-    <div
-      class="grid grid-cols-1 lg:col-span-3 gap-gutter mt-section md:grid-cols-3"
-    >
-      {
-        serviceItems.map((item) => (
-          <LinkBox href={`/tjenester/${item.slug.current}`} color="grey">
-            <div>
-              <p class="font-medium text-lg-fluid group-link-underline">
-                {item.title}
-              </p>
-            </div>
-            <p class="text-sm-fluid">{item.description}</p>
-          </LinkBox>
-        ))
-      }
-    </div>
-  </CardLayout>
+  <ServiceSection serviceItems={serviceItems} />
 
   <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
     <CardHeader title="Nyheter">

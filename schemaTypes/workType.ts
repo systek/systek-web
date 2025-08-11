@@ -11,14 +11,36 @@ export const workType = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: "slug",
+      type: "slug",
+      options: { source: "title" },
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
       name: "description",
       type: "text",
       validation: (rule) => rule.required(),
     }),
     defineField({
-      name: "slug",
-      type: "slug",
-      options: { source: "title" },
+      title: "Start date",
+      name: "startDate",
+      type: "date",
+      options: {
+        dateFormat: "YYYY-MM-DD",
+      },
+    }),
+    defineField({
+      title: "End date",
+      name: "endDate",
+      type: "date",
+      options: {
+        dateFormat: "YYYY-MM-DD",
+      },
+    }),
+    defineField({
+      name: "services",
+      type: "array",
+      of: [{ type: "reference", to: [{ type: "service" }] }],
       validation: (rule) => rule.required(),
     }),
     defineField({

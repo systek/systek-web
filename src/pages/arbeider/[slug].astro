@@ -1,0 +1,157 @@
+---
+import { sanityClient } from "sanity:client";
+import { format } from "date-fns";
+import { Work } from "../../lib/sanity.types";
+
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import Arrow from "../../components/Arrow.astro";
+import CardLayout from "../../components/card-layout/CardLayout.astro";
+import CardHeader from "../../components/card-layout/CardHeader.astro";
+import Citation from "../../components/Citation.astro";
+import Button from "../../components/Button.astro";
+import PortableText from "../../components/PortableText.astro";
+
+import {fetchServiceItems} from "../../lib/sanity.queries";
+
+const serviceItems = await fetchServiceItems();
+
+export async function getStaticPaths() {
+  const works = await sanityClient.fetch(`*[_type == "work"] { ... }`);
+  return works.map((work: Work) => ({
+    params: { slug: work.slug.current },
+    props: { work },
+  }));
+}
+const { work } = Astro.props as { work: Work };
+
+const matchingServiceItems = work.services?.map(({_ref}) => serviceItems.find((item) => item._id === _ref)) || [];
+
+---
+
+<Layout>
+  <Header />
+
+  <div class="flex flex-col m-grid gap-section">
+    <div class="flex justify-between">
+      <Arrow position="topLeft" />
+      <Arrow position="topRight" />
+    </div>
+
+    <div class="grid md:grid-cols-3 grid-cols-1 gap-gutter">
+      <div class="md:col-span-2 col-span-1">
+        <h1 class="font-light text-3xl-fluid hyphens-auto">
+          {work.description}
+        </h1>
+      </div>
+      <div class="col-span-1 flex flex-row gap-gutter">
+        <dl>
+          <dt class="font-bold text-sm-fluid">Kunde</dt>
+          <dd class="text-sm-fluid">{work.title}</dd>
+          {work.startDate && (
+            <>
+              <dt class="font-bold text-sm-fluid mt-gutter">Periode</dt>
+              <dd class="text-sm-fluid">
+                {work.startDate && format(new Date(work.startDate), "MMM yyyy")}
+                {work.startDate && work.endDate ? " - " : ""}
+                {work.endDate && format(new Date(work.endDate), "MMM yyyy")}
+              </dd>
+            </>
+          )}
+        </dl>
+        <div class="flex flex-col items-start gap-gutter">
+          {matchingServiceItems.map((item) => (
+            <span class="text-xs-fluid bg-grey-91 rounded-lg px-4">{item.title}</span>
+          ))}
+        </div>
+      </div>
+    </div>
+      
+    <div class="flex justify-between">
+      <Arrow position="middleLeft" />
+      <Arrow position="middleRight" />
+    </div>
+
+    <picture>
+      <img
+        class="w-full rounded-md aspect-[4/3] lg:aspect-[2/1] object-cover my-section"
+        src="/images/temp.png"
+        draggable="false"
+      />
+    </picture>
+
+    <div class="flex justify-between">
+      <Arrow position="bottomLeft" />
+      <Arrow position="bottomRight" />
+    </div>
+  </div>
+
+  <div class="mx-grid mt-section">
+    <div class="mx-auto max-w-[50rem] lg:max-w-[47.6vw]">
+      <PortableText value={work.content} />
+    </div>
+  </div>
+
+  <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
+    <CardHeader title="Design og brukeropplevelse">
+      <p class="max-w-[50rem] lg:max-w-[47.6vw] font-light text-xl-fluid">
+        “Systek har levert skalerbare og brukervennlige løsninger som
+        understøtter Elvias kjerneprosesser, og gir både ansatte og kunder bedre
+        innsikt og mer effektiv samhandling”
+      </p>
+      <Citation
+        class="mt-4 lg:mt-5"
+        title="Eivind Lund"
+        subtitle="IT Direktør, Elvia"
+        image="todo"
+      />
+      <Button class="mt-6 sm:mt-8" href="/tjenester/design-og-brukeropplevelse">
+        Les om tjenesten
+      </Button>
+    </CardHeader>
+  </CardLayout>
+
+  <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
+    <CardHeader title="Kontakt">
+      <p class="text-2xl-fluid font-light">Om du er faglig dyktig og brenner for det du jobber med så vil vi gjerne snakke med deg!</p>
+      <Button class="mt-6 sm:mt-8 mb-section" href="/kontakt">
+        Kontakt oss
+      </Button>
+
+      <div class="flex gap-gutter mb-[20px]">
+        <picture>
+          <img
+            class="w-[160px] h-[160px] aspect-[1/1] object-cover"
+            src="/images/temp.png"
+            draggable="false"
+          />
+        </picture>
+        <div class="flex flex-col items-start">
+          <p class="text-md-fluid font-bold">Mikael Rino Solstad</p>
+          <p class="text-md-fluid">Utvikler og avdelingsleder</p>
+          <span class="grow" />
+          <a href="mailto:mikael@systek.no" class="link-underline text-xs-fluid">Send Mikael en mail</a>
+        </div>
+      </div>
+      <hr class="border-stroke" />
+      <div class="flex gap-gutter mt-[20px]">
+        <picture>
+          <img
+            class="w-[160px] h-[160px] aspect-[1/1] object-cover"
+            src="/images/temp.png"
+            draggable="false"
+          />
+        </picture>
+        <div class="flex flex-col items-start">
+          <p class="text-md-fluid font-bold">Anders Hefre</p>
+          <p class="text-md-fluid">Teamleder og avdelingsleder</p>
+          <span class="grow" />
+          <a href="mailto:anders@systek.no" class="link-underline text-xs-fluid">Send Mikael en mail</a>
+        </div>
+      </div>
+    </CardHeader>
+  </CardLayout>
+
+  <Footer />
+</Layout>

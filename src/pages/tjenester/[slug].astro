@@ -13,6 +13,7 @@ import type { Service, Work } from "../../lib/sanity.types";
 import CardLayout from "../../components/card-layout/CardLayout.astro";
 import Button from "../../components/Button.astro";
 import CardHeader from "../../components/card-layout/CardHeader.astro";
+import ContactSection from "../../components/ContactSection.astro";
 
 export async function getStaticPaths() {
   const services = await sanityClient.fetch(`*[_type == "service"] { ... }`);
@@ -196,42 +197,12 @@ const vacancies = [
     </div>
   </CardLayout>
 
-  <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
-    <div class="flex flex-col lg:col-span-2">
-      <p class="font-bold text-sm-fluid">Kontakt</p>
-      <div class="mt-auto max-w-[37rem] lg:max-w-[35.2vw]">
-        <p class="mt-2 font-light text-2xl-fluid">
-          Si hei til vår avdelingsleder, Tommy!
-        </p>
-        <p class="mt-5 text-md-fluid md:mt-6">
-          Om du er faglig dyktig, brenner for det du jobber med og har lyst til
-          å være en del av et miljø hvor kunnskap, nysgjerrighet og inkludering
-          er viktig, så vil vi gjerne snakke med deg!
-        </p>
-
-        <div class="flex items-center mt-6 gap-grid md:mt-8">
-          <Button href="mailto:tommy.madsen@systek.no">
-            Send Tommy en e-post
-          </Button>
-          <a
-            class="link-underline text-sm-fluid"
-            href="https://systek.homerun.co"
-          >
-            Se kontakt-siden
-          </a>
-        </div>
-      </div>
-    </div>
-    <div class="mt-10 lg:col-span-2 lg:mt-0">
-      <picture>
-        <img
-          class="w-full rounded-md aspect-square md:aspect-[4/3] object-cover"
-          src="/images/temp.png"
-          draggable="false"
-        />
-      </picture>
-    </div>
-  </CardLayout>
+  <ContactSection
+    title="Si hei til vår avdelingsleder, Tommy!"
+    email="tommy.madsen@systek.no"
+    text="Om du er faglig dyktig, brenner for det du jobber med og har lyst til å være en del av et miljø hvor kunnskap, nysgjerrighet og inkludering er viktig, så vil vi gjerne snakke med deg!"
+    name="Tommy"
+  />
 
   <Footer />
 </Layout>

@@ -1,0 +1,151 @@
+---
+import Arrow from "../../components/Arrow.astro";
+import Button from "../../components/Button.astro";
+import Card from "../../components/card-layout/Card.astro";
+import CardHeader from "../../components/card-layout/CardHeader.astro";
+import CardLayout from "../../components/card-layout/CardLayout.astro";
+import Citation from "../../components/Citation.astro";
+import Footer from "../../components/Footer.astro";
+import Header from "../../components/Header.astro";
+import Layout from "../../layouts/Layout.astro";
+import CheckIcon from "../../assets/icons/check.svg";
+import SanityImage from "../../components/SanityImage.astro";
+import ServiceSection from "../../components/ServicesSection.astro";
+import ContactSection from "../../components/ContactSection.astro";
+
+import { fetchLogoItems, fetchWorkItems, fetchServiceItems } from "../../lib/sanity.queries";
+
+
+const [logoItems, workItems, serviceItems] = await Promise.all([
+  fetchLogoItems(),
+  fetchWorkItems(),
+  fetchServiceItems(),
+]);
+
+const index = Math.ceil(logoItems.length / 2);
+const logoTopItems = logoItems.slice(0, index);
+const logoBottomItems = logoItems.slice(index);
+---
+
+<Layout>
+  <Header active="/arbeider" />
+
+  <div class="mt-8 mb-8 mx-grid">
+    
+    <div class="flex justify-between">
+      <Arrow position="topLeft" />
+      <Arrow position="topRight" />
+    </div>
+
+    <CardLayout class="my-section">
+      <CardHeader title="Arbeider">
+        <p
+          class="max-w-[72rem] lg:max-w-[68.6vw] md:pr-20 font-light text-3xl-fluid"
+        >
+          Se hvordan vi har løst utfordringer og skapt smarte digitale muligheter for kunder i ulike bransjer
+        </p>
+      </CardHeader>
+    </CardLayout>
+
+    <div class="flex justify-between">
+      <Arrow position="middleLeft" />
+      <Arrow position="middleRight" />
+    </div>
+
+    <picture>
+      <img
+        class="w-full rounded-md aspect-[4/3] lg:aspect-[2/1] object-cover my-section"
+        src="/images/temp.png"
+        draggable="false"
+      />
+    </picture>
+    <div class="flex justify-between">
+      <Arrow position="bottomLeft" />
+      <Arrow position="bottomRight" />
+    </div>
+  </div>
+
+  <CardLayout class="mt-page mx-grid">
+    <div></div>
+    <div class="lg:col-span-3">
+      <p
+        class="md:pr-20 font-light text-2xl-fluid mb-page"
+      >
+        Vi arrangerer fellesturer, sommerfester, fagdager, sosiale samlinger,
+        turneringer og spillkvelder
+      </p>
+      <div class="flex justify-between gap-3">
+        {
+          logoTopItems.map((item) => (
+            <SanityImage
+              alt={item.image.alt}
+              class="w-[128px] h-[62px] aspect-[2/1]"
+              node={item.image}
+              draggable="false"
+            />
+          ))
+        }
+      </div>
+      <div class="flex justify-between gap-3 mt-14">
+        {
+          logoBottomItems.map((item) => (
+            <SanityImage
+              alt={item.image.alt}
+              class="w-[128px] h-[62px] aspect-[2/1]"
+              node={item.image}
+              draggable="false"
+            />
+          ))
+        }
+      </div>
+    </div>
+  </CardLayout>
+
+
+  <CardLayout class="mt-page mx-grid">
+    <div>
+    </div>
+    <div class="lg:col-span-3">
+      <p
+        class="max-w-[65rem] lg:max-w-[61.9vw] md:pr-20 font-light text-2xl-fluid"
+      >
+        Les om hvordan vi har bistått noen av våre kunder med vår kompetanse
+      </p>
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 gap-gutter mt-section"
+      >
+        {
+          workItems.map((item, index) => (
+            <a
+              href={`/arbeider/${item.slug.current}`}
+            >
+              <picture>
+                <SanityImage
+                  class="w-full rounded-md object-cover aspect-[4/3]"
+                  node={item.image}
+                  alt={item.image.alt}
+                  draggable="false"
+                />
+              </picture>
+              <p class="mt-3 font-bold sm:mt-4 text-md-fluid group-link-underline">
+                {item.title}
+              </p>
+              <p class="text-md-fluid">{item.description}</p>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </CardLayout>
+
+  <ServiceSection serviceItems={serviceItems} />
+
+  <ContactSection
+    title="Har du et prosjekt hvor du trenger dyktige fagfolk?"
+    email="charlotte@systek.no"
+    text="Hvis du trenger bistand på et prosjekt eller bare lurer på hva vi kan hjelpe deg med, ta kontakt med vår forretningsutvikler Charlotte."
+    name="Charlotte"
+  />
+
+  <Footer />
+</Layout>

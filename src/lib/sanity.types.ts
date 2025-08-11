@@ -83,8 +83,17 @@ export type Work = {
   _updatedAt: string;
   _rev: string;
   title: string;
-  description: string;
   slug: Slug;
+  description: string;
+  startDate?: string;
+  endDate?: string;
+  services: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "service";
+  }>;
   image: {
     asset?: {
       _ref: string;
