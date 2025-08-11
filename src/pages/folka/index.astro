@@ -8,6 +8,8 @@ import Citation from "../../components/Citation.astro";
 import Footer from "../../components/Footer.astro";
 import Header from "../../components/Header.astro";
 import Layout from "../../layouts/Layout.astro";
+import CheckIcon from "../../assets/icons/check.svg";
+
 import { mockStaff } from "../../lib/mockStaff";
 /*
 import { fetchStaffItems } from "../../lib/sanity.queries";
@@ -133,6 +135,107 @@ const departments = [
       }
     </div>
   </CardLayout>
+
+  <CardLayout class="mt-page mx-grid">
+    <CardHeader>
+      <p
+        class="max-w-[65rem] lg:max-w-[61.9vw] md:pr-20 font-light text-2xl-fluid"
+      >
+        Vi arrangerer fellesturer, sommerfester, fagdager, sosiale samlinger,
+        turneringer og spillkvelder
+      </p>
+    </CardHeader>
+
+    <div
+      class="grid grid-cols-2 gap-gutter mt-section lg:grid-cols-2 lg:col-span-4"
+    >
+      <div class="flex flex-col gap-gutter lg:flex-row">
+        <picture>
+          <img
+            class="object-cover w-full rounded-md aspect-square"
+            src="/images/temp.png"
+            draggable="false"
+          />
+        </picture>
+
+        <picture>
+          <img
+            class="w-full object-cover rounded-md aspect-square lg:aspect-[4/5]"
+            src="/images/temp.png"
+            draggable="false"
+          />
+        </picture>
+      </div>
+
+      <div class="flex flex-col gap-gutter lg:flex-row">
+        <picture>
+          <img
+            class="w-full object-cover rounded-md aspect-[4/5] lg:aspect-[4/3]"
+            src="/images/temp.png"
+            draggable="false"
+          />
+        </picture>
+
+        <picture>
+          <img
+            class="w-full object-cover rounded-md aspect-[4/3] lg:aspect-square"
+            src="/images/temp.png"
+            draggable="false"
+          />
+        </picture>
+      </div>
+    </div>
+  </CardLayout>
+
+  <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
+
+    <div class="flex flex-col lg:col-span-2">
+      <p class="font-bold text-sm-fluid">Ledige stillinger</p>
+      <div class="mt-auto max-w-[37rem] lg:max-w-[35.2vw]">
+        <p class="mt-2 font-light text-2xl-fluid">Jobbe i Systek?</p>
+        <p class="mt-5 text-md-fluid md:mt-6">
+          Vi er interessert å komme i kontakt med hyggelige og kunnskapsrike folk
+          som passer til profilen vår og som har lyst til å utvikle karrieren sin
+          videre i et spennende fagmiljø.
+        </p>
+
+        <ul class="mt-4 text-text-secondary">
+          <li class="flex items-center gap-2">
+            <CheckIcon class="size-4" />
+            <p class="text-sm-fluid">Fleksibilitet og frihet</p>
+          </li>
+          <li class="flex items-center gap-2">
+            <CheckIcon class="size-4" />
+            <p class="text-sm-fluid">Flinke kollegaer</p>
+          </li>
+          <li class="flex items-center gap-2">
+            <CheckIcon class="size-4" />
+            <p class="text-sm-fluid">Flat struktur</p>
+          </li>
+        </ul>
+
+        <div class="flex items-center mt-6 gap-grid md:mt-8">
+          <Button href="https://systek.homerun.co">Se ledige stillinger</Button>
+          <a
+            class="link-underline text-sm-fluid"
+            href="https://systek.homerun.co"
+          >
+            Se kontakt-siden
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="mt-10 lg:col-span-2 lg:mt-0">
+      <picture>
+        <img
+          class="w-full rounded-md aspect-square md:aspect-[4/3] object-cover"
+          src="/images/temp.png"
+          draggable="false"
+        />
+      </picture>
+    </div>
+  </CardLayout>
+
   <script>
     import "../../utils/staff";
     import {filterSetup} from "../../utils/staff-filter";
