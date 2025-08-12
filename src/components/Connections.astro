@@ -19,7 +19,8 @@ import Arrow from "./Arrow.astro";
     position="bottomLeft"
     class="absolute bottom-grid left-grid"
   />
-  <div data-connections-canvas class="absolute inset-0 overflow-hidden"></div>
+  <div data-connections-canvas class="absolute inset-0 overflow-hidden m-grid">
+  </div>
 </div>
 
 <script>
@@ -35,6 +36,7 @@ import Arrow from "./Arrow.astro";
     setupConnections(canvas);
     setupObserver(canvas);
 
+    // todo: leading event should destroy connections
     handleResize(() => {
       if (hasViewportWidthChanged()) {
         setupConnections(canvas);
