@@ -39,13 +39,13 @@ const departments = [
 <Layout>
   <Header active="/folka" />
 
-  <div class="mt-8 mb-8 mx-grid">
+  <div class="flex flex-col m-grid gap-section">
     <div class="flex justify-between">
       <Arrow position="topLeft" />
       <Arrow position="topRight" />
     </div>
 
-    <CardLayout class="my-section">
+    <CardLayout>
       <CardHeader title="Folka">
         <p
           class="max-w-[72rem] lg:max-w-[68.6vw] md:pr-20 font-light text-3xl-fluid"
@@ -63,7 +63,7 @@ const departments = [
 
     <picture>
       <img
-        class="w-full rounded-md aspect-[4/3] lg:aspect-[2/1] object-cover my-section"
+        class="w-full rounded-md aspect-[4/3] lg:aspect-[2/1] object-cover"
         src="/images/temp.png"
         draggable="false"
       />
@@ -74,7 +74,7 @@ const departments = [
     </div>
   </div>
 
-  <CardLayout class="border-t mt-page border-stroke">
+  <CardLayout class="border-t mt-section mx-grid border-stroke pb-section">
     <div class="lg:col-span-1">
       <div class="flex flex-row gap-6 sticky top-[100px]">
         <dib class="text-3xl-fluid font-light w-30 staff-letter">A</dib>

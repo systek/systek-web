@@ -6,13 +6,14 @@ import Footer from "../../components/Footer.astro";
 import Header from "../../components/Header.astro";
 import Layout from "../../layouts/Layout.astro";
 import SanityImage from "../../components/SanityImage.astro";
-import ServicesCard from "../../components/ServicesCard.astro";
 import ContactCard from "../../components/ContactCard.astro";
 import {
   fetchLogoItems,
   fetchWorkItems,
   fetchServiceItems,
 } from "../../lib/sanity.queries";
+import Button from "../../components/Button.astro";
+import LinkBox from "../../components/LinkBox.astro";
 
 const [logoItems, workItems, serviceItems] = await Promise.all([
   fetchLogoItems(),
@@ -28,13 +29,13 @@ const logoBottomItems = logoItems.slice(index);
 <Layout>
   <Header active="/arbeider" />
 
-  <div class="mt-8 mb-8 mx-grid">
+  <div class="flex flex-col m-grid gap-section">
     <div class="flex justify-between">
       <Arrow position="topLeft" />
       <Arrow position="topRight" />
     </div>
 
-    <CardLayout class="my-section">
+    <CardLayout>
       <CardHeader title="Arbeider">
         <p
           class="max-w-[72rem] lg:max-w-[68.6vw] md:pr-20 font-light text-3xl-fluid"
@@ -52,7 +53,7 @@ const logoBottomItems = logoItems.slice(index);
 
     <picture>
       <img
-        class="w-full rounded-md aspect-[4/3] lg:aspect-[2/1] object-cover my-section"
+        class="w-full rounded-md aspect-[4/3] lg:aspect-[2/1] object-cover"
         src="/images/temp.png"
         draggable="false"
       />
@@ -63,13 +64,19 @@ const logoBottomItems = logoItems.slice(index);
     </div>
   </div>
 
-  <CardLayout class="mt-page mx-grid">
-    <div></div>
-    <div class="lg:col-span-3">
-      <p class="md:pr-20 font-light text-2xl-fluid mb-page">
-        Vi arrangerer fellesturer, sommerfester, fagdager, sosiale samlinger,
-        turneringer og spillkvelder
+  <CardLayout class="mt-section mx-grid">
+    <CardHeader>
+      <p
+        class="max-w-[65rem] lg:max-w-[61.9vw] md:pr-20 font-light text-2xl-fluid"
+      >
+        Vi har lang erfaring med komplekse IT-prosjekter fra ledende
+        virksomheter fra offentlig og privat sektor
       </p>
+    </CardHeader>
+  </CardLayout>
+
+  <CardLayout class="mt-section mx-grid">
+    <CardHeader>
       <div class="flex justify-between gap-3">
         {
           logoTopItems.map((item) => (
@@ -94,17 +101,20 @@ const logoBottomItems = logoItems.slice(index);
           ))
         }
       </div>
-    </div>
+    </CardHeader>
   </CardLayout>
 
   <CardLayout class="mt-page mx-grid">
-    <div></div>
-    <div class="lg:col-span-3">
+    <CardHeader>
       <p
         class="max-w-[65rem] lg:max-w-[61.9vw] md:pr-20 font-light text-2xl-fluid"
       >
         Les om hvordan vi har bistått noen av våre kunder med vår kompetanse
       </p>
+    </CardHeader>
+
+    <div></div>
+    <div class="lg:col-span-3">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter mt-section">
         {
           workItems.map((item, index) => (
@@ -128,7 +138,36 @@ const logoBottomItems = logoItems.slice(index);
     </div>
   </CardLayout>
 
-  <ServicesCard services={serviceItems} />
+  <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
+    <CardHeader title="Tjenester">
+      <p
+        class="max-w-[65rem] lg:max-w-[61.9vw] md:pr-20 font-light text-2xl-fluid"
+      >
+        Vi hjelper deg fra idé til drift og videreutvikling av digitale
+        løsninger
+      </p>
+
+      <!-- check if change sm: -> md: is correct -->
+      <Button href="/tjenester" class="mt-6 sm:mt-7">Se våre tjenester</Button>
+    </CardHeader>
+    <div></div>
+    <div
+      class="grid grid-cols-1 lg:col-span-3 gap-gutter mt-section md:grid-cols-3"
+    >
+      {
+        serviceItems.map((item) => (
+          <LinkBox href={`/tjenester/${item.slug.current}`} color="grey">
+            <div>
+              <p class="font-medium text-lg-fluid group-link-underline">
+                {item.title}
+              </p>
+            </div>
+            <p class="text-sm-fluid">{item.description}</p>
+          </LinkBox>
+        ))
+      }
+    </div>
+  </CardLayout>
 
   <ContactCard
     title="Har du et prosjekt hvor du trenger dyktige fagfolk?"
