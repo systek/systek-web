@@ -13,6 +13,7 @@ const { title, subtitle, image, class: className } = Astro.props;
   <div class="size-10">
     <picture>
       <img
+        alt={image}
         class="object-cover w-full rounded-full aspect-square"
         src="/images/temp.png"
         draggable="false"

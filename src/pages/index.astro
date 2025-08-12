@@ -2,13 +2,12 @@
 import clsx from "clsx";
 import ExternalIcon from "../assets/icons/external.svg";
 import Button from "../components/Button.astro";
-import LinkBox from "../components/LinkBox.astro";
 import CardLayout from "../components/card-layout/CardLayout.astro";
 import Connections from "../components/Connections.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import Layout from "../layouts/Layout.astro";
-import ServiceSection from "../components/ServicesSection.astro";
+import ServicesCard from "../components/ServicesCard.astro";
 import {
   fetchActivityItems,
   fetchBlogItems,
@@ -73,7 +72,7 @@ const logoBottomItems = logoItems.slice(index);
     </picture>
   </div>
 
-  <ServiceSection serviceItems={serviceItems} />
+  <ServicesCard services={serviceItems} />
 
   <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
     <CardHeader title="Nyheter">

@@ -1,20 +1,13 @@
 ---
 import Arrow from "../../components/Arrow.astro";
 import Button from "../../components/Button.astro";
-import Card from "../../components/card-layout/Card.astro";
 import CardHeader from "../../components/card-layout/CardHeader.astro";
 import CardLayout from "../../components/card-layout/CardLayout.astro";
-import Citation from "../../components/Citation.astro";
 import Footer from "../../components/Footer.astro";
 import Header from "../../components/Header.astro";
 import Layout from "../../layouts/Layout.astro";
 import CheckIcon from "../../assets/icons/check.svg";
-
 import { mockStaff } from "../../lib/mockStaff";
-/*
-import { fetchStaffItems } from "../../lib/sanity.queries";
-const staffItems = await fetchStaffItems();
-*/
 
 const staffItems = mockStaff.map((item) => ({
   ...item,
@@ -47,7 +40,6 @@ const departments = [
   <Header active="/folka" />
 
   <div class="mt-8 mb-8 mx-grid">
-    
     <div class="flex justify-between">
       <Arrow position="topLeft" />
       <Arrow position="topRight" />
@@ -86,7 +78,7 @@ const departments = [
     <div class="lg:col-span-1">
       <div class="flex flex-row gap-6 sticky top-[100px]">
         <dib class="text-3xl-fluid font-light w-30 staff-letter">A</dib>
-        <div class="flex flex-col gap-2 ">
+        <div class="flex flex-col gap-2">
           <p class="font-bold text-sm-fluid">Lokasjon</p>
           <label>
             <input name="location" type="radio" value="" checked /> Alle
@@ -119,7 +111,11 @@ const departments = [
             {staffItems
               .filter((item) => item.name.toUpperCase().startsWith(letter))
               .map((item) => (
-                <div class="flex flex-col" data-department={item.department} data-location={item.location}>
+                <div
+                  class="flex flex-col"
+                  data-department={item.department}
+                  data-location={item.location}
+                >
                   <img
                     class="aspect-[4/3] object-cover rounded-md mb-2"
                     src="/images/temp.png"
@@ -128,7 +124,9 @@ const departments = [
                   />
                   <h3 class="text-base font-bold">{item.name}</h3>
                   <p class="text-sm">{item.position}</p>
-                  <p>{item.location} - {item.department}</p>
+                  <p>
+                    {item.location} - {item.department}
+                  </p>
                 </div>
               ))}
           </div>
@@ -189,15 +187,14 @@ const departments = [
   </CardLayout>
 
   <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
-
     <div class="flex flex-col lg:col-span-2">
       <p class="font-bold text-sm-fluid">Ledige stillinger</p>
       <div class="mt-auto max-w-[37rem] lg:max-w-[35.2vw]">
         <p class="mt-2 font-light text-2xl-fluid">Jobbe i Systek?</p>
         <p class="mt-5 text-md-fluid md:mt-6">
-          Vi er interessert å komme i kontakt med hyggelige og kunnskapsrike folk
-          som passer til profilen vår og som har lyst til å utvikle karrieren sin
-          videre i et spennende fagmiljø.
+          Vi er interessert å komme i kontakt med hyggelige og kunnskapsrike
+          folk som passer til profilen vår og som har lyst til å utvikle
+          karrieren sin videre i et spennende fagmiljø.
         </p>
 
         <ul class="mt-4 text-text-secondary">
@@ -239,12 +236,22 @@ const departments = [
 
   <script>
     import "../../utils/staff";
-    import {filterSetup} from "../../utils/staff-filter";
+    import { filterSetup } from "../../utils/staff-filter";
 
     document.addEventListener("DOMContentLoaded", () => {
-      const staffItems = [...document.querySelectorAll(".staff-list [data-department]")];
-      const locationRadio = [...document.querySelectorAll<HTMLInputElement>("input[name='location']")];
-      const departmentRadio = [...document.querySelectorAll<HTMLInputElement>("input[name='department']")];
+      const staffItems = [
+        ...document.querySelectorAll(".staff-list [data-department]"),
+      ] as HTMLElement[];
+      const locationRadio = [
+        ...document.querySelectorAll<HTMLInputElement>(
+          "input[name='location']",
+        ),
+      ];
+      const departmentRadio = [
+        ...document.querySelectorAll<HTMLInputElement>(
+          "input[name='department']",
+        ),
+      ];
       if (staffItems && locationRadio && departmentRadio) {
         filterSetup(staffItems, locationRadio, departmentRadio);
       }

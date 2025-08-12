@@ -13,7 +13,7 @@ import type { Service, Work } from "../../lib/sanity.types";
 import CardLayout from "../../components/card-layout/CardLayout.astro";
 import Button from "../../components/Button.astro";
 import CardHeader from "../../components/card-layout/CardHeader.astro";
-import ContactSection from "../../components/ContactSection.astro";
+import ContactCard from "../../components/ContactCard.astro";
 
 export async function getStaticPaths() {
   const services = await sanityClient.fetch(`*[_type == "service"] { ... }`);
@@ -197,7 +197,7 @@ const vacancies = [
     </div>
   </CardLayout>
 
-  <ContactSection
+  <ContactCard
     title="Si hei til vår avdelingsleder, Tommy!"
     email="tommy.madsen@systek.no"
     text="Om du er faglig dyktig, brenner for det du jobber med og har lyst til å være en del av et miljø hvor kunnskap, nysgjerrighet og inkludering er viktig, så vil vi gjerne snakke med deg!"

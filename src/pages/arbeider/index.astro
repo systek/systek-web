@@ -1,20 +1,18 @@
 ---
 import Arrow from "../../components/Arrow.astro";
-import Button from "../../components/Button.astro";
-import Card from "../../components/card-layout/Card.astro";
 import CardHeader from "../../components/card-layout/CardHeader.astro";
 import CardLayout from "../../components/card-layout/CardLayout.astro";
-import Citation from "../../components/Citation.astro";
 import Footer from "../../components/Footer.astro";
 import Header from "../../components/Header.astro";
 import Layout from "../../layouts/Layout.astro";
-import CheckIcon from "../../assets/icons/check.svg";
 import SanityImage from "../../components/SanityImage.astro";
-import ServiceSection from "../../components/ServicesSection.astro";
-import ContactSection from "../../components/ContactSection.astro";
-
-import { fetchLogoItems, fetchWorkItems, fetchServiceItems } from "../../lib/sanity.queries";
-
+import ServicesCard from "../../components/ServicesCard.astro";
+import ContactCard from "../../components/ContactCard.astro";
+import {
+  fetchLogoItems,
+  fetchWorkItems,
+  fetchServiceItems,
+} from "../../lib/sanity.queries";
 
 const [logoItems, workItems, serviceItems] = await Promise.all([
   fetchLogoItems(),
@@ -31,7 +29,6 @@ const logoBottomItems = logoItems.slice(index);
   <Header active="/arbeider" />
 
   <div class="mt-8 mb-8 mx-grid">
-    
     <div class="flex justify-between">
       <Arrow position="topLeft" />
       <Arrow position="topRight" />
@@ -42,7 +39,8 @@ const logoBottomItems = logoItems.slice(index);
         <p
           class="max-w-[72rem] lg:max-w-[68.6vw] md:pr-20 font-light text-3xl-fluid"
         >
-          Se hvordan vi har løst utfordringer og skapt smarte digitale muligheter for kunder i ulike bransjer
+          Se hvordan vi har løst utfordringer og skapt smarte digitale
+          muligheter for kunder i ulike bransjer
         </p>
       </CardHeader>
     </CardLayout>
@@ -68,9 +66,7 @@ const logoBottomItems = logoItems.slice(index);
   <CardLayout class="mt-page mx-grid">
     <div></div>
     <div class="lg:col-span-3">
-      <p
-        class="md:pr-20 font-light text-2xl-fluid mb-page"
-      >
+      <p class="md:pr-20 font-light text-2xl-fluid mb-page">
         Vi arrangerer fellesturer, sommerfester, fagdager, sosiale samlinger,
         turneringer og spillkvelder
       </p>
@@ -101,24 +97,18 @@ const logoBottomItems = logoItems.slice(index);
     </div>
   </CardLayout>
 
-
   <CardLayout class="mt-page mx-grid">
-    <div>
-    </div>
+    <div></div>
     <div class="lg:col-span-3">
       <p
         class="max-w-[65rem] lg:max-w-[61.9vw] md:pr-20 font-light text-2xl-fluid"
       >
         Les om hvordan vi har bistått noen av våre kunder med vår kompetanse
       </p>
-      <div
-        class="grid grid-cols-1 md:grid-cols-2 gap-gutter mt-section"
-      >
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter mt-section">
         {
           workItems.map((item, index) => (
-            <a
-              href={`/arbeider/${item.slug.current}`}
-            >
+            <a href={`/arbeider/${item.slug.current}`}>
               <picture>
                 <SanityImage
                   class="w-full rounded-md object-cover aspect-[4/3]"
@@ -138,9 +128,9 @@ const logoBottomItems = logoItems.slice(index);
     </div>
   </CardLayout>
 
-  <ServiceSection serviceItems={serviceItems} />
+  <ServicesCard services={serviceItems} />
 
-  <ContactSection
+  <ContactCard
     title="Har du et prosjekt hvor du trenger dyktige fagfolk?"
     email="charlotte@systek.no"
     text="Hvis du trenger bistand på et prosjekt eller bare lurer på hva vi kan hjelpe deg med, ta kontakt med vår forretningsutvikler Charlotte."
