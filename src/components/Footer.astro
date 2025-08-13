@@ -5,13 +5,13 @@ import Arrow from "./Arrow.astro";
 ---
 
 <div class="pt-page">
-  <footer class="mt-8 mb-8 mx-grid lg:mt-36">
+  <footer class="flex flex-col mx-grid my-8 gap-section lg:mt-36">
     <div class="flex justify-between">
       <Arrow position="topLeft" />
       <Arrow position="topRight" />
     </div>
 
-    <div class="grid gap-10 lg:grid-cols-2 lg:gap-5 mt-section">
+    <div class="grid gap-10 lg:grid-cols-2 lg:gap-5">
       <Accordion class="lg:mr-20">
         <AccordionItem title="Om Systek">
           <div
@@ -157,23 +157,21 @@ import Arrow from "./Arrow.astro";
       </div>
     </div>
 
-    <div class="flex justify-between mt-section">
+    <div class="flex justify-between">
       <Arrow position="middleLeft" />
       <Arrow position="middleRight" />
     </div>
 
-    <div class="mt-section">
-      <picture>
-        <img
-          alt="Systek"
-          src="/images/systek-logo.svg"
-          class="w-full"
-          draggable="false"
-        />
-      </picture>
-    </div>
+    <picture>
+      <img
+        alt="Systek"
+        src="/images/systek-logo.svg"
+        class="w-full"
+        draggable="false"
+      />
+    </picture>
 
-    <div class="flex items-end justify-between mt-section">
+    <div class="flex items-end justify-between">
       <Arrow position="bottomLeft" />
 
       <p class="text-xs-fluid">
