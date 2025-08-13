@@ -24,8 +24,8 @@ export async function getStaticPaths() {
 const { work } = Astro.props as { work: Work };
 
 const serviceItems = await fetchServiceItems();
-const matchingServiceItems: Service[] = serviceItems.filter((item) =>
-  work.services.some(({ _ref }) => item._id === _ref),
+const matchingServiceItems: Service[] | undefined = serviceItems.filter(
+  (item) => work.services.some(({ _ref }) => item._id === _ref),
 );
 ---
 
