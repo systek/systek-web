@@ -7,18 +7,15 @@ import Footer from "../../components/Footer.astro";
 import Header from "../../components/Header.astro";
 import Layout from "../../layouts/Layout.astro";
 import CheckIcon from "../../assets/icons/check.svg";
-import { mockStaff } from "../../lib/mockStaff";
+
 import Accordion from "../../components/accordion/Accordion.astro";
 import AccordionItem from "../../components/accordion/AccordionItem.astro";
 import Radio from "../../components/Radio.astro";
+import { fetchStaffItems } from "../../lib/sanity.queries";
+import type { Staff } from "../../lib/sanity.types";
+import SanityImage from "../../components/SanityImage.astro";
 
-const staffItems = mockStaff.map((item) => ({
-  ...item,
-  slug: { current: item.name.toLowerCase().replace(/\s+/g, "-") },
-}));
-
-// todo: import type from sanity
-type Staff = (typeof staffItems)[number];
+const staffItems = await fetchStaffItems();
 
 const staffByInitial = staffItems.reduce(
   (acc: { [key: string]: Staff[] }, item) => {
@@ -29,7 +26,7 @@ const staffByInitial = staffItems.reduce(
     acc[initial].push(item);
     return acc;
   },
-  {} as { [key: string]: Staff[] },
+  {} as { [key: string]: Staff[] }
 );
 
 // See of we can share this with sanity schemaTypes
@@ -144,12 +141,14 @@ const departments = [
                 data-department={item.department}
                 class="grid gap-2 lg:gap-4"
               >
-                <img
-                  class="aspect-[1/1] object-cover rounded-md"
-                  src="/images/temp.png"
-                  draggable="false"
-                  alt={item.name}
-                />
+                <picture class="aspect-[1/1] overflow-hidden">
+                  <SanityImage
+                    class="aspect-[1/1] object-cover rounded-md"
+                    node={item.image}
+                    alt={item.name}
+                    draggable={false}
+                  />
+                </picture>
                 <div>
                   <p class="text-sm-fluid font-bold leading-snug">
                     {item.name}
@@ -277,10 +276,10 @@ const departments = [
       const staff = document.querySelectorAll<HTMLElement>("[data-location]");
       const letters = document.querySelectorAll<HTMLElement>("[data-letter]");
       const locationRadios = document.querySelectorAll<HTMLInputElement>(
-        'input[name="location"]',
+        'input[name="location"]'
       );
       const departmentRadios = document.querySelectorAll<HTMLInputElement>(
-        'input[name="department"]',
+        'input[name="department"]'
       );
       const hasViewportWidthChanged = widthChecker();
       const filterValues: { key: string; value: string }[] = [
@@ -296,7 +295,7 @@ const departments = [
 
       function consolidate() {
         staff.forEach((staffEl) =>
-          toggleStaffVisibility(staffEl, filterValues),
+          toggleStaffVisibility(staffEl, filterValues)
         );
 
         letters.forEach((letter) => {
