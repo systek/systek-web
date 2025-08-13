@@ -8,31 +8,45 @@ import Header from "../../components/Header.astro";
 import Layout from "../../layouts/Layout.astro";
 import CheckIcon from "../../assets/icons/check.svg";
 import { mockStaff } from "../../lib/mockStaff";
+import Accordion from "../../components/accordion/Accordion.astro";
+import AccordionItem from "../../components/accordion/AccordionItem.astro";
+import Radio from "../../components/Radio.astro";
 
 const staffItems = mockStaff.map((item) => ({
   ...item,
   slug: { current: item.name.toLowerCase().replace(/\s+/g, "-") },
 }));
 
-const staffFirstLetter = staffItems
-  .map((item) => item.name[0].toUpperCase())
-  .filter((value, index, self) => self.indexOf(value) === index);
+// todo: import type from sanity
+type Staff = (typeof staffItems)[number];
+
+const staffByInitial = staffItems.reduce(
+  (acc: { [key: string]: Staff[] }, item) => {
+    const initial = item.name[0].toUpperCase();
+    if (!acc[initial]) {
+      acc[initial] = [];
+    }
+    acc[initial].push(item);
+    return acc;
+  },
+  {} as { [key: string]: Staff[] },
+);
 
 // See of we can share this with sanity schemaTypes
-const staffLocations = [
-  { value: "oslo", title: "Oslo" },
-  { value: "hamar", title: "Hamar" },
-  { value: "grimstad", title: "Grimstad" },
+const locations = [
+  { value: "oslo", label: "Oslo" },
+  { value: "hamar", label: "Hamar" },
+  { value: "grimstad", label: "Grimstad" },
 ];
 const departments = [
-  { value: "administration", title: "Administrasjon" },
-  { value: "arkitektur", title: "Arkitektur" },
-  { value: "analyse", title: "Data og analyse" },
-  { value: "design", title: "Design" },
-  { value: "plattform", title: "Plattform og sky" },
-  { value: "prosjektledelse", title: "Prosjektledelse" },
-  { value: "test", title: "Test" },
-  { value: "utvikling", title: "Utvikling" },
+  { value: "administration", label: "Administrasjon" },
+  { value: "arkitektur", label: "Arkitektur" },
+  { value: "analyse", label: "Data og analyse" },
+  { value: "design", label: "Design" },
+  { value: "plattform", label: "Plattform og sky" },
+  { value: "prosjektledelse", label: "Prosjektledelse" },
+  { value: "test", label: "Test" },
+  { value: "utvikling", label: "Utvikling" },
 ];
 ---
 
@@ -48,7 +62,7 @@ const departments = [
     <CardLayout>
       <CardHeader title="Folka">
         <p
-          class="max-w-[72rem] lg:max-w-[68.6vw] md:pr-20 font-light text-3xl-fluid"
+          class="max-w-[72rem] lg:max-w-[68.6vw] md:mr-20 font-light text-3xl-fluid"
         >
           Møt gjengen vår – den perfekte miksen av flinke folk, nysgjerrige
           eksperter og ekte lagspillere med sans for gode løsninger
@@ -74,71 +88,86 @@ const departments = [
     </div>
   </div>
 
-  <CardLayout class="border-t mt-section mx-grid border-stroke pb-section">
-    <div class="lg:col-span-1">
-      <div class="flex flex-row gap-6 sticky top-[100px]">
-        <dib class="text-3xl-fluid font-light w-30 staff-letter">A</dib>
-        <div class="flex flex-col gap-2">
-          <p class="font-bold text-sm-fluid">Lokasjon</p>
-          <label>
-            <input name="location" type="radio" value="" checked /> Alle
-          </label>
-          {
-            staffLocations.map(({ value, title }) => (
-              <label>
-                <input name="location" type="radio" value={value} /> {title}
-              </label>
-            ))
-          }
-          <p class="font-bold text-sm-fluid">Avdeling</p>
-          <label>
-            <input name="department" type="radio" value="" checked /> Alle
-          </label>
-          {
-            departments.map(({ value, title }) => (
-              <label>
-                <input name="department" type="radio" value={value} /> {title}
-              </label>
-            ))
-          }
+  <div class="grid gap-section mt-section mx-grid relative lg:pb-section">
+    <div
+      class="lg:z-[var(--z-filter)] lg:absolute lg:top-0 lg:bottom-0 lg:right-[calc(75%+16px)] lg:w-auto lg:min-w-[15.2vw]"
+    >
+      <div class="lg:sticky lg:top-[calc(var(--height-header)+16px)]">
+        <div>
+          <Accordion>
+            <AccordionItem open title="Lokasjon">
+              <div class="flex flex-col gap-2">
+                <Radio name="location" label="Vis alle" value="all" checked />
+                {
+                  locations.map((location) => (
+                    <Radio
+                      name="location"
+                      label={location.label}
+                      value={location.value}
+                    />
+                  ))
+                }
+              </div>
+            </AccordionItem>
+            <AccordionItem open title="Avdeling">
+              <div class="flex flex-col gap-2">
+                <Radio name="department" label="Vis alle" value="all" checked />
+                {
+                  departments.map((department) => (
+                    <Radio
+                      name="department"
+                      label={department.label}
+                      value={department.value}
+                    />
+                  ))
+                }
+              </div>
+            </AccordionItem>
+          </Accordion>
         </div>
       </div>
     </div>
-    <div class="lg:col-span-3 flex flex-row gap-4 flex-wrap staff-list">
-      {
-        staffFirstLetter.map((letter) => (
-          <div class="grid grid-cols-4 gap-gutter" data-letter={letter}>
-            {staffItems
-              .filter((item) => item.name.toUpperCase().startsWith(letter))
-              .map((item) => (
-                <div
-                  class="flex flex-col"
-                  data-department={item.department}
-                  data-location={item.location}
-                >
-                  <img
-                    class="aspect-[4/3] object-cover rounded-md mb-2"
-                    src="/images/temp.png"
-                    draggable="false"
-                    alt={item.name}
-                  />
-                  <h3 class="text-base font-bold">{item.name}</h3>
-                  <p class="text-sm">{item.position}</p>
-                  <p>
-                    {item.location} - {item.department}
-                  </p>
-                </div>
-              ))}
+
+    {
+      Object.entries(staffByInitial).map(([initial, staffList]) => (
+        <div class="grid gap-gutter lg:grid-cols-4" data-letter={initial}>
+          <div class="hidden lg:block">
+            <p class="sticky top-[calc(var(--height-header)+8px)] text-4xl-fluid my-4">
+              {initial}
+            </p>
           </div>
-        ))
-      }
-    </div>
-  </CardLayout>
+
+          <div class="grid grid-cols-2 gap-grid gap-y-section lg:col-span-3 md:grid-cols-4">
+            {staffList.map((item) => (
+              <div
+                data-location={item.location}
+                data-department={item.department}
+                class="grid gap-2 lg:gap-4"
+              >
+                <img
+                  class="aspect-[1/1] object-cover rounded-md"
+                  src="/images/temp.png"
+                  draggable="false"
+                  alt={item.name}
+                />
+                <div>
+                  <p class="text-sm-fluid font-bold leading-snug">
+                    {item.name}
+                  </p>
+                  <p class="text-sm-fluid leading-snug">{item.position}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </div>
 
   <CardLayout class="mt-page mx-grid">
     <CardHeader>
       <p
-        class="max-w-[65rem] lg:max-w-[61.9vw] md:pr-20 font-light text-2xl-fluid"
+        class="max-w-[65rem] lg:max-w-[61.9vw] md:mr-20 font-light text-2xl-fluid"
       >
         Vi arrangerer fellesturer, sommerfester, fagdager, sosiale samlinger,
         turneringer og spillkvelder
@@ -235,26 +264,60 @@ const departments = [
   </CardLayout>
 
   <script>
-    import "../../utils/staff";
-    import { filterSetup } from "../../utils/staff-filter";
+    import {
+      setHeaderSize,
+      setupRadios,
+      toggleLetterVisibility,
+      toggleStaffVisibility,
+    } from "../../utils/staff";
+    import { DOMLoaded, handleResize, widthChecker } from "../../utils/utils";
 
-    document.addEventListener("DOMContentLoaded", () => {
-      const staffItems = [
-        ...document.querySelectorAll(".staff-list [data-department]"),
-      ] as HTMLElement[];
-      const locationRadio = [
-        ...document.querySelectorAll<HTMLInputElement>(
-          "input[name='location']",
-        ),
+    DOMLoaded(() => {
+      const header = document.querySelector("[data-header]") as HTMLElement;
+      const staff = document.querySelectorAll<HTMLElement>("[data-location]");
+      const letters = document.querySelectorAll<HTMLElement>("[data-letter]");
+      const locationRadios = document.querySelectorAll<HTMLInputElement>(
+        'input[name="location"]',
+      );
+      const departmentRadios = document.querySelectorAll<HTMLInputElement>(
+        'input[name="department"]',
+      );
+      const hasViewportWidthChanged = widthChecker();
+      const filterValues: { key: string; value: string }[] = [
+        {
+          key: "location",
+          value: "all",
+        },
+        {
+          key: "department",
+          value: "all",
+        },
       ];
-      const departmentRadio = [
-        ...document.querySelectorAll<HTMLInputElement>(
-          "input[name='department']",
-        ),
-      ];
-      if (staffItems && locationRadio && departmentRadio) {
-        filterSetup(staffItems, locationRadio, departmentRadio);
+
+      function consolidate() {
+        staff.forEach((staffEl) =>
+          toggleStaffVisibility(staffEl, filterValues),
+        );
+
+        letters.forEach((letter) => {
+          const children =
+            letter.querySelectorAll<HTMLElement>("[data-location]");
+          toggleLetterVisibility(letter, children);
+        });
       }
+
+      setupRadios("location", locationRadios, filterValues, consolidate);
+      setupRadios("department", departmentRadios, filterValues, consolidate);
+
+      setHeaderSize(header);
+
+      handleResize(() => {
+        if (hasViewportWidthChanged()) {
+          setHeaderSize(header);
+        }
+      });
+
+      // todo: accordionItem "Avdelinger" should be closed on mobile
     });
   </script>
   <Footer />

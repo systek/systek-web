@@ -1,66 +1,56 @@
-/**
- * Uses IntersectionObserver to update .staff-letter
- * with the [data-letter] of the topmost visible element in .staff-list.
- */
-function updateStaffLetterWithIntersectionObserver() {
-  const staffList = document.querySelector<HTMLElement>(".staff-list");
-  const staffLetter = document.querySelector<HTMLElement>(".staff-letter");
-  if (!staffList || !staffLetter) return;
+// src/utils/staff-filter.ts
 
-  const items = Array.from(
-    staffList.querySelectorAll<HTMLElement>("[data-letter]")
-  );
-
-  const visibleItems = new Set<HTMLElement>();
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      for (const entry of entries) {
-        if (entry.isIntersecting) {
-          visibleItems.add(entry.target as HTMLElement);
-        } else {
-          visibleItems.delete(entry.target as HTMLElement);
-        }
+export function setupRadios(
+  name: string,
+  radios: NodeListOf<HTMLInputElement>,
+  filterValues: { key: string; value: string }[],
+  callback: () => void,
+) {
+  radios.forEach((radio) => {
+    radio.addEventListener("change", () => {
+      const filter = filterValues.find((filter) => filter.key === name);
+      if (filter) {
+        filter.value = radio.value;
+        callback();
       }
-
-      // Find the visible item closest to the top of the staff-list
-      let topItem: HTMLElement | null = null;
-      let minOffset = Infinity;
-      const listRect = staffList.getBoundingClientRect();
-
-      for (const item of visibleItems) {
-        const itemRect = item.getBoundingClientRect();
-        const offset = itemRect.top - listRect.top;
-        if (
-          itemRect.bottom > listRect.top &&
-          offset >= 0 &&
-          offset < minOffset
-        ) {
-          minOffset = offset;
-          topItem = item;
-        }
-      }
-
-      if (topItem) {
-        const letter = topItem.getAttribute("data-letter");
-        if (letter) staffLetter.innerText = letter;
-      }
-    },
-    {
-      root: null, // Use the viewport as the root since scrolling happens on the whole page
-      threshold: 0,
-    }
-  );
-
-  items.forEach((item) => observer.observe(item));
+    });
+  });
 }
 
-// Call this after DOM is ready
-if (document.readyState === "loading") {
-  document.addEventListener(
-    "DOMContentLoaded",
-    updateStaffLetterWithIntersectionObserver
+export function toggleStaffVisibility(
+  staff: HTMLElement,
+  filterValues: { key: string; value: string }[],
+): void {
+  const isHidden = filterValues.some(
+    (filter) =>
+      filter.value !== "all" && staff.dataset[filter.key] !== filter.value,
   );
-} else {
-  updateStaffLetterWithIntersectionObserver();
+  if (isHidden) {
+    staff.classList.add("hidden");
+  } else {
+    staff.classList.remove("hidden");
+  }
+}
+
+export function toggleLetterVisibility(
+  letter: HTMLElement,
+  children: NodeListOf<HTMLElement>,
+) {
+  const isHidden = Array.from(children).every((staff) =>
+    staff.classList.contains("hidden"),
+  );
+
+  if (isHidden) {
+    letter.classList.add("hidden");
+  } else {
+    letter.classList.remove("hidden");
+  }
+}
+
+// get height of header for sticky position of letters and filters
+export function setHeaderSize(header: HTMLElement) {
+  document.body.style.setProperty(
+    "--height-header",
+    `${header.offsetHeight}px`,
+  );
 }
