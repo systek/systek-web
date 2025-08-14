@@ -14,7 +14,7 @@ type Box = {
   applyRepulsion: (
     otherBox: Box,
     forceMultiplier?: number,
-    timeMs?: number,
+    timeMs?: number
   ) => void;
   setVisible: (timeMs?: number) => void;
   setReady: () => void;
@@ -34,61 +34,84 @@ type Config = {
 };
 
 type BreakpointConfig = {
-  width: number;
+  minWidth: number;
+  maxWidth: number;
   fontSize: number;
   textPadding: [number, number, number, number];
+  initialStagePaddingY: number;
+  initialStagePaddingX: number;
+  stagePadding: number;
   lineWidth: number;
   repulsionForce: number;
 };
+
+const breakpoints: BreakpointConfig[] = [
+  {
+    // Mobile
+    minWidth: 0,
+    maxWidth: 799,
+    fontSize: 32,
+    textPadding: [2, 8, 4, 8],
+    initialStagePaddingY: 80,
+    initialStagePaddingX: 16,
+    stagePadding: 16,
+    lineWidth: 1,
+    repulsionForce: 2000,
+  },
+  {
+    // Tablet
+    minWidth: 800,
+    maxWidth: 1199,
+    fontSize: 48,
+    textPadding: [2, 12, 4, 12],
+    initialStagePaddingY: 80,
+    initialStagePaddingX: 80,
+    stagePadding: 20,
+    lineWidth: 2,
+    repulsionForce: 4000,
+  },
+  {
+    // Desktop
+    minWidth: 1200,
+    maxWidth: Infinity,
+    fontSize: 60,
+    textPadding: [4, 16, 6, 16],
+    initialStagePaddingY: 80,
+    initialStagePaddingX: 80,
+    stagePadding: 20,
+    lineWidth: 2,
+    repulsionForce: 4000,
+  },
+];
+
+// Find matching breakpoint config
+const breakpointConfig: BreakpointConfig =
+  breakpoints.find(
+    (bp) => bp.minWidth <= window.innerWidth && window.innerWidth < bp.maxWidth
+  ) || breakpoints[0];
+
+let config: Config & BreakpointConfig = Object.assign(
+  {
+    texts: ["Bra", "folk", "smarte", "løsninger"],
+    white: "#fcf6ee",
+    yellow: "#ffd24c",
+    textColor: "rgb(26, 26, 26)",
+  },
+  breakpointConfig
+);
 
 export const setupConnections = function (rootEl: HTMLDivElement) {
   let boxes: Box[] = [];
   let lines: Line[] = [];
   let raf: number | null = null;
 
-  const breakpoints: BreakpointConfig[] = [
-    {
-      width: 384, // --breakpoint-sm
-      fontSize: 32,
-      textPadding: [2, 6, 4, 6],
-      lineWidth: 1,
-      repulsionForce: 2000,
-    },
-    {
-      width: 800, // --breakpoint-md
-      fontSize: 48,
-      textPadding: [4, 10, 6, 10],
-      lineWidth: 1,
-      repulsionForce: 2000,
-    },
-    {
-      width: 1680, // --breakpoint-lg
-      fontSize: 60,
-      textPadding: [8, 14, 8, 14],
-      lineWidth: 2,
-      repulsionForce: 4000,
-    },
-    {
-      width: window.innerWidth,
-      fontSize: 60 * (window.innerWidth / 1680),
-      textPadding: [8, 14, 8, 14],
-      lineWidth: 2,
-      repulsionForce: 4000 * (window.innerWidth / 1680),
-    },
-  ] as const;
-
+  // Reset config based on current breakpoint
   const breakpointConfig: BreakpointConfig =
-    breakpoints.find((bp) => window.innerWidth < bp.width) ||
-    breakpoints[breakpoints.length - 1];
-  const config: Config & BreakpointConfig = Object.assign(
-    {
-      texts: ["Bra", "folk", "smarte", "løsninger"],
-      white: "#fcf6ee",
-      yellow: "#ffd24c",
-      textColor: "rgb(26, 26, 26)",
-    },
-    breakpointConfig,
-  );
+    breakpoints.find(
+      (bp) =>
+        bp.minWidth <= window.innerWidth && window.innerWidth < bp.maxWidth
+    ) || breakpoints[0];
+  config = Object.assign(config, breakpointConfig);
 
   // Setup starts
   const stage = new Konva.Stage({
@@ -101,26 +124,22 @@ export const setupConnections = function (rootEl: HTMLDivElement) {
   stage.add(layer);
 
   function drawBox(index = 0, text: string) {
-    // note: this only works for 4 boxes
-    const order = [
-      [-2, -1], // top left
-      [2, -2], // top right
-      [-1, 1], // bottom left
-      [1, 2], // bottom right
-    ];
+    const [startX, startY] = randomPlacement(index);
+    const x =
+      config.initialStagePaddingX +
+      startX * (stage.width() - 2 * config.initialStagePaddingX);
+    const y =
+      config.initialStagePaddingY +
+      startY * (stage.height() - 2 * config.initialStagePaddingY);
 
-    const [dx, dy] = order[index] || [0, 0];
-    const x = config.width / 2 + dx;
-    const y = stage.height() / 2 + dy;
-
-    const box = createBox(config, text, x, y, stage);
+    const box = createBox(text, x, y, stage);
     boxes.push(box);
     layer.add(box.body);
     box.setVisible();
 
     const prevBox = boxes[index - 1];
     if (prevBox) {
-      const line = createLine(config, prevBox, box);
+      const line = createLine(prevBox, box);
       lines.push(line);
       layer.add(line.body);
     }
@@ -232,17 +251,13 @@ export const setupConnections = function (rootEl: HTMLDivElement) {
         drawBox(index, text);
         await sleep(1000);
       }),
-    Promise.resolve(),
+    Promise.resolve()
   );
 
   animate();
 };
 
-function createLine(
-  config: Config & BreakpointConfig,
-  boxA: Box,
-  boxB: Box,
-): Line {
+function createLine(boxA: Box, boxB: Box): Line {
   const { x: xA, y: yA } = boxA.body.getPosition();
   const { x: xB, y: yB } = boxB.body.getPosition();
   return {
@@ -257,11 +272,10 @@ function createLine(
 }
 
 function createBox(
-  config: Config & BreakpointConfig,
   text: string,
   x: number,
   y: number,
-  stage: Konva.Stage,
+  stage: Konva.Stage
 ): Box {
   const textItem = new Konva.Text({
     fontSize: config.fontSize,
@@ -362,12 +376,11 @@ function createBox(
 
       // Ensure the box stays within the stage bounds
       const { x: endX, y: endY } = ensureInsideStage(
-        config,
         destX,
         destY,
         this.body.width(),
         this.body.height(),
-        stage,
+        stage
       );
 
       // Apply force to this box
@@ -409,12 +422,11 @@ function createBox(
 
   box.body.on("dragmove", ({ target }) => {
     const { x, y } = ensureInsideStage(
-      config,
       target.x(),
       target.y(),
       target.width(),
       target.height(),
-      stage,
+      stage
     );
 
     target.x(x);
@@ -422,6 +434,26 @@ function createBox(
   });
 
   return box;
+}
+
+// Random placement function, expecting 4 items, placing them randomly within a corner
+function randomPlacement(index: number) {
+  const areaWidth = 1 / 5; // 20% of the width
+  const areaHeight = 1 / 5;
+
+  /*
+  *  This is the placement grid
+     | | | |
+     |1| |2| 
+     | | | |
+     |3| |4|
+     | | | |
+  */
+
+  const minX = index % 2 === 0 ? areaWidth : areaWidth * 3;
+  const minY = index < 2 ? areaHeight : areaHeight * 3;
+
+  return [minX + Math.random() * areaWidth, minY + Math.random() * areaHeight];
 }
 
 function haveIntersection(boxA: Box, boxB: Box, padding = 20) {
@@ -436,15 +468,20 @@ function haveIntersection(boxA: Box, boxB: Box, padding = 20) {
 }
 
 function ensureInsideStage(
-  config: Config & BreakpointConfig,
   x: number,
   y: number,
   width: number,
   height: number,
-  stage: Konva.Stage,
+  stage: Konva.Stage
 ) {
-  const newY = Math.min(Math.max(y, 0), stage.height() - 0 - height);
-  const newX = Math.min(Math.max(x, 0), stage.width() - 0 - width);
+  const newY = Math.min(
+    Math.max(y, config.stagePadding),
+    stage.height() - config.stagePadding - height
+  );
+  const newX = Math.min(
+    Math.max(x, config.stagePadding),
+    stage.width() - config.stagePadding - width
+  );
   return { x: newX, y: newY };
 }
 
@@ -455,12 +492,12 @@ export function setupObserver(canvas: HTMLDivElement): void {
     ([entry]) => {
       document.body.style.setProperty(
         "--color-background",
-        chroma.mix(colorEnd, colorStart, entry.intersectionRatio).css(),
+        chroma.mix(colorEnd, colorStart, entry.intersectionRatio).css()
       );
     },
     {
       threshold: Array.from({ length: 101 }, (_, i) => i / 100),
-    },
+    }
   );
   observer.observe(canvas);
 }
