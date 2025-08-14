@@ -2,16 +2,18 @@ import { defineField, defineType } from "sanity";
 
 export const logoType = defineType({
   name: "logo",
-  title: "Logo",
+  title: "Kundelogoer",
   type: "document",
   fields: [
     defineField({
       name: "title",
+      title: "Tittel",
       type: "string",
       validation: (rule) => rule.required(),
     }),
     defineField({
       name: "image",
+      title: "Logo",
       type: "image",
       fields: [
         defineField({

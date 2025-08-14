@@ -6,27 +6,31 @@ import { textBlock } from "./shared/text";
 
 export const serviceType = defineType({
   name: "service",
-  title: "Service",
+  title: "Tjenester",
   type: "document",
   fields: [
     defineField({
       name: "title",
+      title: "Tittel",
       type: "string",
       validation: (rule) => rule.required(),
     }),
     defineField({
       name: "slug",
+      title: "Slug",
       type: "slug",
       options: { source: "title" },
       validation: (rule) => rule.required(),
     }),
     defineField({
       name: "description",
+      title: "Beskrivelse",
       type: "text",
       validation: (rule) => rule.required(),
     }),
     defineField({
       name: "heroImage",
+      title: "Hovedbilde",
       type: "image",
       options: {
         hotspot: true,
@@ -46,6 +50,7 @@ export const serviceType = defineType({
     }),
     defineField({
       name: "content",
+      title: "Innhold",
       type: "array",
       of: [
         textBlock,
@@ -68,6 +73,9 @@ export const serviceType = defineType({
               name: "items",
               title: "Elementer",
               of: [{ type: "string" }],
+              options: {
+                layout: "tags",
+              },
               validation: (rule) => rule.required(),
             }),
           ],

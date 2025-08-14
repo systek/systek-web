@@ -6,7 +6,7 @@ import { stats } from "./shared/stats";
 
 export const workType = defineType({
   name: "work",
-  title: "Work",
+  title: "Arbeider",
   type: "document",
   fields: [
     defineField({

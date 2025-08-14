@@ -10,6 +10,9 @@ export const tagList = defineField({
       name: "items",
       title: "Stikkord",
       of: [{ type: "string" }],
+      options: {
+        layout: "tags",
+      },
       validation: (rule) => rule.required(),
     }),
   ],

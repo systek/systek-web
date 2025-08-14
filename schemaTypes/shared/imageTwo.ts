@@ -13,6 +13,7 @@ export const imageTwo = defineField({
       return {
         title: "Bildepar",
         subtitle: `${first?.alt || "Første bilde"} & ${second?.alt || "Andre bilde"}`,
+        media: first?.asset || second?.asset,
       };
     },
   },
@@ -20,6 +21,7 @@ export const imageTwo = defineField({
     {
       type: "image",
       name: "first",
+      title: "Første bilde",
       options: {
         hotspot: true,
       },
@@ -38,6 +40,7 @@ export const imageTwo = defineField({
     {
       type: "image",
       name: "second",
+      title: "Andre bilde",
       options: {
         hotspot: true,
       },
