@@ -26,7 +26,7 @@ const staffByInitial = staffItems.reduce(
     acc[initial].push(item);
     return acc;
   },
-  {} as { [key: string]: Staff[] }
+  {} as { [key: string]: Staff[] },
 );
 
 // See of we can share this with sanity schemaTypes
@@ -59,7 +59,7 @@ const departments = [
     <CardLayout>
       <CardHeader title="Folka">
         <p
-          class="max-w-[72rem] lg:max-w-[68.6vw] md:mr-20 font-light text-3xl-fluid"
+          class="max-w-[72rem] lg:max-w-[68.571vw] md:mr-20 font-light text-3xl-fluid"
         >
           Møt gjengen vår – den perfekte miksen av flinke folk, nysgjerrige
           eksperter og ekte lagspillere med sans for gode løsninger
@@ -87,7 +87,7 @@ const departments = [
 
   <div class="grid gap-section mt-section mx-grid relative lg:pb-section">
     <div
-      class="lg:z-[var(--z-filter)] lg:absolute lg:top-0 lg:bottom-0 lg:right-[calc(75%+16px)] lg:w-auto lg:min-w-[15.2vw]"
+      class="lg:z-[var(--z-filter)] lg:absolute lg:top-0 lg:bottom-0 lg:right-[calc(75%+16px)] lg:w-auto lg:min-w-[15.298vw]"
     >
       <div class="lg:sticky lg:top-[calc(var(--height-header)+16px)]">
         <div>
@@ -166,7 +166,7 @@ const departments = [
   <CardLayout class="mt-page mx-grid">
     <CardHeader>
       <p
-        class="max-w-[65rem] lg:max-w-[61.9vw] md:mr-20 font-light text-2xl-fluid"
+        class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 font-light text-2xl-fluid"
       >
         Vi arrangerer fellesturer, sommerfester, fagdager, sosiale samlinger,
         turneringer og spillkvelder
@@ -217,7 +217,7 @@ const departments = [
   <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
     <div class="flex flex-col lg:col-span-2">
       <p class="font-bold text-sm-fluid">Ledige stillinger</p>
-      <div class="mt-auto max-w-[37rem] lg:max-w-[35.2vw]">
+      <div class="mt-auto max-w-[37rem] lg:max-w-[35.238vw]">
         <p class="mt-2 font-light text-2xl-fluid">Jobbe i Systek?</p>
         <p class="mt-5 text-md-fluid md:mt-6">
           Vi er interessert å komme i kontakt med hyggelige og kunnskapsrike
@@ -276,10 +276,10 @@ const departments = [
       const staff = document.querySelectorAll<HTMLElement>("[data-location]");
       const letters = document.querySelectorAll<HTMLElement>("[data-letter]");
       const locationRadios = document.querySelectorAll<HTMLInputElement>(
-        'input[name="location"]'
+        'input[name="location"]',
       );
       const departmentRadios = document.querySelectorAll<HTMLInputElement>(
-        'input[name="department"]'
+        'input[name="department"]',
       );
       const hasViewportWidthChanged = widthChecker();
       const filterValues: { key: string; value: string }[] = [
@@ -295,7 +295,7 @@ const departments = [
 
       function consolidate() {
         staff.forEach((staffEl) =>
-          toggleStaffVisibility(staffEl, filterValues)
+          toggleStaffVisibility(staffEl, filterValues),
         );
 
         letters.forEach((letter) => {
