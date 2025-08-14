@@ -34,8 +34,7 @@ type Config = {
 };
 
 type BreakpointConfig = {
-  minWidth: number;
-  maxWidth: number;
+  width: number;
   fontSize: number;
   textPadding: [number, number, number, number];
   initialStagePaddingY: number;
@@ -45,73 +44,70 @@ type BreakpointConfig = {
   repulsionForce: number;
 };
 
-const breakpoints: BreakpointConfig[] = [
-  {
-    // Mobile
-    minWidth: 0,
-    maxWidth: 799,
-    fontSize: 32,
-    textPadding: [2, 8, 4, 8],
-    initialStagePaddingY: 80,
-    initialStagePaddingX: 16,
-    stagePadding: 16,
-    lineWidth: 1,
-    repulsionForce: 2000,
-  },
-  {
-    // Tablet
-    minWidth: 800,
-    maxWidth: 1199,
-    fontSize: 48,
-    textPadding: [2, 12, 4, 12],
-    initialStagePaddingY: 80,
-    initialStagePaddingX: 80,
-    stagePadding: 20,
-    lineWidth: 2,
-    repulsionForce: 4000,
-  },
-  {
-    // Desktop
-    minWidth: 1200,
-    maxWidth: Infinity,
-    fontSize: 60,
-    textPadding: [4, 16, 6, 16],
-    initialStagePaddingY: 80,
-    initialStagePaddingX: 80,
-    stagePadding: 20,
-    lineWidth: 2,
-    repulsionForce: 4000,
-  },
-];
-
-// Find matching breakpoint config
-const breakpointConfig: BreakpointConfig =
-  breakpoints.find(
-    (bp) => bp.minWidth <= window.innerWidth && window.innerWidth < bp.maxWidth
-  ) || breakpoints[0];
-
-let config: Config & BreakpointConfig = Object.assign(
-  {
-    texts: ["Bra", "folk", "smarte", "løsninger"],
-    white: "#fcf6ee",
-    yellow: "#ffd24c",
-    textColor: "rgb(26, 26, 26)",
-  },
-  breakpointConfig
-);
-
 export const setupConnections = function (rootEl: HTMLDivElement) {
   let boxes: Box[] = [];
   let lines: Line[] = [];
   let raf: number | null = null;
 
-  // Reset config based on current breakpoint
+  const breakpoints: BreakpointConfig[] = [
+    {
+      // Mobile
+      width: 384, // --breakpoint-sm
+      fontSize: 32,
+      textPadding: [2, 8, 4, 8],
+      initialStagePaddingY: 80,
+      initialStagePaddingX: 16,
+      stagePadding: 16,
+      lineWidth: 1,
+      repulsionForce: 2000,
+    },
+    {
+      // Tablet
+      width: 800, // --breakpoint-md
+      fontSize: 48,
+      textPadding: [2, 12, 4, 12],
+      initialStagePaddingY: 80,
+      initialStagePaddingX: 80,
+      stagePadding: 20,
+      lineWidth: 2,
+      repulsionForce: 4000,
+    },
+    {
+      // Desktop
+      width: 1680, // --breakpoint-lg
+      fontSize: 60,
+      textPadding: [4, 16, 6, 16],
+      initialStagePaddingY: 80,
+      initialStagePaddingX: 80,
+      stagePadding: 20,
+      lineWidth: 2,
+      repulsionForce: 4000,
+    },
+    {
+      width: window.innerWidth,
+      fontSize: 60 * (window.innerWidth / 1680),
+      textPadding: [8, 14, 8, 14],
+      initialStagePaddingY: window.innerHeight * 0.05,
+      initialStagePaddingX: window.innerWidth * 0.1,
+      stagePadding: 20,
+      lineWidth: 2,
+      repulsionForce: 4000 * (window.innerWidth / 1680),
+    },
+  ];
+
+  // Find matching breakpoint config
   const breakpointConfig: BreakpointConfig =
-    breakpoints.find(
-      (bp) =>
-        bp.minWidth <= window.innerWidth && window.innerWidth < bp.maxWidth
-    ) || breakpoints[0];
-  config = Object.assign(config, breakpointConfig);
+    breakpoints.find((bp) => window.innerWidth <= bp.width) || breakpoints[0];
+
+  let config: Config & BreakpointConfig = Object.assign(
+    {
+      texts: ["Bra", "folk", "smarte", "løsninger"],
+      white: "#fcf6ee",
+      yellow: "#ffd24c",
+      textColor: "rgb(26, 26, 26)",
+    },
+    breakpointConfig
+  );
 
   // Setup starts
   const stage = new Konva.Stage({
@@ -124,7 +120,7 @@ export const setupConnections = function (rootEl: HTMLDivElement) {
   stage.add(layer);
 
   function drawBox(index = 0, text: string) {
-    const [startX, startY] = randomPlacement(index);
+    const [startX, startY] = getStaticPlacement(index);
     const x =
       config.initialStagePaddingX +
       startX * (stage.width() - 2 * config.initialStagePaddingX);
@@ -255,193 +251,193 @@ export const setupConnections = function (rootEl: HTMLDivElement) {
   );
 
   animate();
-};
 
-function createLine(boxA: Box, boxB: Box): Line {
-  const { x: xA, y: yA } = boxA.body.getPosition();
-  const { x: xB, y: yB } = boxB.body.getPosition();
-  return {
-    boxA,
-    boxB,
-    body: new Konva.Line({
-      points: [xA + boxA.w + 4, yA + boxA.h + 4, xB - 4, yB - 4],
-      stroke: config.white,
-      strokeWidth: config.lineWidth,
-    }),
-  };
-}
+  // utils
+  function createLine(boxA: Box, boxB: Box): Line {
+    const { x: xA, y: yA } = boxA.body.getPosition();
+    const { x: xB, y: yB } = boxB.body.getPosition();
+    return {
+      boxA,
+      boxB,
+      body: new Konva.Line({
+        points: [xA + boxA.w + 4, yA + boxA.h + 4, xB - 4, yB - 4],
+        stroke: config.white,
+        strokeWidth: config.lineWidth,
+      }),
+    };
+  }
 
-function createBox(
-  text: string,
-  x: number,
-  y: number,
-  stage: Konva.Stage
-): Box {
-  const textItem = new Konva.Text({
-    fontSize: config.fontSize,
-    fontFamily: `"KHTeka", "Inter", system-ui, sans-serif`,
-    fontWeight: 300,
-    fontStyle: "normal",
-    text: text,
-    fill: config.textColor,
-    x: config.textPadding[1],
-    y: config.textPadding[0],
-  });
-  const textBackground = new Konva.Rect({
-    width: textItem.width() + config.textPadding[1] + config.textPadding[3],
-    height: textItem.height() + config.textPadding[0] + config.textPadding[2],
-    fill: config.yellow,
-    strokeWidth: 0,
-    cornerRadius: 4,
-  });
-  const textGroup = new Konva.Group({
-    x: x - textItem.width() / 2 - config.textPadding[1],
-    y: y - textItem.height() / 2 - config.textPadding[0],
-    width: textItem.width() + config.textPadding[1] + config.textPadding[3],
-    height: textItem.height() + config.textPadding[0] + config.textPadding[2],
-    draggable: true,
-    opacity: 0,
-  });
-  textGroup.add(textBackground).add(textItem);
+  function createBox(
+    text: string,
+    x: number,
+    y: number,
+    stage: Konva.Stage
+  ): Box {
+    const textItem = new Konva.Text({
+      fontSize: config.fontSize,
+      fontFamily: `"KHTeka", "Inter", system-ui, sans-serif`,
+      fontWeight: 300,
+      fontStyle: "normal",
+      text: text,
+      fill: config.textColor,
+      x: config.textPadding[1],
+      y: config.textPadding[0],
+    });
+    const textBackground = new Konva.Rect({
+      width: textItem.width() + config.textPadding[1] + config.textPadding[3],
+      height: textItem.height() + config.textPadding[0] + config.textPadding[2],
+      fill: config.yellow,
+      strokeWidth: 0,
+      cornerRadius: 4,
+    });
+    const textGroup = new Konva.Group({
+      x: x - textItem.width() / 2 - config.textPadding[1],
+      y: y - textItem.height() / 2 - config.textPadding[0],
+      width: textItem.width() + config.textPadding[1] + config.textPadding[3],
+      height: textItem.height() + config.textPadding[0] + config.textPadding[2],
+      draggable: true,
+      opacity: 0,
+    });
+    textGroup.add(textBackground).add(textItem);
 
-  const box = {
-    w: textGroup.width(),
-    h: textGroup.height(),
-    body: textGroup,
-    text: textItem,
-    background: textBackground,
-    repulsionForce: config.repulsionForce,
-    activeTween: null,
-    applyPull(otherBox: Box, timeMS = 1000) {
-      if (this.activeTween) {
-        return;
-      }
-      const { x, y } = this.body.getPosition();
-      const otherBoxPos = otherBox.body.getPosition();
-      const dx = otherBoxPos.x - x;
-      const dy = otherBoxPos.y - y;
-      const angle = Math.atan2(dy, dx);
-      const distance = Math.sqrt(dx * dx + dy * dy);
+    const box = {
+      w: textGroup.width(),
+      h: textGroup.height(),
+      body: textGroup,
+      text: textItem,
+      background: textBackground,
+      repulsionForce: config.repulsionForce,
+      activeTween: null,
+      applyPull(otherBox: Box, timeMS = 1000) {
+        if (this.activeTween) {
+          return;
+        }
+        const { x, y } = this.body.getPosition();
+        const otherBoxPos = otherBox.body.getPosition();
+        const dx = otherBoxPos.x - x;
+        const dy = otherBoxPos.y - y;
+        const angle = Math.atan2(dy, dx);
+        const distance = Math.sqrt(dx * dx + dy * dy);
 
-      if (distance < 100) {
-        return;
-      }
+        if (distance < 100) {
+          return;
+        }
 
-      // Pull box towards otherBox
-      // The boxes want to be atleast 600px apart so we target 500 and devide them by the 2 boxes
-      const targetDistance = 500;
-      const forceX = (Math.cos(angle) * (distance - targetDistance)) / 2;
-      const forceY = (Math.sin(angle) * (distance - targetDistance)) / 2;
+        // Pull box towards otherBox
+        // The boxes want to be atleast 600px apart so we target 500 and devide them by the 2 boxes
+        const targetDistance = 500;
+        const forceX = (Math.cos(angle) * (distance - targetDistance)) / 2;
+        const forceY = (Math.sin(angle) * (distance - targetDistance)) / 2;
 
-      const destX = x + forceX;
-      const destY = y + forceY;
+        const destX = x + forceX;
+        const destY = y + forceY;
 
-      // Apply force to this box
-      const tween = new Konva.Tween({
-        node: this.body,
-        duration: timeMS / 1000,
-        x: destX,
-        y: destY,
-        easing: Konva.Easings.EaseOut,
-      });
-      tween.play();
+        // Apply force to this box
+        const tween = new Konva.Tween({
+          node: this.body,
+          duration: timeMS / 1000,
+          x: destX,
+          y: destY,
+          easing: Konva.Easings.EaseOut,
+        });
+        tween.play();
 
-      this.activeTween = tween;
-      tween.onFinish = () => {
-        this.activeTween = null;
-      };
-    },
-    applyRepulsion(otherBox: Box, forceMultiplier = 1, timeMS = 1000) {
-      if (this.activeTween) {
-        return;
-      }
-      const { x, y } = this.body.getPosition();
-      const otherBoxPos = otherBox.body.getPosition();
-      const dx = x - otherBoxPos.x;
-      const dy = y - otherBoxPos.y;
-      const distance = Math.sqrt(dx * dx + dy * dy);
+        this.activeTween = tween;
+        tween.onFinish = () => {
+          this.activeTween = null;
+        };
+      },
+      applyRepulsion(otherBox: Box, forceMultiplier = 1, timeMS = 1000) {
+        if (this.activeTween) {
+          return;
+        }
+        const { x, y } = this.body.getPosition();
+        const otherBoxPos = otherBox.body.getPosition();
+        const dx = x - otherBoxPos.x;
+        const dy = y - otherBoxPos.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
 
-      if (distance > 600) {
-        return;
-      }
+        if (distance > 600) {
+          return;
+        }
 
-      const force =
-        distance < 10
-          ? this.repulsionForce * forceMultiplier
-          : (this.repulsionForce * forceMultiplier) / distance;
-      const angle = Math.atan2(dy, dx);
+        const force =
+          distance < 10
+            ? this.repulsionForce * forceMultiplier
+            : (this.repulsionForce * forceMultiplier) / distance;
+        const angle = Math.atan2(dy, dx);
 
-      const destX = x + Math.cos(angle) * force;
-      const destY = y + Math.sin(angle) * force;
+        const destX = x + Math.cos(angle) * force;
+        const destY = y + Math.sin(angle) * force;
 
-      // Ensure the box stays within the stage bounds
-      const { x: endX, y: endY } = ensureInsideStage(
-        destX,
-        destY,
-        this.body.width(),
-        this.body.height(),
+        // Ensure the box stays within the stage bounds
+        const { x: endX, y: endY } = ensureInsideStage(
+          destX,
+          destY,
+          this.body.width(),
+          this.body.height(),
+          stage
+        );
+
+        // Apply force to this box
+        const tween = new Konva.Tween({
+          node: this.body,
+          duration: timeMS / 1000,
+          x: endX,
+          y: endY,
+          easing: Konva.Easings.EaseOut,
+        });
+        tween.play();
+
+        this.activeTween = tween;
+        tween.onFinish = () => {
+          this.activeTween = null;
+        };
+      },
+      setVisible(timeMs = 400) {
+        new Konva.Tween({
+          node: this.body,
+          duration: timeMs / 1000,
+          opacity: 1,
+          easing: Konva.Easings.EaseOut,
+        }).play();
+      },
+      setReady() {
+        new Konva.Tween({
+          node: this.background,
+          duration: 0.2,
+          fill: config.white,
+          easing: Konva.Easings.EaseInOut,
+        }).play();
+      },
+    } as Box;
+
+    box.body.on("dragstart", () => {
+      box.activeTween?.destroy();
+    });
+
+    box.body.on("dragmove", ({ target }) => {
+      const { x, y } = ensureInsideStage(
+        target.x(),
+        target.y(),
+        target.width(),
+        target.height(),
         stage
       );
 
-      // Apply force to this box
-      const tween = new Konva.Tween({
-        node: this.body,
-        duration: timeMS / 1000,
-        x: endX,
-        y: endY,
-        easing: Konva.Easings.EaseOut,
-      });
-      tween.play();
+      target.x(x);
+      target.y(y);
+    });
 
-      this.activeTween = tween;
-      tween.onFinish = () => {
-        this.activeTween = null;
-      };
-    },
-    setVisible(timeMs = 400) {
-      new Konva.Tween({
-        node: this.body,
-        duration: timeMs / 1000,
-        opacity: 1,
-        easing: Konva.Easings.EaseOut,
-      }).play();
-    },
-    setReady() {
-      new Konva.Tween({
-        node: this.background,
-        duration: 0.2,
-        fill: config.white,
-        easing: Konva.Easings.EaseInOut,
-      }).play();
-    },
-  } as Box;
+    return box;
+  }
 
-  box.body.on("dragstart", () => {
-    box.activeTween?.destroy();
-  });
+  // Random placement function, expecting 4 items, placing them randomly within a corner
+  function randomPlacement(index: number) {
+    const areaWidth = 1 / 5; // 20% of the width
+    const areaHeight = 1 / 5;
 
-  box.body.on("dragmove", ({ target }) => {
-    const { x, y } = ensureInsideStage(
-      target.x(),
-      target.y(),
-      target.width(),
-      target.height(),
-      stage
-    );
-
-    target.x(x);
-    target.y(y);
-  });
-
-  return box;
-}
-
-// Random placement function, expecting 4 items, placing them randomly within a corner
-function randomPlacement(index: number) {
-  const areaWidth = 1 / 5; // 20% of the width
-  const areaHeight = 1 / 5;
-
-  /*
+    /*
   *  This is the placement grid
      | | | |
      |1| |2| 
@@ -450,40 +446,59 @@ function randomPlacement(index: number) {
      | | | |
   */
 
-  const minX = index % 2 === 0 ? areaWidth : areaWidth * 3;
-  const minY = index < 2 ? areaHeight : areaHeight * 3;
+    const minX = index % 2 === 0 ? areaWidth : areaWidth * 3;
+    const minY = index < 2 ? areaHeight : areaHeight * 3;
 
-  return [minX + Math.random() * areaWidth, minY + Math.random() * areaHeight];
-}
+    return [
+      minX + Math.random() * areaWidth,
+      minY + Math.random() * areaHeight,
+    ];
+  }
 
-function haveIntersection(boxA: Box, boxB: Box, padding = 20) {
-  const { x: xA, y: yA, width: wA, height: hA } = boxA.body.getClientRect();
-  const { x: xB, y: yB, width: wB, height: hB } = boxB.body.getClientRect();
-  return !(
-    xA + wA + padding < xB - padding || // A is left of B
-    xB + wB + padding < xA - padding || // B is left of A
-    yA + hA + padding < yB - padding || // A is above B
-    yB + hB + padding < yA - padding // B is above A
-  );
-}
+  function getStaticPlacement(index: number) {
+    const startPosition = [
+      [122, 225],
+      [584, 175],
+      [210, 370],
+      [550, 480],
+    ][index];
+    if (!startPosition) {
+      return [0, 0];
+    }
 
-function ensureInsideStage(
-  x: number,
-  y: number,
-  width: number,
-  height: number,
-  stage: Konva.Stage
-) {
-  const newY = Math.min(
-    Math.max(y, config.stagePadding),
-    stage.height() - config.stagePadding - height
-  );
-  const newX = Math.min(
-    Math.max(x, config.stagePadding),
-    stage.width() - config.stagePadding - width
-  );
-  return { x: newX, y: newY };
-}
+    // Return percentage of design stage [X,Y]
+    return [startPosition[0] / 800, startPosition[1] / 600];
+  }
+
+  function haveIntersection(boxA: Box, boxB: Box, padding = 20) {
+    const { x: xA, y: yA, width: wA, height: hA } = boxA.body.getClientRect();
+    const { x: xB, y: yB, width: wB, height: hB } = boxB.body.getClientRect();
+    return !(
+      xA + wA + padding < xB - padding || // A is left of B
+      xB + wB + padding < xA - padding || // B is left of A
+      yA + hA + padding < yB - padding || // A is above B
+      yB + hB + padding < yA - padding // B is above A
+    );
+  }
+
+  function ensureInsideStage(
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    stage: Konva.Stage
+  ) {
+    const newY = Math.min(
+      Math.max(y, config.stagePadding),
+      stage.height() - config.stagePadding - height
+    );
+    const newX = Math.min(
+      Math.max(x, config.stagePadding),
+      stage.width() - config.stagePadding - width
+    );
+    return { x: newX, y: newY };
+  }
+};
 
 export function setupObserver(canvas: HTMLDivElement): void {
   const colorStart = "#97d2ec"; // --color-blue
