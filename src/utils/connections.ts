@@ -276,8 +276,7 @@ export const setupConnections = function (rootEl: HTMLDivElement) {
     const textItem = new Konva.Text({
       fontSize: config.fontSize,
       fontFamily: `"KHTeka", "Inter", system-ui, sans-serif`,
-      fontWeight: 300,
-      fontStyle: "normal",
+      fontStyle: "300",
       text: text,
       fill: config.textColor,
       x: config.textPadding[1],
