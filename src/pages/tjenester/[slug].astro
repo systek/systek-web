@@ -1,6 +1,8 @@
 ---
 import { sanityClient } from "sanity:client";
 import clsx from "clsx";
+import { format } from "date-fns";
+import { nb } from "date-fns/locale";
 
 import ExternalIcon from "../../assets/icons/external.svg";
 import Layout from "../../layouts/Layout.astro";
@@ -156,37 +158,46 @@ const vacancies = [
       </div>
       <!-- todo: add logic for line through, format date -->
       {
-        vacancies.map((item, index) => (
-          <div>
-            <div
-              class={clsx(
-                "flex md:hidden justify-between items-center py-4 border-b gap-gutter border-stroke",
-                index > 1 && "line-through",
-              )}
-            >
-              <a
-                href={item.href}
-                class="flex items-center gap-2 link-underline"
+        vacancies.map((item, index) => {
+          const date = item.date ? new Date(item.date) : undefined;
+          const formatedDate = date
+            ? format(date, "d. MMMM", {
+                locale: nb,
+              })
+            : "Løpende";
+          const expired = date ? date < new Date() : false;
+          return (
+            <div>
+              <div
+                class={clsx(
+                  "flex md:hidden justify-between items-center py-4 border-b gap-gutter border-stroke",
+                  { "line-through": expired }
+                )}
               >
-                <ExternalIcon class="size-2.5" />
+                <a
+                  href={item.href}
+                  class="flex items-center gap-2 link-underline"
+                >
+                  <ExternalIcon class="size-2.5" />
+                  <p class="text-xs-fluid">{item.title}</p>
+                </a>
+
+                <p class="text-xs-fluid">{formatedDate}</p>
+              </div>
+
+              <div class="hidden grid-cols-4 py-4 border-b md:grid gap-gutter border-stroke">
                 <p class="text-xs-fluid">{item.title}</p>
-              </a>
-
-              <p class="text-xs-fluid">{item.date}</p>
+                <p class="text-xs-fluid">{formatedDate}</p>
+                <p class="text-xs-fluid">{item.location}</p>
+                <p class="text-xs-fluid">
+                  <Button size="sm" href={item.href}>
+                    Se stillingsinstruks
+                  </Button>
+                </p>
+              </div>
             </div>
-
-            <div class="hidden grid-cols-4 py-4 border-b md:grid gap-gutter border-stroke">
-              <p class="text-xs-fluid">{item.title}</p>
-              <p class="text-xs-fluid">{item.date}</p>
-              <p class="text-xs-fluid">{item.location}</p>
-              <p class="text-xs-fluid">
-                <Button size="sm" href={item.href}>
-                  Se stillingsinstruks
-                </Button>
-              </p>
-            </div>
-          </div>
-        ))
+          );
+        })
       }
 
       <div class="hidden ml-[25%] mt-6 md:block">

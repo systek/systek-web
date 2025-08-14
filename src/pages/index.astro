@@ -1,6 +1,8 @@
 ---
 import clsx from "clsx";
 import { format } from "date-fns";
+import { nb } from "date-fns/locale";
+
 import ExternalIcon from "../assets/icons/external.svg";
 import Button from "../components/Button.astro";
 import CardLayout from "../components/card-layout/CardLayout.astro";
@@ -129,7 +131,11 @@ const logoBottomItems = logoItems.slice(index);
               <ExternalIcon class="size-2.5" />
               <p class="text-xs-fluid">{item.title}</p>
             </a>
-            <p class="md:pr-64 text-xs-fluid">{item.publishedAt}</p>
+            <p class="md:pr-64 text-xs-fluid">
+              {format(new Date(item.publishedAt), "d. MMMM", {
+                locale: nb,
+              })}
+            </p>
           </div>
         ))
       }
@@ -253,6 +259,9 @@ const logoBottomItems = logoItems.slice(index);
             // TODO: move this logic into a client-side component
             // This will onlly be checked at build time
             const date = new Date(item.date);
+            const formatedDate = format(date, "d. MMMM", {
+              locale: nb,
+            });
             const isDone = date < new Date();
             return (
               <div>
@@ -273,9 +282,7 @@ const logoBottomItems = logoItems.slice(index);
                       <p class="text-xs-fluid">{item.title}</p>
                     </a>
                   )}
-                  <p class="text-xs-fluid">
-                    {format(new Date(item.date), "dd. MMM")}
-                  </p>
+                  <p class="text-xs-fluid">{formatedDate}</p>
                 </div>
 
                 <div
@@ -285,9 +292,7 @@ const logoBottomItems = logoItems.slice(index);
                   )}
                 >
                   <p class="text-xs-fluid">{item.title}</p>
-                  <p class="text-xs-fluid">
-                    {format(new Date(item.date), "dd. MMM")}
-                  </p>
+                  <p class="text-xs-fluid">{formatedDate}</p>
                   <p class="text-xs-fluid">{item.location}</p>
                   <p class="text-xs-fluid">
                     {isDone ? (

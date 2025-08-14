@@ -1,6 +1,8 @@
 ---
 import { sanityClient } from "sanity:client";
 import { format } from "date-fns";
+import { nb } from "date-fns/locale";
+
 import type { Service, Work } from "../../lib/sanity.types";
 import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
@@ -56,9 +58,14 @@ const matchingServiceItems: Service[] | undefined = serviceItems.filter(
                 <dt class="font-bold text-sm-fluid mt-gutter">Periode</dt>
                 <dd class="text-sm-fluid">
                   {work.startDate &&
-                    format(new Date(work.startDate), "MMM yyyy")}
+                    format(new Date(work.startDate), "MMM yyyy", {
+                      locale: nb,
+                    })}
                   {work.startDate && work.endDate ? " - " : ""}
-                  {work.endDate && format(new Date(work.endDate), "MMM yyyy")}
+                  {work.endDate &&
+                    format(new Date(work.endDate), "MMM yyyy", {
+                      locale: nb,
+                    })}
                 </dd>
               </>
             )
