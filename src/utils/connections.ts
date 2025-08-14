@@ -31,6 +31,8 @@ type Config = {
   white: string;
   yellow: string;
   textColor: string;
+  maxLineLength: number;
+  minLineLength: number;
 };
 
 type BreakpointConfig = {
@@ -105,6 +107,8 @@ export const setupConnections = function (rootEl: HTMLDivElement) {
       white: "#fcf6ee",
       yellow: "#ffd24c",
       textColor: "rgb(26, 26, 26)",
+      maxLineLength: window.innerWidth * 0.4, //window.innerWidth < 1680 ? 600 : window.innerWidth * 0.4,
+      minLineLength: window.innerWidth * 0.1, //window.innerWidth < 1680 ? 100 : window.innerWidth * 0.06,
     },
     breakpointConfig
   );
@@ -117,9 +121,11 @@ export const setupConnections = function (rootEl: HTMLDivElement) {
   });
 
   const layer = new Konva.Layer();
+  const subLayer = new Konva.Layer();
+  stage.add(subLayer);
   stage.add(layer);
 
-  function drawBox(index = 0, text: string) {
+  async function drawBox(index = 0, text: string) {
     const [startX, startY] = getStaticPlacement(index);
     const x =
       config.initialStagePaddingX +
@@ -137,9 +143,10 @@ export const setupConnections = function (rootEl: HTMLDivElement) {
     if (prevBox) {
       const line = createLine(prevBox, box);
       lines.push(line);
-      layer.add(line.body);
+      subLayer.add(line.body);
     }
 
+    await sleep(300);
     box.setReady();
   }
 
@@ -168,8 +175,8 @@ export const setupConnections = function (rootEl: HTMLDivElement) {
 
   // Check that distance between boxes is between 100px and 600px
   function checkDistance() {
-    const minDistance = 100;
-    const maxDistance = 600;
+    const minDistance = config.minLineLength * 2;
+    const maxDistance = config.maxLineLength;
     if (boxes.length < 2) {
       return;
     }
@@ -188,8 +195,8 @@ export const setupConnections = function (rootEl: HTMLDivElement) {
       const distance = Math.sqrt(dx * dx + dy * dy);
 
       if (distance < minDistance) {
-        if (!boxA.body.isDragging()) boxA.applyRepulsion(boxB, 1, 1000);
-        if (!boxB.body.isDragging()) boxB.applyRepulsion(boxA, 1, 1000);
+        if (!boxA.body.isDragging()) boxA.applyRepulsion(boxB, 2, 1000);
+        if (!boxB.body.isDragging()) boxB.applyRepulsion(boxA, 2, 1000);
       }
       if (distance > maxDistance) {
         if (!boxA.body.isDragging()) boxA.applyPull(boxB, 1000);
@@ -200,8 +207,8 @@ export const setupConnections = function (rootEl: HTMLDivElement) {
 
   // Check length of lines and apply repulsion if too short
   function checkLineLength() {
-    const minLineLength = 100;
-    const maxLineLength = 600;
+    const minLineLength = config.minLineLength;
+    const maxLineLength = config.maxLineLength;
     for (const line of lines) {
       const [xA, yA, xB, yB] = line.body.points();
       const dx = xA - xB;
@@ -231,7 +238,8 @@ export const setupConnections = function (rootEl: HTMLDivElement) {
 
   function animate() {
     updateLines();
-    checkDistance();
+    //checkDistance();
+    checkLineLength();
     collisionCheck();
 
     raf = requestAnimationFrame(animate);
@@ -337,7 +345,7 @@ export const setupConnections = function (rootEl: HTMLDivElement) {
           duration: timeMS / 1000,
           x: destX,
           y: destY,
-          easing: Konva.Easings.EaseOut,
+          easing: Konva.Easings.Linear,
         });
         tween.play();
 
@@ -384,7 +392,7 @@ export const setupConnections = function (rootEl: HTMLDivElement) {
           duration: timeMS / 1000,
           x: endX,
           y: endY,
-          easing: Konva.Easings.EaseOut,
+          easing: Konva.Easings.Linear,
         });
         tween.play();
 
@@ -398,15 +406,15 @@ export const setupConnections = function (rootEl: HTMLDivElement) {
           node: this.body,
           duration: timeMs / 1000,
           opacity: 1,
-          easing: Konva.Easings.EaseOut,
+          easing: Konva.Easings.Linear,
         }).play();
       },
       setReady() {
         new Konva.Tween({
           node: this.background,
-          duration: 0.2,
+          duration: 0.3,
           fill: config.white,
-          easing: Konva.Easings.EaseInOut,
+          easing: Konva.Easings.Linear,
         }).play();
       },
     } as Box;

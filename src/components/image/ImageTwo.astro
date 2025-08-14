@@ -1,5 +1,43 @@
 ---
-// todo
+import SanityImage from "../SanityImage.astro";
+
+// todo: infer type from sanity schema
+interface Image {
+  _type: "image";
+  asset: {
+    _ref: string;
+    _type: "reference";
+  };
+  alt: string;
+  caption: string;
+}
+
+interface Props {
+  node: {
+    first: Image;
+    second: Image;
+  };
+}
+
+const { first, second } = Astro.props.node;
 ---
 
-<div>ImageTwo</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+  <figure>
+    <SanityImage
+      node={first}
+      alt={first.alt}
+      class="w-full object-cover rounded-md aspect-[4/5] mt-gutter"
+    />
+    <figcaption class="text-xs-fluid mt-gutter">{first.caption}</figcaption>
+  </figure>
+
+  <figure>
+    <SanityImage
+      node={second}
+      alt={second.alt}
+      class="w-full object-cover rounded-md aspect-[4/3]"
+    />
+    <figcaption class="text-xs-fluid mt-gutter">{second.caption}</figcaption>
+  </figure>
+</div>

@@ -18,9 +18,12 @@ interface Props {
 const { node } = Astro.props;
 ---
 
-<div class="my-section md:mr-[calc(50%-47.6vw)]">
+<figure class="my-section md:mr-[calc(50%-47.6vw)]">
   <SanityImage
     node={node}
-    class="w-full object-cover rounded-md md:rounded-lg aspect-[1.33/1] md:aspect-[2/1]"
+    class="w-full object-cover rounded-md md:rounded-lg aspect-[4/3] md:aspect-[2/1]"
   />
-</div>
+  <figcaption class="mt-gutter text-xs-fluid">
+    {node.caption}
+  </figcaption>
+</figure>

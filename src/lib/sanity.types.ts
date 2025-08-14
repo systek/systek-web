@@ -114,7 +114,7 @@ export type Work = {
       _type: "span";
       _key: string;
     }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+    style?: "normal" | "blockquote" | "h2";
     listItem?: "bullet" | "number";
     markDefs?: Array<{
       href?: string;
@@ -122,7 +122,7 @@ export type Work = {
       _key: string;
     }>;
     level?: number;
-    _type: "block";
+    _type: "data";
     _key: string;
   } | {
     asset?: {
@@ -134,9 +134,52 @@ export type Work = {
     media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
+    alt?: string;
+    caption?: string;
     _type: "image";
     _key: string;
+  } | {
+    first: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      caption?: string;
+      _type: "image";
+    };
+    second: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      caption?: string;
+      _type: "image";
+    };
+    _type: "imageTwo";
+    _key: string;
   }>;
+  technologies?: Array<string>;
+  stats?: {
+    title: string;
+    items?: Array<{
+      label: string;
+      value: string;
+      _type: "statItem";
+      _key: string;
+    }>;
+  };
 };
 
 export type Logo = {
@@ -245,11 +288,6 @@ export type Service = {
     _type: "data";
     _key: string;
   } | {
-    title: string;
-    items: Array<string>;
-    _type: "list-group";
-    _key: string;
-  } | {
     asset?: {
       _ref: string;
       _type: "reference";
@@ -264,8 +302,44 @@ export type Service = {
     _type: "image";
     _key: string;
   } | {
+    first: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      caption?: string;
+      _type: "image";
+    };
+    second: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      caption?: string;
+      _type: "image";
+    };
+    _type: "imageTwo";
+    _key: string;
+  } | {
     items: Array<string>;
     _type: "tags-list";
+    _key: string;
+  } | {
+    title: string;
+    items: Array<string>;
+    _type: "list-group";
     _key: string;
   }>;
 };

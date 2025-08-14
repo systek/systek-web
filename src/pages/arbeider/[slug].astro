@@ -27,7 +27,7 @@ const serviceItems = await fetchServiceItems();
 
 // todo: why is work.services undefined? should be a required field
 const matchingServiceItems: Service[] | undefined = serviceItems.filter(
-  (item) => work.services?.some(({ _ref }) => item._id === _ref),
+  (item) => work.services?.some(({ _ref }) => item._id === _ref)
 );
 ---
 
@@ -101,6 +101,57 @@ const matchingServiceItems: Service[] | undefined = serviceItems.filter(
     </div>
   </div>
 
+  {
+    work.stats && (
+      <div class="mx-grid grid grid-cols-1 md:grid-cols-4 mt-section bg-yellow rounded-lg p-6">
+        <div />
+        <div class="col-span-3">
+          <h2 class="mb-section text-2xl-fluid font-light">
+            {work.stats.title}
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+            {work.stats.items?.map((item) => (
+              <div class="flex flex-col justify-between bg-white p-4 rounded-lg h-[290px] w-full">
+                <span class="text-2xl-fluid font-bold">{item.value}</span>
+                <span class="text-sm-fluid">{item.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  {
+    work.technologies !== undefined && work.technologies.length > 0 && (
+      <div class="mx-grid mt-section grid grid-cols-1 md:grid-cols-4 gap-gutter">
+        <div />
+        <div class="col-span-3">
+          <h2 class="font-bold text-sm-fluid">
+            Teknologier brukt gjennom arbeidet
+          </h2>
+          <div class="flex flex-row gap-2 text-sm-fluid">
+            {work.technologies.map((item, index) => (
+              <>
+                <span>{item}</span>
+                {index < work.technologies!.length - 1 && <span>·</span>}
+              </>
+            ))}
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  <div class="mx-grid mt-section grid grid-cols-1 md:grid-cols-4 gap-gutter">
+    <div></div>
+    <div class="col-span-3">
+      <h2 class="font-bold text-sm-fluid">Likte du artikkelen?</h2>
+      <p class="text-sm-fluid mb-[16px]">Del den med noen andre!</p>
+      <Button class="_copy-link">Kopier lenke</Button>
+    </div>
+  </div>
+
   <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
     <CardHeader title="Design og brukeropplevelse">
       <p class="max-w-[50rem] lg:max-w-[47.6vw] font-light text-xl-fluid">
@@ -168,5 +219,12 @@ const matchingServiceItems: Service[] | undefined = serviceItems.filter(
     </CardHeader>
   </CardLayout>
 
+  <script>
+    document.querySelectorAll("._copy-link").forEach((el) => {
+      el.addEventListener("click", () => {
+        navigator.clipboard.writeText(window.location.href);
+      });
+    });
+  </script>
   <Footer />
 </Layout>

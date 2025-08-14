@@ -1,4 +1,8 @@
 import { defineField, defineType } from "sanity";
+import { textBlock } from "./shared/text";
+import { image } from "./shared/image";
+import { imageTwo } from "./shared/imageTwo";
+import { stats } from "./shared/stats";
 
 export const workType = defineType({
   name: "work",
@@ -58,8 +62,18 @@ export const workType = defineType({
     defineField({
       name: "content",
       type: "array",
-      of: [{ type: "block" }, { type: "image" }],
+      of: [textBlock, image, imageTwo],
       validation: (rule) => rule.required(),
     }),
+    defineField({
+      type: "array",
+      name: "technologies",
+      title: "Brukte teknologier",
+      of: [{ type: "string" }],
+      options: {
+        layout: "tags",
+      },
+    }),
+    stats,
   ],
 });
