@@ -332,7 +332,7 @@ export const setupConnections = function (rootEl: HTMLDivElement) {
 
         // Pull box towards otherBox
         // The boxes want to be atleast 600px apart so we target 500 and devide them by the 2 boxes
-        const targetDistance = 500;
+        const targetDistance = config.maxLineLength - config.minLineLength;
         const forceX = (Math.cos(angle) * (distance - targetDistance)) / 2;
         const forceY = (Math.sin(angle) * (distance - targetDistance)) / 2;
 

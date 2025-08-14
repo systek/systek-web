@@ -25,11 +25,14 @@ export const blogType = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
-      name: "slug",
-      title: "Slug",
-      type: "slug",
-      options: { source: "title" },
-      validation: (rule) => rule.required(),
+      name: "link",
+      title: "Lenke",
+      type: "url",
+      validation: (rule) =>
+        rule.required().uri({
+          scheme: ["http", "https"],
+          allowRelative: true,
+        }),
     }),
     defineField({
       name: "image",

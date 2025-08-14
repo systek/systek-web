@@ -10,7 +10,7 @@ import type {
 } from "./sanity.types";
 
 export async function fetchServiceItems(): Promise<Service[]> {
-  return sanityClient.fetch(`*[_type == "service" && defined(slug)] | order(order asc) {
+  return sanityClient.fetch(`*[_type == "service" && defined(slug)] {
     _id,
     title,
     description,
@@ -19,7 +19,7 @@ export async function fetchServiceItems(): Promise<Service[]> {
 }
 
 export async function fetchNewsItems(): Promise<News[]> {
-  return sanityClient.fetch(`*[_type == "news" && defined(slug)] | order(order asc) {
+  return sanityClient.fetch(`*[_type == "news" && defined(slug)] | order(publishedAt asc) {
     _id,
     title,
     description,
@@ -30,7 +30,7 @@ export async function fetchNewsItems(): Promise<News[]> {
 }
 
 export async function fetchLogoItems(): Promise<Logo[]> {
-  return sanityClient.fetch(`*[_type == "logo" && defined(image)] | order(order asc) {
+  return sanityClient.fetch(`*[_type == "logo" && defined(image)] {
     _id,
     title,
     image
@@ -38,7 +38,7 @@ export async function fetchLogoItems(): Promise<Logo[]> {
 }
 
 export async function fetchWorkItems(): Promise<Work[]> {
-  return sanityClient.fetch(`*[_type == "work" && defined(slug)] | order(order asc) {
+  return sanityClient.fetch(`*[_type == "work" && defined(slug)] {
     _id,
     title,
     description,
@@ -47,8 +47,8 @@ export async function fetchWorkItems(): Promise<Work[]> {
   }`);
 }
 
-export async function fetchActivityItems(): Promise<Activity[]> {
-  return sanityClient.fetch(`*[_type == "activity"] | order(order asc) {
+export async function fetchActivityItems(limit = 5): Promise<Activity[]> {
+  return sanityClient.fetch(`*[_type == "activity"] | order(date desc)[0..${limit - 1}] {
     _id,
     title,
     date,
@@ -57,19 +57,21 @@ export async function fetchActivityItems(): Promise<Activity[]> {
   }`);
 }
 
-export async function fetchBlogItems(): Promise<Blog[]> {
-  return sanityClient.fetch(`*[_type == "blog" && defined(slug)] | order(order asc) {
+export async function fetchBlogItems(): Promise<
+  (Omit<Blog, "author"> & { author: Staff })[]
+> {
+  return sanityClient.fetch(`*[_type == "blog"] {
     _id,
     title,
     description,
-    author,
-    slug, 
+    author->,
+    link, 
     image
   }`);
 }
 
 export async function fetchStaffItems(): Promise<Staff[]> {
-  return sanityClient.fetch(`*[_type == "staff" && defined(slug)] | order(order asc) {
+  return sanityClient.fetch(`*[_type == "staff"] | order(name asc) {
     _id,
     name,
     position,

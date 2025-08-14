@@ -1,5 +1,6 @@
 ---
 import clsx from "clsx";
+import { format } from "date-fns";
 import ExternalIcon from "../assets/icons/external.svg";
 import Button from "../components/Button.astro";
 import CardLayout from "../components/card-layout/CardLayout.astro";
@@ -32,7 +33,7 @@ const [
   fetchServiceItems(),
   fetchNewsItems(),
   fetchWorkItems(),
-  fetchActivityItems(),
+  fetchActivityItems(5),
   fetchBlogItems(),
   fetchLogoItems(),
 ]);
@@ -184,14 +185,14 @@ const logoBottomItems = logoItems.slice(index);
       {
         workItems.map((item, index) => (
           <a
-            href={item.slug.current}
+            href={`/arbeider/${item.slug.current}`}
             class={clsx("group", index % 3 === 0 && "col-span-2")}
           >
             <picture>
               <SanityImage
                 class={clsx(
                   "w-full rounded-md object-cover",
-                  index % 3 === 2 ? "aspect-[1/1]" : "aspect-[4/3]",
+                  index % 3 === 2 ? "aspect-[1/1]" : "aspect-[4/3]"
                 )}
                 node={item.image}
                 alt={item.image.alt}
@@ -248,51 +249,61 @@ const logoBottomItems = logoItems.slice(index);
         </div>
         <!-- todo: add logic for line through, format date -->
         {
-          activityItems.map((item, index) => (
-            <div>
-              <div
-                class={clsx(
-                  "flex md:hidden justify-between items-center py-4 border-b gap-gutter border-stroke",
-                  index > 1 && "line-through",
-                )}
-              >
-                {index <= 1 && item.slug?.current ? (
-                  <a
-                    href={item.slug.current}
-                    class="flex items-center gap-2 link-underline"
-                  >
-                    <ExternalIcon class="size-2.5" />
-                    <p class="text-xs-fluid">{item.title}</p>
-                  </a>
-                ) : (
-                  <p class="text-xs-fluid">{item.title}</p>
-                )}
-                <p class="text-xs-fluid">{item.date}</p>
-              </div>
-
-              <div
-                class={clsx(
-                  "hidden md:grid grid-cols-4 py-5 border-b gap-gutter border-stroke",
-                  index > 1 && "line-through",
-                )}
-              >
-                <p class="text-xs-fluid">{item.title}</p>
-                <p class="text-xs-fluid">{item.date}</p>
-                <p class="text-xs-fluid">{item.location}</p>
-                <p class="text-xs-fluid">
-                  {index > 1 ? (
-                    "Avsluttet"
-                  ) : item.slug?.current ? (
-                    <Button size="sm" href={item.slug.current}>
-                      Meld meg på
-                    </Button>
-                  ) : (
-                    "Internt"
+          activityItems.map((item, index) => {
+            // TODO: move this logic into a client-side component
+            // This will onlly be checked at build time
+            const date = new Date(item.date);
+            const isDone = date < new Date();
+            return (
+              <div>
+                <div
+                  class={clsx(
+                    "flex md:hidden justify-between items-center py-4 border-b gap-gutter border-stroke",
+                    { "line-through": isDone }
                   )}
-                </p>
+                >
+                  {isDone ? (
+                    <p class="text-xs-fluid">{item.title}</p>
+                  ) : (
+                    <a
+                      href={item.slug?.current}
+                      class="flex items-center gap-2 link-underline"
+                    >
+                      <ExternalIcon class="size-2.5" />
+                      <p class="text-xs-fluid">{item.title}</p>
+                    </a>
+                  )}
+                  <p class="text-xs-fluid">
+                    {format(new Date(item.date), "dd. MMM")}
+                  </p>
+                </div>
+
+                <div
+                  class={clsx(
+                    "hidden md:grid grid-cols-4 py-5 border-b gap-gutter border-stroke",
+                    { "line-through": isDone }
+                  )}
+                >
+                  <p class="text-xs-fluid">{item.title}</p>
+                  <p class="text-xs-fluid">
+                    {format(new Date(item.date), "dd. MMM")}
+                  </p>
+                  <p class="text-xs-fluid">{item.location}</p>
+                  <p class="text-xs-fluid">
+                    {isDone ? (
+                      "Avsluttet"
+                    ) : item.slug?.current ? (
+                      <Button size="sm" href={item.slug.current}>
+                        Meld meg på
+                      </Button>
+                    ) : (
+                      "Internt"
+                    )}
+                  </p>
+                </div>
               </div>
-            </div>
-          ))
+            );
+          })
         }
       </div>
     </div>
@@ -366,7 +377,7 @@ const logoBottomItems = logoItems.slice(index);
     >
       {
         blogItems.map((item) => (
-          <a class="group" href={item.slug.current}>
+          <a class="group" href={item.link}>
             <picture>
               <SanityImage
                 class="w-full rounded-md object-cover aspect-[4/3]"
@@ -379,7 +390,9 @@ const logoBottomItems = logoItems.slice(index);
               {item.title}
             </p>
             <p class="text-md-fluid">{item.description}</p>
-            <p class="text-sm-fluid leading-snug">Skrevet av {item.author}</p>
+            <p class="text-sm-fluid leading-snug">
+              Skrevet av {item.author.name}
+            </p>
           </a>
         ))
       }
