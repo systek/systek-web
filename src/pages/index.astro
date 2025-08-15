@@ -50,9 +50,7 @@ const logoBottomItems = logoItems.slice(index);
 
   <Header />
 
-  <div
-    class="grid items-start grid-cols-1 mx-grid mt-section gap-gutter lg:grid-cols-2"
-  >
+  <div class="grid items-start mx-grid mt-section gap-gutter lg:grid-cols-2">
     <h2 class="font-light text-4xl-fluid">Digital styrke – tett på</h2>
     <div>
       <p class="text-lg-fluid">
@@ -88,9 +86,7 @@ const logoBottomItems = logoItems.slice(index);
       <Button href="/tjenester" class="mt-6 sm:mt-7">Se våre tjenester</Button>
     </CardHeader>
     <div></div>
-    <div
-      class="grid grid-cols-1 lg:col-span-3 gap-gutter mt-section md:grid-cols-3"
-    >
+    <div class="grid lg:col-span-3 gap-gutter mt-section md:grid-cols-3">
       {
         serviceItems.map((item) => (
           <LinkBox href={`/tjenester/${item.slug.current}`} color="grey">
@@ -385,9 +381,7 @@ const logoBottomItems = logoItems.slice(index);
     </CardHeader>
 
     <div></div>
-    <div
-      class="grid grid-cols-1 lg:col-span-3 md:grid-cols-2 gap-gutter mt-section"
-    >
+    <div class="grid lg:col-span-3 md:grid-cols-2 gap-gutter mt-section">
       {
         blogItems.map((item) => (
           <a class="group" href={item.link}>

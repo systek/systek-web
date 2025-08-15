@@ -116,7 +116,7 @@ const logoBottomItems = logoItems.slice(index);
     <div></div>
     <div class="lg:col-span-3">
       <div
-        class="grid grid-cols-1 md:grid-cols-2 gap-x-gutter mt-section gap-y-5 md:gap-y-section-md lg:gap-y-section-lg"
+        class="grid md:grid-cols-2 gap-x-gutter mt-section gap-y-5 md:gap-y-section-md lg:gap-y-section-lg"
       >
         {
           workItems.map((item, index) => (
@@ -153,9 +153,7 @@ const logoBottomItems = logoItems.slice(index);
       <Button href="/tjenester" class="mt-6 sm:mt-7">Se våre tjenester</Button>
     </CardHeader>
     <div></div>
-    <div
-      class="grid grid-cols-1 lg:col-span-3 gap-gutter mt-section md:grid-cols-3"
-    >
+    <div class="grid lg:col-span-3 gap-gutter mt-section md:grid-cols-3">
       {
         serviceItems.map((item) => (
           <LinkBox href={`/tjenester/${item.slug.current}`} color="grey">
