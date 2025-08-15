@@ -1,24 +1,31 @@
 ---
 import { PortableText as PortableTextInternal } from "astro-portabletext";
-import ImageOne from "./image/ImageOne.astro";
-import ImageTwo from "./image/ImageTwo.astro";
-import InternalLink from "./InternalLink.astro";
-import PortableBlock from "./PortableBlock.astro";
-import ListGroup from "./ListGroup.astro";
-import TagsList from "./TagsList.astro";
+import ImageOne from "./portable/ImageOne.astro";
+import ImageTwo from "./portable/ImageTwo.astro";
+import InternalLink from "./portable/InternalLink.astro";
+import PortableBlock from "./portable/PortableBlock.astro";
+import ListGroup from "./portable/ListGroup.astro";
+import TagsList from "./portable/TagsList.astro";
+import PageLink from "./portable/PageLink.astro";
+import ExternalLink from "./portable/ExternalLink.astro";
+import FileLink from "./portable/FileLink.astro";
+import List from "./portable/List.astro";
 
 const components = {
   type: {
-    // todo: add different image components
     image: ImageOne,
     imageTwo: ImageTwo,
     "list-group": ListGroup,
     "tags-list": TagsList,
+    "internal-link": PageLink,
+    "external-link": ExternalLink,
+    file: FileLink,
   },
   mark: {
     internalLink: InternalLink,
   },
   block: PortableBlock,
+  list: List,
 };
 ---
 

@@ -1,0 +1,18 @@
+---
+import Button from "../Button.astro";
+
+interface Props {
+  node: {
+    page: any;
+    text: string;
+  };
+}
+
+const {
+  node: { page, text },
+} = Astro.props;
+---
+
+<Button href={`/${page.slug.current}`} class="w-full" color="black" size="md">
+  {text}
+</Button>

@@ -1,0 +1,31 @@
+---
+import type { Image } from "sanity";
+import { sanityClient } from "sanity:client";
+import { SanityImage } from "sanity-image";
+
+const {
+  image,
+  class: className,
+  alt,
+  width,
+  height,
+} = Astro.props as {
+  image: Image;
+  class?: string;
+  alt: string;
+  width?: number;
+  height?: number;
+};
+
+const config = sanityClient.config();
+---
+
+<SanityImage
+  className={className}
+  id={image.asset?._ref!}
+  projectId={config.projectId}
+  dataset={config.dataset}
+  alt={alt}
+  width={width}
+  height={height}
+/>

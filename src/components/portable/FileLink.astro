@@ -1,0 +1,17 @@
+---
+import type { Asset } from "sanity";
+import Button from "../Button.astro";
+
+interface Props {
+  node: {
+    asset: Asset;
+    title: string;
+  };
+}
+
+const { node } = Astro.props;
+---
+
+<Button href={node.asset.url} class="w-full" size="md">
+  {node.title}
+</Button>

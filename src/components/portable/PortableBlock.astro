@@ -34,6 +34,10 @@ const UnknownStyle = getUnknownComponent();
     <p class="my-5 text-md-fluid hyphens-auto lg:my-7" {...attrs}>
       <slot />
     </p>
+  ) : styleIs("ul") ? (
+    <ul class="my-5 list-disc list-inside hyphens-auto lg:my-7" {...attrs}>
+      <slot />
+    </ul>
   ) : (
     <UnknownStyle {...props}>
       <slot />

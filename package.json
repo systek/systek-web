@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@astrojs/react": "^4.3.0",
+    "@sanity/asset-utils": "^2.2.1",
     "@sanity/astro": "^3.2.6",
     "@sanity/client": "^7.6.0",
     "@sanity/vision": "^4.4.1",

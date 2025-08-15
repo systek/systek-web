@@ -1,0 +1,27 @@
+---
+import type { List, Props as $ } from "astro-portabletext/types";
+
+export type Props = $<List>;
+
+const { node, index, isInline, ...attrs } = Astro.props;
+const listItemIs = (listItem: string) => listItem === node.listItem;
+---
+
+{
+  listItemIs("menu") ? (
+    <menu {...attrs}>
+      <slot />
+    </menu>
+  ) : listItemIs("number") ? (
+    <ol {...attrs}>
+      <slot />
+    </ol>
+  ) : (
+    <ul
+      class="list-disc list-inside my-5 text-md-fluid hyphens-auto lg:my-7"
+      {...attrs}
+    >
+      <slot />
+    </ul>
+  )
+}

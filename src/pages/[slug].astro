@@ -1,0 +1,75 @@
+---
+import { sanityClient } from "sanity:client";
+import type { Page } from "../lib/sanity.types";
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import PortableText from "../components/PortableText.astro";
+import Arrow from "../components/Arrow.astro";
+import SanityImage from "../components/Image.astro";
+
+export async function getStaticPaths() {
+  const pages = await sanityClient.fetch(`*[_type == "page"] { 
+    slug,
+    title,
+    heroImage,
+    content[]{
+      ...,
+      _type == "file" => {
+        ...,
+        asset->
+      }
+    }
+  }`);
+  return pages.map((page: Page) => ({
+    params: { slug: page.slug.current },
+    props: { page },
+  }));
+}
+
+const { page } = Astro.props as { page: Page };
+---
+
+<Layout>
+  <Header />
+
+  <div class="flex flex-col m-grid gap-section">
+    <div class="flex justify-between">
+      <Arrow position="topLeft" />
+      <Arrow position="topRight" />
+    </div>
+
+    <h1 class="font-light text-4xl-fluid hyphens-auto md:text-center">
+      {page.title}
+    </h1>
+
+    {
+      page.heroImage && (
+        <>
+          <div class="flex justify-between">
+            <Arrow position="middleLeft" />
+            <Arrow position="middleRight" />
+          </div>
+          <SanityImage
+            image={page.heroImage}
+            alt={page.title}
+            class="w-full rounded-md aspect-[4/3] lg:aspect-[2/1] object-cover"
+          />
+        </>
+      )
+    }
+
+    <div class="flex justify-between">
+      <Arrow position="bottomLeft" />
+      <Arrow position="bottomRight" />
+    </div>
+  </div>
+
+  <div class="mx-grid mt-section">
+    <div class="mx-auto max-w-[50rem] lg:max-w-[47.619vw]">
+      <PortableText value={page.content} />
+    </div>
+  </div>
+
+  <Footer />
+</Layout>

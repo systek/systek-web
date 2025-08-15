@@ -1,0 +1,18 @@
+---
+import Button from "../Button.astro";
+
+interface Props {
+  node: {
+    url: string;
+    text: string;
+  };
+}
+
+const {
+  node: { url, text },
+} = Astro.props;
+---
+
+<Button href={url} class="w-full" size="md">
+  {text}
+</Button>
