@@ -155,8 +155,6 @@ export const setupConnections = function (rootEl: HTMLDivElement) {
       lines.push(line);
       subLayer.add(line.body);
     }
-
-    await sleep(300);
   }
 
   function ensureInsideStage(
@@ -200,9 +198,6 @@ export const setupConnections = function (rootEl: HTMLDivElement) {
       pullBoxesToNewPositions(index);
       await sleep(750);
     }
-    // Make last box white
-    const lastBox = boxes[boxes.length - 1];
-    lastBox.setColor();
   }
 
   function startClick() {
@@ -305,12 +300,7 @@ export const setupConnections = function (rootEl: HTMLDivElement) {
         }).play();
       },
       setColor() {
-        new Konva.Tween({
-          node: this.background,
-          duration: 0.3,
-          fill: config.white,
-          easing: Konva.Easings.Linear,
-        }).play();
+        this.background.fill(config.white);
       },
     } as Box;
 
@@ -333,13 +323,13 @@ export const setupConnections = function (rootEl: HTMLDivElement) {
     }
     if (step === 1) {
       return [
-        [0.35, 0.47],
+        [0.25, 0.34],
         [0.6, 0.5],
       ];
     }
     if (step === 2) {
       return [
-        [0.3, 0.4],
+        [0.22, 0.36],
         [0.7, 0.3],
         [0.4, 0.72],
       ];
