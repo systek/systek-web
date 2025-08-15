@@ -37,18 +37,20 @@ export async function fetchLogoItems(): Promise<Logo[]> {
   }`);
 }
 
-export async function fetchWorkItems(): Promise<Work[]> {
-  return sanityClient.fetch(`*[_type == "work" && defined(slug)] {
-    _id,
-    title,
-    description,
-    slug,
-    image
-  }`);
+export async function fetchWorkItems(limit?: number): Promise<Work[]> {
+  const query = `*[_type == "work" && defined(slug)]${limit && `[0...${limit}]`} {
+        _id,
+        title,
+        description,
+        slug,
+        image
+      }`;
+
+  return sanityClient.fetch(query);
 }
 
 export async function fetchActivityItems(limit = 5): Promise<Activity[]> {
-  return sanityClient.fetch(`*[_type == "activity"] | order(date desc)[0..${limit - 1}] {
+  return sanityClient.fetch(`*[_type == "activity"] | order(date desc)${limit && `[0...${limit}]`} {
     _id,
     title,
     date,
