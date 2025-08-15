@@ -38,7 +38,7 @@ export async function fetchLogoItems(): Promise<Logo[]> {
 }
 
 export async function fetchWorkItems(limit?: number): Promise<Work[]> {
-  const query = `*[_type == "work" && defined(slug)]${limit && `[0...${limit}]`} {
+  const query = `*[_type == "work" && defined(slug)]${limit ? `[0...${limit}]` : ""} {
         _id,
         title,
         description,
@@ -50,7 +50,7 @@ export async function fetchWorkItems(limit?: number): Promise<Work[]> {
 }
 
 export async function fetchActivityItems(limit = 5): Promise<Activity[]> {
-  return sanityClient.fetch(`*[_type == "activity"] | order(date desc)${limit && `[0...${limit}]`} {
+  return sanityClient.fetch(`*[_type == "activity"] | order(date desc)${limit ? `[0...${limit}]` : ""} {
     _id,
     title,
     date,
