@@ -198,7 +198,7 @@ export const setupConnections = function (rootEl: HTMLDivElement) {
       const index = config.texts.indexOf(text);
       makeBox(index, text);
       pullBoxesToNewPositions(index);
-      await sleep(1700);
+      await sleep(1000);
     }
   }
 
@@ -289,7 +289,7 @@ export const setupConnections = function (rootEl: HTMLDivElement) {
           duration: timeMS / 1000,
           x: newX,
           y: newY,
-          easing: Konva.Easings.BackEaseOut,
+          easing: Konva.Easings.EaseOut,
         });
         tween.play();
       },
