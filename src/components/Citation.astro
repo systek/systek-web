@@ -1,8 +1,11 @@
 ---
+import SanityImage from "./SanityImage.astro";
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
+
 interface Props {
   title: string;
   subtitle: string;
-  image: "todo";
+  image: SanityImageSource; // todo: find sanity image type
   class?: string;
 }
 
@@ -12,11 +15,11 @@ const { title, subtitle, image, class: className } = Astro.props;
 <div class:list={["flex gap-3", className]}>
   <div class="size-10 lg:size-[2.381vw]">
     <picture>
-      <img
-        alt={image}
-        class="object-cover w-full rounded-full aspect-square"
-        src="/images/temp.png"
-        draggable="false"
+      <SanityImage
+        class="w-full rounded-full aspect-square"
+        node={image}
+        alt={title}
+        draggable={false}
       />
     </picture>
   </div>

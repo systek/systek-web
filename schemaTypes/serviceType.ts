@@ -83,5 +83,11 @@ export const serviceType = defineType({
       ],
       validation: (rule) => rule.required(),
     }),
+    defineField({
+      name: "citation",
+      title: "Sitat",
+      type: "reference",
+      to: [{ type: "citation" }],
+    }),
   ],
 });

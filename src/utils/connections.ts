@@ -49,7 +49,7 @@ export const setupConnections = function (rootEl: HTMLDivElement) {
       // Mobile
       width: 384, // --breakpoint-sm
       fontSize: 32,
-      textPadding: [2, 8, 4, 8],
+      textPadding: [4, 8, 4, 8],
       initialStagePaddingY: 80,
       initialStagePaddingX: 16,
       stagePadding: 16,
@@ -60,7 +60,7 @@ export const setupConnections = function (rootEl: HTMLDivElement) {
       // Tablet
       width: 800, // --breakpoint-md
       fontSize: 48,
-      textPadding: [2, 12, 4, 12],
+      textPadding: [4, 12, 4, 12],
       initialStagePaddingY: 80,
       initialStagePaddingX: 80,
       stagePadding: 20,
@@ -71,7 +71,7 @@ export const setupConnections = function (rootEl: HTMLDivElement) {
       // Desktop
       width: 1680, // --breakpoint-lg
       fontSize: 60,
-      textPadding: [4, 16, 6, 16],
+      textPadding: [6, 16, 6, 16],
       initialStagePaddingY: 80,
       initialStagePaddingX: 80,
       stagePadding: 20,
@@ -150,13 +150,13 @@ export const setupConnections = function (rootEl: HTMLDivElement) {
 
     const prevBox = boxes[step - 1];
     if (step > 0 && prevBox) {
+      prevBox.setColor();
       const line = createLine(prevBox, box);
       lines.push(line);
       subLayer.add(line.body);
     }
 
     await sleep(300);
-    box.setColor();
   }
 
   function ensureInsideStage(
@@ -189,7 +189,7 @@ export const setupConnections = function (rootEl: HTMLDivElement) {
       const destX = x * stage.width();
       const destY = y * stage.height();
 
-      box.pullToPlace(destX, destY, 600);
+      box.pullToPlace(destX, destY, 500);
     }
   }
 
@@ -198,8 +198,11 @@ export const setupConnections = function (rootEl: HTMLDivElement) {
       const index = config.texts.indexOf(text);
       makeBox(index, text);
       pullBoxesToNewPositions(index);
-      await sleep(1000);
+      await sleep(750);
     }
+    // Make last box white
+    const lastBox = boxes[boxes.length - 1];
+    lastBox.setColor();
   }
 
   function startClick() {
@@ -336,21 +339,22 @@ export const setupConnections = function (rootEl: HTMLDivElement) {
     }
     if (step === 2) {
       return [
-        [0.3, 0.44],
+        [0.3, 0.4],
         [0.7, 0.3],
         [0.4, 0.72],
       ];
     }
     if (step === 3) {
       return [
-        [0.25, 0.38],
-        [0.75, 0.3],
-        [0.26, 0.65],
-        [0.6, 0.75],
+        [0.2, 0.32],
+        [0.75, 0.2],
+        [0.32, 0.65],
+        [0.6, 0.85],
       ];
     }
   }
 
+  // Initial placement of boxes as they spawn in
   function getStartPositions(boxIndex = 0) {
     return [
       [0.5, 0.5],

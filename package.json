@@ -23,6 +23,7 @@
     "@tailwindcss/vite": "^4.1.11",
     "astro": "^5.12.4",
     "astro-portabletext": "^0.11.1",
+    "bezier-easing": "^2.1.0",
     "chroma-js": "^3.1.2",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",

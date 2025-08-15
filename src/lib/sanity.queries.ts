@@ -81,3 +81,17 @@ export async function fetchStaffItems(): Promise<Staff[]> {
     image
   }`);
 }
+
+export async function fetchCitationItem() {
+  return sanityClient.fetch(`*[_type == "citation"][0] {
+      _id,
+      text,
+      service->{
+        name,
+        slug
+      },
+      name,
+      position,
+      picture
+    }`);
+}

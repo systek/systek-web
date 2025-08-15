@@ -10,21 +10,33 @@ import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import PortableText from "../../components/PortableText.astro";
 import SanityImage from "../../components/SanityImage.astro";
+import CitationCard from "../../components/CitationCard.astro";
 import Arrow from "../../components/Arrow.astro";
-import type { Service, Work } from "../../lib/sanity.types";
+import type { Citation, Service, Work } from "../../lib/sanity.types";
 import CardLayout from "../../components/card-layout/CardLayout.astro";
 import Button from "../../components/Button.astro";
 import CardHeader from "../../components/card-layout/CardHeader.astro";
 import ContactCard from "../../components/ContactCard.astro";
 
 export async function getStaticPaths() {
-  const services = await sanityClient.fetch(`*[_type == "service"] { ... }`);
-  return services.map((service: any) => ({
-    params: { slug: service.slug.current },
-    props: { service },
-  }));
+  const services = await sanityClient.fetch(`*[_type == "service"] {
+    _id,
+    slug,
+    title,
+    heroImage,
+    content,
+    citation->,
+  }`);
+  return services.map(
+    (service: Omit<Service, "citation" & { citation: Citation }>) => ({
+      params: { slug: service.slug.current },
+      props: { service },
+    })
+  );
 }
-const { service } = Astro.props as { service: Service };
+const { service } = Astro.props as {
+  service: Omit<Service, "citation" & { citation: Citation }>;
+};
 
 // todo update service document (schema.json): add field "work" with 2 work items
 const workItems: Work[] | undefined =
@@ -92,6 +104,15 @@ const vacancies = [
       <PortableText value={service.content} />
     </div>
   </div>
+
+  {
+    service.citation && (
+      <CitationCard
+        title="Tjenester"
+        citation={service.citation as unknown as Citation}
+      />
+    )
+  }
 
   {
     workItems && workItems.length > 0 && (

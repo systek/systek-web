@@ -75,5 +75,11 @@ export const workType = defineType({
       },
     }),
     stats,
+    defineField({
+      name: "citation",
+      title: "Sitat",
+      type: "reference",
+      to: [{ type: "citation" }],
+    }),
   ],
 });

@@ -3,34 +3,50 @@ import { sanityClient } from "sanity:client";
 import { format } from "date-fns";
 import { nb } from "date-fns/locale";
 
-import type { Service, Work } from "../../lib/sanity.types";
+import type { Citation, Service, Work } from "../../lib/sanity.types";
 import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import Arrow from "../../components/Arrow.astro";
 import CardLayout from "../../components/card-layout/CardLayout.astro";
 import CardHeader from "../../components/card-layout/CardHeader.astro";
-import Citation from "../../components/Citation.astro";
 import Button from "../../components/Button.astro";
 import PortableText from "../../components/PortableText.astro";
 import { fetchServiceItems } from "../../lib/sanity.queries";
+import CitationCard from "../../components/CitationCard.astro";
 
 export async function getStaticPaths() {
-  const works = await sanityClient.fetch(`*[_type == "work"] { ... }`);
-  return works.map((work: Work) => ({
-    params: { slug: work.slug.current },
-    props: { work },
-  }));
+  const works = await sanityClient.fetch(`*[_type == "work"] { 
+    slug,
+    title,
+    startDate,
+    endDate,
+    description,
+    content,
+    stats,
+    technologies,
+    citation->,
+    services[]->,
+  }`);
+  return works.map(
+    (
+      work: Omit<Work, "citation" | "services"> & {
+        citation: Citation;
+        services: Service[];
+      }
+    ) => ({
+      params: { slug: work.slug.current },
+      props: { work },
+    })
+  );
 }
 
-const { work } = Astro.props as { work: Work };
-
-const serviceItems = await fetchServiceItems();
-
-// todo: why is work.services undefined? should be a required field
-const matchingServiceItems: Service[] | undefined = serviceItems.filter(
-  (item) => work.services?.some(({ _ref }) => item._id === _ref)
-);
+const { work } = Astro.props as {
+  work: Omit<Work, "citation" | "services"> & {
+    citation: Citation;
+    services: Service[];
+  };
+};
 ---
 
 <Layout>
@@ -73,7 +89,7 @@ const matchingServiceItems: Service[] | undefined = serviceItems.filter(
         </dl>
         <div class="flex flex-col items-start gap-gutter">
           {
-            matchingServiceItems.map((item) => (
+            work.services.map((item) => (
               <span class="text-xs-fluid bg-grey-91 rounded-lg px-4">
                 {item.title}
               </span>
@@ -159,24 +175,14 @@ const matchingServiceItems: Service[] | undefined = serviceItems.filter(
     </div>
   </div>
 
-  <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
-    <CardHeader title="Design og brukeropplevelse">
-      <p class="max-w-[50rem] lg:max-w-[47.619vw] font-light text-xl-fluid">
-        “Systek har levert skalerbare og brukervennlige løsninger som
-        understøtter Elvias kjerneprosesser, og gir både ansatte og kunder bedre
-        innsikt og mer effektiv samhandling”
-      </p>
-      <Citation
-        class="mt-4 lg:mt-5"
-        title="Eivind Lund"
-        subtitle="IT Direktør, Elvia"
-        image="todo"
+  {
+    work.citation && (
+      <CitationCard
+        title="Design og brukeropplevelse"
+        citation={work.citation}
       />
-      <Button class="mt-6 sm:mt-8" href="/tjenester/design-og-brukeropplevelse">
-        Les om tjenesten
-      </Button>
-    </CardHeader>
-  </CardLayout>
+    )
+  }
 
   <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
     <CardHeader title="Kontakt">
