@@ -10,13 +10,17 @@ import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import PortableText from "../../components/PortableText.astro";
 import SanityImage from "../../components/SanityImage.astro";
-import CitationCard from "../../components/CitationCard.astro";
+import Citation from "../../components/card/Citation.astro";
 import Arrow from "../../components/Arrow.astro";
-import type { Citation, Service, Work } from "../../lib/sanity.types";
-import CardLayout from "../../components/card-layout/CardLayout.astro";
+import type {
+  Citation as CitationType,
+  Service,
+  Work,
+} from "../../lib/sanity.types";
+import CardLayout from "../../components/card/layout/CardLayout.astro";
+import CardHeader from "../../components/card/layout/CardHeader.astro";
 import Button from "../../components/Button.astro";
-import CardHeader from "../../components/card-layout/CardHeader.astro";
-import ContactCard from "../../components/ContactCard.astro";
+import Contact from "../../components/card/Contact.astro";
 
 export async function getStaticPaths() {
   const services = await sanityClient.fetch(`*[_type == "service"] {
@@ -28,14 +32,14 @@ export async function getStaticPaths() {
     citation->,
   }`);
   return services.map(
-    (service: Omit<Service, "citation" & { citation: Citation }>) => ({
+    (service: Omit<Service, "citation" & { citation: CitationType }>) => ({
       params: { slug: service.slug.current },
       props: { service },
     })
   );
 }
 const { service } = Astro.props as {
-  service: Omit<Service, "citation" & { citation: Citation }>;
+  service: Omit<Service, "citation" & { citation: CitationType }>;
 };
 
 // todo update service document (schema.json): add field "work" with 2 work items
@@ -107,9 +111,9 @@ const vacancies = [
 
   {
     service.citation && (
-      <CitationCard
+      <Citation
         title="Tjenester"
-        citation={service.citation as unknown as Citation}
+        citation={service.citation as unknown as CitationType}
       />
     )
   }
@@ -229,7 +233,7 @@ const vacancies = [
     </div>
   </CardLayout>
 
-  <ContactCard
+  <Contact
     title="Si hei til vår avdelingsleder, Tommy!"
     email="tommy.madsen@systek.no"
     text="Om du er faglig dyktig, brenner for det du jobber med og har lyst til å være en del av et miljø hvor kunnskap, nysgjerrighet og inkludering er viktig, så vil vi gjerne snakke med deg!"

@@ -1,15 +1,15 @@
 ---
 import clsx from "clsx";
-import type { Citation } from "../lib/sanity.types";
+import type { Citation as CitationType } from "../../lib/sanity.types";
 
-import Button from "./Button.astro";
-import CardHeader from "./card-layout/CardHeader.astro";
-import CardLayout from "./card-layout/CardLayout.astro";
-import CitationSub from "./Citation.astro";
+import Button from "../Button.astro";
+import CardHeader from "./layout/CardHeader.astro";
+import CardLayout from "./layout/CardLayout.astro";
+import CitationSub from "../Citation.astro";
 
 interface Props {
   title?: string;
-  citation: Citation;
+  citation: CitationType;
   class?: string;
 }
 

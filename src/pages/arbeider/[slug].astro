@@ -3,16 +3,20 @@ import { sanityClient } from "sanity:client";
 import { format } from "date-fns";
 import { nb } from "date-fns/locale";
 
-import type { Citation, Service, Work } from "../../lib/sanity.types";
+import type {
+  Citation as CitationType,
+  Service,
+  Work,
+} from "../../lib/sanity.types";
 import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import Arrow from "../../components/Arrow.astro";
-import CardLayout from "../../components/card-layout/CardLayout.astro";
-import CardHeader from "../../components/card-layout/CardHeader.astro";
+import CardLayout from "../../components/card/layout/CardLayout.astro";
+import CardHeader from "../../components/card/layout/CardHeader.astro";
 import Button from "../../components/Button.astro";
 import PortableText from "../../components/PortableText.astro";
-import CitationCard from "../../components/CitationCard.astro";
+import Citation from "../../components/card/Citation.astro";
 
 export async function getStaticPaths() {
   const works = await sanityClient.fetch(`*[_type == "work"] { 
@@ -30,7 +34,7 @@ export async function getStaticPaths() {
   return works.map(
     (
       work: Omit<Work, "citation" | "services"> & {
-        citation: Citation;
+        citation: CitationType;
         services: Service[];
       }
     ) => ({
@@ -42,7 +46,7 @@ export async function getStaticPaths() {
 
 const { work } = Astro.props as {
   work: Omit<Work, "citation" | "services"> & {
-    citation: Citation;
+    citation: CitationType;
     services: Service[];
   };
 };
@@ -176,10 +180,7 @@ const { work } = Astro.props as {
 
   {
     work.citation && (
-      <CitationCard
-        title="Design og brukeropplevelse"
-        citation={work.citation}
-      />
+      <Citation title="Design og brukeropplevelse" citation={work.citation} />
     )
   }
 
