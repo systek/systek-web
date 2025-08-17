@@ -124,7 +124,7 @@ const logoBottomItems = logoItems.slice(index);
               class="flex items-center gap-2 link-underline"
               href={item.slug.current}
             >
-              <ExternalIcon class="size-2.5" />
+              <ExternalIcon class="size-2.5 lg:size-[0.595vw]" />
               <p class="text-xs-fluid">{item.title}</p>
             </a>
             <p class="md:pr-64 text-xs-fluid">
@@ -141,12 +141,14 @@ const logoBottomItems = logoItems.slice(index);
   <!-- todo: match with figma on mobile+tablet -->
   <CardLayout class="mt-page mx-grid">
     <div></div>
-    <div class="lg:col-span-3">
-      <div class="flex justify-between gap-3">
+    <div class="grid gap-section md:gap-14 lg:col-span-3">
+      <div
+        class="grid grid-cols-2 gap-section md:gap-3 md:flex md:justify-between"
+      >
         {
           logoTopItems.map((item) => (
             <SanityImage
-              className="w-[128px] h-[62px]"
+              className="w-[128px] h-[62px] even:ml-auto md:even:ml-0"
               id={item.image.asset?._ref!}
               baseUrl="https://cdn.sanity.io/images/s9j0sgbs/production/"
               alt={item.image.alt}
@@ -156,11 +158,13 @@ const logoBottomItems = logoItems.slice(index);
           ))
         }
       </div>
-      <div class="flex justify-between gap-3 mt-14">
+      <div
+        class="grid grid-cols-2 gap-section md:gap-3 md:flex md:justify-between"
+      >
         {
           logoBottomItems.map((item) => (
             <SanityImage
-              className="w-[128px] h-[62px]"
+              className="w-[128px] h-[62px] even:ml-auto md:even:ml-0"
               id={item.image.asset?._ref!}
               baseUrl="https://cdn.sanity.io/images/s9j0sgbs/production/"
               alt={item.image.alt}
@@ -283,7 +287,7 @@ const logoBottomItems = logoItems.slice(index);
                       href={item.slug?.current}
                       class="flex items-center gap-2 link-underline"
                     >
-                      <ExternalIcon class="size-2.5" />
+                      <ExternalIcon class="size-2.5 lg:size-[0.595vw]" />
                       <p class="text-xs-fluid">{item.title}</p>
                     </a>
                   )}

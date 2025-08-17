@@ -26,7 +26,7 @@ const staffByInitial = staffItems.reduce(
     acc[initial].push(item);
     return acc;
   },
-  {} as { [key: string]: Staff[] },
+  {} as { [key: string]: Staff[] }
 );
 
 // See of we can share this with sanity schemaTypes
@@ -227,15 +227,15 @@ const departments = [
 
         <ul class="mt-4 text-text-secondary">
           <li class="flex items-center gap-2">
-            <CheckIcon class="size-4" />
+            <CheckIcon class="size-4 lg:size-[0.952vw]" />
             <p class="text-sm-fluid">Fleksibilitet og frihet</p>
           </li>
           <li class="flex items-center gap-2">
-            <CheckIcon class="size-4" />
+            <CheckIcon class="size-4 lg:size-[0.952vw]" />
             <p class="text-sm-fluid">Flinke kollegaer</p>
           </li>
           <li class="flex items-center gap-2">
-            <CheckIcon class="size-4" />
+            <CheckIcon class="size-4 lg:size-[0.952vw]" />
             <p class="text-sm-fluid">Flat struktur</p>
           </li>
         </ul>
@@ -276,10 +276,10 @@ const departments = [
       const staff = document.querySelectorAll<HTMLElement>("[data-location]");
       const letters = document.querySelectorAll<HTMLElement>("[data-letter]");
       const locationRadios = document.querySelectorAll<HTMLInputElement>(
-        'input[name="location"]',
+        'input[name="location"]'
       );
       const departmentRadios = document.querySelectorAll<HTMLInputElement>(
-        'input[name="department"]',
+        'input[name="department"]'
       );
       const hasViewportWidthChanged = widthChecker();
       const filterValues: { key: string; value: string }[] = [
@@ -295,7 +295,7 @@ const departments = [
 
       function consolidate() {
         staff.forEach((staffEl) =>
-          toggleStaffVisibility(staffEl, filterValues),
+          toggleStaffVisibility(staffEl, filterValues)
         );
 
         letters.forEach((letter) => {

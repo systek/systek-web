@@ -5,7 +5,6 @@ import CardLayout from "../../components/card-layout/CardLayout.astro";
 import Footer from "../../components/Footer.astro";
 import Header from "../../components/Header.astro";
 import Layout from "../../layouts/Layout.astro";
-import SanityImage from "../../components/SanityImage.astro";
 import ContactCard from "../../components/ContactCard.astro";
 import {
   fetchLogoItems,
@@ -14,6 +13,7 @@ import {
 } from "../../lib/sanity.queries";
 import Button from "../../components/Button.astro";
 import LinkBox from "../../components/LinkBox.astro";
+import Image from "../../components/Image.astro";
 
 const [logoItems, workItems, serviceItems] = await Promise.all([
   fetchLogoItems(),
@@ -77,29 +77,38 @@ const logoBottomItems = logoItems.slice(index);
 
   <CardLayout class="mt-section mx-grid">
     <CardHeader>
-      <div class="flex justify-between gap-3">
-        {
-          logoTopItems.map((item) => (
-            <SanityImage
-              alt={item.image.alt}
-              class="w-[128px] h-[62px] aspect-[2/1]"
-              node={item.image}
-              draggable="false"
-            />
-          ))
-        }
-      </div>
-      <div class="flex justify-between gap-3 mt-14">
-        {
-          logoBottomItems.map((item) => (
-            <SanityImage
-              alt={item.image.alt}
-              class="w-[128px] h-[62px] aspect-[2/1]"
-              node={item.image}
-              draggable="false"
-            />
-          ))
-        }
+      <div></div>
+      <div class="grid gap-section md:gap-14 lg:col-span-3">
+        <div
+          class="grid grid-cols-2 gap-section md:gap-3 md:flex md:justify-between"
+        >
+          {
+            logoTopItems.map((item) => (
+              <Image
+                class="w-[128px] h-[62px] even:ml-auto md:even:ml-0"
+                image={item.image}
+                alt={item.image.alt}
+                width={128}
+                height={62}
+              />
+            ))
+          }
+        </div>
+        <div
+          class="grid grid-cols-2 gap-section md:gap-3 md:flex md:justify-between"
+        >
+          {
+            logoBottomItems.map((item) => (
+              <Image
+                class="w-[128px] h-[62px] even:ml-auto md:even:ml-0"
+                image={item.image}
+                alt={item.image.alt}
+                width={128}
+                height={62}
+              />
+            ))
+          }
+        </div>
       </div>
     </CardHeader>
   </CardLayout>
@@ -122,11 +131,10 @@ const logoBottomItems = logoItems.slice(index);
           workItems.map((item, index) => (
             <a href={`/arbeider/${item.slug.current}`}>
               <picture>
-                <SanityImage
+                <Image
                   class="w-full rounded-md object-cover aspect-[4/3]"
-                  node={item.image}
+                  image={item.image}
                   alt={item.image.alt}
-                  draggable="false"
                 />
               </picture>
               <p class="mt-3 font-bold sm:mt-4 text-md-fluid group-link-underline">
