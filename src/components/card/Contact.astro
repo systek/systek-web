@@ -16,7 +16,7 @@ const { title, email, text, name } = Astro.props;
         {text}
       </p>
 
-      <div class="flex items-center mt-6 gap-grid md:mt-8">
+      <div class="flex items-center mt-grid gap-grid">
         <Button href={`mailto:${email}`}>
           Send {name} en e-post
         </Button>
