@@ -62,12 +62,12 @@ const { work } = Astro.props as {
     </div>
 
     <div class="grid md:grid-cols-3 gap-gutter">
-      <div class="md:col-span-2 col-span-1">
+      <div class="md:col-span-2">
         <h1 class="font-light text-3xl-fluid hyphens-auto">
           {work.description}
         </h1>
       </div>
-      <div class="col-span-1 flex flex-row gap-gutter">
+      <div class="flex flex-row gap-gutter">
         <dl>
           <dt class="font-bold text-sm-fluid">Kunde</dt>
           <dd class="text-sm-fluid">{work.title}</dd>
