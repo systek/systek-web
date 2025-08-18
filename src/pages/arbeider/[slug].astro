@@ -1,5 +1,6 @@
 ---
 import { sanityClient } from "sanity:client";
+import clsx from "clsx";
 import { format } from "date-fns";
 import { nb } from "date-fns/locale";
 
@@ -8,6 +9,7 @@ import type {
   Service,
   Work,
 } from "../../lib/sanity.types";
+import { fetchWorkItems } from "../../lib/sanity.queries";
 import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
@@ -17,6 +19,7 @@ import CardHeader from "../../components/card/layout/CardHeader.astro";
 import Button from "../../components/Button.astro";
 import PortableText from "../../components/PortableText.astro";
 import Citation from "../../components/card/Citation.astro";
+import Image from "../../components/Image.astro";
 
 export async function getStaticPaths() {
   const works = await sanityClient.fetch(`*[_type == "work"] { 
@@ -50,6 +53,26 @@ const { work } = Astro.props as {
     services: Service[];
   };
 };
+
+const _workItems = await fetchWorkItems(4);
+const workItems = _workItems
+  .filter((item) => item.slug.current !== work.slug.current)
+  .slice(0, 3);
+
+const contactItems = [
+  {
+    name: "Mikael Solstad",
+    role: "Prosjektleder",
+    email: "mikael.solstad@systek.com",
+    image: "/images/temp.png",
+  },
+  {
+    name: "Anders Hefre",
+    role: "Utvikler",
+    email: "anders.hefre@systek.no",
+    image: "/images/temp.png",
+  },
+];
 ---
 
 <Layout title={work.description}>
@@ -109,7 +132,7 @@ const { work } = Astro.props as {
 
     <picture>
       <img
-        class="w-full rounded-md aspect-[4/3] lg:aspect-[2/1] object-cover my-section"
+        class="w-full rounded-md aspect-[4/3] lg:aspect-[2/1] object-cover"
         src="/images/temp.png"
         draggable="false"
       />
@@ -124,118 +147,153 @@ const { work } = Astro.props as {
   <div class="mx-grid mt-section">
     <div class="mx-auto max-w-[50rem] lg:max-w-[47.619vw]">
       <PortableText value={work.content} />
-    </div>
-  </div>
 
-  {
-    work.stats && (
-      <div class="mx-grid grid  md:grid-cols-4 mt-section bg-yellow rounded-lg p-6">
-        <div />
-        <div class="col-span-3">
-          <h2 class="mb-section text-2xl-fluid font-light">
-            {work.stats.title}
-          </h2>
-          <div class="grid  md:grid-cols-3 gap-gutter">
-            {work.stats.items?.map((item) => (
-              <div class="flex flex-col justify-between bg-white p-4 rounded-lg h-[290px] w-full">
-                <span class="text-2xl-fluid font-bold">{item.value}</span>
-                <span class="text-sm-fluid">{item.label}</span>
+      {
+        work.stats && (
+          <div class="grid lg:grid-cols-4 mt-section bg-yellow rounded-lg py-gutter md:mx-[calc(50%-47.619vw)]">
+            <div class="hidden lg:block" />
+            <div class="lg:col-span-3 mr-gutter ml-3 md:ml-5 lg:ml-0">
+              <h2 class="text-2xl-fluid font-light">{work.stats.title}</h2>
+              <div class="grid gap-gutter mt-section md:grid-cols-3">
+                {work.stats.items?.map((item) => (
+                  <div class="flex flex-col justify-between bg-off-white p-5 rounded-lg h-full aspect-[2/1] md:aspect-[4/3]">
+                    <span class="text-4xl-fluid font-light">{item.value}</span>
+                    <span class="text-sm-fluid">{item.label}</span>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
-        </div>
-      </div>
-    )
-  }
+        )
+      }
 
-  {
-    work.technologies !== undefined && work.technologies.length > 0 && (
-      <div class="mx-grid mt-section grid  md:grid-cols-4 gap-gutter">
-        <div />
-        <div class="col-span-3">
-          <h2 class="font-bold text-sm-fluid">
-            Teknologier brukt gjennom arbeidet
-          </h2>
-          <div class="flex flex-row gap-2 text-sm-fluid">
-            {work.technologies.map((item, index) => (
-              <>
-                <span>{item}</span>
-                {index < work.technologies!.length - 1 && <span>·</span>}
-              </>
-            ))}
+      {
+        work.technologies !== undefined && work.technologies.length > 0 && (
+          <div class="mt-section">
+            <p class="font-bold text-sm-fluid">
+              Teknologier brukt gjennom arbeidet
+            </p>
+            <div class="flex flex-row gap-2 text-sm-fluid">
+              {work.technologies.map((item, index) => (
+                <>
+                  <span>{item}</span>
+                  {index < work.technologies!.length - 1 && <span>·</span>}
+                </>
+              ))}
+            </div>
           </div>
-        </div>
-      </div>
-    )
-  }
+        )
+      }
 
-  <div class="mx-grid mt-section grid md:grid-cols-4 gap-gutter">
-    <div></div>
-    <div class="col-span-3">
-      <h2 class="font-bold text-sm-fluid">Likte du artikkelen?</h2>
-      <p class="text-sm-fluid mb-[16px]">Del den med noen andre!</p>
-      <Button class="_copy-link">Kopier lenke</Button>
+      <div class="mt-8 lg:mt-10">
+        <p class="font-bold text-sm-fluid">Likte du artikkelen?</p>
+        <p class="text-sm-fluid">Del den med noen andre!</p>
+        <Button data-copy-link-button class="mt-grid">Kopier lenke</Button>
+      </div>
     </div>
   </div>
 
-  {
-    work.citation && (
-      <Citation title="Design og brukeropplevelse" citation={work.citation} />
-    )
-  }
+  {work.citation && <Citation title="Tjenester" citation={work.citation} />}
 
   <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
     <CardHeader title="Kontakt">
-      <p class="text-2xl-fluid font-light">
+      <p
+        class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 font-light text-2xl-fluid"
+      >
         Om du er faglig dyktig og brenner for det du jobber med så vil vi gjerne
         snakke med deg!
       </p>
-      <Button class="mt-grid mb-section" href="/kontakt">Kontakt oss</Button>
+      <Button class="mt-grid" href="/kontakt">Kontakt oss</Button>
 
-      <div class="flex gap-gutter mb-[20px]">
-        <picture>
-          <img
-            class="w-[160px] h-[160px] aspect-[1/1] object-cover"
-            src="/images/temp.png"
-            draggable="false"
-          />
-        </picture>
-        <div class="flex flex-col items-start">
-          <p class="text-md-fluid font-bold">Mikael Rino Solstad</p>
-          <p class="text-md-fluid">Utvikler og avdelingsleder</p>
-          <span class="grow"></span>
-          <a href="mailto:mikael@systek.no" class="link-underline text-xs-fluid"
-            >Send Mikael en mail</a
-          >
-        </div>
-      </div>
-      <hr class="border-stroke" />
-      <div class="flex gap-gutter mt-[20px]">
-        <picture>
-          <img
-            class="w-[160px] h-[160px] aspect-[1/1] object-cover"
-            src="/images/temp.png"
-            draggable="false"
-          />
-        </picture>
-        <div class="flex flex-col items-start">
-          <p class="text-md-fluid font-bold">Anders Hefre</p>
-          <p class="text-md-fluid">Teamleder og avdelingsleder</p>
-          <span class="grow"></span>
-          <a href="mailto:anders@systek.no" class="link-underline text-xs-fluid"
-            >Send Mikael en mail</a
-          >
-        </div>
+      <div class="grid gap-gutter mt-section">
+        {
+          contactItems.map((item, index) => (
+            <>
+              <div class="flex gap-gutter">
+                <picture>
+                  <img
+                    class="w-[160px] h-[160px] rounded-md aspect-square object-cover"
+                    src={item.image}
+                    draggable="false"
+                  />
+                </picture>
+                <div class="flex flex-col items-start">
+                  <p class="text-md-fluid font-bold">{item.name}</p>
+                  <p class="text-md-fluid">{item.role}</p>
+                  <a
+                    href={`mailto:${item.email}`}
+                    class="link-underline text-xs-fluid mt-auto"
+                  >
+                    Send {item.name.split(" ")[0]} en mail
+                  </a>
+                </div>
+              </div>
+              {index < contactItems.length - 1 && <hr class="border-stroke" />}
+            </>
+          ))
+        }
       </div>
     </CardHeader>
   </CardLayout>
 
+  <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
+    <CardHeader title="Arbeider">
+      <p
+        class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 font-light text-2xl-fluid"
+      >
+        Les om hvordan vi har bistått kunder med vår kompetanse
+      </p>
+
+      <Button class="mt-grid" href="/arbeider">Se alle arbeider</Button>
+    </CardHeader>
+
+    <div
+      class="grid grid-cols-2 lg:col-span-4 md:grid-cols-4 gap-gutter mt-section"
+    >
+      {
+        workItems.map((item, index) => (
+          <div class={clsx("group", index % 3 === 0 && "col-span-2")}>
+            <a href={`/arbeider/${item.slug.current}`}>
+              <picture>
+                <Image
+                  class={clsx(
+                    "w-full rounded-md object-cover",
+                    index % 3 === 2 ? "aspect-square" : "aspect-[4/3]"
+                  )}
+                  image={item.image}
+                  alt={item.image.alt}
+                  sizes={
+                    index % 3 === 0
+                      ? "(max-width: 384px) 100vw, 50vw"
+                      : "(max-width: 384px) 50vw, 25vw"
+                  }
+                />
+              </picture>
+              <p class="mt-3 font-bold sm:mt-4 text-md-fluid group-link-underline">
+                {item.title}
+              </p>
+              <p class="text-md-fluid">{item.description}</p>
+            </a>
+          </div>
+        ))
+      }
+    </div>
+  </CardLayout>
+
   <script>
-    document.querySelectorAll("._copy-link").forEach((el) => {
-      el.addEventListener("click", () => {
-        navigator.clipboard.writeText(window.location.href);
+    import { DOMLoaded } from "../../utils/utils";
+
+    DOMLoaded(() => {
+      const copyLinkButtons = document.querySelectorAll<HTMLButtonElement>(
+        "[data-copy-link-button]"
+      );
+      copyLinkButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          navigator.clipboard.writeText(window.location.href);
+        });
       });
     });
   </script>
+
   <Footer />
 </Layout>

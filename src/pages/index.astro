@@ -197,7 +197,7 @@ const logoBottomItems = logoItems.slice(index);
                 <SanityImage
                   className={clsx(
                     "w-full rounded-md object-cover",
-                    index % 3 === 2 ? "aspect-[1/1]" : "aspect-[4/3]"
+                    index % 3 === 2 ? "aspect-square" : "aspect-[4/3]"
                   )}
                   id={item.image.asset?._ref!}
                   baseUrl="https://cdn.sanity.io/images/s9j0sgbs/production/"
