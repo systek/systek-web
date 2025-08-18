@@ -29,8 +29,8 @@ export async function fetchNewsItems(): Promise<News[]> {
   }`);
 }
 
-export async function fetchLogoItems(): Promise<Logo[]> {
-  return sanityClient.fetch(`*[_type == "logo" && defined(image)] {
+export async function fetchLogoItems(limit = 8): Promise<Logo[]> {
+  return sanityClient.fetch(`*[_type == "logo" && defined(image)]${limit ? `[0...${limit}]` : ""} {
     _id,
     title,
     image
