@@ -8,25 +8,27 @@ interface Props {
 const { stats } = Astro.props;
 ---
 
-<div
-  class="grid lg:grid-cols-4 my-section bg-yellow rounded-lg py-5 lg:py-6 md:mx-[calc(50%-47.619vw)]"
->
-  <div></div>
-  <div class="lg:col-span-3 mr-gutter ml-3 md:ml-5 lg:ml-0">
-    <h2 class="text-2xl-fluid font-light mx-1 lg:mx-0">
-      {stats?.title}
-    </h2>
-    <div class="grid gap-gutter mt-section md:grid-cols-3">
-      {
-        stats?.items?.map((item) => (
-          <div class="grid bg-off-white rounded-lg p-5 pt-3 gap-5 md:aspect-[4/3]">
-            <span class="text-4xl-fluid font-light hyphen-auto">
-              {item.value}
-            </span>
-            <span class="text-sm-fluid mt-auto">{item.label}</span>
-          </div>
-        ))
-      }
+<div class="md:mx-[calc(50%-50vw)]">
+  <div
+    class="grid my-section bg-yellow rounded-lg py-5 md:mx-5 lg:grid-cols-4 lg:py-6"
+  >
+    <div></div>
+    <div class="lg:col-span-3 mr-gutter ml-3 md:ml-5 lg:ml-0">
+      <h2 class="text-2xl-fluid font-light mx-1 lg:mx-0">
+        {stats?.title}
+      </h2>
+      <div class="grid gap-gutter mt-section md:grid-cols-3">
+        {
+          stats?.items?.map((item) => (
+            <div class="grid bg-off-white rounded-lg p-5 pt-3 gap-5 md:aspect-[4/3]">
+              <span class="text-4xl-fluid font-light hyphen-auto">
+                {item.value}
+              </span>
+              <span class="text-sm-fluid mt-auto">{item.label}</span>
+            </div>
+          ))
+        }
+      </div>
     </div>
   </div>
 </div>

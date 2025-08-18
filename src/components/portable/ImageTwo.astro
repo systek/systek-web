@@ -22,22 +22,24 @@ interface Props {
 const { first, second } = Astro.props.node;
 ---
 
-<div class="grid md:grid-cols-2 gap-gutter">
-  <figure>
-    <SanityImage
-      node={first}
-      alt={first.alt}
-      class="w-full object-cover rounded-md aspect-[4/5] mt-gutter"
-    />
-    <figcaption class="text-xs-fluid mt-gutter">{first.caption}</figcaption>
-  </figure>
+<div class="md:mx-[calc(50%-50vw)]">
+  <div class="grid gap-section my-section md:grid-cols-2 md:mx-5">
+    <figure class="md:mx-20 md:mt-20 lg:mx-36 lg:mt-36">
+      <SanityImage
+        node={first}
+        alt={first.alt}
+        class="object-cover rounded-md aspect-[4/5] lg:rounded-lg"
+      />
+      <figcaption class="text-xs-fluid mt-gutter">{first.caption}</figcaption>
+    </figure>
 
-  <figure>
-    <SanityImage
-      node={second}
-      alt={second.alt}
-      class="w-full object-cover rounded-md aspect-[4/3]"
-    />
-    <figcaption class="text-xs-fluid mt-gutter">{second.caption}</figcaption>
-  </figure>
+    <figure>
+      <SanityImage
+        node={second}
+        alt={second.alt}
+        class="object-cover rounded-md aspect-[4/3] lg:rounded-lg"
+      />
+      <figcaption class="text-xs-fluid mt-gutter">{second.caption}</figcaption>
+    </figure>
+  </div>
 </div>
