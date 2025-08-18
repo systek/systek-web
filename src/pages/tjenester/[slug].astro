@@ -21,6 +21,7 @@ import CardLayout from "../../components/card/layout/CardLayout.astro";
 import CardHeader from "../../components/card/layout/CardHeader.astro";
 import Button from "../../components/Button.astro";
 import Contact from "../../components/card/Contact.astro";
+import { getOGImageUrl } from "../../utils/image";
 
 export async function getStaticPaths() {
   const services = await sanityClient.fetch(`*[_type == "service"] {
@@ -73,7 +74,12 @@ const vacancies = [
 ];
 ---
 
-<Layout title={service.title} description={service.description}>
+<Layout
+  title={service.title}
+  description={service.description}
+  image={service.heroImage?.asset?._ref &&
+    getOGImageUrl(service.heroImage.asset._ref)}
+>
   <Header />
 
   <div class="flex flex-col m-grid gap-section">

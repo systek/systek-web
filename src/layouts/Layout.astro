@@ -4,11 +4,12 @@ import "../styles/global.css";
 interface Props {
   author?: string;
   bodyStyle?: string;
-  description?: string | null;
+  description?: string;
+  image?: string;
   title?: string;
 }
 
-const { author, bodyStyle, description, title } = Astro.props;
+const { author, bodyStyle, description, image, title } = Astro.props;
 
 const baseUrl = "https://purple-sand-022b01203.6.azurestaticapps.net"; // todo: use env variable?
 const siteTitle = "Systek";
@@ -31,7 +32,7 @@ const siteDescription =
     <meta content={title || siteTitle} property="og:title" />
     <meta content={description || siteDescription} property="og:description" />
     <meta content={siteTitle} property="og:site_name" />
-    <meta content={`${baseUrl}/images/temp.png`} property="og:image" />
+    <meta content={image || `${baseUrl}/images/temp.png`} property="og:image" />
     <meta content="website" property="og:type" />
     <meta content="nb_NO" property="og:locale" />
 
