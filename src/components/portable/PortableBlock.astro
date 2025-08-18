@@ -23,7 +23,10 @@ const UnknownStyle = getUnknownComponent();
     styleIs("h4") ||
     styleIs("h5") ||
     styleIs("h6") ? (
-    <h2 class="my-5 font-medium text-lg-fluid lg:my-7 hyphens-auto" {...attrs}>
+    <h2
+      class="mt-7 mb-5 font-medium text-lg-fluid hyphens-auto lg:mb-7 lg:mt-10"
+      {...attrs}
+    >
       <slot />
     </h2>
   ) : styleIs("blockquote") ? (
