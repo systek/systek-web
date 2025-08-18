@@ -2,23 +2,44 @@
 import "../styles/global.css";
 
 interface Props {
+  author?: string;
   bodyStyle?: string;
+  description?: string | null;
+  title?: string;
 }
 
-const { bodyStyle = "" } = Astro.props;
+const { author, bodyStyle, description, title } = Astro.props;
+
+const baseUrl = "https://purple-sand-022b01203.6.azurestaticapps.net/"; // todo: use env variable?
+const siteTitle = "Systek";
+const siteDescription =
+  "Hos oss møter du fagfolk som både kan og vil. Vi utforsker, samarbeider og skaper muligheter som gjør en forskjell for mennesker, virksomheter og samfunnet.";
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="no">
   <head>
+    <title>{title ? `${title} – ${siteTitle}` : siteTitle}</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
+
+    <meta content={description || siteDescription} name="description" />
+    <meta content="#fcf6ee" name="theme-color" />
+    <meta content="summary" name="twitter:card" />
+
+    <meta content={title || siteTitle} property="og:title" />
+    <meta content={description || siteDescription} property="og:description" />
+    <meta content={siteTitle} property="og:site_name" />
+    <meta content={`${baseUrl}/images/temp.png`} property="og:image" />
+    <meta content="website" property="og:type" />
+    <meta content="nb_NO" property="og:locale" />
+
+    {author && <meta content={author} name="author" />}
+
     <style is:global>
       @import "../styles/fonts.css";
     </style>
-    <title>Systek</title>
   </head>
   <body style={bodyStyle}>
     <slot />

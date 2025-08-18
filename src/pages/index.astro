@@ -261,7 +261,7 @@ const logoBottomItems = logoItems.slice(index);
         </div>
         <!-- todo: add logic for line through, format date -->
         {
-          activityItems.map((item, index) => {
+          activityItems.map((item) => {
             // TODO: move this logic into a client-side component
             // This will onlly be checked at build time
             const date = new Date(item.date);
