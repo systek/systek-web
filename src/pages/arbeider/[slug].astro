@@ -20,6 +20,8 @@ import Button from "../../components/Button.astro";
 import PortableText from "../../components/PortableText.astro";
 import Citation from "../../components/card/Citation.astro";
 import Image from "../../components/Image.astro";
+import Stats from "../../components/portable/Stats.astro";
+import Technologies from "../../components/portable/Technologies.astro";
 
 export async function getStaticPaths() {
   const works = await sanityClient.fetch(`*[_type == "work"] { 
@@ -148,46 +150,9 @@ const contactItems = [
     <div class="mx-auto max-w-[50rem] lg:max-w-[47.619vw]">
       <PortableText value={work.content} />
 
-      {
-        work.stats && (
-          <div class="grid lg:grid-cols-4 mt-section bg-yellow rounded-lg py-5 lg:py-6 md:mx-[calc(50%-47.619vw)]">
-            <div />
-            <div class="lg:col-span-3 mr-gutter ml-3 md:ml-5 lg:ml-0">
-              <h2 class="text-2xl-fluid font-light mx-1 lg:mx-0">
-                {work.stats.title}
-              </h2>
-              <div class="grid gap-gutter mt-section md:grid-cols-3">
-                {work.stats.items?.map((item) => (
-                  <div class="grid bg-off-white rounded-lg p-5 pt-3 gap-5 md:aspect-[4/3]">
-                    <span class="text-4xl-fluid font-light hyphen-auto">
-                      {item.value}
-                    </span>
-                    <span class="text-sm-fluid mt-auto">{item.label}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        )
-      }
+      <Stats stats={work.stats} />
 
-      {
-        work.technologies !== undefined && work.technologies.length > 0 && (
-          <div class="mt-section">
-            <p class="font-bold text-sm-fluid">
-              Teknologier brukt gjennom arbeidet
-            </p>
-            <div class="flex flex-row gap-2 text-sm-fluid">
-              {work.technologies.map((item, index) => (
-                <>
-                  <span>{item}</span>
-                  {index < work.technologies!.length - 1 && <span>·</span>}
-                </>
-              ))}
-            </div>
-          </div>
-        )
-      }
+      <Technologies technologies={work.technologies} />
 
       <div class="mt-8 lg:mt-10">
         <p class="font-bold text-sm-fluid">Likte du artikkelen?</p>
