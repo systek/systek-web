@@ -10,11 +10,10 @@ import Layout from "../../layouts/Layout.astro";
 import { fetchServiceItems, fetchCitationItem } from "../../lib/sanity.queries";
 
 const serviceItems = await fetchServiceItems();
-
 const citation = await fetchCitationItem();
 ---
 
-<Layout>
+<Layout title="Tjenester">
   <Header active="/tjenester" />
 
   <div class="grid mx-grid lg:grid-cols-2 mt-section">
@@ -100,9 +99,9 @@ const citation = await fetchCitationItem();
       </p>
       <Citation
         class="mt-4 lg:mt-5"
-        title="Eivind Lund"
-        subtitle="IT Direktør, Elvia"
-        image="todo"
+        title={citation.name}
+        subtitle={citation.position}
+        image={citation.picture}
       />
       <Button class="mt-grid" href="/tjenester/design-og-brukeropplevelse">
         Les om tjenesten

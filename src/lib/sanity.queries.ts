@@ -2,6 +2,7 @@ import { sanityClient } from "sanity:client";
 import type {
   Activity,
   Blog,
+  Citation,
   Logo,
   News,
   Service,
@@ -84,7 +85,7 @@ export async function fetchStaffItems(): Promise<Staff[]> {
   }`);
 }
 
-export async function fetchCitationItem() {
+export async function fetchCitationItem(): Promise<Citation> {
   return sanityClient.fetch(`*[_type == "citation"][0] {
       _id,
       text,

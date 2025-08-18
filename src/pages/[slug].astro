@@ -30,7 +30,7 @@ export async function getStaticPaths() {
 const { page } = Astro.props as { page: Page };
 ---
 
-<Layout>
+<Layout title={page.title}>
   <Header />
 
   <div class="flex flex-col m-grid gap-section">
