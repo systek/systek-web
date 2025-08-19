@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity";
+import { contentField } from "./shared/content";
 
 export const newsType = defineType({
   name: "news",
@@ -38,12 +39,6 @@ export const newsType = defineType({
       initialValue: () => new Date().toISOString(),
       validation: (rule) => rule.required(),
     }),
-    defineField({
-      name: "content",
-      title: "Innhold",
-      type: "array",
-      of: [{ type: "block" }, { type: "image" }],
-      validation: (rule) => rule.required(),
-    }),
+    contentField,
   ],
 });

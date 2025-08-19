@@ -1,8 +1,5 @@
 import { defineField, defineType } from "sanity";
-import { imageTwo } from "./shared/imageTwo";
-import { tagList } from "./shared/tagList";
-import { image } from "./shared/image";
-import { textBlock } from "./shared/text";
+import { contentField } from "./shared/content";
 
 export const serviceType = defineType({
   name: "service",
@@ -48,41 +45,7 @@ export const serviceType = defineType({
       ],
       validation: (rule) => rule.required(),
     }),
-    defineField({
-      name: "content",
-      title: "Innhold",
-      type: "array",
-      of: [
-        textBlock,
-        image,
-        imageTwo,
-        tagList,
-        defineField({
-          type: "object",
-          name: "list-group",
-          title: "Listegruppe",
-          fields: [
-            defineField({
-              type: "string",
-              name: "title",
-              title: "Tittel",
-              validation: (rule) => rule.required(),
-            }),
-            defineField({
-              type: "array",
-              name: "items",
-              title: "Elementer",
-              of: [{ type: "string" }],
-              options: {
-                layout: "tags",
-              },
-              validation: (rule) => rule.required(),
-            }),
-          ],
-        }),
-      ],
-      validation: (rule) => rule.required(),
-    }),
+    contentField,
     defineField({
       name: "citation",
       title: "Sitat",

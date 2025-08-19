@@ -1,8 +1,6 @@
 import { defineField, defineType } from "sanity";
-import { textBlock } from "./shared/text";
-import { image } from "./shared/image";
-import { imageTwo } from "./shared/imageTwo";
 import { stats } from "./shared/stats";
+import { contentField } from "./shared/content";
 
 export const workType = defineType({
   name: "work",
@@ -11,6 +9,7 @@ export const workType = defineType({
   fields: [
     defineField({
       name: "title",
+      title: "Tittel",
       type: "string",
       validation: (rule) => rule.required(),
     }),
@@ -22,11 +21,12 @@ export const workType = defineType({
     }),
     defineField({
       name: "description",
+      title: "Beskrivelse",
       type: "text",
       validation: (rule) => rule.required(),
     }),
     defineField({
-      title: "Start date",
+      title: "Start dato",
       name: "startDate",
       type: "date",
       options: {
@@ -34,7 +34,7 @@ export const workType = defineType({
       },
     }),
     defineField({
-      title: "End date",
+      title: "Slutt dato",
       name: "endDate",
       type: "date",
       options: {
@@ -43,6 +43,7 @@ export const workType = defineType({
     }),
     defineField({
       name: "services",
+      title: "Tjenester",
       type: "array",
       of: [{ type: "reference", to: [{ type: "service" }] }],
       validation: (rule) => rule.required(),
@@ -50,6 +51,7 @@ export const workType = defineType({
     defineField({
       name: "image",
       type: "image",
+      title: "Bilde",
       fields: [
         defineField({
           name: "alt",
@@ -59,12 +61,7 @@ export const workType = defineType({
       ],
       validation: (rule) => rule.required(),
     }),
-    defineField({
-      name: "content",
-      type: "array",
-      of: [textBlock, image, imageTwo],
-      validation: (rule) => rule.required(),
-    }),
+    contentField,
     defineField({
       type: "array",
       name: "technologies",

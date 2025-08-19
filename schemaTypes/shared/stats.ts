@@ -2,7 +2,7 @@ import { defineField, defineArrayMember } from "sanity";
 
 export const stats = defineField({
   name: "stats",
-  title: "Statistics",
+  title: "Statisikk",
   type: "object",
   fields: [
     defineField({
