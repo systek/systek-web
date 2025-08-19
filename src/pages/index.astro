@@ -33,7 +33,7 @@ const [
   logoItems,
 ] = await Promise.all([
   fetchServiceItems(),
-  fetchNewsItems(),
+  fetchNewsItems(2),
   fetchWorkItems(3),
   fetchActivityItems(5),
   fetchBlogItems(),
@@ -120,7 +120,7 @@ const logoBottomItems = logoItems.slice(index);
           <div class="flex justify-between py-5 border-b gap-gutter border-stroke">
             <a
               class="flex items-center gap-2 link-underline"
-              href={item.slug.current}
+              href={`/nyheter/${item.slug.current}`}
             >
               <ExternalIcon class="size-2.5 lg:size-[0.595vw]" />
               <p class="text-xs-fluid">{item.title}</p>

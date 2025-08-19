@@ -1,0 +1,46 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Button from "../components/Button.astro";
+import Arrow from "../components/Arrow.astro";
+---
+
+<Layout>
+  <Header />
+
+  <div class="flex flex-col m-grid gap-section">
+    <div class="flex justify-between">
+      <Arrow position="topLeft" />
+      <Arrow position="topRight" />
+    </div>
+
+    <h1 class="font-light text-4xl-fluid hyphens-auto md:text-center">
+      Oisann, dette var ikke meningen ...
+    </h1>
+
+    <div class="flex justify-between">
+      <Arrow position="bottomLeft" />
+      <Arrow position="bottomRight" />
+    </div>
+  </div>
+
+  <div class="mx-grid mt-section">
+    <div
+      class="mx-auto max-w-[50rem] lg:max-w-[47.619vw] flex flex-col gap-gutter"
+    >
+      <h2 class="text-lg-fluid">500 Internal Server Error</h2>
+      <p>
+        Det er ikke din skyld, dette er en feil vi ikke håndterer. Den kan være
+        midlertidig, så prøv gjerne igjen.
+      </p>
+      <Button class="refresh-button">Last siden på nytt</Button>
+    </div>
+  </div>
+  <script>
+    document.querySelector(".refresh-button")?.addEventListener("click", () => {
+      window.location.reload();
+    });
+  </script>
+  <Footer />
+</Layout>

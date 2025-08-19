@@ -1,0 +1,63 @@
+---
+import { format } from "date-fns";
+import { nb } from "date-fns/locale";
+
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import Button from "../../components/Button.astro";
+import Arrow from "../../components/Arrow.astro";
+import ExternalIcon from "../../assets/icons/external.svg";
+import CardHeader from "../../components/card/layout/CardHeader.astro";
+import CardLayout from "../../components/card/layout/CardLayout.astro";
+import { fetchNewsItems } from "../../lib/sanity.queries";
+
+// Todo make more pages?
+const newsItems = await fetchNewsItems(10, 0);
+---
+
+<Layout title="Nyheter">
+  <Header />
+
+  <div class="flex flex-col m-grid gap-section">
+    <div class="flex justify-between">
+      <Arrow position="topLeft" />
+      <Arrow position="topRight" />
+    </div>
+
+    <h1 class="font-light text-4xl-fluid hyphens-auto md:text-center">
+      Siste nytt fra Systek
+    </h1>
+
+    <div class="flex justify-between">
+      <Arrow position="bottomLeft" />
+      <Arrow position="bottomRight" />
+    </div>
+  </div>
+
+  <CardLayout class="mt-page mx-grid pt-grid">
+    <CardHeader title="Nyheter">
+      <!-- todo: time element does not match figma on desktop -->
+      {
+        newsItems.map((item) => (
+          <div class="flex justify-between py-5 border-b gap-gutter border-stroke">
+            <a
+              class="flex items-center gap-2 link-underline"
+              href={`/nyheter/${item.slug.current}`}
+            >
+              <ExternalIcon class="size-2.5 lg:size-[0.595vw]" />
+              <p class="text-xs-fluid">{item.title}</p>
+            </a>
+            <p class="md:pr-64 text-xs-fluid">
+              {format(new Date(item.publishedAt), "d. MMMM", {
+                locale: nb,
+              })}
+            </p>
+          </div>
+        ))
+      }
+    </CardHeader>
+  </CardLayout>
+
+  <Footer />
+</Layout>

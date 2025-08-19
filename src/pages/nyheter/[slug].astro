@@ -1,0 +1,103 @@
+---
+import { format } from "date-fns";
+import { nb } from "date-fns/locale";
+
+import { sanityClient } from "sanity:client";
+import type { News } from "../../lib/sanity.types";
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import PortableText from "../../components/PortableText.astro";
+import Arrow from "../../components/Arrow.astro";
+import ExternalIcon from "../../assets/icons/external.svg";
+import Button from "../../components/Button.astro";
+import CardHeader from "../../components/card/layout/CardHeader.astro";
+import CardLayout from "../../components/card/layout/CardLayout.astro";
+
+export async function getStaticPaths() {
+  const newsItems = await sanityClient.fetch<News[]>(`*[_type == "news"] { 
+    _id,
+    title,
+    slug,
+    description,
+    publishedAt,
+    updatedAt,
+    content
+  }`);
+  return newsItems.map((news) => ({
+    params: { slug: news.slug.current },
+    props: {
+      news,
+      otherNews: newsItems.filter((on) => on._id !== news._id).slice(0, 5),
+    },
+  }));
+}
+
+const { news, otherNews } = Astro.props as {
+  news: News;
+  otherNews: News[];
+};
+---
+
+<Layout title={news.title}>
+  <Header />
+
+  <div class="flex flex-col m-grid gap-section">
+    <div class="flex justify-between">
+      <Arrow position="topLeft" />
+      <Arrow position="topRight" />
+    </div>
+
+    <h1 class="font-light text-4xl-fluid hyphens-auto md:text-center">
+      {news.title}
+    </h1>
+
+    <div class="flex justify-between">
+      <Arrow position="bottomLeft" />
+      <Arrow position="bottomRight" />
+    </div>
+  </div>
+
+  <div class="mx-grid mt-section">
+    <div class="mx-auto max-w-[50rem] lg:max-w-[47.619vw]">
+      <PortableText value={news.content} />
+    </div>
+  </div>
+
+  <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
+    <CardHeader title="Nyheter">
+      <p
+        class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 font-light text-2xl-fluid"
+      >
+        Siste nytt fra Systek
+      </p>
+
+      <Button class="mt-grid" href="/nyheter">Se alle nyheter</Button>
+    </CardHeader>
+
+    <div></div>
+    <div class="border-t border-stroke mt-section lg:col-span-3">
+      <!-- todo: time element does not match figma on desktop -->
+      {
+        otherNews.map((item) => (
+          <div class="flex justify-between py-5 border-b gap-gutter border-stroke">
+            <a
+              class="flex items-center gap-2 link-underline"
+              href={`/nyheter/${item.slug.current}`}
+            >
+              <ExternalIcon class="size-2.5 lg:size-[0.595vw]" />
+              <p class="text-xs-fluid">{item.title}</p>
+            </a>
+            <p class="md:pr-64 text-xs-fluid">
+              {format(new Date(item.publishedAt), "d. MMMM", {
+                locale: nb,
+              })}
+            </p>
+          </div>
+        ))
+      }
+    </div>
+  </CardLayout>
+
+  <Footer />
+</Layout>

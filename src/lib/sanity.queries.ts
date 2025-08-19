@@ -19,8 +19,8 @@ export async function fetchServiceItems(): Promise<Service[]> {
   }`);
 }
 
-export async function fetchNewsItems(): Promise<News[]> {
-  return sanityClient.fetch(`*[_type == "news" && defined(slug)] | order(publishedAt asc) {
+export async function fetchNewsItems(limit = 8, skip = 0): Promise<News[]> {
+  return sanityClient.fetch(`*[_type == "news" && defined(slug)] | order(publishedAt asc)[${skip}...${skip + limit}] {
     _id,
     title,
     description,
