@@ -286,6 +286,15 @@ export type Work = {
     };
     _type: "imageTwo";
     _key: string;
+  } | {
+    items: Array<string>;
+    _type: "tags-list";
+    _key: string;
+  } | {
+    title: string;
+    items: Array<string>;
+    _type: "list-group";
+    _key: string;
   }>;
   technologies?: Array<string>;
   stats?: {
@@ -345,7 +354,7 @@ export type News = {
       _type: "span";
       _key: string;
     }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+    style?: "normal" | "blockquote" | "h2";
     listItem?: "bullet" | "number";
     markDefs?: Array<{
       href?: string;
@@ -353,7 +362,7 @@ export type News = {
       _key: string;
     }>;
     level?: number;
-    _type: "block";
+    _type: "data";
     _key: string;
   } | {
     asset?: {
@@ -365,7 +374,49 @@ export type News = {
     media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
+    alt?: string;
+    caption?: string;
     _type: "image";
+    _key: string;
+  } | {
+    first: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      caption?: string;
+      _type: "image";
+    };
+    second: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      caption?: string;
+      _type: "image";
+    };
+    _type: "imageTwo";
+    _key: string;
+  } | {
+    items: Array<string>;
+    _type: "tags-list";
+    _key: string;
+  } | {
+    title: string;
+    items: Array<string>;
+    _type: "list-group";
     _key: string;
   }>;
 };
@@ -523,25 +574,25 @@ export type SanityImagePalette = {
 
 export type SanityImageDimensions = {
   _type: "sanity.imageDimensions";
-  height?: number;
-  width?: number;
-  aspectRatio?: number;
+  height: number;
+  width: number;
+  aspectRatio: number;
 };
 
 export type SanityImageHotspot = {
   _type: "sanity.imageHotspot";
-  x?: number;
-  y?: number;
-  height?: number;
-  width?: number;
+  x: number;
+  y: number;
+  height: number;
+  width: number;
 };
 
 export type SanityImageCrop = {
   _type: "sanity.imageCrop";
-  top?: number;
-  bottom?: number;
-  left?: number;
-  right?: number;
+  top: number;
+  bottom: number;
+  left: number;
+  right: number;
 };
 
 export type SanityFileAsset = {
