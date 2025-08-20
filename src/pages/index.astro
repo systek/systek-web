@@ -76,7 +76,7 @@ const logoBottomItems = logoItems.slice(index);
   <CardLayout class="border-t mt-section border-stroke mx-grid pt-grid">
     <CardHeader title="Tjenester">
       <p
-        class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 font-light text-2xl-fluid"
+        class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw] font-light text-2xl-fluid"
       >
         Vi hjelper deg fra idé til drift og videreutvikling av digitale
         løsninger
@@ -104,7 +104,7 @@ const logoBottomItems = logoItems.slice(index);
   <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
     <CardHeader title="Nyheter">
       <p
-        class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 font-light text-2xl-fluid"
+        class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw] font-light text-2xl-fluid"
       >
         Siste nytt fra Systek
       </p>
@@ -139,10 +139,8 @@ const logoBottomItems = logoItems.slice(index);
   <!-- todo: match with figma on mobile+tablet -->
   <CardLayout class="mt-page mx-grid">
     <div></div>
-    <div class="grid gap-section md:gap-14 lg:col-span-3">
-      <div
-        class="grid grid-cols-2 gap-section md:gap-3 md:flex md:justify-between"
-      >
+    <div class="grid gap-section lg:col-span-3">
+      <div class="grid grid-cols-2 gap-section md:flex md:justify-between">
         {
           logoTopItems.map((item) => (
             <SanityImage
@@ -156,9 +154,7 @@ const logoBottomItems = logoItems.slice(index);
           ))
         }
       </div>
-      <div
-        class="grid grid-cols-2 gap-section md:gap-3 md:flex md:justify-between"
-      >
+      <div class="grid grid-cols-2 gap-section md:flex md:justify-between">
         {
           logoBottomItems.map((item) => (
             <SanityImage
@@ -178,7 +174,7 @@ const logoBottomItems = logoItems.slice(index);
   <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
     <CardHeader title="Arbeider">
       <p
-        class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 font-light text-2xl-fluid"
+        class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw] font-light text-2xl-fluid"
       >
         Vi har lang erfaring med komplekse prosjekter fra ledende virksomheter
       </p>
@@ -224,7 +220,7 @@ const logoBottomItems = logoItems.slice(index);
   <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
     <CardHeader title="Foredrag og fagmøter">
       <p
-        class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 font-light text-2xl-fluid"
+        class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw] font-light text-2xl-fluid"
       >
         Systek arrangerer både interne fagmøter samt åpne arrangementer for
         eksterne
@@ -323,7 +319,7 @@ const logoBottomItems = logoItems.slice(index);
   <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
     <CardHeader title="Jobbe her?">
       <p
-        class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 font-light text-2xl-fluid"
+        class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw] font-light text-2xl-fluid"
       >
         Bli med og bygg konsulentselskapet du selv ønsker å jobbe i
       </p>
@@ -333,7 +329,7 @@ const logoBottomItems = logoItems.slice(index);
       </Button>
     </CardHeader>
 
-    <Accordion class="mt-section">
+    <Accordion class="mt-section order-1 lg:order-none">
       <AccordionItem bold open size="lg" title="Fleksibilitet og frihet">
         <p class="text-sm-fluid text-text-secondary max-w-[35rem]">
           Vi ser etter deg som er selvgående, løsningsorientert og faglig
@@ -371,7 +367,7 @@ const logoBottomItems = logoItems.slice(index);
   <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
     <CardHeader title="Blogg">
       <p
-        class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 font-light text-2xl-fluid"
+        class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw] font-light text-2xl-fluid"
       >
         Les våre siste artikler fra fag-bloggen
       </p>
@@ -431,7 +427,7 @@ const logoBottomItems = logoItems.slice(index);
         </div>
       </div>
     </div>
-    <div class="mt-10 lg:col-span-2 lg:mt-0">
+    <div class="mt-section-sm md:mt-section-md lg:mt-0 lg:col-span-2">
       <picture>
         <img
           class="w-full rounded-md aspect-square md:aspect-[4/3] object-cover"
