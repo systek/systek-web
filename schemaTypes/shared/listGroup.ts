@@ -1,9 +1,11 @@
 import { defineField } from "sanity";
+import { OlistIcon } from "@sanity/icons";
 
 export const listGroup = defineField({
   type: "object",
   name: "list-group",
   title: "Listegruppe",
+  icon: OlistIcon,
   fields: [
     defineField({
       type: "string",
@@ -22,4 +24,16 @@ export const listGroup = defineField({
       validation: (rule) => rule.required(),
     }),
   ],
+  preview: {
+    select: {
+      title: "title",
+      items: "items",
+    },
+    prepare({ title, items }) {
+      return {
+        title: title || "Listegruppe",
+        subtitle: items ? items.join(", ") : "Ingen elementer",
+      };
+    },
+  },
 });

@@ -1,9 +1,12 @@
 import { defineField } from "sanity";
+import { ImagesIcon } from "@sanity/icons";
 
 export const imageTwo = defineField({
   type: "object",
   name: "imageTwo",
   title: "Bildepar",
+  icon: ImagesIcon,
+  description: "To bilder med tilleggsinformasjon",
   preview: {
     select: {
       first: "first",

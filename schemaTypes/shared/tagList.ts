@@ -1,9 +1,12 @@
+import { SearchIcon } from "@sanity/icons";
 import { defineField } from "sanity";
 
 export const tagList = defineField({
   type: "object",
   name: "tags-list",
   title: "Stikkord",
+  icon: SearchIcon,
+  description: "En liste over stikkord",
   fields: [
     defineField({
       type: "array",
@@ -16,4 +19,15 @@ export const tagList = defineField({
       validation: (rule) => rule.required(),
     }),
   ],
+  preview: {
+    select: {
+      items: "items",
+    },
+    prepare({ items }) {
+      return {
+        title: "Stikkord",
+        subtitle: items.join(", "),
+      };
+    },
+  },
 });
