@@ -22,9 +22,9 @@ interface Props {
 const { first, second } = Astro.props.node;
 ---
 
-<div class="md:mx-[calc(50%-50vw)]">
-  <div class="grid gap-section my-section md:grid-cols-2 md:mx-5">
-    <figure class="md:mx-20 md:mt-20 lg:mx-36 lg:mt-36">
+<div class="my-section md:mx-[calc(50%-50vw+(var(--width-scrollbar)/2))]">
+  <div class="grid gap-section md:grid-cols-2 md:mx-grid-md lg:mx-grid-lg">
+    <figure class="md:mx-section-md md:mt-page-md lg:mx-page-lg lg:mt-page-lg">
       <SanityImage
         node={first}
         alt={first.alt}

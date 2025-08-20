@@ -34,12 +34,18 @@ import Arrow from "../components/Arrow.astro";
         Det er ikke din skyld, dette er en feil vi ikke håndterer. Den kan være
         midlertidig, så prøv gjerne igjen.
       </p>
-      <Button class="refresh-button">Last siden på nytt</Button>
+      <Button class="mt-grid refresh-button">Last siden på nytt</Button>
     </div>
   </div>
   <script>
-    document.querySelector(".refresh-button")?.addEventListener("click", () => {
-      window.location.reload();
+    import { DOMLoaded } from "../utils/utils";
+
+    DOMLoaded(() => {
+      document
+        .querySelector(".refresh-button")
+        ?.addEventListener("click", () => {
+          window.location.reload();
+        });
     });
   </script>
   <Footer />

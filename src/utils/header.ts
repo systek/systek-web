@@ -3,6 +3,11 @@ const borderClass = ["border-b", "border-grey-91"];
 let observer: IntersectionObserver | null = null;
 
 export function setupHeader(header: HTMLElement, sentinel: HTMLElement) {
+  document.body.style.setProperty(
+    "--width-scrollbar",
+    `${window.innerWidth - document.body.clientWidth}px`
+  );
+
   // header is not sticky on mobile
   if (window.innerWidth < 800) {
     if (observer) {
@@ -23,14 +28,14 @@ export function setupHeader(header: HTMLElement, sentinel: HTMLElement) {
         header.classList.remove(...borderClass);
       }
     },
-    { threshold: [0] },
+    { threshold: [0] }
   );
   observer.observe(sentinel);
 }
 
 export const openModal = (
   modal: HTMLDialogElement,
-  scrollTarget: HTMLElement,
+  scrollTarget: HTMLElement
 ) => {
   scrollTarget.scrollIntoView({
     behavior: "instant",
@@ -47,7 +52,7 @@ export const openModal = (
         closeModal(modal);
       }
     },
-    { once: true },
+    { once: true }
   );
 
   requestAnimationFrame(() => {

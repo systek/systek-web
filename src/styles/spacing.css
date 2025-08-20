@@ -2,22 +2,27 @@
   /* grid desktop: 20px, tablet: 20px, mobile: 16px */
   --spacing-grid-sm: 1rem;
   --spacing-grid-md: 1.25rem;
-  --spacing-grid-lg: 1.25rem;
+  --spacing-grid-lg: calc((1.25 / 105) * 100vw); /* 1.25rem */
 
   /* gutter desktop: 20px, tablet: 20px, mobile: 12px */
   --spacing-gutter-sm: 0.75rem;
   --spacing-gutter-md: 1.25rem;
-  --spacing-gutter-lg: 1.25rem;
+  --spacing-gutter-lg: calc((1.25 / 105) * 100vw); /* 1.25rem */
 
   /* section desktop: 64px, tablet: 56px, mobile: 40px */
   --spacing-section-sm: 2.5rem;
   --spacing-section-md: 3.5rem;
-  --spacing-section-lg: 4rem;
+  --spacing-section-lg: calc((4 / 105) * 100vw); /* 4rem */
 
   /* page desktop: 144px, tablet: 128px, mobile: 64px */
   --spacing-page-sm: 4rem;
   --spacing-page-md: 8rem;
-  --spacing-page-lg: 9rem;
+  --spacing-page-lg: calc((9 / 105) * 100vw); /* 9rem */
+
+  /*
+  * todo: responsive border radius
+  --radius-lg: calc((1 / 105) * 100vw); 
+  */
 }
 
 /*

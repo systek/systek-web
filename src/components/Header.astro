@@ -41,7 +41,7 @@ const links = [
                   "text-sm-fluid inline-block",
                   active === link.href
                     ? "regular-underline"
-                    : "hover:regular-underline",
+                    : "hover:regular-underline"
                 )}
               >
                 {link.text}
@@ -71,7 +71,7 @@ const links = [
       <Arrow position="topRight" />
     </div>
     <nav class="flex items-center justify-center flex-1">
-      <ul class="flex flex-col gap-10 py-grid">
+      <ul class="flex flex-col gap-section py-grid">
         {
           links.map((link) => (
             <li class="text-center">
@@ -112,11 +112,11 @@ const links = [
   DOMLoaded(() => {
     const header = document.querySelector("[data-header]") as HTMLElement;
     const sentinel = document.querySelector(
-      "[data-header-sentinel]",
+      "[data-header-sentinel]"
     ) as HTMLElement;
     const modal = document.querySelector("[data-modal]") as HTMLDialogElement;
     const modalTrigger = document.querySelector(
-      "[data-modal-trigger]",
+      "[data-modal-trigger]"
     ) as HTMLButtonElement;
     const hasViewportWidthChanged = widthChecker();
 

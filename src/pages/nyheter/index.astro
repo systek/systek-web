@@ -40,9 +40,9 @@ const newsItems = await fetchNewsItems(10, 0);
       <!-- todo: time element does not match figma on desktop -->
       {
         newsItems.map((item) => (
-          <div class="flex justify-between py-5 border-b gap-gutter border-stroke">
+          <div class="flex justify-between py-grid border-b gap-gutter border-stroke">
             <a
-              class="flex items-center gap-2 link-underline"
+              class="flex items-center gap-1 link-underline"
               href={`/nyheter/${item.slug.current}`}
             >
               <ExternalIcon class="size-2.5 lg:size-[0.595vw]" />

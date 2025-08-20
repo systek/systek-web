@@ -125,10 +125,10 @@ const logoBottomItems = logoItems.slice(index);
     <div></div>
     <div class="lg:col-span-3">
       <div
-        class="grid md:grid-cols-2 gap-x-gutter mt-section gap-y-5 md:gap-y-section-md lg:gap-y-section-lg"
+        class="grid md:grid-cols-2 gap-x-gutter mt-section gap-y-grid-lg md:gap-y-section-md lg:gap-y-section-lg"
       >
         {
-          workItems.map((item, index) => (
+          workItems.map((item) => (
             <a href={`/arbeider/${item.slug.current}`}>
               <picture>
                 <Image
