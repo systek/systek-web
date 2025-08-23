@@ -3,11 +3,14 @@ import type {
   Activity,
   Blog,
   Citation,
+  FrontPageType,
   Logo,
   News,
   Service,
+  ServicesPageType,
   Staff,
   Work,
+  WorkerPageType,
 } from "./sanity.types";
 
 export async function fetchServiceItems(): Promise<Service[]> {
@@ -40,12 +43,12 @@ export async function fetchLogoItems(limit = 8): Promise<Logo[]> {
 
 export async function fetchWorkItems(limit?: number): Promise<Work[]> {
   const query = `*[_type == "work" && defined(slug)]${limit ? `[0...${limit}]` : ""} {
-        _id,
-        title,
-        description,
-        slug,
-        image
-      }`;
+    _id,
+    title,
+    description,
+    slug,
+    image
+  }`;
 
   return sanityClient.fetch(query);
 }
@@ -97,4 +100,48 @@ export async function fetchCitationItem(): Promise<Citation> {
       position,
       picture
     }`);
+}
+
+export async function fetchFrontPageSingleton(): Promise<
+  Omit<FrontPageType, "selectedWorks"> & { selectedWorks: Work[] }
+> {
+  return sanityClient.fetch(`*[_type == "frontPageType"][0] {
+    title,
+    topDescription,
+    heroImage,
+    servicesTitle,
+    workTitle,
+    selectedWorks[]->{
+      _id,
+      title,
+      description,
+      slug,
+      image
+    },
+    activityTitle,
+    activityImage,
+    vacanciesTitle,
+    vacanciesPoints,
+    vacanciesImage,
+    contact
+  }`);
+}
+
+export async function fetchWorkerSingleton(): Promise<WorkerPageType> {
+  return sanityClient.fetch(`*[_type == "workerPageType"][0] {
+    title,
+    heroImage,
+    logoTitle,
+    listTitle,
+    servicesTitle,
+    contact,
+    workCount
+  }`);
+}
+
+export async function fetchServicesSingleton(): Promise<ServicesPageType> {
+  return sanityClient.fetch(`*[_type == "servicesPageType"][0] {
+    ...,
+    citations->
+  }`);
 }

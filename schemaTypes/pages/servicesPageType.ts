@@ -1,5 +1,5 @@
 import { defineField, defineType } from "sanity";
-import { contactType } from "./contactType";
+import { contactField } from "./contactField";
 
 export const servicesPageType = defineType({
   name: "servicesPageType",
@@ -40,6 +40,6 @@ export const servicesPageType = defineType({
       type: "reference",
       to: [{ type: "citation" }],
     }),
-    contactType,
+    contactField,
   ],
 });

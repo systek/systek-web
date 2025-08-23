@@ -3,15 +3,24 @@ import Button from "../../components/Button.astro";
 import LinkBox from "../../components/LinkBox.astro";
 import CardLayout from "../../components/card/layout/CardLayout.astro";
 import CardHeader from "../../components/card/layout/CardHeader.astro";
-import Citation from "../../components/Citation.astro";
+import Citation from "../../components/card/Citation.astro";
 import Footer from "../../components/Footer.astro";
 import Header from "../../components/Header.astro";
 import Layout from "../../layouts/Layout.astro";
-import { fetchServiceItems, fetchCitationItem } from "../../lib/sanity.queries";
+import {
+  fetchServiceItems,
+  fetchCitationItem,
+  fetchServicesSingleton,
+} from "../../lib/sanity.queries";
 import Contact from "../../components/card/Contact.astro";
+import SanityImage from "../../components/Image.astro";
+import type { Citation as CitationType } from "../../lib/sanity.types";
 
-const serviceItems = await fetchServiceItems();
-const citation = await fetchCitationItem();
+const [servicesInfo, serviceItems, citation] = await Promise.all([
+  fetchServicesSingleton(),
+  fetchServiceItems(),
+  fetchCitationItem(),
+]);
 ---
 
 <Layout title="Tjenester">
@@ -48,10 +57,10 @@ const citation = await fetchCitationItem();
 
     <div>
       <picture>
-        <img
+        <SanityImage
           class="w-full rounded-md aspect-[4/3] object-cover"
-          src="/images/temp.png"
-          draggable="false"
+          image={servicesInfo.heroImage}
+          alt={servicesInfo.heroImage.alt}
         />
       </picture>
     </div>
@@ -62,18 +71,16 @@ const citation = await fetchCitationItem();
       <p
         class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-[4.7619vw] font-light text-2xl-fluid"
       >
-        Vi hjelper deg fra idé til drift og videreutvikling av digitale
-        løsninger
+        {servicesInfo.description}
       </p>
     </CardHeader>
     <div></div>
     <div class="lg:col-span-3">
       <div class="mt-section">
         <picture>
-          <img
+          <SanityImage
             class="w-full object-cover rounded-md lg:rounded-lg aspect-[4/3] lg:aspect-[2/1]"
-            src="/images/temp.png"
-            draggable="false"
+            image={servicesInfo.secondaryImage}
           />
         </picture>
       </div>
@@ -95,32 +102,27 @@ const citation = await fetchCitationItem();
     </div>
   </CardLayout>
 
-  <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
-    <CardHeader title="Design og brukeropplevelse">
-      <p class="max-w-[50rem] lg:max-w-[47.619vw] font-light text-xl-fluid">
-        «Systek har levert skalerbare og brukervennlige løsninger som
-        understøtter Elvias kjerneprosesser, og gir både ansatte og kunder bedre
-        innsikt og mer effektiv samhandling»
-      </p>
+  {
+    servicesInfo.citations && (
       <Citation
-        class="mt-grid"
-        title={citation.name}
-        subtitle={citation.position}
-        image={citation.picture}
+        title="Tjenester"
+        citation={servicesInfo.citations as unknown as CitationType}
       />
-      <Button class="mt-grid" href="/tjenester/design-og-brukeropplevelse">
-        Les om tjenesten
-      </Button>
-    </CardHeader>
-  </CardLayout>
+    )
+  }
 
-  <Contact
-    button="Send Charlotte en e-post"
-    email="charlotte.irgens@systek.no"
-    label="Kontakt"
-    text="Ta kontakt med vår forretningsutvikler Charlotte dersom du lurer på hva vi kan hjelpe deg med."
-    title="Ta kontakt med Charlotte"
-  />
+  {
+    servicesInfo.contact && (
+      <Contact
+        button={`Send ${servicesInfo.contact.name} en e-post`}
+        email={servicesInfo.contact.email}
+        label="Kontakt"
+        title={servicesInfo.contact.title}
+        text={servicesInfo.contact.description}
+        image={servicesInfo.contact.image}
+      />
+    )
+  }
 
   <Footer />
 </Layout>

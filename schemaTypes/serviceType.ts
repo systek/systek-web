@@ -1,5 +1,6 @@
 import { defineField, defineType } from "sanity";
 import { contentField } from "./shared/content";
+import { contactField } from "./pages/contactField";
 
 export const serviceType = defineType({
   name: "service",
@@ -46,11 +47,19 @@ export const serviceType = defineType({
       validation: (rule) => rule.required(),
     }),
     contentField,
+    contactField,
     defineField({
       name: "citation",
       title: "Sitat",
       type: "reference",
       to: [{ type: "citation" }],
+    }),
+    defineField({
+      name: "works",
+      title: "Arbeider",
+      type: "array",
+      of: [{ type: "reference", to: [{ type: "work" }] }],
+      validation: (rule) => rule.unique().max(2),
     }),
   ],
 });

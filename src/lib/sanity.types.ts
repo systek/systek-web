@@ -13,6 +13,25 @@
  */
 
 // Source: schema.json
+export type Vacancies = {
+  _id: string;
+  _type: "vacancies";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title: string;
+  description: string;
+  location: string;
+  date?: string;
+  href: string;
+  service: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "service";
+  };
+};
+
 export type Page = {
   _id: string;
   _type: "page";
@@ -151,6 +170,31 @@ export type Blog = {
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     alt: string;
+    _type: "image";
+  };
+};
+
+export type Staff = {
+  _id: string;
+  _type: "staff";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name: string;
+  slug: Slug;
+  position: string;
+  location: "oslo" | "hamar" | "grimstad";
+  department: "administration" | "arkitektur" | "analyse" | "design" | "plattform" | "prosjektledelse" | "test" | "utvikling";
+  image: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
     _type: "image";
   };
 };
@@ -437,12 +481,7 @@ export type ServicesPageType = {
     [internalGroqTypeReferenceTo]?: "citation";
   };
   contact?: {
-    contactPerson: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "staff";
-    };
+    name: string;
     email: string;
     title: string;
     description: string;
@@ -585,12 +624,37 @@ export type Service = {
     _type: "list-group";
     _key: string;
   }>;
+  contact?: {
+    name: string;
+    email: string;
+    title: string;
+    description: string;
+    image: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+  };
   citation?: {
     _ref: string;
     _type: "reference";
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "citation";
   };
+  works?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "work";
+  }>;
 };
 
 export type WorkerPageType = {
@@ -616,12 +680,7 @@ export type WorkerPageType = {
   listTitle: string;
   servicesTitle: string;
   contact?: {
-    contactPerson: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "staff";
-    };
+    name: string;
     email: string;
     title: string;
     description: string;
@@ -641,18 +700,15 @@ export type WorkerPageType = {
   workCount: number;
 };
 
-export type Staff = {
+export type FrontPageType = {
   _id: string;
-  _type: "staff";
+  _type: "frontPageType";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  name: string;
-  slug: Slug;
-  position: string;
-  location: "oslo" | "hamar" | "grimstad";
-  department: "administration" | "arkitektur" | "analyse" | "design" | "plattform" | "prosjektledelse" | "test" | "utvikling";
-  image: {
+  title: string;
+  topDescription: string;
+  heroImage: {
     asset?: {
       _ref: string;
       _type: "reference";
@@ -662,7 +718,68 @@ export type Staff = {
     media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
+    alt?: string;
     _type: "image";
+  };
+  servicesTitle: string;
+  workTitle: string;
+  selectedWorks: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "work";
+  }>;
+  activityTitle: string;
+  activityImage: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  vacanciesTitle: string;
+  vacanciesImage: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  vacanciesPoints: Array<{
+    title: string;
+    description: string;
+    _key: string;
+  }>;
+  contact?: {
+    name: string;
+    email: string;
+    title: string;
+    description: string;
+    image: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
   };
 };
 
@@ -795,5 +912,5 @@ export type SanityAssetSourceData = {
   url?: string;
 };
 
-export type AllSanitySchemaTypes = Page | Blog | Activity | Work | Logo | News | ServicesPageType | Citation | Service | WorkerPageType | Staff | SiteSettings | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
+export type AllSanitySchemaTypes = Vacancies | Page | Blog | Staff | Activity | Work | Logo | News | ServicesPageType | Citation | Service | WorkerPageType | FrontPageType | SiteSettings | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;

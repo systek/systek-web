@@ -6,6 +6,7 @@ import Header from "../../components/Header.astro";
 import Layout from "../../layouts/Layout.astro";
 import Contact from "../../components/card/Contact.astro";
 import {
+  fetchWorkerSingleton,
   fetchLogoItems,
   fetchWorkItems,
   fetchServiceItems,
@@ -15,7 +16,8 @@ import LinkBox from "../../components/LinkBox.astro";
 import Image from "../../components/Image.astro";
 import PageHeader from "../../components/PageHeader.astro";
 
-const [logoItems, workItems, serviceItems] = await Promise.all([
+const [workersInfo, logoItems, workItems, serviceItems] = await Promise.all([
+  fetchWorkerSingleton(),
   fetchLogoItems(),
   fetchWorkItems(),
   fetchServiceItems(),
@@ -29,14 +31,13 @@ const logoBottomItems = logoItems.slice(index);
 <Layout title="Arbeider">
   <Header active="/arbeider" />
 
-  <PageHeader>
+  <PageHeader image={workersInfo.heroImage}>
     <CardLayout>
       <CardHeader title="Arbeider">
         <p
           class="max-w-[72rem] lg:max-w-[68.571vw] md:mr-20 lg:mr-[4.7619vw] font-light text-3xl-fluid"
         >
-          Se hvordan vi har løst utfordringer og skapt smarte digitale
-          muligheter for kunder i ulike bransjer
+          {workersInfo.title}
         </p>
       </CardHeader>
     </CardLayout>
@@ -47,8 +48,7 @@ const logoBottomItems = logoItems.slice(index);
       <p
         class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw] font-light text-2xl-fluid"
       >
-        Vi har lang erfaring med komplekse IT-prosjekter fra ledende
-        virksomheter fra offentlig og privat sektor
+        {workersInfo.logoTitle}
       </p>
     </CardHeader>
   </CardLayout>
@@ -92,7 +92,7 @@ const logoBottomItems = logoItems.slice(index);
       <p
         class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw] font-light text-2xl-fluid"
       >
-        Les om hvordan vi har bistått noen av våre kunder med vår kompetanse
+        {workersInfo.listTitle}
       </p>
     </CardHeader>
 
@@ -127,8 +127,7 @@ const logoBottomItems = logoItems.slice(index);
       <p
         class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw] font-light text-2xl-fluid"
       >
-        Vi hjelper deg fra idé til drift og videreutvikling av digitale
-        løsninger
+        {workersInfo.servicesTitle}
       </p>
 
       <Button href="/tjenester" class="mt-grid">Se våre tjenester</Button>
@@ -150,13 +149,18 @@ const logoBottomItems = logoItems.slice(index);
     </div>
   </CardLayout>
 
-  <Contact
-    button="Send Charlotte en e-post"
-    email="charlotte.irgens@systek.no"
-    label="Kontakt"
-    text="Hvis du trenger bistand på et prosjekt eller bare lurer på hva vi kan hjelpe deg med, ta kontakt med vår forretningsutvikler Charlotte."
-    title="Har du et prosjekt hvor du trenger dyktige fagfolk?"
-  />
+  {
+    workersInfo.contact && (
+      <Contact
+        button={`Send ${workersInfo.contact.name} en e-post`}
+        email={workersInfo.contact.email}
+        label="Kontakt"
+        title={workersInfo.contact.title}
+        text={workersInfo.contact.description}
+        image={workersInfo.contact.image}
+      />
+    )
+  }
 
   <Footer />
 </Layout>

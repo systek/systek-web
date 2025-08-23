@@ -1,5 +1,5 @@
 ---
-import SanityImage from "./SanityImage.astro";
+import SanityImage from "./Image.astro";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
 interface Props {
@@ -17,9 +17,12 @@ const { title, subtitle, image, class: className } = Astro.props;
     <picture>
       <SanityImage
         class="w-full rounded-full aspect-square"
-        node={image}
+        image={image}
         alt={title}
         draggable={false}
+        mode="cover"
+        width={80}
+        height={80}
       />
     </picture>
   </div>

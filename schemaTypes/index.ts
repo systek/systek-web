@@ -10,9 +10,12 @@ import { workType } from "./workType";
 import { staffType } from "./staffType";
 import { citationType } from "./citationType";
 import { pageType } from "./pageType";
+import { vacanciesType } from "./vacanciesType";
+import { frontPageType } from "./pages/frontPageType";
 
 export const schemaTypes = [
   siteSettings,
+  frontPageType,
   workerPageType,
   servicesPageType,
   serviceType,
@@ -24,4 +27,5 @@ export const schemaTypes = [
   staffType,
   citationType,
   pageType,
+  vacanciesType,
 ];

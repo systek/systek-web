@@ -1,15 +1,14 @@
 import { defineField } from "sanity";
 
-export const contactType = defineField({
+export const contactField = defineField({
   name: "contact",
   title: "Kontakt",
   type: "object",
   fields: [
     defineField({
-      name: "contactPerson",
-      title: "Kontaktperson",
-      type: "reference",
-      to: [{ type: "staff" }],
+      name: "name",
+      title: "Navn",
+      type: "string",
       validation: (Rule) => Rule.required(),
     }),
     defineField({

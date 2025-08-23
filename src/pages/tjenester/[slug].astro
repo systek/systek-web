@@ -9,12 +9,13 @@ import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import PortableText from "../../components/PortableText.astro";
-import SanityImage from "../../components/SanityImage.astro";
+import SanityImage from "../../components/Image.astro";
 import Citation from "../../components/card/Citation.astro";
 import type {
   Citation as CitationType,
   Service,
   Work,
+  Vacancies,
 } from "../../lib/sanity.types";
 import CardLayout from "../../components/card/layout/CardLayout.astro";
 import CardHeader from "../../components/card/layout/CardHeader.astro";
@@ -23,55 +24,41 @@ import Contact from "../../components/card/Contact.astro";
 import { getOGImageUrl } from "../../utils/image";
 import PageHeader from "../../components/PageHeader.astro";
 
+type PageType = Omit<Service, "citation" | "works"> & {
+  citation: CitationType;
+  works?: Work[];
+};
+
 export async function getStaticPaths() {
-  const services = await sanityClient.fetch(`*[_type == "service"] {
+  const services: PageType[] = await sanityClient.fetch(`*[_type == "service"] {
     _id,
     slug,
     title,
     heroImage,
     content,
     citation->,
+    works[]->,
+    contact,
   }`);
-  return services.map(
-    (service: Omit<Service, "citation" & { citation: CitationType }>) => ({
-      params: { slug: service.slug.current },
-      props: { service },
-    })
-  );
+  return services.map((service) => ({
+    params: { slug: service.slug.current },
+    props: { service },
+  }));
 }
 const { service } = Astro.props as {
-  service: Omit<Service, "citation" & { citation: CitationType }>;
+  service: PageType;
 };
 
-// todo update service document (schema.json): add field "work" with 2 work items
-const workItems: Work[] | undefined =
-  await sanityClient.fetch(`*[_type == "work" && defined(slug)] | order(order asc)[0...2] {
-    _id,
+const vacancies: Vacancies[] = await sanityClient.fetch(
+  `*[_type == "vacancies" && service._ref == $serviceId]{
     title,
+    date,
+    location,
     description,
-    slug,
-    image
-  }`);
-
-// todo: infer this when making Vacancy document
-const vacancies = [
-  {
-    title: "UX designer",
-    date: "1. september",
-    location: "Grimstad",
-    description:
-      "We are looking for a skilled frontend developer to join our team.",
-    href: "/",
-  },
-  {
-    title: "Åpen søknad",
-    date: undefined,
-    location: "Oslo, Hamar, Grimstad",
-    description:
-      "Join us as a backend developer and work on exciting projects.",
-    href: "/",
-  },
-];
+    href
+  }`,
+  { serviceId: service._id }
+);
 ---
 
 <Layout
@@ -100,7 +87,7 @@ const vacancies = [
   }
 
   {
-    workItems && workItems.length > 0 && (
+    service.works && (
       <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
         <CardHeader title="Arbeider">
           <p class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw] font-light text-2xl-fluid">
@@ -113,12 +100,12 @@ const vacancies = [
 
         <div />
         <div class="grid lg:col-span-3 md:grid-cols-2 gap-gutter mt-section">
-          {workItems.map((item) => (
+          {service.works.map((item) => (
             <a class="group" href={item.slug.current}>
               <picture>
                 <SanityImage
                   class="w-full rounded-md object-cover aspect-[4/3]"
-                  node={item.image}
+                  image={item.image}
                   alt={item.image.alt}
                   draggable="false"
                 />
@@ -134,6 +121,7 @@ const vacancies = [
     )
   }
 
+{vacancies.length > 0 && (
   <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
     <CardHeader title="Ledige stillinger">
       <p
@@ -212,14 +200,20 @@ const vacancies = [
       </div>
     </div>
   </CardLayout>
+  )}
 
-  <Contact
-    button="Send Tommy en e-post"
-    email="tommy.madsen@systek.no"
-    label="Kontakt"
-    text="Om du er faglig dyktig, brenner for det du jobber med og har lyst til å være en del av et miljø hvor kunnskap, nysgjerrighet og inkludering er viktig, så vil vi gjerne snakke med deg!"
-    title="Si hei til vår avdelingsleder, Tommy!"
-  />
+  {
+    service.contact && (
+      <Contact
+        button={`Send ${service.contact.name} en e-post`}
+        email={service.contact.email}
+        label="Kontakt"
+        title={service.contact.title}
+        text={service.contact.description}
+        image={service.contact.image}
+      />
+    )
+  }
 
   <Footer />
 </Layout>

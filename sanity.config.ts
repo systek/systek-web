@@ -23,6 +23,14 @@ export default defineConfig({
                   .schemaType("siteSettings")
                   .documentId("siteSettings")
               ),
+            S.divider(),
+            S.listItem()
+              .title("Forside")
+              .child(
+                S.document()
+                  .schemaType("frontPageType")
+                  .documentId("frontPageType")
+              ),
             S.listItem()
               .title("Arbeider")
               .child(
@@ -40,9 +48,12 @@ export default defineConfig({
             S.divider(),
             ...S.documentTypeListItems().filter(
               (item) =>
-                ["siteSettings", "workerPageType", "servicesPageType"].includes(
-                  item.getId() || ""
-                ) === false
+                [
+                  "siteSettings",
+                  "frontPageType",
+                  "workerPageType",
+                  "servicesPageType",
+                ].includes(item.getId() || "") === false
             ),
           ]),
     }),

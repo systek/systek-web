@@ -2,8 +2,8 @@
 import clsx from "clsx";
 import { format } from "date-fns";
 import { nb } from "date-fns/locale";
-import { SanityImage } from "sanity-image";
 
+import SanityImage from "../components/Image.astro";
 import ExternalIcon from "../assets/icons/external.svg";
 import Button from "../components/Button.astro";
 import CardLayout from "../components/card/layout/CardLayout.astro";
@@ -14,6 +14,7 @@ import Layout from "../layouts/Layout.astro";
 import {
   fetchActivityItems,
   fetchBlogItems,
+  fetchFrontPageSingleton,
   fetchLogoItems,
   fetchNewsItems,
   fetchServiceItems,
@@ -26,6 +27,7 @@ import LinkBox from "../components/LinkBox.astro";
 import Contact from "../components/card/Contact.astro";
 
 const [
+  frontPageData,
   serviceItems,
   newsItems,
   workItems,
@@ -33,6 +35,7 @@ const [
   blogItems,
   logoItems,
 ] = await Promise.all([
+  fetchFrontPageSingleton(),
   fetchServiceItems(),
   fetchNewsItems(2),
   fetchWorkItems(3),
@@ -52,12 +55,10 @@ const logoBottomItems = logoItems.slice(index);
   <Header />
 
   <div class="grid items-start mx-grid mt-section gap-gutter lg:grid-cols-2">
-    <h2 class="font-light text-4xl-fluid">Digital styrke – tett på</h2>
+    <h2 class="font-light text-4xl-fluid">{frontPageData.title}</h2>
     <div>
       <p class="text-lg-fluid">
-        Hos oss møter du fagfolk som både kan og vil. Vi utforsker, samarbeider
-        og skaper muligheter som gjør en forskjell for mennesker, virksomheter
-        og samfunnet.
+        {frontPageData.topDescription}
       </p>
 
       <Button class="mt-8" href="/folka">Les om folka</Button>
@@ -66,10 +67,10 @@ const logoBottomItems = logoItems.slice(index);
 
   <div class="mt-section mx-grid">
     <picture>
-      <img
+      <SanityImage
         class="w-full aspect-[4:3] lg:aspect-[2/1] object-cover rounded-md lg:rounded-lg"
-        src="/images/temp.png"
-        draggable="false"
+        image={frontPageData.heroImage}
+        alt={frontPageData.heroImage.alt}
       />
     </picture>
   </div>
@@ -79,8 +80,7 @@ const logoBottomItems = logoItems.slice(index);
       <p
         class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw] font-light text-2xl-fluid"
       >
-        Vi hjelper deg fra idé til drift og videreutvikling av digitale
-        løsninger
+        {frontPageData.servicesTitle}
       </p>
 
       <Button href="/tjenester" class="mt-grid">Se våre tjenester</Button>
@@ -145,9 +145,8 @@ const logoBottomItems = logoItems.slice(index);
         {
           logoTopItems.map((item) => (
             <SanityImage
-              className="w-[128px] h-[62px] even:ml-auto md:even:ml-0"
-              id={item.image.asset?._ref!}
-              baseUrl="https://cdn.sanity.io/images/s9j0sgbs/production/"
+              class="w-[128px] h-[62px] even:ml-auto md:even:ml-0"
+              image={item.image}
               alt={item.image.alt}
               width={128}
               height={62}
@@ -159,9 +158,8 @@ const logoBottomItems = logoItems.slice(index);
         {
           logoBottomItems.map((item) => (
             <SanityImage
-              className="w-[128px] h-[62px] even:ml-auto md:even:ml-0"
-              id={item.image.asset?._ref!}
-              baseUrl="https://cdn.sanity.io/images/s9j0sgbs/production/"
+              class="w-[128px] h-[62px] even:ml-auto md:even:ml-0"
+              image={item.image}
               alt={item.image.alt}
               width={128}
               height={62}
@@ -177,7 +175,7 @@ const logoBottomItems = logoItems.slice(index);
       <p
         class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw] font-light text-2xl-fluid"
       >
-        Vi har lang erfaring med komplekse prosjekter fra ledende virksomheter
+        {frontPageData.workTitle}
       </p>
 
       <Button class="mt-grid" href="/arbeider">Se alle arbeider</Button>
@@ -187,17 +185,16 @@ const logoBottomItems = logoItems.slice(index);
       class="grid grid-cols-2 lg:col-span-4 md:grid-cols-4 gap-gutter mt-section"
     >
       {
-        workItems.map((item, index) => (
+        frontPageData.selectedWorks.map((item, index) => (
           <div class={clsx("group", index % 3 === 0 && "col-span-2")}>
             <a href={`/arbeider/${item.slug.current}`}>
               <picture>
                 <SanityImage
-                  className={clsx(
+                  class={clsx(
                     "w-full rounded-md object-cover",
                     index % 3 === 2 ? "aspect-square" : "aspect-[4/3]"
                   )}
-                  id={item.image.asset?._ref!}
-                  baseUrl="https://cdn.sanity.io/images/s9j0sgbs/production/"
+                  image={item.image}
                   mode="cover"
                   alt={item.image.alt}
                   sizes={
@@ -223,18 +220,17 @@ const logoBottomItems = logoItems.slice(index);
       <p
         class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw] font-light text-2xl-fluid"
       >
-        Systek arrangerer både interne fagmøter samt åpne arrangementer for
-        eksterne
+        {frontPageData.activityTitle}
       </p>
     </CardHeader>
     <div></div>
     <div class="lg:col-span-3">
       <div class="mt-section">
         <picture>
-          <img
+          <SanityImage
             class="w-full rounded-md lg:rounded-lg"
-            src="/images/temp.png"
-            draggable="false"
+            image={frontPageData.activityImage}
+            alt={frontPageData.activityImage.alt}
           />
         </picture>
       </div>
@@ -322,7 +318,7 @@ const logoBottomItems = logoItems.slice(index);
       <p
         class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw] font-light text-2xl-fluid"
       >
-        Bli med og bygg konsulentselskapet du selv ønsker å jobbe i
+        {frontPageData.vacanciesTitle}
       </p>
 
       <Button class="mt-grid" href="https://systek.homerun.co">
@@ -331,35 +327,23 @@ const logoBottomItems = logoItems.slice(index);
     </CardHeader>
 
     <Accordion class="mt-section order-1 lg:order-none">
-      <AccordionItem bold open size="lg" title="Fleksibilitet og frihet">
-        <p class="text-sm-fluid text-text-secondary max-w-[35rem]">
-          Vi ser etter deg som er selvgående, løsningsorientert og faglig
-          dyktig. Hos oss får du fleksibilitet til å finne arbeidshverdagen som
-          passer for deg og frihet til å selv bestemme hvilke oppdrag du synes
-          er spennende.
-        </p>
-      </AccordionItem>
-      <AccordionItem bold size="lg" title="Flinke kollegaer">
-        <p class="text-sm-fluid text-text-secondary max-w-[35rem]">
-          ⚠️ LAG TEKST ⚠️ Vi har et sterkt fagmiljø med dyktige kollegaer som
-          deler kunnskap og erfaringer. Sammen jobber vi for å skape de beste
-          løsningene for våre kunder.
-        </p>
-      </AccordionItem>
-      <AccordionItem bold size="lg" title="Flat struktur">
-        <p class="text-sm-fluid text-text-secondary max-w-[35rem]">
-          ⚠️ LAG TEKST ⚠️ Vi har en flat organisasjonsstruktur som fremmer
-          åpenhet og samarbeid. Hos oss får du muligheten til å påvirke og bidra
-          til utviklingen av selskapet.
-        </p>
-      </AccordionItem>
+      {
+        frontPageData.vacanciesPoints.map((point, index) => (
+          <AccordionItem bold open={index === 0} size="lg" title={point.title}>
+            <p class="text-sm-fluid text-text-secondary max-w-[35rem]">
+              {point.description}
+            </p>
+          </AccordionItem>
+        ))
+      }
     </Accordion>
 
     <div class="mt-section lg:col-span-3">
       <picture>
-        <img
+        <SanityImage
           class="w-full aspect-[4:3] lg:aspect-[2/1] object-cover rounded-md lg:rounded-lg"
-          src="/images/temp.png"
+          image={frontPageData.vacanciesImage}
+          alt={frontPageData.vacanciesImage.alt}
         />
       </picture>
     </div>
@@ -383,9 +367,8 @@ const logoBottomItems = logoItems.slice(index);
           <a class="group" href={item.link}>
             <picture>
               <SanityImage
-                className="w-full rounded-md object-cover aspect-[4/3]"
-                id={item.image.asset?._ref!}
-                baseUrl="https://cdn.sanity.io/images/s9j0sgbs/production/"
+                class="w-full rounded-md object-cover aspect-[4/3]"
+                image={item.image}
                 width={600}
                 height={450}
                 mode="cover"
@@ -406,13 +389,18 @@ const logoBottomItems = logoItems.slice(index);
     </div>
   </CardLayout>
 
-  <Contact
-    button="Send en mail"
-    email="charlotte.irgens@systek.no"
-    label="Kontakt"
-    text="Om du er faglig dyktig, brenner for det du jobber med og har lyst til å være en del av et miljø hvor kunnskap, nysgjerrighet og inkludering er viktig, så vil vi gjerne snakke med deg!"
-    title="Nysgjerrig?"
-  />
+  {
+    frontPageData.contact && (
+      <Contact
+        button="Send en mail"
+        email={frontPageData.contact.email}
+        label="Kontakt"
+        title={frontPageData.contact.title}
+        text={frontPageData.contact.description}
+        image={frontPageData.contact.image}
+      />
+    )
+  }
 
   <Footer />
 </Layout>

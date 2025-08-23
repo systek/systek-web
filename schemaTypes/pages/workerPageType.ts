@@ -1,5 +1,5 @@
 import { defineField, defineType } from "sanity";
-import { contactType } from "./contactType";
+import { contactField } from "./contactField";
 
 export const workerPageType = defineType({
   name: "workerPageType",
@@ -37,7 +37,7 @@ export const workerPageType = defineType({
       type: "string",
       validation: (Rule) => Rule.required(),
     }),
-    contactType,
+    contactField,
     defineField({
       name: "workCount",
       title: "Antall Arbeider",
