@@ -34,16 +34,16 @@
 
 /* at lg: font size becomes vw = (font size / --container-lg) * 100 */
 .text-4xl-fluid {
-  @apply text-5xl md:text-7xl lg:text-[4.2857vw];
+  @apply text-5xl -tracking-[0.02em] md:text-7xl lg:text-[4.2857vw];
 }
 .text-3xl-fluid {
-  @apply text-4xl md:text-6xl lg:text-[3.5714vw];
+  @apply text-4xl -tracking-[0.02em] md:text-6xl lg:text-[3.5714vw];
 }
 .text-2xl-fluid {
-  @apply text-3xl md:text-5xl lg:text-[2.8571vw];
+  @apply text-3xl -tracking-[0.02em] md:text-5xl lg:text-[2.8571vw];
 }
 .text-xl-fluid {
-  @apply text-2xl md:text-4xl lg:text-[2.1429vw];
+  @apply text-2xl -tracking-[0.01em] md:text-4xl lg:text-[2.1429vw];
 }
 .text-lg-fluid {
   @apply text-xl lg:text-[1.4286vw];
