@@ -8,9 +8,9 @@ interface Props {
 const { technologies } = Astro.props;
 ---
 
-<div class="mt-section">
+<div class="my-grid">
   <p class="font-bold text-sm-fluid">Teknologier brukt gjennom arbeidet</p>
-  <div class="flex flex-row gap-2 text-sm-fluid">
+  <div class="flex flex-row gap-x-2 text-sm-fluid">
     {
       technologies?.map((item, index) => (
         <>

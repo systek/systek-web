@@ -4,52 +4,52 @@
 */
 @theme {
   --text-*: initial;
-  --text-sm: 0.875rem;
+  --text-sm: 0.875rem; /* 14px */
   --text-sm--line-height: calc(1.25 / 0.875);
-  --text-base: 1rem;
+  --text-base: 1rem; /* 16px */
   --text-base--line-height: calc(1.5 / 1);
-  --text-lg: 1.125rem;
+  --text-lg: 1.125rem; /* 18px */
   --text-lg--line-height: calc(1.75 / 1.125);
-  --text-xl: 1.25rem;
+  --text-xl: 1.25rem; /* 20px */
   --text-xl--line-height: calc(1.75 / 1.25);
-  --text-2xl: 1.5rem;
+  --text-2xl: 1.5rem; /* 24px */
   --text-2xl--line-height: calc(2 / 1.5);
-  --text-3xl: 1.75rem;
+  --text-3xl: 1.75rem; /* 28px */
   --text-3xl--line-height: calc(2.25 / 1.75);
-  --text-4xl: 2rem;
+  --text-4xl: 2rem; /* 32px */
   --text-4xl--line-height: calc(2.5 / 2);
-  --text-5xl: 2.25rem;
+  --text-5xl: 2.25rem; /* 36px */
   --text-5xl--line-height: calc(2.5 / 2.25);
-  --text-6xl: 3rem;
+  --text-6xl: 3rem; /* 48px */
   --text-6xl--line-height: 1;
-  --text-7xl: 3.75rem;
+  --text-7xl: 3.75rem; /* 60px */
   --text-7xl--line-height: 1;
-  --text-8xl: 4.5rem;
+  --text-8xl: 4.5rem; /* 72px */
   --text-8xl--line-height: 1;
-  --text-9xl: 6rem;
+  --text-9xl: 6rem; /* 96px */
   --text-9xl--line-height: 1;
-  --text-10xl: 8rem;
+  --text-10xl: 8rem; /* 128px */
   --text-10xl--line-height: 1;
 }
 
 /* at lg: font size becomes vw = (font size / --container-lg) * 100 */
 .text-4xl-fluid {
-  @apply text-5xl sm:text-7xl md:text-8xl lg:text-[4.2857vw];
+  @apply text-5xl md:text-7xl lg:text-[4.2857vw];
 }
 .text-3xl-fluid {
-  @apply text-4xl sm:text-6xl md:text-7xl lg:text-[3.5714vw];
+  @apply text-4xl md:text-6xl lg:text-[3.5714vw];
 }
 .text-2xl-fluid {
-  @apply text-3xl sm:text-5xl md:text-6xl lg:text-[2.8571vw];
+  @apply text-3xl md:text-5xl lg:text-[2.8571vw];
 }
 .text-xl-fluid {
-  @apply text-2xl sm:text-4xl md:text-5xl lg:text-[2.1429vw];
+  @apply text-2xl md:text-4xl lg:text-[2.1429vw];
 }
 .text-lg-fluid {
-  @apply text-xl md:text-2xl lg:text-[1.4286vw];
+  @apply text-xl lg:text-[1.4286vw];
 }
 .text-md-fluid {
-  @apply text-lg md:text-xl lg:text-[1.1905vw];
+  @apply text-lg lg:text-[1.1905vw];
 }
 .text-sm-fluid {
   @apply text-base lg:text-[0.9524vw];

@@ -10,9 +10,9 @@ const {
 } = Astro.props;
 ---
 
-<div class="my-grid lg:my-7">
+<div class="my-grid">
   <h3 class="font-bold text-sm-fluid">Stikkord</h3>
-  <div class="flex flex-row gap-2 text-sm-fluid">
+  <div class="flex flex-wrap gap-x-2 text-sm-fluid">
     {
       items?.map((item, index) => (
         <>
