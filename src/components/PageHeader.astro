@@ -36,8 +36,11 @@ const { image, title } = Astro.props;
         </div>
 
         <Image
-          image={image}
           class="w-full rounded-md aspect-[4/3] md:aspect-[2/1] object-cover"
+          image={image}
+          loading="eager"
+          mode="cover"
+          sizes="(min-width: 105rem) calc(100vw - calc(2 * (1.25 / 105) * 100vw)), (min-width: 50rem) calc(100vw - 2.5rem), calc(100vw - 2rem)"
         />
       </>
     )

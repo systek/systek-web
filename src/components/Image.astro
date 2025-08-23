@@ -7,14 +7,20 @@ const {
   image,
   class: className,
   alt,
+  loading,
+  mode,
   width,
   height,
+  sizes,
 } = Astro.props as {
   image: Image;
   class?: string;
   alt: string;
+  loading?: "eager" | "lazy";
+  mode?: "cover" | "contain";
   width?: number;
   height?: number;
+  sizes?: string;
 };
 
 const config = sanityClient.config();
@@ -25,7 +31,12 @@ const config = sanityClient.config();
   id={image.asset?._ref!}
   projectId={config.projectId}
   dataset={config.dataset}
+  loading={loading}
+  hotspot={image.hotspot}
+  crop={image.crop}
   alt={alt}
+  mode={mode}
   width={width}
   height={height}
+  sizes={sizes}
 />
