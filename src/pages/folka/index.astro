@@ -85,13 +85,15 @@ const departments = [
     </div>
   </div>
 
-  <div class="grid gap-section mt-section mx-grid relative lg:pb-section">
+  <div
+    class="grid gap-section mt-section mx-grid relative lg:pb-section lg:min-h-dvh"
+  >
     <div
       class="lg:z-[var(--z-filter)] lg:absolute lg:top-0 lg:bottom-0 lg:right-[calc(75%+16px)] lg:w-auto lg:min-w-[15.298vw]"
     >
-      <div class="lg:sticky lg:top-[calc(var(--height-header)+16px)]">
+      <div class="lg:sticky lg:top-[calc(var(--height-header)+8px)]">
         <div>
-          <Accordion>
+          <Accordion class="lg:border-t-0">
             <AccordionItem open title="Lokasjon">
               <div class="flex flex-col gap-2">
                 <Radio name="location" label="Vis alle" value="all" checked />

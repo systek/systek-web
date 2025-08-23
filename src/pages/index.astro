@@ -23,6 +23,7 @@ import CardHeader from "../components/card/layout/CardHeader.astro";
 import Accordion from "../components/accordion/Accordion.astro";
 import AccordionItem from "../components/accordion/AccordionItem.astro";
 import LinkBox from "../components/LinkBox.astro";
+import Contact from "../components/card/Contact.astro";
 
 const [
   serviceItems,
@@ -405,38 +406,13 @@ const logoBottomItems = logoItems.slice(index);
     </div>
   </CardLayout>
 
-  <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
-    <div class="flex flex-col lg:col-span-2">
-      <p class="font-bold text-sm-fluid">Kontakt</p>
-      <div class="mt-auto max-w-[37rem] lg:max-w-[35.238vw]">
-        <p class="mt-2 font-light text-2xl-fluid">Nysgjerrig?</p>
-        <p class="mt-grid text-md-fluid">
-          Om du er faglig dyktig, brenner for det du jobber med og har lyst til
-          å være en del av et miljø hvor kunnskap, nysgjerrighet og inkludering
-          er viktig, så vil vi gjerne snakke med deg!
-        </p>
-
-        <div class="flex items-center mt-grid gap-grid">
-          <Button href="mailto:charlotte.irgens@systek.no">Send en mail</Button>
-          <a
-            class="link-underline text-sm-fluid"
-            href="https://systek.homerun.co"
-          >
-            Se kontakt-siden
-          </a>
-        </div>
-      </div>
-    </div>
-    <div class="mt-section-sm md:mt-section-md lg:mt-0 lg:col-span-2">
-      <picture>
-        <img
-          class="w-full rounded-md aspect-square md:aspect-[4/3] object-cover"
-          src="/images/temp.png"
-          draggable="false"
-        />
-      </picture>
-    </div>
-  </CardLayout>
+  <Contact
+    button="Send en mail"
+    email="charlotte.irgens@systek.no"
+    label="Kontakt"
+    text="Om du er faglig dyktig, brenner for det du jobber med og har lyst til å være en del av et miljø hvor kunnskap, nysgjerrighet og inkludering er viktig, så vil vi gjerne snakke med deg!"
+    title="Nysgjerrig?"
+  />
 
   <Footer />
 </Layout>

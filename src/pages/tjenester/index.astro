@@ -8,6 +8,7 @@ import Footer from "../../components/Footer.astro";
 import Header from "../../components/Header.astro";
 import Layout from "../../layouts/Layout.astro";
 import { fetchServiceItems, fetchCitationItem } from "../../lib/sanity.queries";
+import Contact from "../../components/card/Contact.astro";
 
 const serviceItems = await fetchServiceItems();
 const citation = await fetchCitationItem();
@@ -113,39 +114,13 @@ const citation = await fetchCitationItem();
     </CardHeader>
   </CardLayout>
 
-  <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
-    <div class="flex flex-col lg:col-span-2">
-      <p class="font-bold text-sm-fluid">Kontakt</p>
-      <div class="mt-auto max-w-[37rem] lg:max-w-[35.238vw]">
-        <p class="mt-2 font-light text-2xl-fluid">Ta kontakt med Charlotte</p>
-        <p class="mt-grid text-md-fluid">
-          Ta kontakt med vår forretningsutvikler Charlotte dersom du lurer på
-          hva vi kan hjelpe deg med.
-        </p>
-
-        <div class="flex items-center mt-grid gap-grid">
-          <Button href="mailto:charlotte.irgens@systek.no">
-            Send Charlotte en e-post
-          </Button>
-          <a
-            class="link-underline text-sm-fluid"
-            href="https://systek.homerun.co"
-          >
-            Se kontakt-siden
-          </a>
-        </div>
-      </div>
-    </div>
-    <div class="mt-10 lg:col-span-2 lg:mt-0">
-      <picture>
-        <img
-          class="w-full rounded-md aspect-square md:aspect-[4/3] object-cover"
-          src="/images/temp.png"
-          draggable="false"
-        />
-      </picture>
-    </div>
-  </CardLayout>
+  <Contact
+    button="Send Charlotte en e-post"
+    email="charlotte.irgens@systek.no"
+    label="Kontakt"
+    text="Ta kontakt med vår forretningsutvikler Charlotte dersom du lurer på hva vi kan hjelpe deg med."
+    title="Ta kontakt med Charlotte"
+  />
 
   <Footer />
 </Layout>
