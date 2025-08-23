@@ -1,5 +1,5 @@
 ---
-import SanityImage from "../SanityImage.astro";
+import Image from "../Image.astro";
 
 // todo: infer type from sanity schema
 interface Props {
@@ -20,9 +20,10 @@ const { node } = Astro.props;
 
 <div class="my-section md:mr-[calc(50%-50vw+(var(--width-scrollbar)/2)))]">
   <figure class="md:mr-grid-md lg:mr-grid-lg">
-    <SanityImage
-      node={node}
+    <Image
       class="w-full object-cover rounded-md md:rounded-lg aspect-[4/3] md:aspect-[2/1]"
+      mode="cover"
+      image={node}
     />
     <figcaption class="mt-gutter text-xs-fluid">
       {node.caption}

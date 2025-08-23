@@ -1,7 +1,5 @@
 ---
 import { PortableText as PortableTextInternal } from "astro-portabletext";
-import ImageOne from "./portable/ImageOne.astro";
-import ImageTwo from "./portable/ImageTwo.astro";
 import InternalLink from "./portable/InternalLink.astro";
 import PortableBlock from "./portable/PortableBlock.astro";
 import ListGroup from "./portable/ListGroup.astro";
@@ -10,10 +8,12 @@ import PageLink from "./portable/PageLink.astro";
 import ExternalLink from "./portable/ExternalLink.astro";
 import FileLink from "./portable/FileLink.astro";
 import List from "./portable/List.astro";
+import ImageTwo from "./image/ImageTwo.astro";
+import ImageOneRight from "./image/ImageOneRight.astro";
 
 const components = {
   type: {
-    image: ImageOne,
+    image: ImageOneRight,
     imageTwo: ImageTwo,
     "list-group": ListGroup,
     "tags-list": TagsList,

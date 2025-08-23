@@ -13,6 +13,7 @@ import { fetchStaffItems } from "../../lib/sanity.queries";
 import type { Staff } from "../../lib/sanity.types";
 import SanityImage from "../../components/SanityImage.astro";
 import PageHeader from "../../components/PageHeader.astro";
+import ImageGallery from "../../components/image/ImageGallery.astro";
 
 const staffItems = await fetchStaffItems();
 
@@ -152,45 +153,7 @@ const departments = [
       </p>
     </CardHeader>
 
-    <div
-      class="grid grid-cols-2 gap-gutter mt-section lg:grid-cols-2 lg:col-span-4"
-    >
-      <div class="flex flex-col gap-gutter lg:flex-row">
-        <picture>
-          <img
-            class="object-cover w-full rounded-md aspect-square"
-            src="/images/temp.png"
-            draggable="false"
-          />
-        </picture>
-
-        <picture>
-          <img
-            class="w-full object-cover rounded-md aspect-square lg:aspect-[4/5]"
-            src="/images/temp.png"
-            draggable="false"
-          />
-        </picture>
-      </div>
-
-      <div class="flex flex-col gap-gutter lg:flex-row">
-        <picture>
-          <img
-            class="w-full object-cover rounded-md aspect-[4/5] lg:aspect-[4/3]"
-            src="/images/temp.png"
-            draggable="false"
-          />
-        </picture>
-
-        <picture>
-          <img
-            class="w-full object-cover rounded-md aspect-[4/3] lg:aspect-square"
-            src="/images/temp.png"
-            draggable="false"
-          />
-        </picture>
-      </div>
-    </div>
+    <ImageGallery />
   </CardLayout>
 
   <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">

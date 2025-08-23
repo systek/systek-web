@@ -7,10 +7,6 @@
   --color-background: var(--color-off-white);
   --color-stroke: var(--color-grey-78);
   --height-header: 71px;
-
-  /* z-index hierachy: */
-  --z-base: auto;
-  --z-header: 1;
 }
 
 body {

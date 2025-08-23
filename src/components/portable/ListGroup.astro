@@ -8,7 +8,7 @@ const {
 } = node as { title?: string; items?: string[]; _key: string };
 ---
 
-<div class="p-grid border rounded-lg border-stroke">
+<div class="my-grid p-grid border rounded-lg border-stroke">
   {title && <p class="text-md-fluid hyphens-auto">{title}</p>}
   <ul id={key} class="ml-4 list-disc list-inside">
     {items?.map((item) => <li class="text-md-fluid hyphens-auto">{item}</li>)}
