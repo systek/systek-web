@@ -1,5 +1,4 @@
 ---
-import Arrow from "../../components/Arrow.astro";
 import Button from "../../components/Button.astro";
 import CardHeader from "../../components/card/layout/CardHeader.astro";
 import CardLayout from "../../components/card/layout/CardLayout.astro";
@@ -7,13 +6,13 @@ import Footer from "../../components/Footer.astro";
 import Header from "../../components/Header.astro";
 import Layout from "../../layouts/Layout.astro";
 import CheckIcon from "../../assets/icons/check.svg";
-
 import Accordion from "../../components/accordion/Accordion.astro";
 import AccordionItem from "../../components/accordion/AccordionItem.astro";
 import Radio from "../../components/Radio.astro";
 import { fetchStaffItems } from "../../lib/sanity.queries";
 import type { Staff } from "../../lib/sanity.types";
 import SanityImage from "../../components/SanityImage.astro";
+import PageHeader from "../../components/PageHeader.astro";
 
 const staffItems = await fetchStaffItems();
 
@@ -50,12 +49,7 @@ const departments = [
 <Layout title="Folka">
   <Header active="/folka" />
 
-  <div class="flex flex-col m-grid gap-section">
-    <div class="flex justify-between">
-      <Arrow position="topLeft" />
-      <Arrow position="topRight" />
-    </div>
-
+  <PageHeader>
     <CardLayout>
       <CardHeader title="Folka">
         <p
@@ -66,24 +60,7 @@ const departments = [
         </p>
       </CardHeader>
     </CardLayout>
-
-    <div class="flex justify-between">
-      <Arrow position="middleLeft" />
-      <Arrow position="middleRight" />
-    </div>
-
-    <picture>
-      <img
-        class="w-full rounded-md aspect-[4/3] lg:aspect-[2/1] object-cover"
-        src="/images/temp.png"
-        draggable="false"
-      />
-    </picture>
-    <div class="flex justify-between">
-      <Arrow position="bottomLeft" />
-      <Arrow position="bottomRight" />
-    </div>
-  </div>
+  </PageHeader>
 
   <div
     class="grid gap-section mt-section mx-grid relative lg:pb-section lg:min-h-dvh"

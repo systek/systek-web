@@ -13,7 +13,6 @@ import { fetchWorkItems } from "../../lib/sanity.queries";
 import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
-import Arrow from "../../components/Arrow.astro";
 import CardLayout from "../../components/card/layout/CardLayout.astro";
 import CardHeader from "../../components/card/layout/CardHeader.astro";
 import Button from "../../components/Button.astro";
@@ -22,6 +21,7 @@ import Citation from "../../components/card/Citation.astro";
 import Image from "../../components/Image.astro";
 import Stats from "../../components/portable/Stats.astro";
 import Technologies from "../../components/portable/Technologies.astro";
+import PageHeader from "../../components/PageHeader.astro";
 
 export async function getStaticPaths() {
   const works = await sanityClient.fetch(`*[_type == "work"] { 
@@ -80,12 +80,7 @@ const contactItems = [
 <Layout title={work.description}>
   <Header />
 
-  <div class="flex flex-col m-grid gap-section">
-    <div class="flex justify-between">
-      <Arrow position="topLeft" />
-      <Arrow position="topRight" />
-    </div>
-
+  <PageHeader image={work.image}>
     <div class="grid md:grid-cols-3 gap-gutter">
       <div class="md:col-span-2">
         <h1 class="font-light text-3xl-fluid hyphens-auto">
@@ -126,25 +121,7 @@ const contactItems = [
         </div>
       </div>
     </div>
-
-    <div class="flex justify-between">
-      <Arrow position="middleLeft" />
-      <Arrow position="middleRight" />
-    </div>
-
-    <picture>
-      <img
-        class="w-full rounded-md aspect-[4/3] lg:aspect-[2/1] object-cover"
-        src="/images/temp.png"
-        draggable="false"
-      />
-    </picture>
-
-    <div class="flex justify-between">
-      <Arrow position="bottomLeft" />
-      <Arrow position="bottomRight" />
-    </div>
-  </div>
+  </PageHeader>
 
   <div class="mx-grid mt-section">
     <div class="mx-auto max-w-[50rem] lg:max-w-[47.619vw]">

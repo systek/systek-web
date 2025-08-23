@@ -3,27 +3,13 @@ import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import Button from "../components/Button.astro";
-import Arrow from "../components/Arrow.astro";
+import PageHeader from "../components/PageHeader.astro";
 ---
 
 <Layout>
   <Header />
 
-  <div class="flex flex-col m-grid gap-section">
-    <div class="flex justify-between">
-      <Arrow position="topLeft" />
-      <Arrow position="topRight" />
-    </div>
-
-    <h1 class="font-light text-4xl-fluid hyphens-auto md:text-center">
-      Oisann, dette var ikke meningen ...
-    </h1>
-
-    <div class="flex justify-between">
-      <Arrow position="bottomLeft" />
-      <Arrow position="bottomRight" />
-    </div>
-  </div>
+  <PageHeader title="Oisann, dette var ikke meningen ..." />
 
   <div class="mx-grid mt-section">
     <div

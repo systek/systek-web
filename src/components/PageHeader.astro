@@ -1,0 +1,50 @@
+---
+import type { Image as ImageType } from "sanity";
+import Image from "./Image.astro";
+import Arrow from "./Arrow.astro";
+
+interface Props {
+  image?: ImageType;
+  title?: string;
+}
+
+const { image, title } = Astro.props;
+---
+
+<div class="flex flex-col m-grid gap-section">
+  <div class="flex justify-between">
+    <Arrow position="topLeft" />
+    <Arrow position="topRight" />
+  </div>
+
+  {
+    title && (
+      <h1 class="font-light text-4xl-fluid hyphens-auto md:text-center">
+        {title}
+      </h1>
+    )
+  }
+
+  <slot />
+
+  {
+    image && (
+      <>
+        <div class="flex justify-between">
+          <Arrow position="middleLeft" />
+          <Arrow position="middleRight" />
+        </div>
+
+        <Image
+          image={image}
+          class="w-full rounded-md aspect-[4/3] md:aspect-[2/1] object-cover"
+        />
+      </>
+    )
+  }
+
+  <div class="flex justify-between">
+    <Arrow position="bottomLeft" />
+    <Arrow position="bottomRight" />
+  </div>
+</div>

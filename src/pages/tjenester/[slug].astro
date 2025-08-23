@@ -11,7 +11,6 @@ import Footer from "../../components/Footer.astro";
 import PortableText from "../../components/PortableText.astro";
 import SanityImage from "../../components/SanityImage.astro";
 import Citation from "../../components/card/Citation.astro";
-import Arrow from "../../components/Arrow.astro";
 import type {
   Citation as CitationType,
   Service,
@@ -22,6 +21,7 @@ import CardHeader from "../../components/card/layout/CardHeader.astro";
 import Button from "../../components/Button.astro";
 import Contact from "../../components/card/Contact.astro";
 import { getOGImageUrl } from "../../utils/image";
+import PageHeader from "../../components/PageHeader.astro";
 
 export async function getStaticPaths() {
   const services = await sanityClient.fetch(`*[_type == "service"] {
@@ -82,32 +82,7 @@ const vacancies = [
 >
   <Header />
 
-  <div class="flex flex-col m-grid gap-section">
-    <div class="flex justify-between">
-      <Arrow position="topLeft" />
-      <Arrow position="topRight" />
-    </div>
-
-    <h1 class="font-light text-4xl-fluid hyphens-auto md:text-center">
-      {service.title}
-    </h1>
-
-    <div class="flex justify-between">
-      <Arrow position="bottomLeft" />
-      <Arrow position="bottomRight" />
-    </div>
-  </div>
-
-  <div class="mx-grid">
-    <picture>
-      <SanityImage
-        class="w-full rounded-md aspect-[1.33/1] md:aspect-[2/1] object-cover"
-        node={service.heroImage}
-        alt={service.heroImage?.alt || service.title}
-        draggable={false}
-      />
-    </picture>
-  </div>
+  <PageHeader image={service.heroImage} title={service.title} />
 
   <div class="mx-grid mt-section">
     <div class="mx-auto max-w-[50rem] lg:max-w-[47.619vw]">

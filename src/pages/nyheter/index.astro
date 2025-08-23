@@ -5,12 +5,11 @@ import { nb } from "date-fns/locale";
 import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
-import Button from "../../components/Button.astro";
-import Arrow from "../../components/Arrow.astro";
 import ExternalIcon from "../../assets/icons/external.svg";
 import CardHeader from "../../components/card/layout/CardHeader.astro";
 import CardLayout from "../../components/card/layout/CardLayout.astro";
 import { fetchNewsItems } from "../../lib/sanity.queries";
+import PageHeader from "../../components/PageHeader.astro";
 
 // Todo make more pages?
 const newsItems = await fetchNewsItems(10, 0);
@@ -19,21 +18,7 @@ const newsItems = await fetchNewsItems(10, 0);
 <Layout title="Nyheter">
   <Header />
 
-  <div class="flex flex-col m-grid gap-section">
-    <div class="flex justify-between">
-      <Arrow position="topLeft" />
-      <Arrow position="topRight" />
-    </div>
-
-    <h1 class="font-light text-4xl-fluid hyphens-auto md:text-center">
-      Siste nytt fra Systek
-    </h1>
-
-    <div class="flex justify-between">
-      <Arrow position="bottomLeft" />
-      <Arrow position="bottomRight" />
-    </div>
-  </div>
+  <PageHeader title="Siste nytt fra Systek" />
 
   <CardLayout class="mt-page mx-grid pt-grid">
     <CardHeader title="Nyheter">
