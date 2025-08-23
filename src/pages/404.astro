@@ -4,6 +4,8 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import Button from "../components/Button.astro";
 import PageHeader from "../components/PageHeader.astro";
+import Article from "../components/Article.astro";
+import PortableBlock from "../components/portable/PortableBlock.astro";
 ---
 
 <Layout>
@@ -11,18 +13,14 @@ import PageHeader from "../components/PageHeader.astro";
 
   <PageHeader title="Beklager, her var det tomt!" />
 
-  <div class="mx-grid mt-section">
-    <div
-      class="mx-auto max-w-[50rem] lg:max-w-[47.619vw] flex flex-col gap-gutter"
-    >
-      <h2 class="text-lg-fluid">404 Not Found</h2>
-      <p>
-        Siden du prøvde å nå kan være slettet eller flyttet, eller det kan være
-        er en feil i lenken.
-      </p>
-      <Button class="mt-grid" href="/">Ta meg til forsiden</Button>
-    </div>
-  </div>
+  <Article>
+    <h2 class="my-grid text-lg-fluid">404 Not Found</h2>
+    <p class="my-grid text-md-fluid">
+      Siden du prøvde å nå kan være slettet eller flyttet, eller det kan være er
+      en feil i lenken.
+    </p>
+    <Button class="my-grid" href="/">Ta meg til forsiden</Button>
+  </Article>
 
   <Footer />
 </Layout>

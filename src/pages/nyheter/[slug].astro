@@ -1,6 +1,4 @@
 ---
-import { format } from "date-fns";
-import { nb } from "date-fns/locale";
 import { sanityClient } from "sanity:client";
 
 import type { News } from "../../lib/sanity.types";
@@ -13,6 +11,8 @@ import Button from "../../components/Button.astro";
 import CardHeader from "../../components/card/layout/CardHeader.astro";
 import CardLayout from "../../components/card/layout/CardLayout.astro";
 import PageHeader from "../../components/PageHeader.astro";
+import { formatDate } from "../../utils/date";
+import Article from "../../components/Article.astro";
 
 export async function getStaticPaths() {
   const newsItems = await sanityClient.fetch<News[]>(`*[_type == "news"] { 
@@ -44,11 +44,9 @@ const { news, otherNews } = Astro.props as {
 
   <PageHeader title={news.title} />
 
-  <div class="mx-grid mt-section">
-    <div class="mx-auto max-w-[50rem] lg:max-w-[47.619vw]">
-      <PortableText value={news.content} />
-    </div>
-  </div>
+  <Article>
+    <PortableText value={news.content} />
+  </Article>
 
   <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
     <CardHeader title="Nyheter">
@@ -74,11 +72,7 @@ const { news, otherNews } = Astro.props as {
               <ExternalIcon class="size-2.5 lg:size-[0.595vw]" />
               <p class="text-xs-fluid">{item.title}</p>
             </a>
-            <p class="md:pr-64 text-xs-fluid">
-              {format(new Date(item.publishedAt), "d. MMMM", {
-                locale: nb,
-              })}
-            </p>
+            <p class="md:pr-64 text-xs-fluid">{formatDate(item.publishedAt)}</p>
           </div>
         ))
       }

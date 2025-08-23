@@ -1,8 +1,6 @@
 ---
 import { sanityClient } from "sanity:client";
 import clsx from "clsx";
-import { format } from "date-fns";
-import { nb } from "date-fns/locale";
 
 import type {
   Citation as CitationType,
@@ -22,6 +20,8 @@ import Image from "../../components/Image.astro";
 import Stats from "../../components/portable/Stats.astro";
 import Technologies from "../../components/portable/Technologies.astro";
 import PageHeader from "../../components/PageHeader.astro";
+import { formatDate } from "../../utils/date";
+import Article from "../../components/Article.astro";
 
 export async function getStaticPaths() {
   const works = await sanityClient.fetch(`*[_type == "work"] { 
@@ -96,15 +96,9 @@ const contactItems = [
               <>
                 <dt class="font-bold text-sm-fluid mt-gutter">Periode</dt>
                 <dd class="text-sm-fluid">
-                  {work.startDate &&
-                    format(new Date(work.startDate), "MMM yyyy", {
-                      locale: nb,
-                    })}
+                  {work.startDate && formatDate(work.startDate, "MMM yyyy")}
                   {work.startDate && work.endDate ? " - " : ""}
-                  {work.endDate &&
-                    format(new Date(work.endDate), "MMM yyyy", {
-                      locale: nb,
-                    })}
+                  {work.endDate && formatDate(work.endDate, "MMM yyyy")}
                 </dd>
               </>
             )
@@ -123,21 +117,19 @@ const contactItems = [
     </div>
   </PageHeader>
 
-  <div class="mx-grid mt-section">
-    <div class="mx-auto max-w-[50rem] lg:max-w-[47.619vw]">
-      <PortableText value={work.content} />
+  <Article>
+    <PortableText value={work.content} />
 
-      <Stats stats={work.stats} />
+    <Stats stats={work.stats} />
 
-      <Technologies technologies={work.technologies} />
+    <Technologies technologies={work.technologies} />
 
-      <div class="mt-section">
-        <p class="font-bold text-sm-fluid">Likte du artikkelen?</p>
-        <p class="text-sm-fluid">Del den med noen andre!</p>
-        <Button data-copy-link-button class="mt-grid">Kopier lenke</Button>
-      </div>
+    <div class="my-section">
+      <p class="font-bold text-sm-fluid">Likte du artikkelen?</p>
+      <p class="text-sm-fluid">Del den med noen andre!</p>
+      <Button data-copy-link-button class="mt-grid">Kopier lenke</Button>
     </div>
-  </div>
+  </Article>
 
   {work.citation && <Citation title="Tjenester" citation={work.citation} />}
 

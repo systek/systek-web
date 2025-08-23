@@ -4,6 +4,7 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import Button from "../components/Button.astro";
 import PageHeader from "../components/PageHeader.astro";
+import Article from "../components/Article.astro";
 ---
 
 <Layout>
@@ -11,28 +12,22 @@ import PageHeader from "../components/PageHeader.astro";
 
   <PageHeader title="Oisann, dette var ikke meningen ..." />
 
-  <div class="mx-grid mt-section">
-    <div
-      class="mx-auto max-w-[50rem] lg:max-w-[47.619vw] flex flex-col gap-gutter"
-    >
-      <h2 class="text-lg-fluid">500 Internal Server Error</h2>
-      <p>
-        Det er ikke din skyld, dette er en feil vi ikke håndterer. Den kan være
-        midlertidig, så prøv gjerne igjen.
-      </p>
-      <Button class="mt-grid refresh-button">Last siden på nytt</Button>
-    </div>
-  </div>
-  <script>
-    import { DOMLoaded } from "../utils/utils";
-
-    DOMLoaded(() => {
-      document
-        .querySelector(".refresh-button")
-        ?.addEventListener("click", () => {
-          window.location.reload();
-        });
-    });
-  </script>
-  <Footer />
+  <Article>
+    <h2 class="my-grid text-lg-fluid">500 Internal Server Error</h2>
+    <p class="my-grid text-md-fluid"></p>
+    Det er ikke din skyld, dette er en feil vi ikke håndterer. Den kan være midlertidig,
+    så prøv gjerne igjen.
+  </Article>
+  <Button class="my-grid refresh-button">Last siden på nytt</Button>
 </Layout>
+
+<script>
+  import { DOMLoaded } from "../utils/utils";
+
+  DOMLoaded(() => {
+    document.querySelector(".refresh-button")?.addEventListener("click", () => {
+      window.location.reload();
+    });
+  });
+</script>
+<Footer />

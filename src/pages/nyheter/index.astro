@@ -1,7 +1,4 @@
 ---
-import { format } from "date-fns";
-import { nb } from "date-fns/locale";
-
 import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
@@ -10,6 +7,7 @@ import CardHeader from "../../components/card/layout/CardHeader.astro";
 import CardLayout from "../../components/card/layout/CardLayout.astro";
 import { fetchNewsItems } from "../../lib/sanity.queries";
 import PageHeader from "../../components/PageHeader.astro";
+import { formatDate } from "../../utils/date";
 
 // Todo make more pages?
 const newsItems = await fetchNewsItems(10, 0);
@@ -33,11 +31,7 @@ const newsItems = await fetchNewsItems(10, 0);
               <ExternalIcon class="size-2.5 lg:size-[0.595vw]" />
               <p class="text-xs-fluid">{item.title}</p>
             </a>
-            <p class="md:pr-64 text-xs-fluid">
-              {format(new Date(item.publishedAt), "d. MMMM", {
-                locale: nb,
-              })}
-            </p>
+            <p class="md:pr-64 text-xs-fluid">{formatDate(item.publishedAt)}</p>
           </div>
         ))
       }

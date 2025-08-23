@@ -1,7 +1,5 @@
 ---
 import clsx from "clsx";
-import { format } from "date-fns";
-import { nb } from "date-fns/locale";
 
 import SanityImage from "../components/Image.astro";
 import ExternalIcon from "../assets/icons/external.svg";
@@ -25,6 +23,7 @@ import Accordion from "../components/accordion/Accordion.astro";
 import AccordionItem from "../components/accordion/AccordionItem.astro";
 import LinkBox from "../components/LinkBox.astro";
 import Contact from "../components/card/Contact.astro";
+import { formatDate } from "../utils/date";
 
 const [
   frontPageData,
@@ -126,11 +125,7 @@ const logoBottomItems = logoItems.slice(index);
               <ExternalIcon class="size-2.5 lg:size-[0.595vw]" />
               <p class="text-xs-fluid">{item.title}</p>
             </a>
-            <p class="md:pr-64 text-xs-fluid">
-              {format(new Date(item.publishedAt), "d. MMMM", {
-                locale: nb,
-              })}
-            </p>
+            <p class="md:pr-64 text-xs-fluid">{formatDate(item.publishedAt)}</p>
           </div>
         ))
       }
@@ -258,9 +253,7 @@ const logoBottomItems = logoItems.slice(index);
             // TODO: move this logic into a client-side component
             // This will onlly be checked at build time
             const date = new Date(item.date);
-            const formatedDate = format(date, "d. MMMM", {
-              locale: nb,
-            });
+            const formatedDate = formatDate(date);
             const isDone = date < new Date();
             return (
               <div>
