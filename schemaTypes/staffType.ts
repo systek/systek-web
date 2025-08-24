@@ -54,7 +54,9 @@ export const staffType = defineType({
       name: "image",
       type: "image",
       options: {
-        hotspot: true,
+        hotspot: {
+          previews: [{ title: "1:1", aspectRatio: 1 / 1 }],
+        },
       },
       validation: (rule) => rule.required(),
     }),

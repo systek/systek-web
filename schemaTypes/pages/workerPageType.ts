@@ -8,7 +8,7 @@ export const workerPageType = defineType({
   fields: [
     {
       name: "title",
-      title: "Arbeider Tittel",
+      title: "Tittel",
       type: "string",
       validation: (Rule) => Rule.required(),
     },
@@ -16,7 +16,14 @@ export const workerPageType = defineType({
       name: "heroImage",
       title: "Hovedbilde",
       type: "image",
-      options: { hotspot: true },
+      options: {
+        hotspot: {
+          previews: [
+            { title: "2:1", aspectRatio: 2 / 1 },
+            { title: "4:3", aspectRatio: 4 / 3 },
+          ],
+        },
+      },
       validation: (Rule) => Rule.required(),
     }),
     defineField({

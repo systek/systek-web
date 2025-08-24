@@ -38,6 +38,11 @@ export const blogType = defineType({
       name: "image",
       title: "Bilde",
       type: "image",
+      options: {
+        hotspot: {
+          previews: [{ title: "4:3", aspectRatio: 4 / 3 }],
+        },
+      },
       fields: [
         defineField({
           name: "alt",

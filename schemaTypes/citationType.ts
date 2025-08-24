@@ -38,7 +38,9 @@ export const citationType = defineType({
       description: "Bilde av personen som har gitt sitatet",
       type: "image",
       options: {
-        hotspot: true,
+        hotspot: {
+          previews: [{ title: "1:1", aspectRatio: 1 / 1 }],
+        },
       },
       validation: (rule) => rule.required(),
     }),

@@ -8,7 +8,7 @@ export const servicesPageType = defineType({
   fields: [
     {
       name: "title",
-      title: "Arbeider Tittel",
+      title: "Tittel",
       type: "string",
       validation: (Rule) => Rule.required(),
     },
@@ -16,7 +16,11 @@ export const servicesPageType = defineType({
       name: "heroImage",
       title: "Hovedbilde",
       type: "image",
-      options: { hotspot: true },
+      options: {
+        hotspot: {
+          previews: [{ title: "4:3", aspectRatio: 4 / 3 }],
+        },
+      },
       validation: (Rule) => Rule.required(),
       fields: [{ name: "alt", type: "string", title: "Alt tekst" }],
     }),
@@ -30,7 +34,14 @@ export const servicesPageType = defineType({
       name: "secondaryImage",
       title: "Sekundært Bilde",
       type: "image",
-      options: { hotspot: true },
+      options: {
+        hotspot: {
+          previews: [
+            { title: "2:1", aspectRatio: 2 / 1 },
+            { title: "4:3", aspectRatio: 4 / 3 },
+          ],
+        },
+      },
       validation: (Rule) => Rule.required(),
       fields: [{ name: "alt", type: "string", title: "Alt tekst" }],
     }),

@@ -33,7 +33,14 @@ export const contactField = defineField({
       name: "image",
       title: "Bilde",
       type: "image",
-      options: { hotspot: true },
+      options: {
+        hotspot: {
+          previews: [
+            { title: "1:1", aspectRatio: 1 / 1 },
+            { title: "4:3", aspectRatio: 4 / 3 },
+          ],
+        },
+      },
       validation: (Rule) => Rule.required(),
     }),
   ],

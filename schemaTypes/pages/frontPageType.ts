@@ -22,7 +22,14 @@ export const frontPageType = defineType({
       name: "heroImage",
       title: "Hovedbilde",
       type: "image",
-      options: { hotspot: true },
+      options: {
+        hotspot: {
+          previews: [
+            { title: "2:1", aspectRatio: 2 / 1 },
+            { title: "4:3", aspectRatio: 4 / 3 },
+          ],
+        },
+      },
       validation: (Rule) => Rule.required(),
       fields: [{ name: "alt", type: "string", title: "Alt tekst" }],
     }),
@@ -55,27 +62,41 @@ export const frontPageType = defineType({
       name: "activityImage",
       title: "Activitets Bilde",
       type: "image",
-      options: { hotspot: true },
+      options: {
+        hotspot: {
+          previews: [
+            { title: "2:1", aspectRatio: 2 / 1 },
+            { title: "4:3", aspectRatio: 4 / 3 },
+          ],
+        },
+      },
       validation: (Rule) => Rule.required(),
       fields: [{ name: "alt", type: "string", title: "Alt tekst" }],
     }),
     defineField({
       name: "vacanciesTitle",
-      title: "Jobb her tittel",
+      title: "Jobbe her tittel",
       type: "string",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "vacanciesImage",
-      title: "Jobb her bilde",
+      title: "Jobbe her bilde",
       type: "image",
-      options: { hotspot: true },
+      options: {
+        hotspot: {
+          previews: [
+            { title: "2:1", aspectRatio: 2 / 1 },
+            { title: "4:3", aspectRatio: 4 / 3 },
+          ],
+        },
+      },
       validation: (Rule) => Rule.required(),
       fields: [{ name: "alt", type: "string", title: "Alt tekst" }],
     }),
     defineField({
       name: "vacanciesPoints",
-      title: "Jobb her punkter",
+      title: "Jobbe her punkter",
       type: "array",
       of: [
         {

@@ -29,7 +29,12 @@ export const pageType = defineType({
       title: "Hovedbilde",
       type: "image",
       options: {
-        hotspot: true,
+        hotspot: {
+          previews: [
+            { title: "2:1", aspectRatio: 2 / 1 },
+            { title: "4:3", aspectRatio: 4 / 3 },
+          ],
+        },
       },
       fields: [
         defineField({

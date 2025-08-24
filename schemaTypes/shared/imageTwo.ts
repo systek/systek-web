@@ -26,7 +26,9 @@ export const imageTwo = defineField({
       name: "first",
       title: "Første bilde",
       options: {
-        hotspot: true,
+        hotspot: {
+          previews: [{ title: "4:5", aspectRatio: 4 / 5 }],
+        },
       },
       fields: [
         {
@@ -45,7 +47,9 @@ export const imageTwo = defineField({
       name: "second",
       title: "Andre bilde",
       options: {
-        hotspot: true,
+        hotspot: {
+          previews: [{ title: "4:3", aspectRatio: 4 / 3 }],
+        },
       },
       fields: [
         {

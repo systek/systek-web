@@ -52,6 +52,14 @@ export const workType = defineType({
       name: "image",
       type: "image",
       title: "Bilde",
+      options: {
+        hotspot: {
+          previews: [
+            { title: "2:1", aspectRatio: 2 / 1 },
+            { title: "4:3", aspectRatio: 4 / 3 },
+          ],
+        },
+      },
       fields: [
         defineField({
           name: "alt",
