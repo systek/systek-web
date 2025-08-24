@@ -1,0 +1,19 @@
+---
+import Image from "../Image.astro";
+
+interface Props {
+  image: any; // todo: no any
+  alt?: string;
+}
+
+const { image, alt } = Astro.props;
+---
+
+<Image
+  class="w-32 h-auto even:ml-auto md:even:ml-0 lg:w-[7.619vw]"
+  mode="contain"
+  image={image}
+  alt={alt}
+  width={128}
+  height={64}
+/>

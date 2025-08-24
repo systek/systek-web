@@ -15,7 +15,8 @@ import Button from "../../components/Button.astro";
 import LinkBox from "../../components/LinkBox.astro";
 import Image from "../../components/Image.astro";
 import PageHeader from "../../components/PageHeader.astro";
-import { baseWidth, oneHalf, threeFourth, vw } from "../../utils/number";
+import { baseWidth, oneHalf, threeFourth } from "../../utils/number";
+import Logos from "../../components/logo/Logos.astro";
 
 const [workersInfo, logoItems, workItems, serviceItems] = await Promise.all([
   fetchWorkerSingleton(),
@@ -23,10 +24,6 @@ const [workersInfo, logoItems, workItems, serviceItems] = await Promise.all([
   fetchWorkItems(),
   fetchServiceItems(),
 ]);
-
-const index = Math.ceil(logoItems.length / 2);
-const logoTopItems = logoItems.slice(0, index);
-const logoBottomItems = logoItems.slice(index);
 ---
 
 <Layout title="Arbeider">
@@ -54,41 +51,7 @@ const logoBottomItems = logoItems.slice(index);
     </CardHeader>
   </CardLayout>
 
-  <CardLayout class="mt-section mx-grid">
-    <CardHeader>
-      <div></div>
-      <div class="grid gap-section lg:col-span-3">
-        <div class="grid grid-cols-2 gap-section md:flex md:justify-between">
-          {
-            logoTopItems.map((item) => (
-              <Image
-                class="w-[128px] h-[62px] even:ml-auto md:even:ml-0"
-                image={item.image}
-                mode="cover"
-                alt={item.image.alt}
-                width={128}
-                height={62}
-              />
-            ))
-          }
-        </div>
-        <div class="grid grid-cols-2 gap-section md:flex md:justify-between">
-          {
-            logoBottomItems.map((item) => (
-              <Image
-                class="w-[128px] h-[62px] even:ml-auto md:even:ml-0"
-                image={item.image}
-                alt={item.image.alt}
-                mode="cover"
-                width={128}
-                height={62}
-              />
-            ))
-          }
-        </div>
-      </div>
-    </CardHeader>
-  </CardLayout>
+  <Logos class="mt-section mb-page" logos={logoItems} />
 
   <CardLayout class="mt-page mx-grid">
     <CardHeader>
@@ -112,7 +75,7 @@ const logoBottomItems = logoItems.slice(index);
                   alt={item.image.alt}
                   width={603}
                   height={452}
-                  sizes={`(min-width: 105rem) calc(${oneHalf("lg", threeFourth("lg"))}), (min-width: 50rem) calc(${oneHalf("md")}), calc(${baseWidth("sm")}`}
+                  sizes={`(min-width: 105rem) calc(${oneHalf("lg", threeFourth("lg"))}), (min-width: 50rem) calc(${oneHalf("md")}), calc(${baseWidth("sm")})`}
                 />
               </picture>
               <p class="mt-2 font-bold text-md-fluid group-link-underline">

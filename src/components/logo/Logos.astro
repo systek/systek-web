@@ -1,0 +1,40 @@
+---
+import type { Logo as LogoType } from "../../lib/sanity.types";
+import CardHeader from "../card/layout/CardHeader.astro";
+import CardLayout from "../card/layout/CardLayout.astro";
+import Logo from "./Logo.astro";
+
+interface Props {
+  class?: string;
+  logos: LogoType[];
+}
+
+const { class: className, logos } = Astro.props;
+
+const index = Math.ceil(logos.length / 2);
+const logoTopItems = logos.slice(0, index);
+const logoBottomItems = logos.slice(index);
+
+// todo: match figma design on mobile + tablet
+---
+
+<CardLayout class:list={["mx-grid", className]}>
+  <CardHeader>
+    <div class="grid gap-section mx-auto max-w-[30rem] md:max-w-full">
+      <div class="grid grid-cols-2 gap-section md:flex md:justify-between">
+        {
+          logoTopItems.map((item) => (
+            <Logo image={item.image} alt={item.image.alt} />
+          ))
+        }
+      </div>
+      <div class="grid grid-cols-2 gap-section md:flex md:justify-between">
+        {
+          logoBottomItems.map((item) => (
+            <Logo image={item.image} alt={item.image.alt} />
+          ))
+        }
+      </div>
+    </div>
+  </CardHeader>
+</CardLayout>

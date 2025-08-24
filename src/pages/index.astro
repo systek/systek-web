@@ -1,7 +1,7 @@
 ---
 import clsx from "clsx";
 
-import SanityImage from "../components/Image.astro";
+import Image from "../components/Image.astro";
 import ExternalIcon from "../assets/icons/external.svg";
 import Button from "../components/Button.astro";
 import CardLayout from "../components/card/layout/CardLayout.astro";
@@ -23,6 +23,8 @@ import AccordionItem from "../components/accordion/AccordionItem.astro";
 import LinkBox from "../components/LinkBox.astro";
 import Contact from "../components/card/Contact.astro";
 import { formatDate } from "../utils/date";
+import Logos from "../components/logo/Logos.astro";
+import { baseWidth, oneFourth, oneHalf, threeFourth } from "../utils/number";
 
 const [
   frontPageData,
@@ -66,10 +68,15 @@ const logoBottomItems = logoItems.slice(index);
 
   <div class="mt-section mx-grid">
     <picture>
-      <SanityImage
-        class="w-full aspect-[4:3] lg:aspect-[2/1] object-cover rounded-md lg:rounded-lg"
-        image={frontPageData.heroImage}
+      <Image
         alt={frontPageData.heroImage.alt}
+        class="w-full rounded-md aspect-[4/3] md:aspect-[2/1] object-cover"
+        image={frontPageData.heroImage}
+        loading="eager"
+        mode="cover"
+        width={1640}
+        height={820}
+        sizes={`(min-width: 105rem) calc(${baseWidth("lg")}), (min-width: 50rem) calc(${baseWidth("md")}), calc(${baseWidth("sm")})`}
       />
     </picture>
   </div>
@@ -132,38 +139,7 @@ const logoBottomItems = logoItems.slice(index);
     </div>
   </CardLayout>
 
-  <!-- todo: match with figma on mobile+tablet -->
-  <CardLayout class="mt-page mx-grid">
-    <div></div>
-    <div class="grid gap-section lg:col-span-3">
-      <div class="grid grid-cols-2 gap-section md:flex md:justify-between">
-        {
-          logoTopItems.map((item) => (
-            <SanityImage
-              class="w-[128px] h-[62px] even:ml-auto md:even:ml-0"
-              image={item.image}
-              alt={item.image.alt}
-              width={128}
-              height={62}
-            />
-          ))
-        }
-      </div>
-      <div class="grid grid-cols-2 gap-section md:flex md:justify-between">
-        {
-          logoBottomItems.map((item) => (
-            <SanityImage
-              class="w-[128px] h-[62px] even:ml-auto md:even:ml-0"
-              image={item.image}
-              alt={item.image.alt}
-              width={128}
-              height={62}
-            />
-          ))
-        }
-      </div>
-    </div>
-  </CardLayout>
+  <Logos class="my-page" logos={logoItems} />
 
   <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
     <CardHeader title="Arbeider">
@@ -184,7 +160,7 @@ const logoBottomItems = logoItems.slice(index);
           <div class={clsx("group", index % 3 === 0 && "col-span-2")}>
             <a href={`/arbeider/${item.slug.current}`}>
               <picture>
-                <SanityImage
+                <Image
                   class={clsx(
                     "w-full rounded-md object-cover",
                     index % 3 === 2 ? "aspect-square" : "aspect-[4/3]"
@@ -194,12 +170,12 @@ const logoBottomItems = logoItems.slice(index);
                   alt={item.image.alt}
                   sizes={
                     index % 3 === 0
-                      ? "(max-width: 384px) 100vw, 50vw"
-                      : "(max-width: 384px) 50vw, 25vw"
+                      ? `(min-width: 105rem) calc(${oneHalf("lg")}), (min-width: 50rem) calc(${oneHalf("md")}), calc(${baseWidth("sm")})`
+                      : `(min-width: 105rem) calc(${oneFourth("lg")}), (min-width: 50rem) calc(${oneFourth("md")}), calc(${oneHalf("sm")})`
                   }
                 />
               </picture>
-              <p class="mt-3 font-bold sm:mt-4 text-md-fluid group-link-underline">
+              <p class="mt-3 font-bold sm:mt-4 text-md-fluid hyphens-auto group-link-underline">
                 {item.title}
               </p>
               <p class="text-md-fluid">{item.description}</p>
@@ -222,10 +198,14 @@ const logoBottomItems = logoItems.slice(index);
     <div class="lg:col-span-3">
       <div class="mt-section">
         <picture>
-          <SanityImage
-            class="w-full rounded-md lg:rounded-lg"
-            image={frontPageData.activityImage}
+          <Image
             alt={frontPageData.activityImage.alt}
+            class="w-full object-cover rounded-md lg:rounded-lg aspect-[4/3] lg:aspect-[2/1]"
+            image={frontPageData.activityImage}
+            mode="cover"
+            width={1225}
+            height={613}
+            sizes={`calc(${threeFourth("lg")}), (min-width: 50rem) calc(${baseWidth("md")}), calc(${baseWidth("sm")})`}
           />
         </picture>
       </div>
@@ -333,10 +313,14 @@ const logoBottomItems = logoItems.slice(index);
 
     <div class="mt-section lg:col-span-3">
       <picture>
-        <SanityImage
-          class="w-full aspect-[4:3] lg:aspect-[2/1] object-cover rounded-md lg:rounded-lg"
-          image={frontPageData.vacanciesImage}
+        <Image
           alt={frontPageData.vacanciesImage.alt}
+          class="w-full object-cover rounded-md lg:rounded-lg aspect-[4/3] lg:aspect-[2/1]"
+          image={frontPageData.vacanciesImage}
+          mode="cover"
+          width={1225}
+          height={613}
+          sizes={`calc(${threeFourth("lg")}), (min-width: 50rem) calc(${baseWidth("md")}), calc(${baseWidth("sm")})`}
         />
       </picture>
     </div>
@@ -359,14 +343,14 @@ const logoBottomItems = logoItems.slice(index);
         blogItems.map((item) => (
           <a class="group" href={item.link}>
             <picture>
-              <SanityImage
+              <Image
                 class="w-full rounded-md object-cover aspect-[4/3]"
                 image={item.image}
-                width={600}
-                height={450}
                 mode="cover"
                 alt={item.image.alt}
-                sizes="(min-width: 105rem) 25vw, (min-width: 50rem) 50vw, 50vw"
+                width={603}
+                height={452}
+                sizes={`(min-width: 105rem) calc(${oneHalf("lg", threeFourth("lg"))}), (min-width: 50rem) calc(${oneHalf("md")}), calc(${baseWidth("sm")})`}
               />
             </picture>
             <p class="mt-3 font-bold sm:mt-4 text-md-fluid group-link-underline">
