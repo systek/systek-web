@@ -12,7 +12,10 @@ interface Props {
 const { image, title } = Astro.props;
 ---
 
-<div class="flex flex-col m-grid gap-section">
+<div
+  id="main-content"
+  class="flex flex-col m-grid gap-section scroll-mt-[var(--height-header)]"
+>
   <div class="flex justify-between">
     <Arrow position="topLeft" />
     <Arrow position="topRight" />
@@ -20,10 +23,7 @@ const { image, title } = Astro.props;
 
   {
     title && (
-      <h1
-        id="main-content"
-        class="font-light text-4xl-fluid hyphens-auto md:text-center"
-      >
+      <h1 class="font-light text-4xl-fluid hyphens-auto md:text-center">
         {title}
       </h1>
     )
