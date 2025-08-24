@@ -1,5 +1,5 @@
 ---
-import { vw } from "../../utils/number";
+import { baseWidth, oneHalf, vw } from "../../utils/number";
 import Button from "../Button.astro";
 import Image from "../Image.astro";
 import CardLayout from "./layout/CardLayout.astro";
@@ -49,7 +49,7 @@ const { button, label, title, email, text, image } = Astro.props;
         alt={image.alt}
         width={810}
         height={608}
-        sizes={`(min-width: 105rem) calc(50vw - calc(3 * ${vw(1.25)})), (min-width: 50rem) calc(100vw - 2.5rem), calc(100vw - 2rem)`}
+        sizes={`(min-width: 105rem) calc(${oneHalf("lg")}), (min-width: 50rem) calc(${baseWidth("md")}), calc(${baseWidth("sm")})`}
       />
     </picture>
   </div>

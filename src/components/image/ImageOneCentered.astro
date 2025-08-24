@@ -1,5 +1,5 @@
 ---
-import { vw } from "../../utils/number";
+import { baseWidth, vw } from "../../utils/number";
 import Image from "../Image.astro";
 
 // todo: infer type from sanity schema
@@ -28,7 +28,7 @@ const { node } = Astro.props;
         image={node}
         width={1088}
         height={544}
-        sizes={`(min-width: 105rem) ${vw(68)}, (min-width: 50rem) 68rem, calc(100vw - 2rem)`}
+        sizes={`(min-width: 105rem) ${vw(68)}, (min-width: 50rem) 68rem, calc(${baseWidth("sm")})`}
       />
       <figcaption class="mt-gutter text-xs-fluid">
         {node.caption}

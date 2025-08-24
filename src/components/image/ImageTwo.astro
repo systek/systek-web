@@ -28,7 +28,7 @@ const { first, second } = Astro.props.node;
       <Image
         image={first}
         alt={first.alt}
-        class="object-cover rounded-md aspect-[4/5] lg:rounded-lg"
+        class="w-full object-cover rounded-md aspect-[4/5] lg:rounded-lg"
       />
       <figcaption class="text-xs-fluid mt-gutter">{first.caption}</figcaption>
     </figure>
@@ -37,7 +37,7 @@ const { first, second } = Astro.props.node;
       <Image
         image={second}
         alt={second.alt}
-        class="object-cover rounded-md aspect-[4/3] lg:rounded-lg"
+        class="w-full object-cover rounded-md aspect-[4/3] lg:rounded-lg"
       />
       <figcaption class="text-xs-fluid mt-gutter">{second.caption}</figcaption>
     </figure>

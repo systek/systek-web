@@ -15,7 +15,7 @@ import Button from "../../components/Button.astro";
 import LinkBox from "../../components/LinkBox.astro";
 import Image from "../../components/Image.astro";
 import PageHeader from "../../components/PageHeader.astro";
-import { vw } from "../../utils/number";
+import { baseWidth, oneHalf, threeFourth, vw } from "../../utils/number";
 
 const [workersInfo, logoItems, workItems, serviceItems] = await Promise.all([
   fetchWorkerSingleton(),
@@ -112,7 +112,7 @@ const logoBottomItems = logoItems.slice(index);
                   alt={item.image.alt}
                   width={603}
                   height={452}
-                  sizes={`(min-width: 105rem) calc((75vw - 3 * ${vw(1.25)}) / 2), (min-width: 50rem) calc((100vw - 3.75rem) / 2), calc(100vw - 2rem)`}
+                  sizes={`(min-width: 105rem) calc(${oneHalf("lg", threeFourth("lg"))}), (min-width: 50rem) calc(${oneHalf("md")}), calc(${baseWidth("sm")}`}
                 />
               </picture>
               <p class="mt-2 font-bold text-md-fluid group-link-underline">

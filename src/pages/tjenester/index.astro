@@ -15,7 +15,7 @@ import {
 import Contact from "../../components/card/Contact.astro";
 import Image from "../../components/Image.astro";
 import type { Citation as CitationType } from "../../lib/sanity.types";
-import { vw } from "../../utils/number";
+import { baseWidth, threeFourth } from "../../utils/number";
 
 const [servicesInfo, serviceItems, citation] = await Promise.all([
   fetchServicesSingleton(),
@@ -68,7 +68,7 @@ const [servicesInfo, serviceItems, citation] = await Promise.all([
           mode="cover"
           width={820}
           height={615}
-          sizes={`(min-width: 105rem) calc(50vw - calc(2 * ${vw(1.25)})), (min-width: 50rem) calc(100vw - 2.5rem), calc(100vw - 2rem)`}
+          sizes={`(min-width: 105rem) calc(${baseWidth("lg")} / 2), (min-width: 50rem) calc(${baseWidth("md")}), calc(${baseWidth("sm")})`}
         />
       </picture>
     </div>
@@ -93,7 +93,7 @@ const [servicesInfo, serviceItems, citation] = await Promise.all([
             mode="cover"
             width={1225}
             height={613}
-            sizes={`(min-width: 105rem) calc(66.667vw - calc(3 * ${vw(1.25)})), (min-width: 50rem) calc(100vw - 2.5rem), calc(100vw - 2rem)`}
+            sizes={`calc(${threeFourth("lg")}), (min-width: 50rem) calc(${baseWidth("md")}), calc(${baseWidth("sm")})`}
           />
         </picture>
       </div>

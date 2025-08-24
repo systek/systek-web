@@ -2,7 +2,7 @@
 import type { Image as ImageType } from "sanity";
 import Image from "./Image.astro";
 import Arrow from "./Arrow.astro";
-import { vw } from "../utils/number";
+import { baseWidth, vw } from "../utils/number";
 
 interface Props {
   image?: ImageType;
@@ -46,7 +46,7 @@ const { image, title } = Astro.props;
           mode="cover"
           width={1640}
           height={820}
-          sizes={`(min-width: 105rem) calc(100vw - calc(2 * ${vw(1.25)})), (min-width: 50rem) calc(100vw - 2.5rem), calc(100vw - 2rem)`}
+          sizes={`(min-width: 105rem) calc(${baseWidth("lg")}), (min-width: 50rem) calc(${baseWidth("md")}), calc(${baseWidth("sm")})`}
         />
       </>
     )
