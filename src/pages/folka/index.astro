@@ -204,62 +204,61 @@ const departments = [
     </div>
   </CardLayout>
 
-  <script>
-    import {
-      setHeaderSize,
-      setupRadios,
-      toggleLetterVisibility,
-      toggleStaffVisibility,
-    } from "../../utils/staff";
-    import { DOMLoaded, handleResize, widthChecker } from "../../utils/utils";
-
-    DOMLoaded(() => {
-      const header = document.querySelector("[data-header]") as HTMLElement;
-      const staff = document.querySelectorAll<HTMLElement>("[data-location]");
-      const letters = document.querySelectorAll<HTMLElement>("[data-letter]");
-      const locationRadios = document.querySelectorAll<HTMLInputElement>(
-        'input[name="location"]'
-      );
-      const departmentRadios = document.querySelectorAll<HTMLInputElement>(
-        'input[name="department"]'
-      );
-      const hasViewportWidthChanged = widthChecker();
-      const filterValues: { key: string; value: string }[] = [
-        {
-          key: "location",
-          value: "all",
-        },
-        {
-          key: "department",
-          value: "all",
-        },
-      ];
-
-      function consolidate() {
-        staff.forEach((staffEl) =>
-          toggleStaffVisibility(staffEl, filterValues)
-        );
-
-        letters.forEach((letter) => {
-          const children =
-            letter.querySelectorAll<HTMLElement>("[data-location]");
-          toggleLetterVisibility(letter, children);
-        });
-      }
-
-      setupRadios("location", locationRadios, filterValues, consolidate);
-      setupRadios("department", departmentRadios, filterValues, consolidate);
-
-      setHeaderSize(header);
-
-      handleResize(() => {
-        if (hasViewportWidthChanged()) {
-          setHeaderSize(header);
-        }
-      });
-
-      // todo: accordionItem "Avdelinger" should be closed on mobile
-    });
-  </script>
   <Footer />
 </Layout>
+
+<script>
+  import {
+    setHeaderSize,
+    setupRadios,
+    toggleLetterVisibility,
+    toggleStaffVisibility,
+  } from "../../utils/staff";
+  import { DOMLoaded, handleResize, widthChecker } from "../../utils/utils";
+
+  DOMLoaded(() => {
+    const header = document.querySelector("[data-header]") as HTMLElement;
+    const staff = document.querySelectorAll<HTMLElement>("[data-location]");
+    const letters = document.querySelectorAll<HTMLElement>("[data-letter]");
+    const locationRadios = document.querySelectorAll<HTMLInputElement>(
+      'input[name="location"]'
+    );
+    const departmentRadios = document.querySelectorAll<HTMLInputElement>(
+      'input[name="department"]'
+    );
+    const hasViewportWidthChanged = widthChecker();
+    const filterValues: { key: string; value: string }[] = [
+      {
+        key: "location",
+        value: "all",
+      },
+      {
+        key: "department",
+        value: "all",
+      },
+    ];
+
+    function consolidate() {
+      staff.forEach((staffEl) => toggleStaffVisibility(staffEl, filterValues));
+
+      letters.forEach((letter) => {
+        const children =
+          letter.querySelectorAll<HTMLElement>("[data-location]");
+        toggleLetterVisibility(letter, children);
+      });
+    }
+
+    setupRadios("location", locationRadios, filterValues, consolidate);
+    setupRadios("department", departmentRadios, filterValues, consolidate);
+
+    setHeaderSize(header);
+
+    handleResize(() => {
+      if (hasViewportWidthChanged()) {
+        setHeaderSize(header);
+      }
+    });
+
+    // todo: accordionItem "Avdelinger" should be closed on mobile
+  });
+</script>

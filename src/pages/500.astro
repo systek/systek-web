@@ -18,17 +18,20 @@ import Article from "../components/Article.astro";
       Det er ikke din skyld, dette er en feil vi ikke håndterer. Den kan være
       midlertidig, så prøv gjerne igjen.
     </p>
+    <Button data-refresh-button class="my-grid">Last siden på nytt</Button>
   </Article>
-  <Button class="my-grid refresh-button">Last siden på nytt</Button>
+  <Footer />
 </Layout>
 
 <script>
   import { DOMLoaded } from "../utils/utils";
 
   DOMLoaded(() => {
-    document.querySelector(".refresh-button")?.addEventListener("click", () => {
+    const button = document.querySelector(
+      "[data-refresh-button]"
+    ) as HTMLButtonElement;
+    button.addEventListener("click", () => {
       window.location.reload();
     });
   });
 </script>
-<Footer />

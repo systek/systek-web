@@ -218,20 +218,20 @@ const contactItems = [
     </div>
   </CardLayout>
 
-  <script>
-    import { DOMLoaded } from "../../utils/utils";
-
-    DOMLoaded(() => {
-      const copyLinkButtons = document.querySelectorAll<HTMLButtonElement>(
-        "[data-copy-link-button]"
-      );
-      copyLinkButtons.forEach((button) => {
-        button.addEventListener("click", () => {
-          navigator.clipboard.writeText(window.location.href);
-        });
-      });
-    });
-  </script>
-
   <Footer />
 </Layout>
+
+<script>
+  import { DOMLoaded } from "../../utils/utils";
+
+  DOMLoaded(() => {
+    const copyLinkButtons = document.querySelectorAll<HTMLButtonElement>(
+      "[data-copy-link-button]"
+    );
+    copyLinkButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        navigator.clipboard.writeText(window.location.href);
+      });
+    });
+  });
+</script>
