@@ -1,6 +1,7 @@
 ---
+import { vw } from "../../utils/number";
 import Button from "../Button.astro";
-import SanityImage from "../Image.astro";
+import Image from "../Image.astro";
 import CardLayout from "./layout/CardLayout.astro";
 
 interface Props {
@@ -41,10 +42,14 @@ const { button, label, title, email, text, image } = Astro.props;
   </div>
   <div class="mt-section-sm md:mt-section-md lg:mt-0 lg:col-span-2">
     <picture>
-      <SanityImage
+      <Image
         class="w-full rounded-md aspect-square md:aspect-[4/3] object-cover"
+        mode="cover"
         image={image}
         alt={image.alt}
+        width={810}
+        height={608}
+        sizes={`(min-width: 105rem) calc(50vw - calc(3 * ${vw(1.25)})), (min-width: 50rem) calc(100vw - 2.5rem), calc(100vw - 2rem)`}
       />
     </picture>
   </div>

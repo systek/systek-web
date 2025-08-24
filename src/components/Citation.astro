@@ -1,5 +1,5 @@
 ---
-import SanityImage from "./Image.astro";
+import Image from "./Image.astro";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
 interface Props {
@@ -15,11 +15,10 @@ const { title, subtitle, image, class: className } = Astro.props;
 <div class:list={["flex gap-3", className]}>
   <div class="size-10 lg:size-[2.381vw]">
     <picture>
-      <SanityImage
+      <Image
         class="w-full rounded-full aspect-square"
         image={image}
         alt={title}
-        draggable={false}
         mode="cover"
         width={80}
         height={80}

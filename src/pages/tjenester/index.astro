@@ -13,8 +13,9 @@ import {
   fetchServicesSingleton,
 } from "../../lib/sanity.queries";
 import Contact from "../../components/card/Contact.astro";
-import SanityImage from "../../components/Image.astro";
+import Image from "../../components/Image.astro";
 import type { Citation as CitationType } from "../../lib/sanity.types";
+import { vw } from "../../utils/number";
 
 const [servicesInfo, serviceItems, citation] = await Promise.all([
   fetchServicesSingleton(),
@@ -57,10 +58,14 @@ const [servicesInfo, serviceItems, citation] = await Promise.all([
 
     <div>
       <picture>
-        <SanityImage
+        <Image
           class="w-full rounded-md aspect-[4/3] object-cover"
           image={servicesInfo.heroImage}
           alt={servicesInfo.heroImage.alt}
+          mode="cover"
+          width={820}
+          height={615}
+          sizes={`(min-width: 105rem) calc(50vw - calc(2 * ${vw(1.25)})), (min-width: 50rem) calc(100vw - 2.5rem), calc(100vw - 2rem)`}
         />
       </picture>
     </div>
@@ -78,9 +83,14 @@ const [servicesInfo, serviceItems, citation] = await Promise.all([
     <div class="lg:col-span-3">
       <div class="mt-section">
         <picture>
-          <SanityImage
+          <Image
+            alt={servicesInfo.secondaryImage.alt}
             class="w-full object-cover rounded-md lg:rounded-lg aspect-[4/3] lg:aspect-[2/1]"
             image={servicesInfo.secondaryImage}
+            mode="cover"
+            width={1225}
+            height={613}
+            sizes={`(min-width: 105rem) calc(66.667vw - calc(3 * ${vw(1.25)})), (min-width: 50rem) calc(100vw - 2.5rem), calc(100vw - 2rem)`}
           />
         </picture>
       </div>

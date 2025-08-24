@@ -11,9 +11,10 @@ import AccordionItem from "../../components/accordion/AccordionItem.astro";
 import Radio from "../../components/Radio.astro";
 import { fetchStaffItems } from "../../lib/sanity.queries";
 import type { Staff } from "../../lib/sanity.types";
-import SanityImage from "../../components/Image.astro";
+import Image from "../../components/Image.astro";
 import PageHeader from "../../components/PageHeader.astro";
 import ImageGallery from "../../components/image/ImageGallery.astro";
+import { vw } from "../../utils/number";
 
 const staffItems = await fetchStaffItems();
 
@@ -119,16 +120,20 @@ const departments = [
               <div
                 data-location={item.location}
                 data-department={item.department}
-                class="grid gap-2 lg:gap-4"
+                class="flex flex-col gap-2 lg:gap-4"
               >
                 <picture class="aspect-square overflow-hidden">
-                  <SanityImage
-                    class="aspect-square object-cover rounded-md"
-                    image={item.image}
+                  <Image
                     alt={item.name}
-                    draggable={false}
+                    class="w-full aspect-square object-cover rounded-md"
+                    image={item.image}
+                    mode="cover"
+                    width={291}
+                    height={291}
+                    sizes={`(min-width: 105rem) calc((75vw - 3 * ${vw(1.25)}) / 4), (min-width: 50rem) calc((100vw - 6.25rem) / 4), calc((100vw - 3rem) / 2)`}
                   />
                 </picture>
+
                 <div>
                   <p class="text-sm-fluid font-bold leading-snug">
                     {item.name}
@@ -198,7 +203,6 @@ const departments = [
         <img
           class="w-full rounded-md aspect-square md:aspect-[4/3] object-cover"
           src="/images/temp.png"
-          draggable="false"
         />
       </picture>
     </div>

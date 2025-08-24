@@ -31,7 +31,7 @@ const config = sanityClient.config();
   id={image.asset?._ref!}
   projectId={config.projectId}
   dataset={config.dataset}
-  loading={loading}
+  loading={loading || "lazy"}
   hotspot={image.hotspot}
   crop={image.crop}
   alt={alt}
@@ -39,4 +39,5 @@ const config = sanityClient.config();
   width={width}
   height={height}
   sizes={sizes}
+  draggable="false"
 />
