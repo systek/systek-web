@@ -20,7 +20,10 @@ const { image, title } = Astro.props;
 
   {
     title && (
-      <h1 class="font-light text-4xl-fluid hyphens-auto md:text-center">
+      <h1
+        id="main-content"
+        class="font-light text-4xl-fluid hyphens-auto md:text-center"
+      >
         {title}
       </h1>
     )

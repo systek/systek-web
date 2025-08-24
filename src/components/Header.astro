@@ -17,6 +17,15 @@ const links = [
 ] as const;
 ---
 
+<div class="sr-only focus-within:not-sr-only">
+  <a
+    class="z-[var(--z-dialog)] absolute top-0 border border-grey-10 bg-white p-4 underline underline-offset-5 text-xl-fluid"
+    href="#main-content"
+  >
+    Gå til hovedinnhold
+  </a>
+</div>
+
 <div data-header-sentinel class="hidden h-px md:block"></div>
 <div class="md:sticky md:top-0 md:bg-background md:z-[var(--z-header)] px-grid">
   <header

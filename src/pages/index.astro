@@ -16,7 +16,6 @@ import {
   fetchLogoItems,
   fetchNewsItems,
   fetchServiceItems,
-  fetchWorkItems,
 } from "../lib/sanity.queries";
 import CardHeader from "../components/card/layout/CardHeader.astro";
 import Accordion from "../components/accordion/Accordion.astro";
@@ -29,7 +28,6 @@ const [
   frontPageData,
   serviceItems,
   newsItems,
-  workItems,
   activityItems,
   blogItems,
   logoItems,
@@ -37,7 +35,6 @@ const [
   fetchFrontPageSingleton(),
   fetchServiceItems(),
   fetchNewsItems(2),
-  fetchWorkItems(3),
   fetchActivityItems(5),
   fetchBlogItems(),
   fetchLogoItems(),
@@ -53,7 +50,10 @@ const logoBottomItems = logoItems.slice(index);
 
   <Header />
 
-  <div class="grid items-start mx-grid mt-section gap-gutter lg:grid-cols-2">
+  <div
+    id="main-content"
+    class="grid items-start mx-grid mt-section gap-gutter lg:grid-cols-2"
+  >
     <h2 class="font-light text-4xl-fluid">{frontPageData.title}</h2>
     <div>
       <p class="text-lg-fluid">
