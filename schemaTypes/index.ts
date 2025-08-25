@@ -1,6 +1,10 @@
 import { siteSettings } from "./siteSettings";
 import { workerPageType } from "./pages/workerPageType";
 import { servicesPageType } from "./pages/servicesPageType";
+import { frontPageType } from "./pages/frontPageType";
+import { staffPageType } from "./pages/staffPageType";
+import { workherePageType } from "./pages/workherePageType";
+
 import { activityType } from "./activityType";
 import { blogType } from "./blogType";
 import { logoType } from "./logoType";
@@ -11,8 +15,6 @@ import { staffType } from "./staffType";
 import { citationType } from "./citationType";
 import { pageType } from "./pageType";
 import { vacanciesType } from "./vacanciesType";
-import { frontPageType } from "./pages/frontPageType";
-import { staffPageType } from "./pages/staffPageType";
 
 export const schemaTypes = [
   siteSettings,
@@ -20,6 +22,7 @@ export const schemaTypes = [
   workerPageType,
   servicesPageType,
   staffPageType,
+  workherePageType,
   serviceType,
   newsType,
   logoType,

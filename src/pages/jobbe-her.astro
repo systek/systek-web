@@ -1,0 +1,136 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import PageHeader from "../components/PageHeader.astro";
+import {
+  fetchWorkhereSingleton,
+  fetchVacantPositions,
+} from "../lib/sanity.queries";
+import CardLayout from "../components/card/layout/CardLayout.astro";
+import CardHeader from "../components/card/layout/CardHeader.astro";
+import Article from "../components/Article.astro";
+import PortableText from "../components/PortableText.astro";
+import Citation from "../components/card/Citation.astro";
+import LinkBox from "../components/LinkBox.astro";
+import Footer from "../components/Footer.astro";
+import Image from "../components/Image.astro";
+import ContactTwo, {
+  type ContactImage,
+} from "../components/card/ContactTwo.astro";
+import Faq, { type FaqItem } from "../components/card/Faq.astro";
+
+const workhereData = await fetchWorkhereSingleton();
+const vacantPositions = await fetchVacantPositions();
+---
+
+<Layout title="Jobbe her">
+  <Header />
+  <PageHeader image={workhereData.heroImage}>
+    <CardLayout>
+      <CardHeader title="Jobbe her">
+        <p
+          class="max-w-[72rem] lg:max-w-[68.571vw] md:mr-20 lg:mr-[4.7619vw] font-light text-3xl-fluid"
+        >
+          {workhereData.title}
+        </p>
+      </CardHeader>
+    </CardLayout>
+  </PageHeader>
+  <Article>
+    <PortableText value={workhereData.introText} />
+  </Article>
+  {
+    workhereData.citation && (
+      <Citation citation={workhereData.citation} class="mt-section" />
+    )
+  }
+
+  <CardLayout class="mt-section mx-grid">
+    <CardHeader>
+      <p
+        class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-[4.7619vw] font-light text-2xl-fluid"
+      >
+        Åpne roller
+      </p>
+    </CardHeader>
+    <div></div>
+    <div class="lg:col-span-3">
+      <div class="grid lg:col-span-3 gap-gutter mt-section md:grid-cols-3">
+        {
+          vacantPositions.map((item) => (
+            <LinkBox href={item.href} color="grey">
+              <div>
+                <p class="font-medium text-lg-fluid group-link-underline">
+                  {item.title}
+                </p>
+              </div>
+              <p class="text-sm-fluid">{item.description}</p>
+              <div>
+                <span>{item.location}</span>
+              </div>
+            </LinkBox>
+          ))
+        }
+      </div>
+    </div>
+  </CardLayout>
+
+  <CardLayout class="border-t border-stroke mt-section mx-grid">
+    <CardHeader>
+      <p
+        class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-[4.7619vw] font-light text-2xl-fluid pt-gutter"
+      >
+        Hvorfor Systek?
+      </p>
+    </CardHeader>
+    <div></div>
+    <div class="lg:col-span-2">
+      <PortableText value={workhereData.content} />
+    </div>
+  </CardLayout>
+
+  {
+    workhereData.contactTwo && (
+      <ContactTwo
+        label={workhereData.contactTwo.label}
+        title={workhereData.contactTwo.title}
+        text={workhereData.contactTwo.text}
+        contactOne={workhereData.contactTwo.contactOne as ContactImage}
+        contactTwo={workhereData.contactTwo.contactTwo as ContactImage}
+      />
+    )
+  }
+
+  <CardLayout class="border-t border-stroke mt-section mx-grid">
+    <CardHeader title="FAQ">
+      <p
+        class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-[4.7619vw] font-light text-2xl-fluid pt-gutter"
+      >
+        Ofte stilte spørsmål
+      </p>
+    </CardHeader>
+    <div></div>
+    <Faq
+      items={workhereData.faqList as FaqItem[]}
+      class="mt-section mx-grid lg:col-span-2"
+    />
+  </CardLayout>
+
+  {
+    workhereData.tldrText && (
+      <CardLayout class="mt-section mx-grid">
+        <CardHeader>
+          <p class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-[4.7619vw] font-light text-2xl-fluid">
+            TL;DR om Systek
+          </p>
+        </CardHeader>
+        <div />
+        <div class="lg:col-span-2">
+          <PortableText value={workhereData.tldrText} />
+        </div>
+      </CardLayout>
+    )
+  }
+
+  <Footer />
+</Layout>

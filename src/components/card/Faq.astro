@@ -1,0 +1,26 @@
+---
+import clsx from "clsx";
+import Accordion from "../accordion/Accordion.astro";
+import AccordionItem from "../accordion/AccordionItem.astro";
+
+export type FaqItem = {
+  title: string;
+  description: string;
+};
+interface Props {
+  class?: string;
+  items: FaqItem[];
+}
+
+const { items, class: className } = Astro.props;
+---
+
+<Accordion class={clsx("lg:mr-section-lg", className)}>
+  {
+    items.map((item) => (
+      <AccordionItem title={item.title}>
+        <p class="text-sm-fluid text-text-secondary">{item.description}</p>
+      </AccordionItem>
+    ))
+  }
+</Accordion>

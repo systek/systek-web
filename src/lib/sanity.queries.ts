@@ -10,8 +10,10 @@ import type {
   ServicesPageType,
   Staff,
   StaffPageType,
+  Vacancies,
   Work,
   WorkerPageType,
+  WorkherePageType,
 } from "./sanity.types";
 
 export async function fetchServiceItems(): Promise<Service[]> {
@@ -154,5 +156,26 @@ export async function fetchStaffSingleton(): Promise<StaffPageType> {
     galleryText,
     imageGallery,
     contact,
+  }`);
+}
+
+export type WorkherePageTypeExtended = Omit<WorkherePageType, "citation"> & {
+  citation: Citation;
+};
+export async function fetchWorkhereSingleton(): Promise<WorkherePageTypeExtended> {
+  return sanityClient.fetch(`*[_type == "workherePageType"][0] {
+    ...,
+    citation->,
+  }`);
+}
+
+export async function fetchVacantPositions(): Promise<Vacancies[]> {
+  return sanityClient.fetch(`*[_type == "vacancies"] | order(date desc) {
+    _id,
+    title,
+    description,
+    location,
+    date,
+    href
   }`);
 }

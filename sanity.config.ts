@@ -52,6 +52,13 @@ export default defineConfig({
                   .schemaType("staffPageType")
                   .documentId("staffPageType")
               ),
+            S.listItem()
+              .title("Jobbe her")
+              .child(
+                S.document()
+                  .schemaType("workherePageType")
+                  .documentId("workherePageType")
+              ),
             S.divider(),
             ...S.documentTypeListItems().filter(
               (item) =>

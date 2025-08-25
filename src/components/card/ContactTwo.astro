@@ -1,0 +1,70 @@
+---
+import type { Image as ImageType } from "sanity";
+import { baseWidth, oneHalf, vw } from "../../utils/number";
+import Image from "../Image.astro";
+import CardLayout from "./layout/CardLayout.astro";
+
+export type ContactImage = ImageType & {
+  alt: string;
+  name?: string;
+  position?: string;
+  email?: string;
+  phone?: string;
+};
+
+interface Props {
+  label: string;
+  title: string;
+  text: string;
+  contactOne: ContactImage;
+  contactTwo: ContactImage;
+}
+
+const { label, title, text, contactOne, contactTwo } = Astro.props;
+---
+
+<CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
+  <div class="flex flex-col lg:col-span-2">
+    <p class="font-bold text-sm-fluid">{label}</p>
+    <div class="mt-auto max-w-[37rem] lg:max-w-[35.238vw]">
+      <p class="mt-gap font-light text-2xl-fluid">
+        {title}
+      </p>
+      <p class="my-grid text-md-fluid">
+        {text}
+      </p>
+    </div>
+  </div>
+  <div class="mt-section-sm md:mt-section-md lg:mt-0">
+    <picture>
+      <Image
+        class="w-full rounded-md aspect-square md:aspect-[4/3] object-cover"
+        mode="cover"
+        image={contactOne}
+        alt={contactOne.alt}
+        width={810}
+        height={608}
+        sizes={`(min-width: 105rem) calc(${oneHalf("lg")}), (min-width: 50rem) calc(${baseWidth("md")}), calc(${baseWidth("sm")})`}
+      />
+    </picture>
+    <p>{contactOne.name}</p>
+    <p>{contactOne.position}</p>
+    <p>{contactOne.phone} · {contactOne.email}</p>
+  </div>
+  <div class="mt-section-sm md:mt-section-md lg:mt-0">
+    <picture>
+      <Image
+        class="w-full rounded-md aspect-square md:aspect-[4/3] object-cover"
+        mode="cover"
+        image={contactTwo}
+        alt={contactTwo.alt}
+        width={810}
+        height={608}
+        sizes={`(min-width: 105rem) calc(${oneHalf("lg")}), (min-width: 50rem) calc(${baseWidth("md")}), calc(${baseWidth("sm")})`}
+      />
+    </picture>
+    <p>{contactTwo.name}</p>
+    <p>{contactTwo.position}</p>
+    <p>{contactTwo.phone} · {contactTwo.email}</p>
+  </div>
+</CardLayout>
