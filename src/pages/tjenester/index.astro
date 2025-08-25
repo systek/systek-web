@@ -1,5 +1,4 @@
 ---
-import Button from "../../components/Button.astro";
 import LinkBox from "../../components/LinkBox.astro";
 import CardLayout from "../../components/card/layout/CardLayout.astro";
 import CardHeader from "../../components/card/layout/CardHeader.astro";
@@ -9,7 +8,6 @@ import Header from "../../components/Header.astro";
 import Layout from "../../layouts/Layout.astro";
 import {
   fetchServiceItems,
-  fetchCitationItem,
   fetchServicesSingleton,
 } from "../../lib/sanity.queries";
 import Contact from "../../components/card/Contact.astro";
@@ -17,10 +15,9 @@ import Image from "../../components/Image.astro";
 import type { Citation as CitationType } from "../../lib/sanity.types";
 import { baseWidth, threeFourth } from "../../utils/number";
 
-const [servicesInfo, serviceItems, citation] = await Promise.all([
+const [servicesInfo, serviceItems] = await Promise.all([
   fetchServicesSingleton(),
   fetchServiceItems(),
-  fetchCitationItem(),
 ]);
 ---
 
