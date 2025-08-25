@@ -15,10 +15,7 @@ const UnknownStyle = getUnknownComponent();
 
 {
   styleIs("h1") ? (
-    <h1
-      class="my-grid font-light text-4xl-fluid hyphens-auto lg:my-7"
-      {...attrs}
-    >
+    <h1 class="my-grid font-light text-4xl-fluid hyphens-auto" {...attrs}>
       <slot />
     </h1>
   ) : styleIs("h2") ||
@@ -26,10 +23,7 @@ const UnknownStyle = getUnknownComponent();
     styleIs("h4") ||
     styleIs("h5") ||
     styleIs("h6") ? (
-    <h2
-      class="mt-7 mb-grid font-medium text-lg-fluid hyphens-auto lg:mt-10"
-      {...attrs}
-    >
+    <h2 class="my-grid font-medium text-lg-fluid hyphens-auto" {...attrs}>
       <slot />
     </h2>
   ) : styleIs("blockquote") ? (
@@ -37,11 +31,11 @@ const UnknownStyle = getUnknownComponent();
       <slot />
     </blockquote>
   ) : styleIs("normal") ? (
-    <p class="my-grid text-md-fluid hyphens-auto lg:my-7" {...attrs}>
+    <p class="my-grid text-md-fluid hyphens-auto" {...attrs}>
       <slot />
     </p>
   ) : styleIs("ul") ? (
-    <ul class="my-grid list-disc list-inside hyphens-auto lg:my-7" {...attrs}>
+    <ul class="my-grid list-disc list-inside hyphens-auto" {...attrs}>
       <slot />
     </ul>
   ) : (

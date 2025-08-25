@@ -20,14 +20,14 @@ const { button, label, title, email, text, image } = Astro.props;
   <div class="flex flex-col lg:col-span-2">
     <p class="font-bold text-sm-fluid">{label}</p>
     <div class="mt-auto max-w-[37rem] lg:max-w-[35.238vw]">
-      <p class="mt-2 font-light text-2xl-fluid">
+      <p class="mt-gap font-light text-2xl-fluid">
         {title}
       </p>
-      <p class="mt-grid text-md-fluid">
+      <p class="my-grid text-md-fluid">
         {text}
       </p>
 
-      <div class="flex items-center mt-grid gap-grid">
+      <div class="flex items-center my-grid gap-grid">
         <Button href={`mailto:${email}`}>
           {button}
         </Button>

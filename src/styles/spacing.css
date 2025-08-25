@@ -1,4 +1,9 @@
 @theme {
+  /* gap desktop: 4px, tablet: 8px, mobile: 8px */
+  --spacing-gap-sm: 0.425rem;
+  --spacing-gap-md: 0.5rem;
+  --spacing-gap-lg: calc((0.5 / 105) * 100vw);
+
   /* grid desktop: 20px, tablet: 20px, mobile: 16px */
   --spacing-grid-sm: 1rem;
   --spacing-grid-md: 1.25rem;
@@ -31,6 +36,9 @@
 */
 
 /* Padding */
+.p-gap {
+  @apply p-gap-sm md:p-gap-md lg:p-gap-lg;
+}
 .p-grid {
   @apply p-grid-sm md:p-grid-md lg:p-grid-lg;
 }
@@ -44,6 +52,9 @@
   @apply p-page-sm md:p-page-md lg:p-page-lg;
 }
 
+.px-gap {
+  @apply px-gap-sm md:px-gap-md lg:px-gap-lg;
+}
 .px-grid {
   @apply px-grid-sm md:px-grid-md lg:px-grid-lg;
 }
@@ -57,6 +68,9 @@
   @apply px-page-sm md:px-page-md lg:px-page-lg;
 }
 
+.py-gap {
+  @apply py-gap-sm md:py-gap-md lg:py-gap-lg;
+}
 .py-grid {
   @apply py-grid-sm md:py-grid-md lg:py-grid-lg;
 }
@@ -70,6 +84,9 @@
   @apply py-page-sm md:py-page-md lg:py-page-lg;
 }
 
+.pt-gap {
+  @apply pt-gap-sm md:pt-gap-md lg:pt-gap-lg;
+}
 .pt-grid {
   @apply pt-grid-sm md:pt-grid-md lg:pt-grid-lg;
 }
@@ -83,6 +100,9 @@
   @apply pt-page-sm md:pt-page-md lg:pt-page-lg;
 }
 
+.pr-gap {
+  @apply pr-gap-sm md:pr-gap-md lg:pr-gap-lg;
+}
 .pr-grid {
   @apply pr-grid-sm md:pr-grid-md lg:pr-grid-lg;
 }
@@ -96,6 +116,9 @@
   @apply pr-page-sm md:pr-page-md lg:pr-page-lg;
 }
 
+.pb-gap {
+  @apply pb-gap-sm md:pb-gap-md lg:pb-gap-lg;
+}
 .pb-grid {
   @apply pb-grid-sm md:pb-grid-md lg:pb-grid-lg;
 }
@@ -109,6 +132,9 @@
   @apply pb-page-sm md:pb-page-md lg:pb-page-lg;
 }
 
+.pl-gap {
+  @apply pl-gap-sm md:pl-gap-md lg:pl-gap-lg;
+}
 .pl-grid {
   @apply pl-grid-sm md:pl-grid-md lg:pl-grid-lg;
 }
@@ -123,6 +149,9 @@
 }
 
 /* Margin */
+.m-gap {
+  @apply m-gap-sm md:m-gap-md lg:m-gap-lg;
+}
 .m-grid {
   @apply m-grid-sm md:m-grid-md lg:m-grid-lg;
 }
@@ -136,6 +165,9 @@
   @apply m-page-sm md:m-page-md lg:m-page-lg;
 }
 
+.mx-gap {
+  @apply mx-gap-sm md:mx-gap-md lg:mx-gap-lg;
+}
 .mx-grid {
   @apply mx-grid-sm md:mx-grid-md lg:mx-grid-lg;
 }
@@ -149,6 +181,9 @@
   @apply mx-page-sm md:mx-page-md lg:mx-page-lg;
 }
 
+.my-gap {
+  @apply my-gap-sm md:my-gap-md lg:my-gap-lg;
+}
 .my-grid {
   @apply my-grid-sm md:my-grid-md lg:my-grid-lg;
 }
@@ -162,6 +197,9 @@
   @apply my-page-sm md:my-page-md lg:my-page-lg;
 }
 
+.mt-gap {
+  @apply mt-gap-sm md:mt-gap-md lg:mt-gap-lg;
+}
 .mt-grid {
   @apply mt-grid-sm md:mt-grid-md lg:mt-grid-lg;
 }
@@ -175,6 +213,9 @@
   @apply mt-page-sm md:mt-page-md lg:mt-page-lg;
 }
 
+.mr-gap {
+  @apply mr-gap-sm md:mr-gap-md lg:mr-gap-lg;
+}
 .mr-grid {
   @apply mr-grid-sm md:mr-grid-md lg:mr-grid-lg;
 }
@@ -188,6 +229,9 @@
   @apply mr-page-sm md:mr-page-md lg:mr-page-lg;
 }
 
+.mb-gap {
+  @apply mb-gap-sm md:mb-gap-md lg:mb-gap-lg;
+}
 .mb-grid {
   @apply mb-grid-sm md:mb-grid-md lg:mb-grid-lg;
 }
@@ -201,6 +245,9 @@
   @apply mb-page-sm md:mb-page-md lg:mb-page-lg;
 }
 
+.ml-gap {
+  @apply ml-gap-sm md:ml-gap-md lg:ml-gap-lg;
+}
 .ml-grid {
   @apply ml-grid-sm md:ml-grid-md lg:ml-grid-lg;
 }
@@ -215,6 +262,9 @@
 }
 
 /* Gap */
+.gap-gap {
+  @apply gap-gap-sm md:gap-gap-md lg:gap-gap-lg;
+}
 .gap-grid {
   @apply gap-grid-sm md:gap-grid-md lg:gap-grid-lg;
 }
@@ -228,6 +278,9 @@
   @apply gap-page-sm md:gap-page-md lg:gap-page-lg;
 }
 
+.gap-x-gap {
+  @apply gap-x-gap-sm md:gap-x-gap-md lg:gap-x-gap-lg;
+}
 .gap-x-grid {
   @apply gap-x-grid-sm md:gap-x-grid-md lg:gap-x-grid-lg;
 }
@@ -241,6 +294,9 @@
   @apply gap-x-page-sm md:gap-x-page-md lg:gap-x-page-lg;
 }
 
+.gap-y-gap {
+  @apply gap-y-gap-sm md:gap-y-gap-md lg:gap-y-gap-lg;
+}
 .gap-y-grid {
   @apply gap-y-grid-sm md:gap-y-grid-md lg:gap-y-grid-lg;
 }
@@ -255,6 +311,9 @@
 }
 
 /* Width */
+.w-gap {
+  @apply w-gap-sm md:w-gap-md lg:w-gap-lg;
+}
 .w-grid {
   @apply w-grid-sm md:w-grid-md lg:w-grid-lg;
 }
@@ -268,6 +327,9 @@
   @apply w-page-sm md:w-page-md lg:w-page-lg;
 }
 
+.min-w-gap {
+  @apply min-w-gap-sm md:min-w-gap-md lg:min-w-gap-lg;
+}
 .min-w-grid {
   @apply min-w-grid-sm md:min-w-grid-md lg:min-w-grid-lg;
 }
@@ -281,6 +343,9 @@
   @apply min-w-page-sm md:min-w-page-md lg:min-w-page-lg;
 }
 
+.max-w-gap {
+  @apply max-w-gap-sm md:max-w-gap-md lg:max-w-gap-lg;
+}
 .max-w-grid {
   @apply max-w-grid-sm md:max-w-grid-md lg:max-w-grid-lg;
 }
@@ -295,6 +360,9 @@
 }
 
 /* Height */
+.h-gap {
+  @apply h-gap-sm md:h-gap-md lg:h-gap-lg;
+}
 .h-grid {
   @apply h-grid-sm md:h-grid-md lg:h-grid-lg;
 }
@@ -308,6 +376,9 @@
   @apply h-page-sm md:h-page-md lg:h-page-lg;
 }
 
+.min-h-gap {
+  @apply min-h-gap-sm md:min-h-gap-md lg:min-h-gap-lg;
+}
 .min-h-grid {
   @apply min-h-grid-sm md:min-h-grid-md lg:min-h-grid-lg;
 }
@@ -321,6 +392,9 @@
   @apply min-h-page-sm md:min-h-page-md lg:min-h-page-lg;
 }
 
+.max-h-gap {
+  @apply max-h-gap-sm md:max-h-gap-md lg:max-h-gap-lg;
+}
 .max-h-grid {
   @apply max-h-grid-sm md:max-h-grid-md lg:max-h-grid-lg;
 }
@@ -335,6 +409,9 @@
 }
 
 /* Other Sizing */
+.inset-gap {
+  @apply inset-gap-sm md:inset-gap-md lg:inset-gap-lg;
+}
 .inset-grid {
   @apply inset-grid-sm md:inset-grid-md lg:inset-grid-lg;
 }
@@ -346,6 +423,19 @@
 }
 .inset-page {
   @apply inset-page-sm md:inset-page-md lg:inset-page-lg;
+}
+
+.top-gap {
+  @apply top-gap-sm md:top-gap-md lg:top-gap-lg;
+}
+.right-gap {
+  @apply right-gap-sm md:right-gap-md lg:right-gap-lg;
+}
+.bottom-gap {
+  @apply bottom-gap-sm md:bottom-gap-md lg:bottom-gap-lg;
+}
+.left-gap {
+  @apply left-gap-sm md:left-gap-md lg:left-gap-lg;
 }
 
 .top-grid {
@@ -400,6 +490,9 @@
   @apply left-page-sm md:left-page-md lg:left-page-lg;
 }
 
+.space-x-gap {
+  @apply space-x-gap-sm md:space-x-gap-md lg:space-x-gap-lg;
+}
 .space-x-grid {
   @apply space-x-grid-sm md:space-x-grid-md lg:space-x-grid-lg;
 }
@@ -413,6 +506,9 @@
   @apply space-x-page-sm md:space-x-page-md lg:space-x-page-lg;
 }
 
+.space-y-gap {
+  @apply space-y-gap-sm md:space-y-gap-md lg:space-y-gap-lg;
+}
 .space-y-grid {
   @apply space-y-grid-sm md:space-y-grid-md lg:space-y-grid-lg;
 }
