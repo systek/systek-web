@@ -19,7 +19,7 @@ export const listGroup = defineField({
       title: "Elementer",
       of: [{ type: "string" }],
       options: {
-        layout: "tags",
+        layout: "list",
       },
       validation: (rule) => rule.required(),
     }),
