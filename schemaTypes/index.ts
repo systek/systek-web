@@ -12,12 +12,14 @@ import { citationType } from "./citationType";
 import { pageType } from "./pageType";
 import { vacanciesType } from "./vacanciesType";
 import { frontPageType } from "./pages/frontPageType";
+import { staffPageType } from "./pages/staffPageType";
 
 export const schemaTypes = [
   siteSettings,
   frontPageType,
   workerPageType,
   servicesPageType,
+  staffPageType,
   serviceType,
   newsType,
   logoType,

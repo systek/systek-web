@@ -1,6 +1,7 @@
 import { defineField, defineType } from "sanity";
 import { image } from "./shared/image";
 import { imageTwo } from "./shared/imageTwo";
+import { imageGallery } from "./shared/imageGallery";
 
 export const pageType = defineType({
   name: "page",
@@ -58,6 +59,7 @@ export const pageType = defineType({
         },
         image,
         imageTwo,
+        imageGallery,
         {
           type: "file",
           name: "file",

@@ -45,6 +45,13 @@ export default defineConfig({
                   .schemaType("servicesPageType")
                   .documentId("servicesPageType")
               ),
+            S.listItem()
+              .title("Folka")
+              .child(
+                S.document()
+                  .schemaType("staffPageType")
+                  .documentId("staffPageType")
+              ),
             S.divider(),
             ...S.documentTypeListItems().filter(
               (item) =>
