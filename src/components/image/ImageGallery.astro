@@ -9,19 +9,20 @@ interface Image {
     _type: "reference";
   };
   alt: string;
-  caption: string;
 }
 
 interface Props {
-  node: {
-    first: Image;
-    second: Image;
-    third: Image;
-    fourth: Image;
+  node?: {
+    first: any;
+    second: any;
+    third: any;
+    fourth: any;
   };
 }
 
-const { first, second, third, fourth } = Astro.props.node;
+const { node } = Astro.props;
+
+const { first, second, third, fourth } = node ?? {};
 
 // todo: reorder images with flex-order instead of changing aspect on md:
 ---

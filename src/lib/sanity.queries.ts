@@ -9,6 +9,7 @@ import type {
   Service,
   ServicesPageType,
   Staff,
+  StaffPageType,
   Work,
   WorkerPageType,
 } from "./sanity.types";
@@ -143,5 +144,15 @@ export async function fetchServicesSingleton(): Promise<ServicesPageType> {
   return sanityClient.fetch(`*[_type == "servicesPageType"][0] {
     ...,
     citations->
+  }`);
+}
+
+export async function fetchStaffSingleton(): Promise<StaffPageType> {
+  return sanityClient.fetch(`*[_type == "staffPageType"][0] {
+    title,
+    heroImage,
+    galleryText,
+    imageGallery,
+    contact,
   }`);
 }

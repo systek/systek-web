@@ -9,14 +9,17 @@ import CheckIcon from "../../assets/icons/check.svg";
 import Accordion from "../../components/accordion/Accordion.astro";
 import AccordionItem from "../../components/accordion/AccordionItem.astro";
 import Radio from "../../components/Radio.astro";
-import { fetchStaffItems } from "../../lib/sanity.queries";
+import { fetchStaffItems, fetchStaffSingleton } from "../../lib/sanity.queries";
 import type { Staff } from "../../lib/sanity.types";
 import Image from "../../components/Image.astro";
 import PageHeader from "../../components/PageHeader.astro";
 import ImageGallery from "../../components/image/ImageGallery.astro";
 import { oneFourth, oneHalf, threeFourth, vw } from "../../utils/number";
 
-const staffItems = await fetchStaffItems();
+const [staffPage, staffItems] = await Promise.all([
+  fetchStaffSingleton(),
+  fetchStaffItems(),
+]);
 
 const staffByInitial = staffItems.reduce(
   (acc: { [key: string]: Staff[] }, item) => {
@@ -51,14 +54,13 @@ const departments = [
 <Layout title="Folka">
   <Header active="/folka" />
 
-  <PageHeader>
+  <PageHeader image={staffPage.heroImage}>
     <CardLayout>
       <CardHeader title="Folka">
         <p
           class="max-w-[72rem] lg:max-w-[68.571vw] md:mr-20 lg:mr-[4.7619vw] font-light text-3xl-fluid"
         >
-          Møt gjengen vår – den perfekte miksen av flinke folk, nysgjerrige
-          eksperter og ekte lagspillere med sans for gode løsninger
+          {staffPage.title}
         </p>
       </CardHeader>
     </CardLayout>
@@ -158,7 +160,7 @@ const departments = [
       </p>
     </CardHeader>
 
-    <ImageGallery />
+    <ImageGallery node={staffPage.imageGallery} />
   </CardLayout>
 
   <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
