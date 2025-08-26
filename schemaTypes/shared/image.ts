@@ -27,5 +27,31 @@ export const image = defineField({
       type: "text",
       name: "caption",
     },
+    {
+      type: "string",
+      name: "variant",
+      title: "Variant",
+      options: {
+        list: [
+          { title: "Sentrert", value: "center" },
+          { title: "Høyre", value: "right" },
+        ],
+        layout: "radio",
+      },
+      initialValue: "center",
+      validation: (rule) => rule.required(),
+    },
   ],
+  preview: {
+    select: {
+      image: "asset",
+      caption: "caption",
+    },
+    prepare({ image, caption }) {
+      return {
+        title: caption,
+        media: image,
+      };
+    },
+  },
 });

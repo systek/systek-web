@@ -82,6 +82,7 @@ export type Page = {
     crop?: SanityImageCrop;
     alt?: string;
     caption?: string;
+    variant: "center" | "right";
     _type: "image";
     _key: string;
   } | {
@@ -327,6 +328,7 @@ export type Work = {
     crop?: SanityImageCrop;
     alt?: string;
     caption?: string;
+    variant: "center" | "right";
     _type: "image";
     _key: string;
   } | {
@@ -414,6 +416,48 @@ export type Work = {
       _type: "image";
     };
     _type: "imageGallery";
+    _key: string;
+  } | {
+    first: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "image";
+    };
+    second: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "image";
+    };
+    third: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "image";
+    };
+    _type: "imagesThree";
     _key: string;
   } | {
     items: Array<string>;
@@ -505,6 +549,7 @@ export type News = {
     crop?: SanityImageCrop;
     alt?: string;
     caption?: string;
+    variant: "center" | "right";
     _type: "image";
     _key: string;
   } | {
@@ -594,6 +639,48 @@ export type News = {
     _type: "imageGallery";
     _key: string;
   } | {
+    first: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "image";
+    };
+    second: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "image";
+    };
+    third: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "image";
+    };
+    _type: "imagesThree";
+    _key: string;
+  } | {
     items: Array<string>;
     _type: "tags-list";
     _key: string;
@@ -679,6 +766,7 @@ export type WorkherePageType = {
     crop?: SanityImageCrop;
     alt?: string;
     caption?: string;
+    variant: "center" | "right";
     _type: "image";
     _key: string;
   } | {
@@ -1018,6 +1106,7 @@ export type Service = {
     crop?: SanityImageCrop;
     alt?: string;
     caption?: string;
+    variant: "center" | "right";
     _type: "image";
     _key: string;
   } | {
@@ -1105,6 +1194,48 @@ export type Service = {
       _type: "image";
     };
     _type: "imageGallery";
+    _key: string;
+  } | {
+    first: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "image";
+    };
+    second: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "image";
+    };
+    third: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "image";
+    };
+    _type: "imagesThree";
     _key: string;
   } | {
     items: Array<string>;

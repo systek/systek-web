@@ -1,0 +1,24 @@
+---
+import type { Image as SanityImage } from "sanity";
+import ImageOneCentered from "./ImageOneCentered.astro";
+import ImageOneRight from "./ImageOneRight.astro";
+import {} from "../../lib/sanity.types";
+
+interface Props {
+  node: SanityImage & {
+    caption: string;
+    alt: string;
+    variant: "center" | "right";
+  };
+}
+
+const { node } = Astro.props;
+---
+
+{
+  node.variant === "right" ? (
+    <ImageOneRight node={node} />
+  ) : (
+    <ImageOneCentered node={node} />
+  )
+}

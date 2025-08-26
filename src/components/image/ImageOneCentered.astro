@@ -1,19 +1,10 @@
 ---
+import type { Image as SanityImage } from "sanity";
 import { baseWidth, vw } from "../../utils/number";
 import Image from "../Image.astro";
 
-// todo: infer type from sanity schema
 interface Props {
-  node: {
-    _key: string;
-    _type: "image";
-    alt?: string;
-    asset: {
-      _ref: string;
-      _type: "reference";
-    };
-    caption?: string;
-  };
+  node: SanityImage & { caption: string };
 }
 
 const { node } = Astro.props;
