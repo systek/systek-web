@@ -32,7 +32,7 @@ const { image, title } = Astro.props;
   <slot />
 
   {
-    image && (
+    image?.asset && (
       <>
         <div class="flex justify-between">
           <Arrow position="middleLeft" />
