@@ -1,6 +1,7 @@
 import { defineField, defineType } from "sanity";
 import { stats } from "./shared/stats";
 import { contentField } from "./shared/content";
+import { citationField } from "./shared/citation";
 
 export const workType = defineType({
   name: "work",
@@ -80,11 +81,6 @@ export const workType = defineType({
       },
     }),
     stats,
-    defineField({
-      name: "citation",
-      title: "Sitat",
-      type: "reference",
-      to: [{ type: "citation" }],
-    }),
+    citationField,
   ],
 });

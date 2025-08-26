@@ -4,6 +4,8 @@ import { imageTwo } from "../shared/imageTwo";
 import { image } from "../shared/image";
 import { listGroup } from "../shared/listGroup";
 import { contactTwoField } from "./contactTwoField";
+import { citationField } from "../shared/citation";
+import { contentField } from "../shared/content";
 
 export const workherePageType = defineType({
   name: "workherePageType",
@@ -28,29 +30,17 @@ export const workherePageType = defineType({
       validation: (Rule) => Rule.required(),
       fields: [{ name: "alt", type: "string", title: "Alt tekst" }],
     }),
-    defineField({
+    {
+      ...contentField,
       name: "introText",
       title: "Introduksjonstekst",
-      type: "array",
-      of: [textBlock],
-    }),
-    defineField({
-      name: "citation",
-      title: "Sitat",
-      type: "reference",
-      to: [{ type: "citation" }],
-    }),
+    },
     defineField({
       name: "contentTitel",
       title: "Innhold Tittel",
       type: "string",
     }),
-    defineField({
-      name: "content",
-      title: "Innhold",
-      type: "array",
-      of: [textBlock, image, imageTwo, listGroup],
-    }),
+    contentField,
     contactTwoField,
     defineField({
       name: "faqList",
@@ -82,11 +72,10 @@ export const workherePageType = defineType({
         },
       ],
     }),
-    defineField({
+    {
+      ...contentField,
       name: "tldrText",
       title: "TL;DR om Systek",
-      type: "array",
-      of: [textBlock],
-    }),
+    },
   ],
 });

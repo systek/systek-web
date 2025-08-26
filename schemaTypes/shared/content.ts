@@ -6,6 +6,7 @@ import { textBlock } from "./text";
 import { listGroup } from "./listGroup";
 import { imageGallery } from "./imageGallery";
 import { imagesThree } from "./imagesThree";
+import { citationField } from "./citation";
 
 export const contentField = defineField({
   name: "content",
@@ -19,6 +20,7 @@ export const contentField = defineField({
     imagesThree,
     tagList,
     listGroup,
+    citationField,
   ],
   validation: (rule) => rule.required(),
 });

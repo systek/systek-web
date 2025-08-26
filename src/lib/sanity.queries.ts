@@ -165,7 +165,10 @@ export type WorkherePageTypeExtended = Omit<WorkherePageType, "citation"> & {
 export async function fetchWorkhereSingleton(): Promise<WorkherePageTypeExtended> {
   return sanityClient.fetch(`*[_type == "workherePageType"][0] {
     ...,
-    citation->,
+    introText[]{
+      ...,
+      _type == "citation" => @->
+    }
   }`);
 }
 

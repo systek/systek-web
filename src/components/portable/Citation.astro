@@ -1,0 +1,22 @@
+---
+import type { Citation } from "../../lib/sanity.types";
+import CitationSub from "../card/CitationSub.astro";
+
+interface Props {
+  node: Citation;
+}
+
+const { node: citation } = Astro.props;
+---
+
+<div>
+  <p class="max-w-[50rem] lg:max-w-[47.619vw] font-light text-xl-fluid">
+    «{citation.text}»
+  </p>
+  <CitationSub
+    class="my-grid"
+    title={citation.name}
+    subtitle={citation.position}
+    image={citation.picture}
+  />
+</div>

@@ -1,12 +1,12 @@
 ---
-import { vw } from "../utils/number";
-import Image from "./Image.astro";
-import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import type { Image as SanityImage } from "sanity";
+import { vw } from "../../utils/number";
+import Image from "../Image.astro";
 
 interface Props {
   title: string;
   subtitle: string;
-  image: SanityImageSource; // todo: find sanity image type
+  image: SanityImage; // todo: find sanity image type
   class?: string;
 }
 

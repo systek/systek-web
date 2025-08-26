@@ -16,11 +16,10 @@ interface Props {
   label: string;
   title: string;
   text: string;
-  contactOne: ContactImage;
-  contactTwo: ContactImage;
+  contacts: ContactImage[];
 }
 
-const { label, title, text, contactOne, contactTwo } = Astro.props;
+const { label, title, text, contacts } = Astro.props;
 ---
 
 <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
@@ -35,36 +34,26 @@ const { label, title, text, contactOne, contactTwo } = Astro.props;
       </p>
     </div>
   </div>
-  <div class="mt-section-sm md:mt-section-md lg:mt-0">
-    <picture>
-      <Image
-        class="w-full rounded-md aspect-square md:aspect-[4/3] object-cover"
-        mode="cover"
-        image={contactOne}
-        alt={contactOne.alt}
-        width={810}
-        height={608}
-        sizes={`(min-width: 105rem) calc(${oneHalf("lg")}), (min-width: 50rem) calc(${baseWidth("md")}), calc(${baseWidth("sm")})`}
-      />
-    </picture>
-    <p>{contactOne.name}</p>
-    <p>{contactOne.position}</p>
-    <p>{contactOne.phone} · {contactOne.email}</p>
-  </div>
-  <div class="mt-section-sm md:mt-section-md lg:mt-0">
-    <picture>
-      <Image
-        class="w-full rounded-md aspect-square md:aspect-[4/3] object-cover"
-        mode="cover"
-        image={contactTwo}
-        alt={contactTwo.alt}
-        width={810}
-        height={608}
-        sizes={`(min-width: 105rem) calc(${oneHalf("lg")}), (min-width: 50rem) calc(${baseWidth("md")}), calc(${baseWidth("sm")})`}
-      />
-    </picture>
-    <p>{contactTwo.name}</p>
-    <p>{contactTwo.position}</p>
-    <p>{contactTwo.phone} · {contactTwo.email}</p>
-  </div>
+  {
+    contacts.map((contact) => (
+      <div class="mt-section-sm md:mt-section-md lg:mt-0">
+        <picture>
+          <Image
+            class="w-full rounded-md aspect-square md:aspect-[4/3] object-cover"
+            mode="cover"
+            image={contact}
+            alt={contact.alt}
+            width={810}
+            height={608}
+            sizes={`(min-width: 105rem) calc(${oneHalf("lg")}), (min-width: 50rem) calc(${baseWidth("md")}), calc(${baseWidth("sm")})`}
+          />
+        </picture>
+        <p>{contact.name}</p>
+        <p>{contact.position}</p>
+        <p>
+          {contact.phone} · {contact.email}
+        </p>
+      </div>
+    ))
+  }
 </CardLayout>
