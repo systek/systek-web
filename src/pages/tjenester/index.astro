@@ -109,28 +109,28 @@ const [servicesInfo, serviceItems] = await Promise.all([
       </div>
     </CardRightColumn>
   </CardLayout>
+
+  {
+    servicesInfo.citations && (
+      <Citation
+        title="Tjenester"
+        citation={servicesInfo.citations as unknown as CitationType}
+      />
+    )
+  }
+
+  {
+    servicesInfo.contact && (
+      <Contact
+        button={`Send ${servicesInfo.contact.name} en e-post`}
+        email={servicesInfo.contact.email}
+        label="Kontakt"
+        title={servicesInfo.contact.title}
+        text={servicesInfo.contact.description}
+        image={servicesInfo.contact.image}
+      />
+    )
+  }
+
+  <Footer />
 </Layout>
-
-{
-  servicesInfo.citations && (
-    <Citation
-      title="Tjenester"
-      citation={servicesInfo.citations as unknown as CitationType}
-    />
-  )
-}
-
-{
-  servicesInfo.contact && (
-    <Contact
-      button={`Send ${servicesInfo.contact.name} en e-post`}
-      email={servicesInfo.contact.email}
-      label="Kontakt"
-      title={servicesInfo.contact.title}
-      text={servicesInfo.contact.description}
-      image={servicesInfo.contact.image}
-    />
-  )
-}
-
-<Footer />
