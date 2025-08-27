@@ -9,6 +9,7 @@ import type {
   News,
   Service,
   ServicesPageType,
+  SiteSettings,
   Staff,
   StaffPageType,
   Vacancies,
@@ -49,7 +50,7 @@ export async function fetchNewsItems(limit = 8, skip = 0): Promise<News[]> {
 }
 
 export async function fetchLogoItems(limit = 8): Promise<Logo[]> {
-  return sanityClient.fetch(`*[_type == "logo" && defined(image)]${limit ? `[0...${limit}]` : ""} {
+  return sanityClient.fetch(`*[_type == "logo" && defined(image)] | order(order asc) ${limit ? `[0...${limit}]` : ""} {
     _id,
     title,
     image
@@ -57,7 +58,7 @@ export async function fetchLogoItems(limit = 8): Promise<Logo[]> {
 }
 
 export async function fetchWorkItems(limit?: number): Promise<Work[]> {
-  const query = `*[_type == "work" && defined(slug)]${limit ? `[0...${limit}]` : ""} {
+  const query = `*[_type == "work" && defined(slug)] | order(order asc) ${limit ? `[0...${limit}]` : ""} {
     _id,
     title,
     description,
@@ -197,5 +198,15 @@ export async function fetchVacantPositions(): Promise<Vacancies[]> {
     location,
     date,
     href
+  }`);
+}
+
+export async function fetchSiteSettings(): Promise<SiteSettings> {
+  return sanityClient.fetch(`*[_type == "siteSettings"][0] {
+    title,
+    description,
+    hostname,
+    analytics,
+    analyticsHostname
   }`);
 }

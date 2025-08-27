@@ -21,6 +21,13 @@ export const workType = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: "order",
+      title: "Rekkefølge",
+      description: "Laveste tall vises først",
+      type: "number",
+      validation: (rule) => rule.required().min(1),
+    }),
+    defineField({
       name: "description",
       title: "Beskrivelse",
       type: "text",
@@ -82,5 +89,52 @@ export const workType = defineType({
     }),
     stats,
     citationField,
+    defineField({
+      name: "contactTwo",
+      title: "Kontakter",
+      type: "object",
+      fields: [
+        defineField({
+          name: "label",
+          title: "Liten tittel",
+          type: "string",
+          validation: (Rule) => Rule.required(),
+        }),
+        defineField({
+          name: "title",
+          title: "Tittel",
+          type: "string",
+          validation: (Rule) => Rule.required(),
+        }),
+        defineField({
+          name: "contacts",
+          title: "Kontakt personer",
+          type: "array",
+          of: [
+            defineField({
+              name: "contact",
+              title: "Kontakt person",
+              type: "reference",
+              to: [{ type: "staff" }],
+              validation: (Rule) => Rule.required(),
+            }),
+          ],
+          validation: (Rule) => Rule.required().min(1).max(2),
+        }),
+      ],
+      preview: {
+        select: {
+          title: "title",
+          media: "image",
+        },
+        prepare(selection) {
+          const { title, media } = selection;
+          return {
+            title: title,
+            media: media,
+          };
+        },
+      },
+    }),
   ],
 });

@@ -35,6 +35,13 @@ export const staffType = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: "email",
+      title: "E-post",
+      description: "Brukes på arbeider-siden",
+      type: "string",
+      validation: (rule) => rule.email(),
+    }),
+    defineField({
       name: "image",
       type: "image",
       options: {

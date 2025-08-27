@@ -5,6 +5,7 @@ import clsx from "clsx";
 import type {
   Citation as CitationType,
   Service,
+  Staff,
   Work,
 } from "../../lib/sanity.types";
 import { fetchWorkItems } from "../../lib/sanity.queries";
@@ -24,6 +25,12 @@ import { formatDate } from "../../utils/date";
 import Article from "../../components/Article.astro";
 import { fullWidth, gutter, oneFourth, oneHalf } from "../../utils/number";
 
+type WorkExtended = Omit<Work, "citation" | "services"> & {
+  citation: CitationType;
+  services: Service[];
+  contactTwo: Omit<Work["contactTwo"], "contacts"> & { contacts: Staff[] };
+};
+
 export async function getStaticPaths() {
   const works = await sanityClient.fetch(`*[_type == "work"] { 
     slug,
@@ -36,46 +43,26 @@ export async function getStaticPaths() {
     technologies,
     citation->,
     services[]->,
+    contactTwo{
+      label,
+      title,
+      contacts[]->
+    },
   }`);
-  return works.map(
-    (
-      work: Omit<Work, "citation" | "services"> & {
-        citation: CitationType;
-        services: Service[];
-      }
-    ) => ({
-      params: { slug: work.slug.current },
-      props: { work },
-    })
-  );
+  return works.map((work: WorkExtended) => ({
+    params: { slug: work.slug.current },
+    props: { work },
+  }));
 }
 
 const { work } = Astro.props as {
-  work: Omit<Work, "citation" | "services"> & {
-    citation: CitationType;
-    services: Service[];
-  };
+  work: WorkExtended;
 };
 
 const _workItems = await fetchWorkItems(4);
 const workItems = _workItems
   .filter((item) => item.slug.current !== work.slug.current)
   .slice(0, 3);
-
-const contactItems = [
-  {
-    name: "Mikael Solstad",
-    role: "Prosjektleder",
-    email: "mikael.solstad@systek.com",
-    image: "/images/temp.png",
-  },
-  {
-    name: "Anders Hefre",
-    role: "Utvikler",
-    email: "anders.hefre@systek.no",
-    image: "/images/temp.png",
-  },
-];
 ---
 
 <Layout title={work.description}>
@@ -134,45 +121,50 @@ const contactItems = [
 
   {work.citation && <Citation title="Tjenester" citation={work.citation} />}
 
-  <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
-    <CardRightColumn title="Kontakt">
-      <p
-        class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw] font-light text-2xl-fluid"
-      >
-        Om du er faglig dyktig og brenner for det du jobber med så vil vi gjerne
-        snakke med deg!
-      </p>
-      <Button class="mt-grid" href="/kontakt">Kontakt oss</Button>
+  {
+    work.contactTwo && (
+      <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
+        <CardRightColumn title={work.contactTwo.label}>
+          <p class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw] font-light text-2xl-fluid">
+            {work.contactTwo.title}
+          </p>
+          <Button class="mt-grid" href="/jobbe-her">
+            Kontakt oss
+          </Button>
 
-      <div class="grid gap-gutter mt-section">
-        {
-          contactItems.map((item, index) => (
-            <>
-              <div class="flex gap-gutter">
-                <picture>
-                  <img
-                    class="w-[160px] h-[160px] rounded-md aspect-square object-cover"
-                    src={item.image}
-                  />
-                </picture>
-                <div class="flex flex-col items-start">
-                  <p class="text-md-fluid font-bold">{item.name}</p>
-                  <p class="text-md-fluid">{item.role}</p>
-                  <a
-                    href={`mailto:${item.email}`}
-                    class="link-underline text-xs-fluid mt-auto"
-                  >
-                    Send {item.name.split(" ")[0]} en mail
-                  </a>
+          <div class="grid gap-gutter mt-section">
+            {work.contactTwo.contacts.map((item: Staff, index) => (
+              <>
+                <div class="flex gap-gutter">
+                  <picture>
+                    <Image
+                      class="w-[160px] h-[160px] rounded-md aspect-square object-cover"
+                      image={item.image}
+                    />
+                  </picture>
+                  <div class="flex flex-col items-start">
+                    <p class="text-md-fluid font-bold">{item.name}</p>
+                    <p class="text-md-fluid">{item.position}</p>
+                    {item.email && (
+                      <a
+                        href={`mailto:${item.email}`}
+                        class="link-underline text-xs-fluid mt-auto"
+                      >
+                        Send {item.name.split(" ")[0]} en mail
+                      </a>
+                    )}
+                  </div>
                 </div>
-              </div>
-              {index < contactItems.length - 1 && <hr class="border-stroke" />}
-            </>
-          ))
-        }
-      </div>
-    </CardRightColumn>
-  </CardLayout>
+                {index < work.contactTwo.contacts.length - 1 && (
+                  <hr class="border-stroke" />
+                )}
+              </>
+            ))}
+          </div>
+        </CardRightColumn>
+      </CardLayout>
+    )
+  }
 
   <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
     <CardRightColumn title="Arbeider">

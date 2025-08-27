@@ -27,5 +27,12 @@ export const logoType = defineType({
       ],
       validation: (rule) => rule.required(),
     }),
+    defineField({
+      name: "order",
+      title: "Rekkefølge",
+      description: "Laveste tall vises først",
+      type: "number",
+      validation: (rule) => rule.required().min(1),
+    }),
   ],
 });

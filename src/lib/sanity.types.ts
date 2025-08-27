@@ -251,6 +251,7 @@ export type Staff = {
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "service";
   };
+  email?: string;
   image: {
     asset?: {
       _ref: string;
@@ -302,6 +303,7 @@ export type Work = {
   _rev: string;
   title: string;
   slug: Slug;
+  order: number;
   description: string;
   startDate?: string;
   endDate?: string;
@@ -517,6 +519,17 @@ export type Work = {
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "citation";
   };
+  contactTwo?: {
+    label: string;
+    title: string;
+    contacts: Array<{
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      _key: string;
+      [internalGroqTypeReferenceTo]?: "staff";
+    }>;
+  };
 };
 
 export type Logo = {
@@ -539,6 +552,7 @@ export type Logo = {
     alt: string;
     _type: "image";
   };
+  order: number;
 };
 
 export type News = {
@@ -1859,9 +1873,11 @@ export type SiteSettings = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  title?: string;
-  description?: string;
-  showStaff?: boolean;
+  title: string;
+  description: string;
+  analytics: boolean;
+  analyticsHostname: string;
+  hostname: string;
 };
 
 export type SanityImagePaletteSwatch = {

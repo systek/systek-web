@@ -1,4 +1,5 @@
 ---
+import { fetchSiteSettings } from "../lib/sanity.queries";
 import "../styles/global.css";
 
 interface Props {
@@ -11,10 +12,12 @@ interface Props {
 
 const { author, bodyStyle, description, image, title } = Astro.props;
 
-const baseUrl = "https://purple-sand-022b01203.6.azurestaticapps.net"; // todo: use env variable?
-const siteTitle = "Systek";
-const siteDescription =
-  "Hos oss møter du fagfolk som både kan og vil. Vi utforsker, samarbeider og skaper muligheter som gjør en forskjell for mennesker, virksomheter og samfunnet.";
+const siteSettings = await fetchSiteSettings();
+
+const baseUrl = `https://${siteSettings.hostname}`;
+const siteTitle = siteSettings.title;
+const siteDescription = siteSettings.description;
+const canonical = baseUrl + Astro.url.pathname;
 ---
 
 <!doctype html>
@@ -26,6 +29,7 @@ const siteDescription =
     <meta name="viewport" content="width=device-width" />
 
     <meta content={description || siteDescription} name="description" />
+    <link rel="canonical" href={canonical} />
     <meta content="#fcf6ee" name="theme-color" />
     <meta content="summary" name="twitter:card" />
 
@@ -33,6 +37,7 @@ const siteDescription =
     <meta content={description || siteDescription} property="og:description" />
     <meta content={siteTitle} property="og:site_name" />
     <meta content={image || `${baseUrl}/images/temp.png`} property="og:image" />
+    <meta content={canonical} property="og:url" />
     <meta content="website" property="og:type" />
     <meta content="nb_NO" property="og:locale" />
 
@@ -46,10 +51,13 @@ const siteDescription =
     <slot />
   </body>
 
-  <!-- 
-  <script
-    defer
-    data-domain="systek.no"
-    src="https://plausible.io/js/script.js"></script>
-  -->
+  {
+    siteSettings.analytics && (
+      <script
+        defer
+        data-domain={siteSettings.analyticsHostname}
+        src="https://plausible.io/js/script.js"
+      />
+    )
+  }
 </html>
