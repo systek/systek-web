@@ -51,10 +51,8 @@ const vacantPositions = await fetchVacantPositions();
       >
         Åpne roller
       </p>
-    </CardRightColumn>
-    <div></div>
-    <div class="lg:col-span-3">
-      <div class="grid lg:col-span-3 gap-gutter mt-section md:grid-cols-3">
+
+      <div class="grid gap-gutter mt-section md:grid-cols-3">
         {
           vacantPositions.map((item) => (
             <LinkBox href={item.href} color="grey">
@@ -71,7 +69,7 @@ const vacantPositions = await fetchVacantPositions();
           ))
         }
       </div>
-    </div>
+    </CardRightColumn>
   </CardLayout>
 
   <CardLayout class="border-t border-stroke mt-section mx-grid">
@@ -106,12 +104,8 @@ const vacantPositions = await fetchVacantPositions();
       >
         Ofte stilte spørsmål
       </p>
+      <Faq class="mt-section" items={workhereData.faqList as FaqItem[]} />
     </CardRightColumn>
-    <div></div>
-    <Faq
-      items={workhereData.faqList as FaqItem[]}
-      class="mt-section mx-grid lg:col-span-2"
-    />
   </CardLayout>
 
   {

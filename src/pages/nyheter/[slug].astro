@@ -57,26 +57,27 @@ const { news, otherNews } = Astro.props as {
       </p>
 
       <Button class="mt-grid" href="/nyheter">Se alle nyheter</Button>
-    </CardRightColumn>
 
-    <div></div>
-    <div class="border-t border-stroke mt-section lg:col-span-3">
-      <!-- todo: time element does not match figma on desktop -->
-      {
-        otherNews.map((item) => (
-          <div class="flex justify-between py-grid border-b gap-gutter border-stroke">
-            <a
-              class="flex items-center gap-1 link-underline"
-              href={`/nyheter/${item.slug.current}`}
-            >
-              <ExternalIcon class="size-2.5 lg:size-[0.595vw]" />
-              <p class="text-xs-fluid">{item.title}</p>
-            </a>
-            <p class="md:pr-64 text-xs-fluid">{formatDate(item.publishedAt)}</p>
-          </div>
-        ))
-      }
-    </div>
+      <div class="border-t border-stroke mt-section">
+        <!-- todo: time element does not match figma on desktop -->
+        {
+          otherNews.map((item) => (
+            <div class="flex justify-between py-grid border-b gap-gutter border-stroke">
+              <a
+                class="flex items-center gap-1 link-underline"
+                href={`/nyheter/${item.slug.current}`}
+              >
+                <ExternalIcon class="size-2.5 lg:size-[0.595vw]" />
+                <p class="text-xs-fluid">{item.title}</p>
+              </a>
+              <p class="md:pr-64 text-xs-fluid">
+                {formatDate(item.publishedAt)}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </CardRightColumn>
   </CardLayout>
 
   <Footer />

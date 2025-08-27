@@ -99,22 +99,22 @@ const [workersInfo, logoItems, workItems, serviceItems] = await Promise.all([
     </p>
 
     <Button href="/tjenester" class="mt-grid">Se våre tjenester</Button>
+
+    <div class="grid gap-gutter mt-section md:grid-cols-3">
+      {
+        serviceItems.map((item) => (
+          <LinkBox href={`/tjenester/${item.slug.current}`} color="grey">
+            <div>
+              <p class="font-medium text-lg-fluid group-link-underline">
+                {item.title}
+              </p>
+            </div>
+            <p class="text-sm-fluid">{item.description}</p>
+          </LinkBox>
+        ))
+      }
+    </div>
   </CardRightColumn>
-  <div></div>
-  <div class="grid lg:col-span-3 gap-gutter mt-section md:grid-cols-3">
-    {
-      serviceItems.map((item) => (
-        <LinkBox href={`/tjenester/${item.slug.current}`} color="grey">
-          <div>
-            <p class="font-medium text-lg-fluid group-link-underline">
-              {item.title}
-            </p>
-          </div>
-          <p class="text-sm-fluid">{item.description}</p>
-        </LinkBox>
-      ))
-    }
-  </div>
 </CardLayout>
 
 {

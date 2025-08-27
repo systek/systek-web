@@ -90,22 +90,22 @@ const logoBottomItems = logoItems.slice(index);
       </p>
 
       <Button href="/tjenester" class="mt-grid">Se våre tjenester</Button>
+
+      <div class="grid gap-gutter mt-section md:grid-cols-3">
+        {
+          serviceItems.map((item) => (
+            <LinkBox href={`/tjenester/${item.slug.current}`} color="grey">
+              <div>
+                <p class="font-medium text-lg-fluid group-link-underline">
+                  {item.title}
+                </p>
+              </div>
+              <p class="text-sm-fluid">{item.description}</p>
+            </LinkBox>
+          ))
+        }
+      </div>
     </CardRightColumn>
-    <div></div>
-    <div class="grid lg:col-span-3 gap-gutter mt-section md:grid-cols-3">
-      {
-        serviceItems.map((item) => (
-          <LinkBox href={`/tjenester/${item.slug.current}`} color="grey">
-            <div>
-              <p class="font-medium text-lg-fluid group-link-underline">
-                {item.title}
-              </p>
-            </div>
-            <p class="text-sm-fluid">{item.description}</p>
-          </LinkBox>
-        ))
-      }
-    </div>
   </CardLayout>
 
   <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
@@ -117,26 +117,27 @@ const logoBottomItems = logoItems.slice(index);
       </p>
 
       <Button class="mt-grid" href="/nyheter">Se alle nyheter</Button>
-    </CardRightColumn>
 
-    <div></div>
-    <div class="border-t border-stroke mt-section lg:col-span-3">
-      <!-- todo: time element does not match figma on desktop -->
-      {
-        newsItems.map((item) => (
-          <div class="flex justify-between py-grid border-b gap-gutter border-stroke">
-            <a
-              class="flex items-center gap-1 link-underline"
-              href={`/nyheter/${item.slug.current}`}
-            >
-              <ExternalIcon class="size-2.5 lg:size-[0.595vw]" />
-              <p class="text-xs-fluid">{item.title}</p>
-            </a>
-            <p class="md:pr-64 text-xs-fluid">{formatDate(item.publishedAt)}</p>
-          </div>
-        ))
-      }
-    </div>
+      <div class="border-t border-stroke mt-section">
+        <!-- todo: time element does not match figma on desktop -->
+        {
+          newsItems.map((item) => (
+            <div class="flex justify-between py-grid border-b gap-gutter border-stroke">
+              <a
+                class="flex items-center gap-1 link-underline"
+                href={`/nyheter/${item.slug.current}`}
+              >
+                <ExternalIcon class="size-2.5 lg:size-[0.595vw]" />
+                <p class="text-xs-fluid">{item.title}</p>
+              </a>
+              <p class="md:pr-64 text-xs-fluid">
+                {formatDate(item.publishedAt)}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </CardRightColumn>
   </CardLayout>
 
   <Logos class="my-page" logos={logoItems} />
@@ -193,9 +194,7 @@ const logoBottomItems = logoItems.slice(index);
       >
         {frontPageData.activityTitle}
       </p>
-    </CardRightColumn>
-    <div></div>
-    <div class="lg:col-span-3">
+
       <div class="mt-section">
         <picture>
           <Image
@@ -283,7 +282,7 @@ const logoBottomItems = logoItems.slice(index);
           })
         }
       </div>
-    </div>
+    </CardRightColumn>
   </CardLayout>
 
   <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
@@ -294,9 +293,7 @@ const logoBottomItems = logoItems.slice(index);
         {frontPageData.vacanciesTitle}
       </p>
 
-      <Button class="mt-grid" href="https://systek.homerun.co">
-        Se ledige stillinger
-      </Button>
+      <Button class="mt-grid" href="/jobbe-her"> Se ledige stillinger </Button>
     </CardRightColumn>
 
     <Accordion class="mt-section order-1 lg:order-none">
@@ -335,35 +332,34 @@ const logoBottomItems = logoItems.slice(index);
       </p>
 
       <Button class="mt-grid">Se alle blogginnlegg</Button>
-    </CardRightColumn>
 
-    <div></div>
-    <div class="grid lg:col-span-3 md:grid-cols-2 gap-gutter mt-section">
-      {
-        blogItems.map((item) => (
-          <a class="group" href={item.link}>
-            <picture>
-              <Image
-                class="w-full rounded-md object-cover aspect-[4/3]"
-                image={item.image}
-                mode="cover"
-                alt={item.image.alt}
-                width={603}
-                height={452}
-                sizes={`(min-width: 105rem) calc(${oneHalf("lg", threeFourth("lg"))}), (min-width: 50rem) calc(${oneHalf("md")}), calc(${fullWidth("sm")})`}
-              />
-            </picture>
-            <p class="mt-gap font-bold text-md-fluid group-link-underline">
-              {item.title}
-            </p>
-            <p class="text-md-fluid">{item.description}</p>
-            <p class="text-sm-fluid leading-snug">
-              Skrevet av {item.author.name}
-            </p>
-          </a>
-        ))
-      }
-    </div>
+      <div class="grid md:grid-cols-2 gap-gutter mt-section">
+        {
+          blogItems.map((item) => (
+            <a class="group" href={item.link}>
+              <picture>
+                <Image
+                  class="w-full rounded-md object-cover aspect-[4/3]"
+                  image={item.image}
+                  mode="cover"
+                  alt={item.image.alt}
+                  width={603}
+                  height={452}
+                  sizes={`(min-width: 105rem) calc(${oneHalf("lg", threeFourth("lg"))}), (min-width: 50rem) calc(${oneHalf("md")}), calc(${fullWidth("sm")})`}
+                />
+              </picture>
+              <p class="mt-gap font-bold text-md-fluid group-link-underline">
+                {item.title}
+              </p>
+              <p class="text-md-fluid">{item.description}</p>
+              <p class="text-sm-fluid leading-snug">
+                Skrevet av {item.author.name}
+              </p>
+            </a>
+          ))
+        }
+      </div>
+    </CardRightColumn>
   </CardLayout>
 
   {
