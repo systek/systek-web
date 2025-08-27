@@ -15,6 +15,7 @@ import { staffType } from "./staffType";
 import { citationType } from "./citationType";
 import { pageType } from "./pageType";
 import { vacanciesType } from "./vacanciesType";
+import { locationType } from "./locationType";
 
 export const schemaTypes = [
   siteSettings,
@@ -33,4 +34,5 @@ export const schemaTypes = [
   citationType,
   pageType,
   vacanciesType,
+  locationType,
 ];

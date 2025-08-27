@@ -9,20 +9,26 @@ import CheckIcon from "../../assets/icons/check.svg";
 import Accordion from "../../components/accordion/Accordion.astro";
 import AccordionItem from "../../components/accordion/AccordionItem.astro";
 import Radio from "../../components/Radio.astro";
-import { fetchStaffItems, fetchStaffSingleton } from "../../lib/sanity.queries";
-import type { Staff } from "../../lib/sanity.types";
+import {
+  fetchLocations,
+  fetchServiceItemsAll,
+  fetchStaffItems,
+  fetchStaffSingleton,
+} from "../../lib/sanity.queries";
 import Image from "../../components/Image.astro";
 import PageHeader from "../../components/PageHeader.astro";
 import ImageGallery from "../../components/image/ImageGallery.astro";
 import { oneFourth, oneHalf, threeFourth, vw } from "../../utils/number";
 
-const [staffPage, staffItems] = await Promise.all([
+const [staffPage, staffItems, services, locations] = await Promise.all([
   fetchStaffSingleton(),
   fetchStaffItems(),
+  fetchServiceItemsAll(),
+  fetchLocations(),
 ]);
 
 const staffByInitial = staffItems.reduce(
-  (acc: { [key: string]: Staff[] }, item) => {
+  (acc, item) => {
     const initial = item.name[0].toUpperCase();
     if (!acc[initial]) {
       acc[initial] = [];
@@ -30,25 +36,8 @@ const staffByInitial = staffItems.reduce(
     acc[initial].push(item);
     return acc;
   },
-  {} as { [key: string]: Staff[] }
+  {} as { [key: string]: typeof staffItems }
 );
-
-// See of we can share this with sanity schemaTypes
-const locations = [
-  { value: "oslo", label: "Oslo" },
-  { value: "hamar", label: "Hamar" },
-  { value: "grimstad", label: "Grimstad" },
-];
-const departments = [
-  { value: "administration", label: "Administrasjon" },
-  { value: "arkitektur", label: "Arkitektur" },
-  { value: "analyse", label: "Data og analyse" },
-  { value: "design", label: "Design" },
-  { value: "plattform", label: "Plattform og sky" },
-  { value: "prosjektledelse", label: "Prosjektledelse" },
-  { value: "test", label: "Test" },
-  { value: "utvikling", label: "Utvikling" },
-];
 ---
 
 <Layout title="Folka">
@@ -82,8 +71,8 @@ const departments = [
                   locations.map((location) => (
                     <Radio
                       name="location"
-                      label={location.label}
-                      value={location.value}
+                      label={location.name}
+                      value={location.slug.current}
                     />
                   ))
                 }
@@ -93,11 +82,11 @@ const departments = [
               <div class="flex flex-col gap-2">
                 <Radio name="department" label="Vis alle" value="all" checked />
                 {
-                  departments.map((department) => (
+                  services.map((service) => (
                     <Radio
                       name="department"
-                      label={department.label}
-                      value={department.value}
+                      label={service.title}
+                      value={service.slug.current}
                     />
                   ))
                 }
@@ -120,8 +109,8 @@ const departments = [
           <div class="grid grid-cols-2 gap-x-gutter gap-y-section lg:col-span-3 md:grid-cols-4">
             {staffList.map((item) => (
               <div
-                data-location={item.location}
-                data-department={item.department}
+                data-location={item.location?.slug.current || "none"}
+                data-department={item.serviceType?.slug.current || "none"}
                 class="flex flex-col gap-2 lg:gap-4"
               >
                 <picture class="aspect-square overflow-hidden">
@@ -160,7 +149,7 @@ const departments = [
       </p>
     </CardHeader>
 
-    <ImageGallery node={staffPage.imageGallery} />
+    <ImageGallery node={staffPage.imageGallery as unknown as any} />
   </CardLayout>
 
   <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">

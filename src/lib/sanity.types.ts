@@ -239,8 +239,18 @@ export type Staff = {
   name: string;
   slug: Slug;
   position: string;
-  location: "oslo" | "hamar" | "grimstad";
-  department: "administration" | "arkitektur" | "analyse" | "design" | "plattform" | "prosjektledelse" | "test" | "utvikling";
+  location: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "location";
+  };
+  serviceType: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "service";
+  };
   image: {
     asset?: {
       _ref: string;
@@ -253,6 +263,22 @@ export type Staff = {
     crop?: SanityImageCrop;
     _type: "image";
   };
+};
+
+export type Location = {
+  _id: string;
+  _type: "location";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name: string;
+  slug: Slug;
+  order: number;
+  address: string;
+  address2: string;
+  phone: string;
+  email: string;
+  mapLink: string;
 };
 
 export type Activity = {
@@ -1473,6 +1499,8 @@ export type Service = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  visible?: boolean;
+  order: number;
   title: string;
   slug: Slug;
   description: string;
@@ -1954,5 +1982,5 @@ export type SanityAssetSourceData = {
   url?: string;
 };
 
-export type AllSanitySchemaTypes = Vacancies | Page | Blog | Staff | Activity | Work | Logo | News | WorkherePageType | StaffPageType | ServicesPageType | Citation | Service | WorkerPageType | FrontPageType | SiteSettings | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
+export type AllSanitySchemaTypes = Vacancies | Page | Blog | Staff | Location | Activity | Work | Logo | News | WorkherePageType | StaffPageType | ServicesPageType | Citation | Service | WorkerPageType | FrontPageType | SiteSettings | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;

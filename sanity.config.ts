@@ -60,6 +60,10 @@ export default defineConfig({
                   .documentId("workherePageType")
               ),
             S.divider(),
+            S.listItem()
+              .title("Sider")
+              .child(S.documentTypeList("page").title("Sider")),
+            S.divider(),
             ...S.documentTypeListItems().filter(
               (item) =>
                 [
@@ -67,6 +71,9 @@ export default defineConfig({
                   "frontPageType",
                   "workerPageType",
                   "servicesPageType",
+                  "staffPageType",
+                  "workherePageType",
+                  "page",
                 ].includes(item.getId() || "") === false
             ),
           ]),

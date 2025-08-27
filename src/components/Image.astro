@@ -24,6 +24,11 @@ const {
 };
 
 const config = sanityClient.config();
+
+if (image?.asset?._ref === undefined) {
+  console.error(`Image asset is not defined`);
+  return null;
+}
 ---
 
 <SanityImage

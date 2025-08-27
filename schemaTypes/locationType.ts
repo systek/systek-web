@@ -1,0 +1,59 @@
+import { defineField, defineType } from "sanity";
+
+export const locationType = defineType({
+  name: "location",
+  title: "Lokasjon",
+  type: "document",
+  fields: [
+    defineField({
+      name: "name",
+      title: "Navn",
+      type: "string",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "slug",
+      title: "Slug",
+      type: "slug",
+      description: "Brukes for filter på folka-siden",
+      options: { source: "name" },
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "order",
+      title: "Rekkefølge",
+      type: "number",
+      validation: (rule) => rule.required().min(1).integer(),
+    }),
+    defineField({
+      name: "address",
+      title: "Adresse",
+      type: "string",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "address2",
+      title: "Addresse linje 2",
+      type: "string",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "phone",
+      title: "Telefon",
+      type: "string",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "email",
+      title: "Epost",
+      type: "string",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "mapLink",
+      title: "Kartlink (Google Maps)",
+      type: "url",
+      validation: (rule) => rule.required(),
+    }),
+  ],
+});

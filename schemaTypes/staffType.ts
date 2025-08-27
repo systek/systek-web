@@ -8,7 +8,8 @@ export const staffType = defineType({
     defineField({
       name: "name",
       type: "string",
-      validation: (rule) => rule.required(),
+      // Can not start with space
+      validation: (rule) => rule.required().regex(/^\S.*$/, "no leading space"),
     }),
     defineField({
       name: "slug",
@@ -23,31 +24,14 @@ export const staffType = defineType({
     }),
     defineField({
       name: "location",
-      type: "string",
-      options: {
-        list: [
-          { value: "oslo", title: "Oslo" },
-          { value: "hamar", title: "Hamar" },
-          { value: "grimstad", title: "Grimstad" },
-        ],
-      },
+      type: "reference",
+      to: [{ type: "location" }],
       validation: (rule) => rule.required(),
     }),
     defineField({
-      name: "department",
-      type: "string",
-      options: {
-        list: [
-          { value: "administration", title: "Administrasjon" },
-          { value: "arkitektur", title: "Arkitektur" },
-          { value: "analyse", title: "Data og analyse" },
-          { value: "design", title: "Design" },
-          { value: "plattform", title: "Plattform og sky" },
-          { value: "prosjektledelse", title: "Prosjektledelse" },
-          { value: "test", title: "Test" },
-          { value: "utvikling", title: "Utvikling" },
-        ],
-      },
+      name: "serviceType",
+      type: "reference",
+      to: [{ type: "service" }],
       validation: (rule) => rule.required(),
     }),
     defineField({

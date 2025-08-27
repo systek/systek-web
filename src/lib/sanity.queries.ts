@@ -4,6 +4,7 @@ import type {
   Blog,
   Citation,
   FrontPageType,
+  Location,
   Logo,
   News,
   Service,
@@ -17,12 +18,23 @@ import type {
 } from "./sanity.types";
 
 export async function fetchServiceItems(): Promise<Service[]> {
-  return sanityClient.fetch(`*[_type == "service" && defined(slug)] {
+  return sanityClient.fetch(`*[_type == "service" && defined(slug) && visible == true] | order(order asc) {
     _id,
     title,
     description,
     slug
   }`);
+}
+
+export async function fetchServiceItemsAll(): Promise<Service[]> {
+  return sanityClient.fetch(`*[_type == "service" && defined(slug)] | order(order asc) {
+    title,
+    slug
+  }`);
+}
+
+export async function fetchLocations(): Promise<Location[]> {
+  return sanityClient.fetch(`*[_type == "location"] | order(order asc)`);
 }
 
 export async function fetchNewsItems(limit = 8, skip = 0): Promise<News[]> {
@@ -79,13 +91,18 @@ export async function fetchBlogItems(): Promise<
   }`);
 }
 
-export async function fetchStaffItems(): Promise<Staff[]> {
+export async function fetchStaffItems(): Promise<
+  (Omit<Staff, "serviceType" | "location"> & {
+    serviceType: Service;
+    location: Location;
+  })[]
+> {
   return sanityClient.fetch(`*[_type == "staff"] | order(name asc) {
     _id,
     name,
     position,
-    location,
-    department,
+    location->,
+    serviceType->,
     slug,
     image
   }`);

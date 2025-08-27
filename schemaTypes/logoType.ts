@@ -15,6 +15,9 @@ export const logoType = defineType({
       name: "image",
       title: "Logo",
       type: "image",
+      options: {
+        accept: "image/svg+xml",
+      },
       fields: [
         defineField({
           name: "alt",

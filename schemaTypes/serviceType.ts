@@ -8,6 +8,18 @@ export const serviceType = defineType({
   type: "document",
   fields: [
     defineField({
+      name: "visible",
+      title: "Synlig",
+      type: "boolean",
+      initialValue: true,
+    }),
+    defineField({
+      name: "order",
+      title: "Rekkefølge",
+      type: "number",
+      validation: (rule) => rule.required().min(1).integer(),
+    }),
+    defineField({
       name: "title",
       title: "Tittel",
       type: "string",
