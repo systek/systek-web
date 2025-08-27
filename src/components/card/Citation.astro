@@ -2,7 +2,7 @@
 import type { Citation as CitationType } from "../../lib/sanity.types";
 
 import Button from "../Button.astro";
-import CardHeader from "./layout/CardHeader.astro";
+import CardRightColumn from "./layout/CardRightColumn.astro";
 import CardLayout from "./layout/CardLayout.astro";
 import CitationSub from "./CitationSub.astro";
 
@@ -12,11 +12,13 @@ interface Props {
   class?: string;
 }
 
-const { title, citation, class: className } = Astro.props;
+const { citation, class: className } = Astro.props;
 ---
 
-<CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
-  <CardHeader title="Design og brukeropplevelse">
+<CardLayout
+  class:list={["border-t mt-page border-stroke mx-grid pt-grid", className]}
+>
+  <CardRightColumn title="Design og brukeropplevelse">
     <p class="max-w-[50rem] lg:max-w-[47.619vw] font-light text-xl-fluid">
       «{citation.text}»
     </p>
@@ -29,5 +31,5 @@ const { title, citation, class: className } = Astro.props;
     <Button class="my-grid" href="/tjenester/design-og-brukeropplevelse">
       Les om tjenesten
     </Button>
-  </CardHeader>
+  </CardRightColumn>
 </CardLayout>

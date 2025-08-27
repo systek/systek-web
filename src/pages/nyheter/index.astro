@@ -3,7 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import ExternalIcon from "../../assets/icons/external.svg";
-import CardHeader from "../../components/card/layout/CardHeader.astro";
+import CardRightColumn from "../../components/card/layout/CardRightColumn.astro";
 import CardLayout from "../../components/card/layout/CardLayout.astro";
 import { fetchNewsItems } from "../../lib/sanity.queries";
 import PageHeader from "../../components/PageHeader.astro";
@@ -19,7 +19,7 @@ const newsItems = await fetchNewsItems(10, 0);
   <PageHeader title="Siste nytt fra Systek" />
 
   <CardLayout class="mt-page mx-grid pt-grid">
-    <CardHeader title="Nyheter">
+    <CardRightColumn title="Nyheter">
       <!-- todo: time element does not match figma on desktop -->
       {
         newsItems.map((item) => (
@@ -35,7 +35,7 @@ const newsItems = await fetchNewsItems(10, 0);
           </div>
         ))
       }
-    </CardHeader>
+    </CardRightColumn>
   </CardLayout>
 
   <Footer />

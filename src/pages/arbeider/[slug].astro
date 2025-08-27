@@ -12,7 +12,7 @@ import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import CardLayout from "../../components/card/layout/CardLayout.astro";
-import CardHeader from "../../components/card/layout/CardHeader.astro";
+import CardRightColumn from "../../components/card/layout/CardRightColumn.astro";
 import Button from "../../components/Button.astro";
 import PortableText from "../../components/PortableText.astro";
 import Citation from "../../components/card/Citation.astro";
@@ -22,7 +22,7 @@ import Technologies from "../../components/portable/Technologies.astro";
 import PageHeader from "../../components/PageHeader.astro";
 import { formatDate } from "../../utils/date";
 import Article from "../../components/Article.astro";
-import { baseWidth, gutter, oneFourth, oneHalf } from "../../utils/number";
+import { fullWidth, gutter, oneFourth, oneHalf } from "../../utils/number";
 
 export async function getStaticPaths() {
   const works = await sanityClient.fetch(`*[_type == "work"] { 
@@ -135,7 +135,7 @@ const contactItems = [
   {work.citation && <Citation title="Tjenester" citation={work.citation} />}
 
   <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
-    <CardHeader title="Kontakt">
+    <CardRightColumn title="Kontakt">
       <p
         class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw] font-light text-2xl-fluid"
       >
@@ -171,11 +171,11 @@ const contactItems = [
           ))
         }
       </div>
-    </CardHeader>
+    </CardRightColumn>
   </CardLayout>
 
   <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
-    <CardHeader title="Arbeider">
+    <CardRightColumn title="Arbeider">
       <p
         class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw] font-light text-2xl-fluid"
       >
@@ -183,7 +183,7 @@ const contactItems = [
       </p>
 
       <Button class="mt-grid" href="/arbeider">Se alle arbeider</Button>
-    </CardHeader>
+    </CardRightColumn>
 
     <div
       class="grid grid-cols-2 lg:col-span-4 md:grid-cols-4 gap-gutter mt-section"
@@ -203,7 +203,7 @@ const contactItems = [
                   alt={item.image.alt}
                   sizes={
                     index % 3 === 0
-                      ? `(min-width: 105rem) calc(${oneHalf("lg")}), (min-width: 50rem) calc(${oneHalf("md")}), calc(${baseWidth("sm")})`
+                      ? `(min-width: 105rem) calc(${oneHalf("lg")}), (min-width: 50rem) calc(${oneHalf("md")}), calc(${fullWidth("sm")})`
                       : `(min-width: 105rem) calc(${oneFourth("lg")}), (min-width: 50rem) calc(${oneFourth("md")}), calc(${oneHalf("sm")})`
                   }
                 />

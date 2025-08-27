@@ -1,6 +1,6 @@
 ---
 import type { Image as ImageType } from "sanity";
-import { baseWidth, oneHalf, vw } from "../../utils/number";
+import { fullWidth, oneHalf, vw } from "../../utils/number";
 import Image from "../Image.astro";
 import CardLayout from "./layout/CardLayout.astro";
 
@@ -45,7 +45,7 @@ const { label, title, text, contacts } = Astro.props;
             alt={contact.alt}
             width={810}
             height={608}
-            sizes={`(min-width: 105rem) calc(${oneHalf("lg")}), (min-width: 50rem) calc(${baseWidth("md")}), calc(${baseWidth("sm")})`}
+            sizes={`(min-width: 105rem) calc(${oneHalf("lg")}), (min-width: 50rem) calc(${fullWidth("md")}), calc(${fullWidth("sm")})`}
           />
         </picture>
         <p>{contact.name}</p>

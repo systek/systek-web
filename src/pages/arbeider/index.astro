@@ -1,5 +1,5 @@
 ---
-import CardHeader from "../../components/card/layout/CardHeader.astro";
+import CardRightColumn from "../../components/card/layout/CardRightColumn.astro";
 import CardLayout from "../../components/card/layout/CardLayout.astro";
 import Footer from "../../components/Footer.astro";
 import Header from "../../components/Header.astro";
@@ -15,7 +15,7 @@ import Button from "../../components/Button.astro";
 import LinkBox from "../../components/LinkBox.astro";
 import Image from "../../components/Image.astro";
 import PageHeader from "../../components/PageHeader.astro";
-import { baseWidth, oneHalf, threeFourth } from "../../utils/number";
+import { fullWidth, oneHalf, threeFourth } from "../../utils/number";
 import Logos from "../../components/logo/Logos.astro";
 
 const [workersInfo, logoItems, workItems, serviceItems] = await Promise.all([
@@ -31,30 +31,30 @@ const [workersInfo, logoItems, workItems, serviceItems] = await Promise.all([
 
   <PageHeader image={workersInfo.heroImage}>
     <CardLayout>
-      <CardHeader title="Arbeider">
+      <CardRightColumn title="Arbeider">
         <p
           class="max-w-[72rem] lg:max-w-[68.571vw] md:mr-20 lg:mr-[4.7619vw] font-light text-3xl-fluid"
         >
           {workersInfo.title}
         </p>
-      </CardHeader>
+      </CardRightColumn>
     </CardLayout>
   </PageHeader>
 
   <CardLayout class="mt-section mx-grid">
-    <CardHeader>
+    <CardRightColumn>
       <p
         class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw] font-light text-2xl-fluid"
       >
         {workersInfo.logoTitle}
       </p>
-    </CardHeader>
+    </CardRightColumn>
   </CardLayout>
 
   <Logos class="mt-section mb-page" logos={logoItems} />
 
   <CardLayout class="mt-page mx-grid">
-    <CardHeader>
+    <CardRightColumn>
       <p
         class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw] font-light text-2xl-fluid"
       >
@@ -75,7 +75,7 @@ const [workersInfo, logoItems, workItems, serviceItems] = await Promise.all([
                   alt={item.image.alt}
                   width={603}
                   height={452}
-                  sizes={`(min-width: 105rem) calc(${oneHalf("lg", threeFourth("lg"))}), (min-width: 50rem) calc(${oneHalf("md")}), calc(${baseWidth("sm")})`}
+                  sizes={`(min-width: 105rem) calc(${oneHalf("lg", threeFourth("lg"))}), (min-width: 50rem) calc(${oneHalf("md")}), calc(${fullWidth("sm")})`}
                 />
               </picture>
               <p class="mt-gap font-bold text-md-fluid group-link-underline">
@@ -86,12 +86,12 @@ const [workersInfo, logoItems, workItems, serviceItems] = await Promise.all([
           ))
         }
       </div>
-    </CardHeader>
+    </CardRightColumn>
   </CardLayout>
 </Layout>
 
 <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
-  <CardHeader title="Tjenester">
+  <CardRightColumn title="Tjenester">
     <p
       class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw] font-light text-2xl-fluid"
     >
@@ -99,7 +99,7 @@ const [workersInfo, logoItems, workItems, serviceItems] = await Promise.all([
     </p>
 
     <Button href="/tjenester" class="mt-grid">Se våre tjenester</Button>
-  </CardHeader>
+  </CardRightColumn>
   <div></div>
   <div class="grid lg:col-span-3 gap-gutter mt-section md:grid-cols-3">
     {

@@ -46,15 +46,39 @@
   --font-weight-bold: 700;
   --font-weight-black: 900;
 
+  /*
+  * todo: responsive border radius
+  * --radius-lg: calc((x / 105) * 100vw); 
+  */
   --radius-*: initial;
   --radius-sm: 0.25rem;
   --radius-md: 0.5rem;
   --radius-lg: 1rem;
 
-  /* non-tailwind */
+  --spacing-gap-sm: 0.425rem;
+  --spacing-gap-md: 0.5rem;
+  --spacing-gap-lg: calc((0.5 / 105) * 100vw);
+
+  --spacing-grid-sm: 1rem;
+  --spacing-grid-md: 1.25rem;
+  --spacing-grid-lg: calc((1.25 / 105) * 100vw); /* 1.25rem */
+
+  --spacing-gutter-sm: 0.75rem;
+  --spacing-gutter-md: 1.25rem;
+  --spacing-gutter-lg: calc((1.25 / 105) * 100vw); /* 1.25rem */
+
+  --spacing-section-sm: 2.5rem;
+  --spacing-section-md: 3.5rem;
+  --spacing-section-lg: calc((4 / 105) * 100vw); /* 4rem */
+
+  --spacing-page-sm: 4rem;
+  --spacing-page-md: 8rem;
+  --spacing-page-lg: calc((9 / 105) * 100vw); /* 9rem */
+
   --stroke-base: 1px;
   --stroke-md: 2px;
 
+  /* z-index hierarchy */
   --z-base: auto;
   --z-filter: 1;
   --z-header: 2;

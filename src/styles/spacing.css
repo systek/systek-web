@@ -1,35 +1,3 @@
-@theme {
-  /* gap desktop: 4px, tablet: 8px, mobile: 8px */
-  --spacing-gap-sm: 0.425rem;
-  --spacing-gap-md: 0.5rem;
-  --spacing-gap-lg: calc((0.5 / 105) * 100vw);
-
-  /* grid desktop: 20px, tablet: 20px, mobile: 16px */
-  --spacing-grid-sm: 1rem;
-  --spacing-grid-md: 1.25rem;
-  --spacing-grid-lg: calc((1.25 / 105) * 100vw); /* 1.25rem */
-
-  /* gutter desktop: 20px, tablet: 20px, mobile: 12px */
-  --spacing-gutter-sm: 0.75rem;
-  --spacing-gutter-md: 1.25rem;
-  --spacing-gutter-lg: calc((1.25 / 105) * 100vw); /* 1.25rem */
-
-  /* section desktop: 64px, tablet: 56px, mobile: 40px */
-  --spacing-section-sm: 2.5rem;
-  --spacing-section-md: 3.5rem;
-  --spacing-section-lg: calc((4 / 105) * 100vw); /* 4rem */
-
-  /* page desktop: 144px, tablet: 128px, mobile: 64px */
-  --spacing-page-sm: 4rem;
-  --spacing-page-md: 8rem;
-  --spacing-page-lg: calc((9 / 105) * 100vw); /* 9rem */
-
-  /*
-  * todo: responsive border radius
-  --radius-lg: calc((1 / 105) * 100vw); 
-  */
-}
-
 /*
 * responsive spacing and sizing for grid, gutter, section, and page
 * for all tailwind spacing and sizing utilities like px-*, max-h-*, and many more

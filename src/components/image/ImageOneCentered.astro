@@ -1,6 +1,6 @@
 ---
 import type { Image as SanityImage } from "sanity";
-import { baseWidth, vw } from "../../utils/number";
+import { fullWidth, vw } from "../../utils/number";
 import Image from "../Image.astro";
 
 interface Props {
@@ -19,7 +19,7 @@ const { node } = Astro.props;
         image={node}
         width={1088}
         height={544}
-        sizes={`(min-width: 105rem) ${vw(68)}, (min-width: 50rem) 68rem, calc(${baseWidth("sm")})`}
+        sizes={`(min-width: 105rem) ${vw(68)}, (min-width: 50rem) 68rem, calc(${fullWidth("sm")})`}
       />
       <figcaption class="mt-gutter text-xs-fluid">
         {node.caption}

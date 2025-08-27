@@ -17,14 +17,14 @@ import {
   fetchNewsItems,
   fetchServiceItems,
 } from "../lib/sanity.queries";
-import CardHeader from "../components/card/layout/CardHeader.astro";
+import CardRightColumn from "../components/card/layout/CardRightColumn.astro";
 import Accordion from "../components/accordion/Accordion.astro";
 import AccordionItem from "../components/accordion/AccordionItem.astro";
 import LinkBox from "../components/LinkBox.astro";
 import Contact from "../components/card/Contact.astro";
 import { formatDate } from "../utils/date";
 import Logos from "../components/logo/Logos.astro";
-import { baseWidth, oneFourth, oneHalf, threeFourth } from "../utils/number";
+import { fullWidth, oneFourth, oneHalf, threeFourth } from "../utils/number";
 
 const [
   frontPageData,
@@ -76,13 +76,13 @@ const logoBottomItems = logoItems.slice(index);
         mode="cover"
         width={1640}
         height={820}
-        sizes={`(min-width: 105rem) calc(${baseWidth("lg")}), (min-width: 50rem) calc(${baseWidth("md")}), calc(${baseWidth("sm")})`}
+        sizes={`(min-width: 105rem) calc(${fullWidth("lg")}), (min-width: 50rem) calc(${fullWidth("md")}), calc(${fullWidth("sm")})`}
       />
     </picture>
   </div>
 
   <CardLayout class="border-t mt-section border-stroke mx-grid pt-grid">
-    <CardHeader title="Tjenester">
+    <CardRightColumn title="Tjenester">
       <p
         class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw] font-light text-2xl-fluid"
       >
@@ -90,7 +90,7 @@ const logoBottomItems = logoItems.slice(index);
       </p>
 
       <Button href="/tjenester" class="mt-grid">Se våre tjenester</Button>
-    </CardHeader>
+    </CardRightColumn>
     <div></div>
     <div class="grid lg:col-span-3 gap-gutter mt-section md:grid-cols-3">
       {
@@ -109,7 +109,7 @@ const logoBottomItems = logoItems.slice(index);
   </CardLayout>
 
   <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
-    <CardHeader title="Nyheter">
+    <CardRightColumn title="Nyheter">
       <p
         class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw] font-light text-2xl-fluid"
       >
@@ -117,7 +117,7 @@ const logoBottomItems = logoItems.slice(index);
       </p>
 
       <Button class="mt-grid" href="/nyheter">Se alle nyheter</Button>
-    </CardHeader>
+    </CardRightColumn>
 
     <div></div>
     <div class="border-t border-stroke mt-section lg:col-span-3">
@@ -142,7 +142,7 @@ const logoBottomItems = logoItems.slice(index);
   <Logos class="my-page" logos={logoItems} />
 
   <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
-    <CardHeader title="Arbeider">
+    <CardRightColumn title="Arbeider">
       <p
         class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw] font-light text-2xl-fluid"
       >
@@ -150,7 +150,7 @@ const logoBottomItems = logoItems.slice(index);
       </p>
 
       <Button class="mt-grid" href="/arbeider">Se alle arbeider</Button>
-    </CardHeader>
+    </CardRightColumn>
 
     <div
       class="grid grid-cols-2 lg:col-span-4 md:grid-cols-4 gap-gutter mt-section"
@@ -170,7 +170,7 @@ const logoBottomItems = logoItems.slice(index);
                   alt={item.image.alt}
                   sizes={
                     index % 3 === 0
-                      ? `(min-width: 105rem) calc(${oneHalf("lg")}), (min-width: 50rem) calc(${oneHalf("md")}), calc(${baseWidth("sm")})`
+                      ? `(min-width: 105rem) calc(${oneHalf("lg")}), (min-width: 50rem) calc(${oneHalf("md")}), calc(${fullWidth("sm")})`
                       : `(min-width: 105rem) calc(${oneFourth("lg")}), (min-width: 50rem) calc(${oneFourth("md")}), calc(${oneHalf("sm")})`
                   }
                 />
@@ -187,13 +187,13 @@ const logoBottomItems = logoItems.slice(index);
   </CardLayout>
 
   <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
-    <CardHeader title="Foredrag og fagmøter">
+    <CardRightColumn title="Foredrag og fagmøter">
       <p
         class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw] font-light text-2xl-fluid"
       >
         {frontPageData.activityTitle}
       </p>
-    </CardHeader>
+    </CardRightColumn>
     <div></div>
     <div class="lg:col-span-3">
       <div class="mt-section">
@@ -205,7 +205,7 @@ const logoBottomItems = logoItems.slice(index);
             mode="cover"
             width={1225}
             height={613}
-            sizes={`calc(${threeFourth("lg")}), (min-width: 50rem) calc(${baseWidth("md")}), calc(${baseWidth("sm")})`}
+            sizes={`calc(${threeFourth("lg")}), (min-width: 50rem) calc(${fullWidth("md")}), calc(${fullWidth("sm")})`}
           />
         </picture>
       </div>
@@ -287,7 +287,7 @@ const logoBottomItems = logoItems.slice(index);
   </CardLayout>
 
   <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
-    <CardHeader title="Jobbe her?">
+    <CardRightColumn title="Jobbe her?">
       <p
         class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw] font-light text-2xl-fluid"
       >
@@ -297,7 +297,7 @@ const logoBottomItems = logoItems.slice(index);
       <Button class="mt-grid" href="https://systek.homerun.co">
         Se ledige stillinger
       </Button>
-    </CardHeader>
+    </CardRightColumn>
 
     <Accordion class="mt-section order-1 lg:order-none">
       {
@@ -320,14 +320,14 @@ const logoBottomItems = logoItems.slice(index);
           mode="cover"
           width={1225}
           height={613}
-          sizes={`calc(${threeFourth("lg")}), (min-width: 50rem) calc(${baseWidth("md")}), calc(${baseWidth("sm")})`}
+          sizes={`calc(${threeFourth("lg")}), (min-width: 50rem) calc(${fullWidth("md")}), calc(${fullWidth("sm")})`}
         />
       </picture>
     </div>
   </CardLayout>
 
   <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
-    <CardHeader title="Blogg">
+    <CardRightColumn title="Blogg">
       <p
         class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw] font-light text-2xl-fluid"
       >
@@ -335,7 +335,7 @@ const logoBottomItems = logoItems.slice(index);
       </p>
 
       <Button class="mt-grid">Se alle blogginnlegg</Button>
-    </CardHeader>
+    </CardRightColumn>
 
     <div></div>
     <div class="grid lg:col-span-3 md:grid-cols-2 gap-gutter mt-section">
@@ -350,7 +350,7 @@ const logoBottomItems = logoItems.slice(index);
                 alt={item.image.alt}
                 width={603}
                 height={452}
-                sizes={`(min-width: 105rem) calc(${oneHalf("lg", threeFourth("lg"))}), (min-width: 50rem) calc(${oneHalf("md")}), calc(${baseWidth("sm")})`}
+                sizes={`(min-width: 105rem) calc(${oneHalf("lg", threeFourth("lg"))}), (min-width: 50rem) calc(${oneHalf("md")}), calc(${fullWidth("sm")})`}
               />
             </picture>
             <p class="mt-gap font-bold text-md-fluid group-link-underline">

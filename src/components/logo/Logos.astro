@@ -1,6 +1,6 @@
 ---
 import type { Logo as LogoType } from "../../lib/sanity.types";
-import CardHeader from "../card/layout/CardHeader.astro";
+import CardRightColumn from "../card/layout/CardRightColumn.astro";
 import CardLayout from "../card/layout/CardLayout.astro";
 import Logo from "./Logo.astro";
 
@@ -19,7 +19,7 @@ const logoBottomItems = logos.slice(index);
 ---
 
 <CardLayout class:list={["mx-grid", className]}>
-  <CardHeader>
+  <CardRightColumn>
     <div class="grid gap-section mx-auto max-w-[30rem] md:max-w-full">
       <div class="grid grid-cols-2 gap-section md:flex md:justify-between">
         {
@@ -36,5 +36,5 @@ const logoBottomItems = logos.slice(index);
         }
       </div>
     </div>
-  </CardHeader>
+  </CardRightColumn>
 </CardLayout>

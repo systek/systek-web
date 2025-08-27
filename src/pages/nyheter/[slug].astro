@@ -8,7 +8,7 @@ import Footer from "../../components/Footer.astro";
 import PortableText from "../../components/PortableText.astro";
 import ExternalIcon from "../../assets/icons/external.svg";
 import Button from "../../components/Button.astro";
-import CardHeader from "../../components/card/layout/CardHeader.astro";
+import CardRightColumn from "../../components/card/layout/CardRightColumn.astro";
 import CardLayout from "../../components/card/layout/CardLayout.astro";
 import PageHeader from "../../components/PageHeader.astro";
 import { formatDate } from "../../utils/date";
@@ -49,7 +49,7 @@ const { news, otherNews } = Astro.props as {
   </Article>
 
   <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
-    <CardHeader title="Nyheter">
+    <CardRightColumn title="Nyheter">
       <p
         class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw] font-light text-2xl-fluid"
       >
@@ -57,7 +57,7 @@ const { news, otherNews } = Astro.props as {
       </p>
 
       <Button class="mt-grid" href="/nyheter">Se alle nyheter</Button>
-    </CardHeader>
+    </CardRightColumn>
 
     <div></div>
     <div class="border-t border-stroke mt-section lg:col-span-3">

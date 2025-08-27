@@ -16,14 +16,14 @@ import type {
   Vacancies,
 } from "../../lib/sanity.types";
 import CardLayout from "../../components/card/layout/CardLayout.astro";
-import CardHeader from "../../components/card/layout/CardHeader.astro";
+import CardRightColumn from "../../components/card/layout/CardRightColumn.astro";
 import Button from "../../components/Button.astro";
 import Contact from "../../components/card/Contact.astro";
 import { getOGImageUrl } from "../../utils/image";
 import PageHeader from "../../components/PageHeader.astro";
 import { formatDate } from "../../utils/date";
 import Article from "../../components/Article.astro";
-import { baseWidth, gutter, oneHalf, threeFourth, vw } from "../../utils/number";
+import { fullWidth, gutter, oneHalf, threeFourth, vw } from "../../utils/number";
 
 type PageType = Omit<Service, "citation" | "works"> & {
   citation: CitationType;
@@ -88,14 +88,14 @@ const vacancies: Vacancies[] = await sanityClient.fetch(
   {
     service.works && (
       <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
-        <CardHeader title="Arbeider">
+        <CardRightColumn title="Arbeider">
           <p class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw] font-light text-2xl-fluid">
             Relaterte arbeider innen {service.title.toLowerCase()}
           </p>
           <Button class="mt-grid" href="/arbeider">
             Se alle arbeider
           </Button>
-        </CardHeader>
+        </CardRightColumn>
 
         <div />
         <div class="grid lg:col-span-3 md:grid-cols-2 gap-gutter mt-section">
@@ -109,7 +109,7 @@ const vacancies: Vacancies[] = await sanityClient.fetch(
                   alt={item.image.alt}
                   width={603}
                   height={452}
-                  sizes={`(min-width: 105rem) calc(${oneHalf('lg', threeFourth("lg"))}), (min-width: 50rem) calc(${oneHalf("md")}), calc(${baseWidth("sm")})`}
+                  sizes={`(min-width: 105rem) calc(${oneHalf('lg', threeFourth("lg"))}), (min-width: 50rem) calc(${oneHalf("md")}), calc(${fullWidth("sm")})`}
                 />
               </picture>
               <p class="mt-gap font-bold text-md-fluid group-link-underline">
@@ -125,14 +125,14 @@ const vacancies: Vacancies[] = await sanityClient.fetch(
 
 {vacancies.length > 0 && (
   <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
-    <CardHeader title="Ledige stillinger">
+    <CardRightColumn title="Ledige stillinger">
       <p
         class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw] font-light text-2xl-fluid"
       >
         Vil du bli en del et 100% ansatteid selskap drevet av dyktige kolleger i
         et tverrfaglig miljø?
       </p>
-    </CardHeader>
+    </CardRightColumn>
 
     <div class="mt-section lg:col-span-4">
       <!-- seperate markup for mobile and desktop -->

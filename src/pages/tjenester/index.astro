@@ -1,7 +1,7 @@
 ---
 import LinkBox from "../../components/LinkBox.astro";
 import CardLayout from "../../components/card/layout/CardLayout.astro";
-import CardHeader from "../../components/card/layout/CardHeader.astro";
+import CardRightColumn from "../../components/card/layout/CardRightColumn.astro";
 import Citation from "../../components/card/Citation.astro";
 import Footer from "../../components/Footer.astro";
 import Header from "../../components/Header.astro";
@@ -13,7 +13,7 @@ import {
 import Contact from "../../components/card/Contact.astro";
 import Image from "../../components/Image.astro";
 import type { Citation as CitationType } from "../../lib/sanity.types";
-import { baseWidth, threeFourth } from "../../utils/number";
+import { fullWidth, threeFourth } from "../../utils/number";
 
 const [servicesInfo, serviceItems] = await Promise.all([
   fetchServicesSingleton(),
@@ -65,20 +65,20 @@ const [servicesInfo, serviceItems] = await Promise.all([
           mode="cover"
           width={820}
           height={615}
-          sizes={`(min-width: 105rem) calc(${baseWidth("lg")} / 2), (min-width: 50rem) calc(${baseWidth("md")}), calc(${baseWidth("sm")})`}
+          sizes={`(min-width: 105rem) calc(${fullWidth("lg")} / 2), (min-width: 50rem) calc(${fullWidth("md")}), calc(${fullWidth("sm")})`}
         />
       </picture>
     </div>
   </div>
 
   <CardLayout class="mt-section mx-grid">
-    <CardHeader>
+    <CardRightColumn>
       <p
         class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-[4.7619vw] font-light text-2xl-fluid"
       >
         {servicesInfo.description}
       </p>
-    </CardHeader>
+    </CardRightColumn>
     <div></div>
     <div class="lg:col-span-3">
       <div class="mt-section">
@@ -90,7 +90,7 @@ const [servicesInfo, serviceItems] = await Promise.all([
             mode="cover"
             width={1225}
             height={613}
-            sizes={`calc(${threeFourth("lg")}), (min-width: 50rem) calc(${baseWidth("md")}), calc(${baseWidth("sm")})`}
+            sizes={`calc(${threeFourth("lg")}), (min-width: 50rem) calc(${fullWidth("md")}), calc(${fullWidth("sm")})`}
           />
         </picture>
       </div>

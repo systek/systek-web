@@ -12,7 +12,6 @@
     "sanity:start": "sanity start",
     "sanity:build": "sanity build",
     "sanity:deploy": "sanity deploy",
-    "sanity:deploy-graphql": "sanity graphql deploy",
     "sanity:generate-types": "sanity schema extract --enforce-required-fields && sanity typegen generate"
   },
   "dependencies": {

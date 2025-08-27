@@ -1,6 +1,6 @@
 ---
 import Button from "../../components/Button.astro";
-import CardHeader from "../../components/card/layout/CardHeader.astro";
+import CardRightColumn from "../../components/card/layout/CardRightColumn.astro";
 import CardLayout from "../../components/card/layout/CardLayout.astro";
 import Footer from "../../components/Footer.astro";
 import Header from "../../components/Header.astro";
@@ -45,13 +45,13 @@ const staffByInitial = staffItems.reduce(
 
   <PageHeader image={staffPage.heroImage}>
     <CardLayout>
-      <CardHeader title="Folka">
+      <CardRightColumn title="Folka">
         <p
           class="max-w-[72rem] lg:max-w-[68.571vw] md:mr-20 lg:mr-[4.7619vw] font-light text-3xl-fluid"
         >
           {staffPage.title}
         </p>
-      </CardHeader>
+      </CardRightColumn>
     </CardLayout>
   </PageHeader>
 
@@ -140,14 +140,14 @@ const staffByInitial = staffItems.reduce(
   </div>
 
   <CardLayout class="mt-page mx-grid">
-    <CardHeader>
+    <CardRightColumn>
       <p
         class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw] font-light text-2xl-fluid"
       >
         Vi arrangerer fellesturer, sommerfester, fagdager, sosiale samlinger,
         turneringer og spillkvelder
       </p>
-    </CardHeader>
+    </CardRightColumn>
 
     <ImageGallery node={staffPage.imageGallery as unknown as any} />
   </CardLayout>

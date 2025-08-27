@@ -7,7 +7,7 @@ import {
   fetchVacantPositions,
 } from "../lib/sanity.queries";
 import CardLayout from "../components/card/layout/CardLayout.astro";
-import CardHeader from "../components/card/layout/CardHeader.astro";
+import CardRightColumn from "../components/card/layout/CardRightColumn.astro";
 import Article from "../components/Article.astro";
 import PortableText from "../components/PortableText.astro";
 import Citation from "../components/card/Citation.astro";
@@ -26,13 +26,13 @@ const vacantPositions = await fetchVacantPositions();
   <Header />
   <PageHeader image={workhereData.heroImage}>
     <CardLayout>
-      <CardHeader title="Jobbe her">
+      <CardRightColumn title="Jobbe her">
         <p
           class="max-w-[72rem] lg:max-w-[68.571vw] md:mr-20 lg:mr-[4.7619vw] font-light text-3xl-fluid"
         >
           {workhereData.title}
         </p>
-      </CardHeader>
+      </CardRightColumn>
     </CardLayout>
   </PageHeader>
   <Article>
@@ -45,13 +45,13 @@ const vacantPositions = await fetchVacantPositions();
   }
 
   <CardLayout class="mt-section mx-grid">
-    <CardHeader>
+    <CardRightColumn>
       <p
         class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-[4.7619vw] font-light text-2xl-fluid"
       >
         Åpne roller
       </p>
-    </CardHeader>
+    </CardRightColumn>
     <div></div>
     <div class="lg:col-span-3">
       <div class="grid lg:col-span-3 gap-gutter mt-section md:grid-cols-3">
@@ -75,13 +75,13 @@ const vacantPositions = await fetchVacantPositions();
   </CardLayout>
 
   <CardLayout class="border-t border-stroke mt-section mx-grid">
-    <CardHeader>
+    <CardRightColumn>
       <p
         class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-[4.7619vw] font-light text-2xl-fluid pt-gutter"
       >
         Hvorfor Systek?
       </p>
-    </CardHeader>
+    </CardRightColumn>
     <div></div>
     <div class="lg:col-span-2">
       <PortableText value={workhereData.content} />
@@ -100,13 +100,13 @@ const vacantPositions = await fetchVacantPositions();
   }
 
   <CardLayout class="border-t border-stroke mt-section mx-grid">
-    <CardHeader title="FAQ">
+    <CardRightColumn title="FAQ">
       <p
         class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-[4.7619vw] font-light text-2xl-fluid pt-gutter"
       >
         Ofte stilte spørsmål
       </p>
-    </CardHeader>
+    </CardRightColumn>
     <div></div>
     <Faq
       items={workhereData.faqList as FaqItem[]}
@@ -117,11 +117,11 @@ const vacantPositions = await fetchVacantPositions();
   {
     workhereData.tldrText && (
       <CardLayout class="mt-section mx-grid">
-        <CardHeader>
+        <CardRightColumn>
           <p class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-[4.7619vw] font-light text-2xl-fluid">
             TL;DR om Systek
           </p>
-        </CardHeader>
+        </CardRightColumn>
         <div />
         <div class="lg:col-span-2">
           <PortableText value={workhereData.tldrText} />
