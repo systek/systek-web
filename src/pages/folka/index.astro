@@ -18,8 +18,8 @@ import {
 import Image from "../../components/Image.astro";
 import PageHeader from "../../components/PageHeader.astro";
 import ImageGallery from "../../components/image/ImageGallery.astro";
+import WorkHere from "../../components/card/WorkHere.astro";
 import { oneFourth, oneHalf, threeFourth, vw } from "../../utils/number";
-import WorkHere from "../../components/card/workHere.astro";
 
 const [staffPage, staffItems, services, locations] = await Promise.all([
   fetchStaffSingleton(),
