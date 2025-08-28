@@ -59,6 +59,13 @@ export default defineConfig({
                   .schemaType("workherePageType")
                   .documentId("workherePageType")
               ),
+            S.listItem()
+              .title("Om oss")
+              .child(
+                S.document()
+                  .schemaType("aboutPageType")
+                  .documentId("aboutPageType")
+              ),
             S.divider(),
             S.listItem()
               .title("Sider")
@@ -73,6 +80,7 @@ export default defineConfig({
                   "servicesPageType",
                   "staffPageType",
                   "workherePageType",
+                  "aboutPageType",
                   "page",
                 ].includes(item.getId() || "") === false
             ),

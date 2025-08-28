@@ -108,38 +108,6 @@ const logoBottomItems = logoItems.slice(index);
     </CardRightColumn>
   </CardLayout>
 
-  <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
-    <CardRightColumn title="Nyheter">
-      <p
-        class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw] font-light text-2xl-fluid"
-      >
-        Siste nytt fra Systek
-      </p>
-
-      <Button class="mt-grid" href="/nyheter">Se alle nyheter</Button>
-
-      <div class="border-t border-stroke mt-section">
-        <!-- todo: time element does not match figma on desktop -->
-        {
-          newsItems.map((item) => (
-            <div class="flex justify-between py-grid border-b gap-gutter border-stroke">
-              <a
-                class="flex items-center gap-1 link-underline"
-                href={`/nyheter/${item.slug.current}`}
-              >
-                <ExternalIcon class="size-2.5 lg:size-[0.595vw]" />
-                <p class="text-xs-fluid">{item.title}</p>
-              </a>
-              <p class="md:pr-64 text-xs-fluid">
-                {formatDate(item.publishedAt)}
-              </p>
-            </div>
-          ))
-        }
-      </div>
-    </CardRightColumn>
-  </CardLayout>
-
   <Logos class="my-page" logos={logoItems} />
 
   <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
@@ -321,6 +289,38 @@ const logoBottomItems = logoItems.slice(index);
         />
       </picture>
     </div>
+  </CardLayout>
+
+  <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
+    <CardRightColumn title="Nyheter">
+      <p
+        class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw] font-light text-2xl-fluid"
+      >
+        Siste nytt fra Systek
+      </p>
+
+      <Button class="mt-grid" href="/nyheter">Se alle nyheter</Button>
+
+      <div class="border-t border-stroke mt-section">
+        <!-- todo: time element does not match figma on desktop -->
+        {
+          newsItems.map((item) => (
+            <div class="flex justify-between py-grid border-b gap-gutter border-stroke">
+              <a
+                class="flex items-center gap-1 link-underline"
+                href={`/nyheter/${item.slug.current}`}
+              >
+                <ExternalIcon class="size-2.5 lg:size-[0.595vw]" />
+                <p class="text-xs-fluid">{item.title}</p>
+              </a>
+              <p class="md:pr-64 text-xs-fluid">
+                {formatDate(item.publishedAt)}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </CardRightColumn>
   </CardLayout>
 
   <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">

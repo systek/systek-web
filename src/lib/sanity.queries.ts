@@ -1,5 +1,6 @@
 import { sanityClient } from "sanity:client";
 import type {
+  AboutPageType,
   Activity,
   Blog,
   Citation,
@@ -174,6 +175,7 @@ export async function fetchStaffSingleton(): Promise<StaffPageType> {
     galleryText,
     imageGallery,
     contact,
+    workHere
   }`);
 }
 
@@ -208,5 +210,14 @@ export async function fetchSiteSettings(): Promise<SiteSettings> {
     hostname,
     analytics,
     analyticsHostname
+  }`);
+}
+
+export async function fetchAboutPage(): Promise<
+  Omit<AboutPageType, "works"> & { works: Work[] }
+> {
+  return sanityClient.fetch(`*[_type == "aboutPageType"][0] {
+    ...,
+    works[]->
   }`);
 }

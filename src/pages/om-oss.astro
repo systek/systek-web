@@ -1,0 +1,68 @@
+---
+import Image from "../components/Image.astro";
+import CardLayout from "../components/card/layout/CardLayout.astro";
+import CardRightColumn from "../components/card/layout/CardRightColumn.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import PageHeader from "../components/PageHeader.astro";
+import Layout from "../layouts/Layout.astro";
+import { fetchAboutPage } from "../lib/sanity.queries";
+import { fullWidth, oneHalf, threeFourth } from "../utils/number";
+import PortableText from "../components/PortableText.astro";
+import WorkHere from "../components/card/workHere.astro";
+
+const about = await fetchAboutPage();
+---
+
+<Layout>
+  <Header active="/om-oss" />
+  <PageHeader title={about.title} />
+  {
+    about.works && (
+      <CardLayout class="border-t border-stroke mx-grid pt-grid">
+        <CardRightColumn title="Arbeider">
+          <div class="grid grid-cols-3 gap-gutter">
+            {about.works.map((item) => (
+              <a class="group" href={`/arbeider/${item.slug.current}`}>
+                <picture>
+                  <Image
+                    class="w-full rounded-md object-cover aspect-[4/3]"
+                    image={item.image}
+                    mode="cover"
+                    alt={item.image.alt}
+                    width={603}
+                    height={452}
+                    sizes={`(min-width: 105rem) calc(${oneHalf("lg", threeFourth("lg"))}), (min-width: 50rem) calc(${oneHalf("md")}), calc(${fullWidth("sm")})`}
+                  />
+                </picture>
+                <p class="mt-gap font-bold text-md-fluid group-link-underline">
+                  {item.title}
+                </p>
+                <p class="text-md-fluid">{item.description}</p>
+              </a>
+            ))}
+          </div>
+        </CardRightColumn>
+      </CardLayout>
+    )
+  }
+  <CardLayout class="border-t border-stroke mx-grid pt-grid mt-section">
+    <CardRightColumn title="Kort om oss">
+      <h2 class="font-light text-2xl-fluid">Kort om oss</h2>
+      <PortableText value={about.content} />
+    </CardRightColumn>
+  </CardLayout>
+
+  {
+    about.workHere && (
+      <WorkHere
+        title={about.workHere.title}
+        label={about.workHere.label}
+        text={about.workHere.description}
+        points={about.workHere.points}
+        image={about.workHere.image}
+      />
+    )
+  }
+  <Footer />
+</Layout>

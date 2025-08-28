@@ -1,0 +1,66 @@
+---
+import type { Image as SanityImage } from "sanity";
+import CardLayout from "./layout/CardLayout.astro";
+import CheckIcon from "../../assets/icons/check.svg";
+import Button from "../Button.astro";
+import Image from "../Image.astro";
+import { fullWidth, oneHalf, threeFourth } from "../../utils/number";
+
+interface Props {
+  label: string;
+  title: string;
+  text: string;
+  points?: string[];
+  image: SanityImage;
+}
+
+const { label, title, text, image, points } = Astro.props as Props;
+---
+
+<CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
+  <div class="flex flex-col lg:col-span-2">
+    <p class="font-bold text-sm-fluid">{label}</p>
+    <div class="mt-auto max-w-[37rem] lg:max-w-[35.238vw]">
+      <p class="mt-gap font-light text-2xl-fluid">{title}</p>
+      <p class="mt-grid text-md-fluid md:mt-6">
+        {text}
+      </p>
+
+      {
+        points?.length && (
+          <ul class="my-grid text-text-secondary">
+            {points.map((point) => (
+              <li class="flex items-center gap-2">
+                <CheckIcon class="size-4 lg:size-[0.952vw]" />
+                <p class="text-sm-fluid">{point}</p>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+
+      <div class="flex items-center my-grid gap-grid">
+        <Button href="/jobbe-her">Se ledige stillinger</Button>
+        <a
+          class="link-underline text-sm-fluid"
+          href="https://systek.homerun.co"
+        >
+          Se kontakt-siden
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="mt-section-sm md:mt-section-md lg:mt-0 lg:col-span-2">
+    <picture>
+      <Image
+        class="w-full rounded-md aspect-square md:aspect-[4/3] object-cover"
+        image={image}
+        mode="cover"
+        alt={image.alt}
+        width={603}
+        height={452}
+        sizes={`(min-width: 105rem) calc(${oneHalf("lg", threeFourth("lg"))}), (min-width: 50rem) calc(${oneHalf("md")}), calc(${fullWidth("sm")})`}
+      />
+    </picture>
+  </div>
+</CardLayout>

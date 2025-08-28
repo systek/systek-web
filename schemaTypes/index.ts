@@ -4,6 +4,7 @@ import { servicesPageType } from "./pages/servicesPageType";
 import { frontPageType } from "./pages/frontPageType";
 import { staffPageType } from "./pages/staffPageType";
 import { workherePageType } from "./pages/workherePageType";
+import { aboutPageType } from "./pages/aboutPageType";
 
 import { activityType } from "./activityType";
 import { blogType } from "./blogType";
@@ -24,6 +25,7 @@ export const schemaTypes = [
   servicesPageType,
   staffPageType,
   workherePageType,
+  aboutPageType,
   serviceType,
   newsType,
   logoType,

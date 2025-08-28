@@ -19,6 +19,7 @@ import Image from "../../components/Image.astro";
 import PageHeader from "../../components/PageHeader.astro";
 import ImageGallery from "../../components/image/ImageGallery.astro";
 import { oneFourth, oneHalf, threeFourth, vw } from "../../utils/number";
+import WorkHere from "../../components/card/workHere.astro";
 
 const [staffPage, staffItems, services, locations] = await Promise.all([
   fetchStaffSingleton(),
@@ -152,52 +153,17 @@ const staffByInitial = staffItems.reduce(
     <ImageGallery node={staffPage.imageGallery as unknown as any} />
   </CardLayout>
 
-  <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
-    <div class="flex flex-col lg:col-span-2">
-      <p class="font-bold text-sm-fluid">Ledige stillinger</p>
-      <div class="mt-auto max-w-[37rem] lg:max-w-[35.238vw]">
-        <p class="mt-gap font-light text-2xl-fluid">Jobbe i Systek?</p>
-        <p class="mt-grid text-md-fluid md:mt-6">
-          Vi er interessert å komme i kontakt med hyggelige og kunnskapsrike
-          folk som passer til profilen vår og som har lyst til å utvikle
-          karrieren sin videre i et spennende fagmiljø.
-        </p>
-
-        <ul class="my-grid text-text-secondary">
-          <li class="flex items-center gap-2">
-            <CheckIcon class="size-4 lg:size-[0.952vw]" />
-            <p class="text-sm-fluid">Fleksibilitet og frihet</p>
-          </li>
-          <li class="flex items-center gap-2">
-            <CheckIcon class="size-4 lg:size-[0.952vw]" />
-            <p class="text-sm-fluid">Flinke kollegaer</p>
-          </li>
-          <li class="flex items-center gap-2">
-            <CheckIcon class="size-4 lg:size-[0.952vw]" />
-            <p class="text-sm-fluid">Flat struktur</p>
-          </li>
-        </ul>
-
-        <div class="flex items-center my-grid gap-grid">
-          <Button href="/jobbe-her">Se ledige stillinger</Button>
-          <a
-            class="link-underline text-sm-fluid"
-            href="https://systek.homerun.co"
-          >
-            Se kontakt-siden
-          </a>
-        </div>
-      </div>
-    </div>
-    <div class="mt-section-sm md:mt-section-md lg:mt-0 lg:col-span-2">
-      <picture>
-        <img
-          class="w-full rounded-md aspect-square md:aspect-[4/3] object-cover"
-          src="/images/temp.png"
-        />
-      </picture>
-    </div>
-  </CardLayout>
+  {
+    staffPage.workHere && (
+      <WorkHere
+        title={staffPage.workHere.title}
+        label={staffPage.workHere.label}
+        text={staffPage.workHere.description}
+        points={staffPage.workHere.points}
+        image={staffPage.workHere.image}
+      />
+    )
+  }
 
   <Footer />
 </Layout>

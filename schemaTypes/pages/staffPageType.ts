@@ -1,6 +1,7 @@
 import { defineField, defineType } from "sanity";
 import { contactField } from "./contactField";
 import { imageGallery } from "../shared/imageGallery";
+import { workHereField } from "../shared/workHereField";
 
 export const staffPageType = defineType({
   name: "staffPageType",
@@ -35,6 +36,6 @@ export const staffPageType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     imageGallery,
-    contactField,
+    workHereField,
   ],
 });

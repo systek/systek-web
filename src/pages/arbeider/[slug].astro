@@ -95,9 +95,12 @@ const workItems = _workItems
         <div class="flex flex-col items-start gap-gutter">
           {
             work.services.map((item) => (
-              <span class="text-xs-fluid bg-grey-91 rounded-lg px-4">
+              <a
+                href={`/tjenester/${item.slug.current}`}
+                class="text-xs-fluid bg-grey-91 rounded-lg px-4"
+              >
                 {item.title}
-              </span>
+              </a>
             ))
           }
         </div>
