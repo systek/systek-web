@@ -2,6 +2,7 @@ import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 import { visionTool } from "@sanity/vision";
 import { schemaTypes } from "./schemaTypes";
+import { CogIcon } from "@sanity/icons";
 
 export default defineConfig({
   name: "default",
@@ -18,6 +19,7 @@ export default defineConfig({
           .items([
             S.listItem()
               .title("Oppsett")
+              .icon(CogIcon)
               .child(
                 S.document()
                   .schemaType("siteSettings")
@@ -68,7 +70,7 @@ export default defineConfig({
               ),
             S.divider(),
             S.listItem()
-              .title("Sider")
+              .title("Andre Sider")
               .child(S.documentTypeList("page").title("Sider")),
             S.divider(),
             ...S.documentTypeListItems().filter(

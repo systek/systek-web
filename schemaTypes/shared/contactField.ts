@@ -4,6 +4,10 @@ export const contactField = defineField({
   name: "contact",
   title: "Kontakt",
   type: "object",
+  options: {
+    collapsible: true,
+    collapsed: false,
+  },
   fields: [
     defineField({
       name: "name",

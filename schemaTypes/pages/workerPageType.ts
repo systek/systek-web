@@ -1,5 +1,5 @@
 import { defineField, defineType } from "sanity";
-import { contactField } from "./contactField";
+import { contactField } from "../shared/contactField";
 
 export const workerPageType = defineType({
   name: "workerPageType",

@@ -2,11 +2,13 @@ import { defineField, defineType } from "sanity";
 import { stats } from "./shared/stats";
 import { contentField } from "./shared/content";
 import { citationField } from "./shared/citation";
+import { CaseIcon } from "@sanity/icons";
 
 export const workType = defineType({
   name: "work",
   title: "Arbeider",
   type: "document",
+  icon: CaseIcon,
   fields: [
     defineField({
       name: "title",

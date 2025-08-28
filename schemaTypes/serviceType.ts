@@ -1,11 +1,13 @@
 import { defineField, defineType } from "sanity";
 import { contentField } from "./shared/content";
-import { contactField } from "./pages/contactField";
+import { contactField } from "./shared/contactField";
+import { CodeBlockIcon } from "@sanity/icons";
 
 export const serviceType = defineType({
   name: "service",
   title: "Tjenester",
   type: "document",
+  icon: CodeBlockIcon,
   fields: [
     defineField({
       name: "visible",

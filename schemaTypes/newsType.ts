@@ -1,10 +1,12 @@
 import { defineField, defineType } from "sanity";
 import { contentField } from "./shared/content";
+import { SparklesIcon } from "@sanity/icons";
 
 export const newsType = defineType({
   name: "news",
   title: "Nyheter",
   type: "document",
+  icon: SparklesIcon,
   fields: [
     defineField({
       name: "title",

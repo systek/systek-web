@@ -7,6 +7,10 @@ export const imageGallery = defineField({
   title: "Bildegalleri",
   icon: ImagesIcon,
   description: "4 bilder",
+  options: {
+    collapsible: true,
+    collapsed: false,
+  },
   preview: {
     select: {
       first: "first",

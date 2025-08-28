@@ -4,6 +4,10 @@ export const contactTwoField = defineField({
   name: "contactTwo",
   title: "Kontakt med 2 bilder",
   type: "object",
+  options: {
+    collapsible: true,
+    collapsed: false,
+  },
   fields: [
     defineField({
       name: "label",

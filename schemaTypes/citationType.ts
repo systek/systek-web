@@ -4,6 +4,7 @@ export const citationType = defineType({
   name: "citation",
   title: "Sitat",
   type: "document",
+  icon: () => "❝",
   fields: [
     defineField({
       name: "text",

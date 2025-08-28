@@ -1,10 +1,5 @@
 import { defineField, defineType } from "sanity";
-import { textBlock } from "../shared/text";
-import { imageTwo } from "../shared/imageTwo";
-import { image } from "../shared/image";
-import { listGroup } from "../shared/listGroup";
-import { contactTwoField } from "./contactTwoField";
-import { citationField } from "../shared/citation";
+import { contactTwoField } from "../shared/contactTwoField";
 import { contentField } from "../shared/content";
 
 export const workherePageType = defineType({

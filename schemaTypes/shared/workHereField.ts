@@ -4,6 +4,10 @@ export const workHereField = defineField({
   name: "workHere",
   title: "Jobbe her",
   type: "object",
+  options: {
+    collapsible: true,
+    collapsed: false,
+  },
   fields: [
     defineField({
       name: "label",
