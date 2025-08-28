@@ -34,7 +34,27 @@ jobs:
           app_location: "/" # App source code path
           output_location: "dist"
           ###### End of Repository/Build Configurations ######
-
+      - name: Notify Slack on Success
+        if: success()
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_USERNAME: GitHub Actions
+          SLACK_COLOR: good
+          SLACK_MESSAGE: |
+            ✅ Build succeeded for ${{ github.repository }} on ${{ github.ref_name }}.
+            See details: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      - name: Notify Slack on Failure
+        if: failure()
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_USERNAME: GitHub Actions
+          SLACK_COLOR: danger
+          SLACK_MESSAGE: |
+            ❌ Build failed for ${{ github.repository }} on ${{ github.ref_name }}.
+            See details: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+            Error: ${{ steps.builddeploy.outcome }}
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
