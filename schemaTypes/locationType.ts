@@ -57,5 +57,23 @@ export const locationType = defineType({
       type: "url",
       validation: (rule) => rule.required(),
     }),
+    defineField({
+      name: "image",
+      title: "Bilde",
+      type: "image",
+      options: {
+        hotspot: true,
+      },
+      validation: (rule) => rule.required(),
+      fields: [
+        {
+          name: "alt",
+          title: "Alt tekst",
+          type: "string",
+          description: "Beskriv bildet for synshemmede og SEO",
+          validation: (rule) => rule.required(),
+        },
+      ],
+    }),
   ],
 });
