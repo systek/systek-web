@@ -764,13 +764,6 @@ export type AboutPageType = {
   _updatedAt: string;
   _rev: string;
   title: string;
-  works: Array<{
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: "work";
-  }>;
   contentTitle: string;
   content: Array<{
     children?: Array<{

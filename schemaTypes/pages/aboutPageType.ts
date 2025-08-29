@@ -14,13 +14,6 @@ export const aboutPageType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "works",
-      title: "Arbeider",
-      type: "array",
-      of: [{ type: "reference", to: [{ type: "work" }] }],
-      validation: (Rule) => Rule.required().length(3),
-    }),
-    defineField({
       name: "contentTitle",
       title: "Innholdstittel",
       type: "string",
