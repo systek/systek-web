@@ -12,6 +12,7 @@ export const tagList = defineField({
       type: "array",
       name: "items",
       title: "Stikkord",
+      description: "Trykk Enter for å legge til nytt stikkord",
       of: [{ type: "string" }],
       options: {
         layout: "tags",

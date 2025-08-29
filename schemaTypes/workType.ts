@@ -84,6 +84,7 @@ export const workType = defineType({
       type: "array",
       name: "technologies",
       title: "Brukte teknologier",
+      description: "Trykk Enter for å legge til ny teknologi",
       of: [{ type: "string" }],
       options: {
         layout: "tags",
