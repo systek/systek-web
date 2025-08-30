@@ -1,4 +1,14 @@
-<div class="mx-grid my-section">
+---
+import clsx from "clsx";
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<div class={clsx("mx-grid my-section", className)}>
   <div class="mx-auto max-w-[50rem] lg:max-w-[47.619vw]">
     <slot />
   </div>

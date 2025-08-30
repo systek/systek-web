@@ -113,8 +113,11 @@ const [servicesInfo, serviceItems] = await Promise.all([
   {
     servicesInfo.citations && (
       <Citation
+        href="/tjenester/design-og-brukeropplevelse"
         title="Tjenester"
         citation={servicesInfo.citations as unknown as CitationType}
+        buttonText="Les om tjenesten"
+        title="Design og brukeropplevelse"
       />
     )
   }

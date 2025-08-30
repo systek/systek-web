@@ -15,7 +15,7 @@ interface Props {
 const { items, class: className } = Astro.props;
 ---
 
-<Accordion class={clsx("lg:mr-section-lg", className)}>
+<Accordion class={clsx("max-w-[50rem] lg:max-w-[47.619vw]", className)}>
   {
     items.map((item) => (
       <AccordionItem title={item.title}>

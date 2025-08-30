@@ -1,6 +1,6 @@
 ---
 import type { Image as ImageType } from "sanity";
-import { fullWidth, oneHalf, vw } from "../../utils/number";
+import { fullWidth, oneFourth, oneHalf, vw } from "../../utils/number";
 import Image from "../Image.astro";
 import CardLayout from "./layout/CardLayout.astro";
 
@@ -46,7 +46,7 @@ const { label, title, text, contacts } = Astro.props;
               alt={contact.alt}
               width={395}
               height={395}
-              sizes={`(min-width: 105rem) calc(${oneHalf("lg")}), (min-width: 50rem) calc(${fullWidth("md")}), calc(${fullWidth("sm")})`}
+              sizes={`(min-width: 105rem) calc(${oneFourth("lg")}), (min-width: 50rem) calc(${oneHalf("md")}), calc(${fullWidth("sm")})`}
             />
           </picture>
           <p class="mt-gap font-bold text-md-fluid">{contact.name}</p>

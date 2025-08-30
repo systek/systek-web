@@ -42,11 +42,16 @@ const vacantPositions = await fetchVacantPositions();
 
   {
     workhereData.citation && (
-      <Citation citation={workhereData.citation} class="mt-page" />
+      <Citation
+        href="https://jobbi.no/i/systek"
+        citation={workhereData.citation}
+        class="mt-page"
+        buttonText="Les hva som skrives om Systek på Jobbi.no"
+      />
     )
   }
 
-  <CardLayout class="mt-section mx-grid">
+  <CardLayout class="mt-page mx-grid border-t border-stroke pt-grid">
     <CardRightColumn>
       <p
         class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-[4.7619vw] font-light text-2xl-fluid"
@@ -63,9 +68,11 @@ const vacantPositions = await fetchVacantPositions();
                   {item.title}
                 </p>
               </div>
-              <p class="text-sm-fluid">{item.description}</p>
               <div>
-                <span>{item.location}</span>
+                <p class="text-sm-fluid">{item.description}</p>
+                <div class="mt-gutter inline-block border border-grey-10 rounded-full py-0 px-gap">
+                  <span class="text-xs-fluid">{item.location}</span>
+                </div>
               </div>
             </LinkBox>
           ))
@@ -74,19 +81,12 @@ const vacantPositions = await fetchVacantPositions();
     </CardRightColumn>
   </CardLayout>
 
-  <CardLayout class="border-t border-stroke mt-section mx-grid">
-    <CardRightColumn>
-      <p
-        class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-[4.7619vw] font-light text-2xl-fluid pt-gutter"
-      >
-        {workhereData.contentTitel}
-      </p>
-    </CardRightColumn>
-    <div></div>
-    <div class="lg:col-span-2">
-      <PortableText value={workhereData.content} />
-    </div>
-  </CardLayout>
+  <Article class="border-t border-stroke pt-grid mt-page">
+    <h2 class="font-light text-2xl-fluid">
+      {workhereData.contentTitel}
+    </h2>
+    <PortableText value={workhereData.content} />
+  </Article>
 
   {
     workhereData.contactTwo && (
@@ -99,10 +99,10 @@ const vacantPositions = await fetchVacantPositions();
     )
   }
 
-  <CardLayout class="border-t border-stroke mt-section mx-grid">
+  <CardLayout class="border-t border-stroke mt-page pt-grid mx-grid">
     <CardRightColumn title={workhereData.faqLabel}>
       <p
-        class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-[4.7619vw] font-light text-2xl-fluid pt-gutter"
+        class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-[4.7619vw] font-light text-2xl-fluid"
       >
         {workhereData.faqTitle}
       </p>
@@ -112,17 +112,13 @@ const vacantPositions = await fetchVacantPositions();
 
   {
     workhereData.tldrText && (
-      <CardLayout class="mt-section mx-grid">
-        <CardRightColumn>
-          <p class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-[4.7619vw] font-light text-2xl-fluid">
-            {workhereData.tldrTitle}
-          </p>
-        </CardRightColumn>
-        <div />
-        <div class="lg:col-span-2">
-          <PortableText value={workhereData.tldrText} />
-        </div>
-      </CardLayout>
+      <Article class="mt-page">
+        <h2 class="my-grid font-medium text-lg-fluid">
+          {workhereData.tldrTitle}
+        </h2>
+
+        <PortableText value={workhereData.tldrText} />
+      </Article>
     )
   }
 

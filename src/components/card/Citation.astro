@@ -7,18 +7,20 @@ import CardLayout from "./layout/CardLayout.astro";
 import CitationSub from "./CitationSub.astro";
 
 interface Props {
-  title?: string;
+  buttonText?: string;
   citation: CitationType;
   class?: string;
+  href?: string;
+  title?: string;
 }
 
-const { citation, class: className } = Astro.props;
+const { buttonText, citation, class: className, href, title } = Astro.props;
 ---
 
 <CardLayout
   class:list={["border-t mt-page border-stroke mx-grid pt-grid", className]}
 >
-  <CardRightColumn title="Design og brukeropplevelse">
+  <CardRightColumn title={title}>
     <p class="max-w-[50rem] lg:max-w-[47.619vw] font-light text-xl-fluid">
       «{citation.text}»
     </p>
@@ -28,8 +30,12 @@ const { citation, class: className } = Astro.props;
       subtitle={citation.position}
       image={citation.picture}
     />
-    <Button class="my-grid" href="/tjenester/design-og-brukeropplevelse">
-      Les om tjenesten
-    </Button>
+    {
+      href && buttonText && (
+        <Button class="my-grid" href={href}>
+          {buttonText}
+        </Button>
+      )
+    }
   </CardRightColumn>
 </CardLayout>
