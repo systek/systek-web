@@ -26,7 +26,7 @@ const vacantPositions = await fetchVacantPositions();
   <Header />
   <PageHeader image={workhereData.heroImage}>
     <CardLayout>
-      <CardRightColumn title="Jobbe her">
+      <CardRightColumn title={workhereData.topLabel}>
         <p
           class="max-w-[72rem] lg:max-w-[68.571vw] md:mr-20 lg:mr-[4.7619vw] font-light text-3xl-fluid"
         >
@@ -49,7 +49,7 @@ const vacantPositions = await fetchVacantPositions();
       <p
         class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-[4.7619vw] font-light text-2xl-fluid"
       >
-        Åpne roller
+        {workhereData.vacanciesTitle}
       </p>
 
       <div class="grid gap-gutter mt-section md:grid-cols-3">
@@ -77,7 +77,7 @@ const vacantPositions = await fetchVacantPositions();
       <p
         class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-[4.7619vw] font-light text-2xl-fluid pt-gutter"
       >
-        Hvorfor Systek?
+        {workhereData.contentTitel}
       </p>
     </CardRightColumn>
     <div></div>
@@ -98,11 +98,11 @@ const vacantPositions = await fetchVacantPositions();
   }
 
   <CardLayout class="border-t border-stroke mt-section mx-grid">
-    <CardRightColumn title="FAQ">
+    <CardRightColumn title={workhereData.faqLabel}>
       <p
         class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-[4.7619vw] font-light text-2xl-fluid pt-gutter"
       >
-        Ofte stilte spørsmål
+        {workhereData.faqTitle}
       </p>
       <Faq class="mt-section" items={workhereData.faqList as FaqItem[]} />
     </CardRightColumn>
@@ -113,7 +113,7 @@ const vacantPositions = await fetchVacantPositions();
       <CardLayout class="mt-section mx-grid">
         <CardRightColumn>
           <p class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-[4.7619vw] font-light text-2xl-fluid">
-            TL;DR om Systek
+            {workhereData.tldrTitle}
           </p>
         </CardRightColumn>
         <div />

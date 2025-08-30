@@ -989,6 +989,7 @@ export type WorkherePageType = {
     alt?: string;
     _type: "image";
   };
+  topLabel: string;
   introText: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -1165,6 +1166,7 @@ export type WorkherePageType = {
     _key: string;
     [internalGroqTypeReferenceTo]?: "citation";
   }>;
+  vacanciesTitle: string;
   contentTitel?: string;
   content: Array<{
     children?: Array<{
@@ -1365,11 +1367,14 @@ export type WorkherePageType = {
       _key: string;
     }>;
   };
+  faqTitle: string;
+  faqLabel: string;
   faqList?: Array<{
     title: string;
     description: string;
     _key: string;
   }>;
+  tldrTitle: string;
   tldrText: Array<{
     children?: Array<{
       marks?: Array<string>;

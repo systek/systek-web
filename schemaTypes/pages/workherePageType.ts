@@ -6,12 +6,18 @@ export const workherePageType = defineType({
   name: "workherePageType",
   title: "Jobbe her",
   type: "document",
+  fieldsets: [
+    { name: "top", title: "Topp seksjon" },
+    { name: "faq", title: "Ofte stilte spørsmål" },
+    { name: "tldr", title: "TL;DR" },
+  ],
   fields: [
     defineField({
       name: "title",
       title: "Tittel",
       type: "string",
       validation: (Rule) => Rule.required(),
+      fieldset: "top",
     }),
     defineField({
       name: "heroImage",
@@ -24,6 +30,14 @@ export const workherePageType = defineType({
       },
       validation: (Rule) => Rule.required(),
       fields: [{ name: "alt", type: "string", title: "Alt tekst" }],
+      fieldset: "top",
+    }),
+    defineField({
+      name: "topLabel",
+      title: "Topp label",
+      type: "string",
+      validation: (Rule) => Rule.required(),
+      fieldset: "top",
     }),
     {
       ...contentField,
@@ -31,12 +45,32 @@ export const workherePageType = defineType({
       title: "Introduksjonstekst",
     },
     defineField({
+      name: "vacanciesTitle",
+      title: "Åpne roller Tittel",
+      type: "string",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: "contentTitel",
       title: "Innhold Tittel",
       type: "string",
     }),
     contentField,
     contactTwoField,
+    defineField({
+      name: "faqTitle",
+      title: "Ofte stilte spørsmål Tittel",
+      type: "string",
+      validation: (Rule) => Rule.required(),
+      fieldset: "faq",
+    }),
+    defineField({
+      name: "faqLabel",
+      title: "Ofte stilte spørsmål Label",
+      type: "string",
+      validation: (Rule) => Rule.required(),
+      fieldset: "faq",
+    }),
     defineField({
       name: "faqList",
       title: "Ofte stilte spørsmål",
@@ -66,11 +100,20 @@ export const workherePageType = defineType({
           },
         },
       ],
+      fieldset: "faq",
+    }),
+    defineField({
+      name: "tldrTitle",
+      title: "TL;DR Tittel",
+      type: "string",
+      validation: (Rule) => Rule.required(),
+      fieldset: "tldr",
     }),
     {
       ...contentField,
       name: "tldrText",
       title: "TL;DR om Systek",
+      fieldset: "tldr",
     },
   ],
 });

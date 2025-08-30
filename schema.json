@@ -6114,6 +6114,13 @@
         },
         "optional": false
       },
+      "topLabel": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": false
+      },
       "introText": {
         "type": "objectAttribute",
         "value": {
@@ -7259,6 +7266,13 @@
               }
             ]
           }
+        },
+        "optional": false
+      },
+      "vacanciesTitle": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
         },
         "optional": false
       },
@@ -8565,6 +8579,20 @@
         },
         "optional": true
       },
+      "faqTitle": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": false
+      },
+      "faqLabel": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": false
+      },
       "faqList": {
         "type": "objectAttribute",
         "value": {
@@ -8601,6 +8629,13 @@
           }
         },
         "optional": true
+      },
+      "tldrTitle": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": false
       },
       "tldrText": {
         "type": "objectAttribute",
