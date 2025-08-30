@@ -39,12 +39,8 @@ const [
   fetchNewsItems(2),
   fetchActivityItems(5),
   fetchBlogItems(),
-  fetchLogoItems(),
+  fetchLogoItems(12),
 ]);
-
-const index = Math.ceil(logoItems.length / 2);
-const logoTopItems = logoItems.slice(0, index);
-const logoBottomItems = logoItems.slice(index);
 ---
 
 <Layout bodyStyle="--color-background: var(--color-blue);">

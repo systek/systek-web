@@ -11,9 +11,13 @@ interface Props {
 
 const { class: className, logos } = Astro.props;
 
-const index = Math.ceil(logos.length / 2);
-const logoTopItems = logos.slice(0, index);
-const logoBottomItems = logos.slice(index);
+const perLine = 4;
+const numberOfLines = Math.ceil(logos.length / perLine);
+
+const logoLines: LogoType[][] = [];
+for (let i = 0; i < numberOfLines; i++) {
+  logoLines.push(logos.slice(i * perLine, (i + 1) * perLine));
+}
 
 // todo: match figma design on mobile + tablet
 ---
@@ -21,20 +25,15 @@ const logoBottomItems = logos.slice(index);
 <CardLayout class:list={["mx-grid", className]}>
   <CardRightColumn>
     <div class="grid gap-section mx-auto max-w-[30rem] md:max-w-full">
-      <div class="grid grid-cols-2 gap-section md:flex md:justify-between">
-        {
-          logoTopItems.map((item) => (
-            <Logo image={item.image} alt={item.image.alt} />
-          ))
-        }
-      </div>
-      <div class="grid grid-cols-2 gap-section md:flex md:justify-between">
-        {
-          logoBottomItems.map((item) => (
-            <Logo image={item.image} alt={item.image.alt} />
-          ))
-        }
-      </div>
+      {
+        logoLines.map((logoLine) => (
+          <div class="grid grid-cols-2 gap-section md:flex md:justify-between">
+            {logoLine.map((item) => (
+              <Logo image={item.image} alt={item.image.alt} />
+            ))}
+          </div>
+        ))
+      }
     </div>
   </CardRightColumn>
 </CardLayout>
