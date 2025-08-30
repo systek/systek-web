@@ -10,6 +10,8 @@ import { fetchAboutPage, fetchLocations } from "../lib/sanity.queries";
 import { fullWidth, oneHalf, threeFourth } from "../utils/number";
 import PortableText from "../components/PortableText.astro";
 import WorkHere from "../components/card/WorkHere.astro";
+import Article from "../components/Article.astro";
+import ImageGallery from "../components/image/ImageGallery.astro";
 
 const about = await fetchAboutPage();
 const locations = await fetchLocations();
@@ -20,7 +22,7 @@ const locations = await fetchLocations();
   <PageHeader title={about.title} />
   {
     locations && (
-      <CardLayout class="border-t border-stroke mx-grid pt-grid">
+      <CardLayout class="border-t border-stroke mx-grid pt-grid mt-section">
         <CardRightColumn title="Kontorer">
           <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
             {locations.map((item) => (
@@ -67,11 +69,22 @@ const locations = await fetchLocations();
       </CardLayout>
     )
   }
-  <CardLayout class="border-t border-stroke mx-grid pt-grid mt-page">
-    <CardRightColumn title="Om oss">
-      <h2 class="font-light text-2xl-fluid">{about.contentTitle}</h2>
-      <PortableText value={about.content} />
+
+  <Article class="border-t border-stroke pt-grid mt-page">
+    <h2 class="font-light text-2xl-fluid">{about.contentTitle}</h2>
+    <PortableText value={about.content} />
+  </Article>
+
+  <CardLayout class="border-t border-stroke pt-grid mt-page mx-grid">
+    <CardRightColumn title={about.summaryLabel}>
+      <p
+        class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw] font-light text-xl-fluid"
+      >
+        {about.summaryTitle}
+      </p>
     </CardRightColumn>
+
+    <ImageGallery node={about.imageGallery as unknown as any} />
   </CardLayout>
 
   {

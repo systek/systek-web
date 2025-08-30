@@ -1,6 +1,7 @@
 import { defineField, defineType } from "sanity";
 import { contentField } from "../shared/content";
 import { workHereField } from "../shared/workHereField";
+import { imageGallery } from "../shared/imageGallery";
 
 export const aboutPageType = defineType({
   name: "aboutPageType",
@@ -20,6 +21,19 @@ export const aboutPageType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     contentField,
+    defineField({
+      name: "summaryLabel",
+      title: "Merkelapp",
+      type: "string",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "summaryTitle",
+      title: "Overskrift",
+      type: "string",
+      validation: (Rule) => Rule.required(),
+    }),
+    imageGallery,
     workHereField,
   ],
 });
