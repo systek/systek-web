@@ -26,6 +26,7 @@ import { formatDate } from "../utils/date";
 import Logos from "../components/logo/Logos.astro";
 import { fullWidth, oneFourth, oneHalf, threeFourth } from "../utils/number";
 import GridList from "../components/grid-list/GridList.astro";
+import CardTitle from "../components/card/layout/CardTitle.astro";
 
 const [
   frontPageData,
@@ -80,11 +81,9 @@ const [
 
   <CardLayout class="border-t mt-section border-stroke mx-grid pt-grid">
     <CardRightColumn title="Tjenester">
-      <p
-        class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw] font-light text-2xl-fluid"
-      >
+      <CardTitle>
         {frontPageData.servicesTitle}
-      </p>
+      </CardTitle>
 
       <Button href="/tjenester" class="mt-grid">Se våre tjenester</Button>
 
@@ -105,56 +104,54 @@ const [
 
   <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
     <CardRightColumn title="Arbeider">
-      <p
-        class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw] font-light text-2xl-fluid"
-      >
+      <CardTitle>
         {frontPageData.workTitle}
-      </p>
+      </CardTitle>
 
       <Button class="mt-grid" href="/arbeider">Se alle arbeider</Button>
     </CardRightColumn>
-
-    <div
-      class="grid grid-cols-2 lg:col-span-4 md:grid-cols-4 gap-gutter mt-section"
-    >
-      {
-        frontPageData.selectedWorks.map((item, index) => (
-          <div class={clsx("group", index % 3 === 0 && "col-span-2")}>
-            <a href={`/arbeider/${item.slug.current}`}>
-              <picture>
-                <Image
-                  class={clsx(
-                    "w-full rounded-md object-cover",
-                    index % 3 === 2 ? "aspect-square" : "aspect-[4/3]"
-                  )}
-                  image={item.image}
-                  mode="cover"
-                  alt={item.image.alt}
-                  sizes={
-                    index % 3 === 0
-                      ? `(min-width: 105rem) calc(${oneHalf("lg")}), (min-width: 50rem) calc(${oneHalf("md")}), calc(${fullWidth("sm")})`
-                      : `(min-width: 105rem) calc(${oneFourth("lg")}), (min-width: 50rem) calc(${oneFourth("md")}), calc(${oneHalf("sm")})`
-                  }
-                />
-              </picture>
-              <p class="mt-gap font-bold text-md-fluid hyphens-auto group-link-underline">
-                {item.title}
-              </p>
-              <p class="text-md-fluid">{item.description}</p>
-            </a>
-          </div>
-        ))
-      }
-    </div>
   </CardLayout>
+
+  <div
+    class="mx-grid grid grid-cols-2 gap-x-gutter gap-y-grid mt-section md:grid-cols-4"
+  >
+    {
+      frontPageData.selectedWorks.map((item, index) => (
+        <div class={clsx("group", index % 3 === 0 && "col-span-2")}>
+          <a href={`/arbeider/${item.slug.current}`}>
+            <picture>
+              <Image
+                class={clsx(
+                  "w-full rounded-md object-cover",
+                  index % 3 === 2 ? "aspect-square" : "aspect-[4/3]"
+                )}
+                image={item.image}
+                mode="cover"
+                alt={item.image.alt}
+                width={index % 3 === 0 ? 810 : 395}
+                height={index === 0 ? 608 : index === 1 ? 296 : 395}
+                sizes={
+                  index % 3 === 0
+                    ? `(min-width: 105rem) calc(${oneHalf("lg")}), (min-width: 50rem) calc(${oneHalf("md")}), calc(${fullWidth("sm")})`
+                    : `(min-width: 105rem) calc(${oneFourth("lg")}), (min-width: 50rem) calc(${oneFourth("md")}), calc(${oneHalf("sm")})`
+                }
+              />
+            </picture>
+            <p class="mt-gap font-bold text-md-fluid hyphens-auto group-link-underline">
+              {item.title}
+            </p>
+            <p class="text-md-fluid">{item.description}</p>
+          </a>
+        </div>
+      ))
+    }
+  </div>
 
   <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
     <CardRightColumn title="Foredrag og fagmøter">
-      <p
-        class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw] font-light text-2xl-fluid"
-      >
+      <CardTitle>
         {frontPageData.activityTitle}
-      </p>
+      </CardTitle>
 
       <div class="mt-section">
         <picture>
@@ -248,16 +245,16 @@ const [
 
   <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
     <CardRightColumn title="Jobbe her?">
-      <p
-        class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw] font-light text-2xl-fluid"
-      >
+      <CardTitle>
         {frontPageData.vacanciesTitle}
-      </p>
+      </CardTitle>
 
       <Button class="mt-grid" href="/jobbe-her"> Se ledige stillinger </Button>
     </CardRightColumn>
+  </CardLayout>
 
-    <Accordion class="mt-section order-1 lg:order-none">
+  <CardLayout class="mx-grid mt-section gap-y-section">
+    <Accordion class="order-1 lg:order-none">
       {
         frontPageData.vacanciesPoints.map((point, index) => (
           <AccordionItem bold open={index === 0} size="lg" title={point.title}>
@@ -269,7 +266,7 @@ const [
       }
     </Accordion>
 
-    <div class="mt-section lg:col-span-3">
+    <div class="lg:col-span-3">
       <picture>
         <Image
           alt={frontPageData.vacanciesImage.alt}
@@ -286,11 +283,7 @@ const [
 
   <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
     <CardRightColumn title="Nyheter">
-      <p
-        class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw] font-light text-2xl-fluid"
-      >
-        Siste nytt fra Systek
-      </p>
+      <CardTitle>Siste nytt fra Systek</CardTitle>
 
       <Button class="mt-grid" href="/nyheter">Se alle nyheter</Button>
 
@@ -320,15 +313,11 @@ const [
 
   <CardLayout class="border-t my-page border-stroke mx-grid pt-grid">
     <CardRightColumn title="Blogg">
-      <p
-        class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw] font-light text-2xl-fluid"
-      >
-        Les våre siste artikler fra fag-bloggen
-      </p>
+      <CardTitle>Les våre siste artikler fra fag-bloggen</CardTitle>
 
-      <Button class="mt-grid" href="https://medium.com/systek"
-        >Se alle blogginnlegg</Button
-      >
+      <Button class="mt-grid" href="https://medium.com/systek">
+        Se alle blogginnlegg
+      </Button>
 
       <div class="grid md:grid-cols-2 gap-gutter mt-section">
         {

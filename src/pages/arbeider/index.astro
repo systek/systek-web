@@ -18,6 +18,7 @@ import PageHeader from "../../components/PageHeader.astro";
 import { fullWidth, oneHalf, threeFourth } from "../../utils/number";
 import Logos from "../../components/logo/Logos.astro";
 import GridList from "../../components/grid-list/GridList.astro";
+import CardTitle from "../../components/card/layout/CardTitle.astro";
 
 const [workersInfo, logoItems, workItems, serviceItems] = await Promise.all([
   fetchWorkerSingleton(),
@@ -44,11 +45,9 @@ const [workersInfo, logoItems, workItems, serviceItems] = await Promise.all([
 
   <CardLayout class="mt-section mx-grid">
     <CardRightColumn>
-      <p
-        class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw] font-light text-2xl-fluid"
-      >
+      <CardTitle>
         {workersInfo.logoTitle}
-      </p>
+      </CardTitle>
     </CardRightColumn>
   </CardLayout>
 
@@ -56,11 +55,9 @@ const [workersInfo, logoItems, workItems, serviceItems] = await Promise.all([
 
   <CardLayout class="mt-page mx-grid">
     <CardRightColumn>
-      <p
-        class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw] font-light text-2xl-fluid"
-      >
+      <CardTitle>
         {workersInfo.listTitle}
-      </p>
+      </CardTitle>
 
       <div
         class="grid md:grid-cols-2 gap-x-gutter mt-section gap-y-grid-lg md:gap-y-section-md lg:gap-y-section-lg"
@@ -93,11 +90,9 @@ const [workersInfo, logoItems, workItems, serviceItems] = await Promise.all([
 
 <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
   <CardRightColumn title="Tjenester">
-    <p
-      class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw] font-light text-2xl-fluid"
-    >
+    <CardTitle>
       {workersInfo.servicesTitle}
-    </p>
+    </CardTitle>
 
     <Button href="/tjenester" class="mt-grid">Se våre tjenester</Button>
 

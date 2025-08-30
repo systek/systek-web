@@ -24,6 +24,7 @@ import PageHeader from "../../components/PageHeader.astro";
 import { formatDate } from "../../utils/date";
 import Article from "../../components/Article.astro";
 import { fullWidth, gutter, oneFourth, oneHalf } from "../../utils/number";
+import CardTitle from "../../components/card/layout/CardTitle.astro";
 
 type WorkExtended = Omit<Work, "citation" | "services"> & {
   citation: CitationType;
@@ -132,9 +133,7 @@ const workItems = _workItems
     work.contactTwo && (
       <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
         <CardRightColumn title={work.contactTwo.label}>
-          <p class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw] font-light text-2xl-fluid">
-            {work.contactTwo.title}
-          </p>
+          <CardTitle>{work.contactTwo.title}</CardTitle>
           <Button class="mt-grid" href="/jobbe-her">
             Kontakt oss
           </Button>
@@ -175,11 +174,9 @@ const workItems = _workItems
 
   <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
     <CardRightColumn title="Arbeider">
-      <p
-        class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw] font-light text-2xl-fluid"
-      >
+      <CardTitle>
         Les om hvordan vi har bistått kunder med vår kompetanse
-      </p>
+      </CardTitle>
 
       <Button class="mt-grid" href="/arbeider">Se alle arbeider</Button>
     </CardRightColumn>
@@ -200,6 +197,8 @@ const workItems = _workItems
                   image={item.image}
                   mode="cover"
                   alt={item.image.alt}
+                  width={index % 3 === 0 ? 810 : 395}
+                  height={index === 0 ? 608 : index === 1 ? 296 : 395}
                   sizes={
                     index % 3 === 0
                       ? `(min-width: 105rem) calc(${oneHalf("lg")}), (min-width: 50rem) calc(${oneHalf("md")}), calc(${fullWidth("sm")})`

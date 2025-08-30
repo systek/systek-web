@@ -12,6 +12,7 @@ import PortableText from "../components/PortableText.astro";
 import WorkHere from "../components/card/WorkHere.astro";
 import Article from "../components/Article.astro";
 import ImageGallery from "../components/image/ImageGallery.astro";
+import CardTitle from "../components/card/layout/CardTitle.astro";
 
 const about = await fetchAboutPage();
 const locations = await fetchLocations();
@@ -77,11 +78,9 @@ const locations = await fetchLocations();
 
   <CardLayout class="border-t border-stroke pt-grid mt-page mx-grid">
     <CardRightColumn title={about.summaryLabel}>
-      <p
-        class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw] font-light text-xl-fluid"
-      >
+      <CardTitle>
         {about.summaryTitle}
-      </p>
+      </CardTitle>
     </CardRightColumn>
 
     <ImageGallery node={about.imageGallery as unknown as any} />
