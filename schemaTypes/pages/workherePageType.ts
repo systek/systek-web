@@ -1,6 +1,7 @@
 import { defineField, defineType } from "sanity";
 import { contactTwoField } from "../shared/contactTwoField";
 import { contentField } from "../shared/content";
+import { citationField } from "../shared/citation";
 
 export const workherePageType = defineType({
   name: "workherePageType",
@@ -44,6 +45,7 @@ export const workherePageType = defineType({
       name: "introText",
       title: "Introduksjonstekst",
     },
+    citationField,
     defineField({
       name: "vacanciesTitle",
       title: "Åpne roller Tittel",

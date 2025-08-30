@@ -27,20 +27,22 @@ const vacantPositions = await fetchVacantPositions();
   <PageHeader image={workhereData.heroImage}>
     <CardLayout>
       <CardRightColumn title={workhereData.topLabel}>
-        <p
+        <h1
           class="max-w-[72rem] lg:max-w-[68.571vw] md:mr-20 lg:mr-[4.7619vw] font-light text-3xl-fluid"
         >
           {workhereData.title}
-        </p>
+        </h1>
       </CardRightColumn>
     </CardLayout>
   </PageHeader>
+
   <Article>
     <PortableText value={workhereData.introText} />
   </Article>
+
   {
     workhereData.citation && (
-      <Citation citation={workhereData.citation} class="mt-section" />
+      <Citation citation={workhereData.citation} class="mt-page" />
     )
   }
 

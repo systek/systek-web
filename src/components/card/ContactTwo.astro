@@ -29,31 +29,33 @@ const { label, title, text, contacts } = Astro.props;
       <p class="mt-gap font-light text-2xl-fluid">
         {title}
       </p>
-      <p class="my-grid text-md-fluid">
+      <p class="mt-grid text-md-fluid">
         {text}
       </p>
     </div>
   </div>
-  {
-    contacts.map((contact) => (
-      <div class="mt-section-sm md:mt-section-md lg:mt-0">
-        <picture>
-          <Image
-            class="w-full rounded-md aspect-square md:aspect-[4/3] object-cover"
-            mode="cover"
-            image={contact}
-            alt={contact.alt}
-            width={810}
-            height={608}
-            sizes={`(min-width: 105rem) calc(${oneHalf("lg")}), (min-width: 50rem) calc(${fullWidth("md")}), calc(${fullWidth("sm")})`}
-          />
-        </picture>
-        <p>{contact.name}</p>
-        <p>{contact.position}</p>
-        <p>
-          {contact.phone} · {contact.email}
-        </p>
-      </div>
-    ))
-  }
+  <div class="grid md:grid-cols-2 gap-gutter lg:col-span-2">
+    {
+      contacts.map((contact) => (
+        <div class="mt-section-sm md:mt-section-md lg:mt-0">
+          <picture>
+            <Image
+              class="w-full rounded-md aspect-square object-cover"
+              mode="cover"
+              image={contact}
+              alt={contact.alt}
+              width={395}
+              height={395}
+              sizes={`(min-width: 105rem) calc(${oneHalf("lg")}), (min-width: 50rem) calc(${fullWidth("md")}), calc(${fullWidth("sm")})`}
+            />
+          </picture>
+          <p class="mt-gap font-bold text-md-fluid">{contact.name}</p>
+          <p class="text-md-fluid">{contact.position}</p>
+          <p class="text-sm-fluid">
+            {contact.phone} · {contact.email}
+          </p>
+        </div>
+      ))
+    }
+  </div>
 </CardLayout>
