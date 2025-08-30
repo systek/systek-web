@@ -230,71 +230,6 @@ export type Blog = {
   };
 };
 
-export type Staff = {
-  _id: string;
-  _type: "staff";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  name: string;
-  slug: Slug;
-  position: string;
-  location: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "location";
-  };
-  serviceType: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "service";
-  };
-  email?: string;
-  image: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-};
-
-export type Location = {
-  _id: string;
-  _type: "location";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  name: string;
-  slug: Slug;
-  order: number;
-  address: string;
-  address2: string;
-  phone: string;
-  email: string;
-  mapLink: string;
-  image: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt: string;
-    _type: "image";
-  };
-};
-
 export type Activity = {
   _id: string;
   _type: "activity";
@@ -578,8 +513,14 @@ export type News = {
   title: string;
   description: string;
   slug: Slug;
+  author?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "staff";
+  };
   publishedAt: string;
-  updatedAt: string;
+  tags?: Array<string>;
   content: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -756,6 +697,71 @@ export type News = {
     _key: string;
     [internalGroqTypeReferenceTo]?: "citation";
   }>;
+};
+
+export type Staff = {
+  _id: string;
+  _type: "staff";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name: string;
+  slug: Slug;
+  position: string;
+  location: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "location";
+  };
+  serviceType: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "service";
+  };
+  email?: string;
+  image: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+};
+
+export type Location = {
+  _id: string;
+  _type: "location";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name: string;
+  slug: Slug;
+  order: number;
+  address: string;
+  address2: string;
+  phone: string;
+  email: string;
+  mapLink: string;
+  image: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "image";
+  };
 };
 
 export type AboutPageType = {
@@ -2218,5 +2224,5 @@ export type SanityAssetSourceData = {
   url?: string;
 };
 
-export type AllSanitySchemaTypes = Vacancies | Page | Blog | Staff | Location | Activity | Work | Logo | News | AboutPageType | WorkherePageType | StaffPageType | ServicesPageType | Citation | Service | WorkerPageType | FrontPageType | SiteSettings | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
+export type AllSanitySchemaTypes = Vacancies | Page | Blog | Activity | Work | Logo | News | Staff | Location | AboutPageType | WorkherePageType | StaffPageType | ServicesPageType | Citation | Service | WorkerPageType | FrontPageType | SiteSettings | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;

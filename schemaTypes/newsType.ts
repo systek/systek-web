@@ -28,6 +28,12 @@ export const newsType = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: "author",
+      title: "Forfatter",
+      type: "reference",
+      to: [{ type: "staff" }],
+    }),
+    defineField({
       name: "publishedAt",
       title: "Publisert",
       type: "datetime",
@@ -35,11 +41,14 @@ export const newsType = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
-      name: "updatedAt",
-      title: "Oppdatert",
-      type: "datetime",
-      initialValue: () => new Date().toISOString(),
-      validation: (rule) => rule.required(),
+      name: "tags",
+      title: "Tags",
+      type: "array",
+      description: "Trykk på enter for å legge til flere",
+      of: [{ type: "string" }],
+      options: {
+        layout: "tags",
+      },
     }),
     contentField,
   ],

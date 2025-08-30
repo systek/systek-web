@@ -1,7 +1,7 @@
 ---
 import { sanityClient } from "sanity:client";
 
-import type { News } from "../../lib/sanity.types";
+import type { News, Staff } from "../../lib/sanity.types";
 import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
@@ -14,15 +14,14 @@ import PageHeader from "../../components/PageHeader.astro";
 import { formatDate } from "../../utils/date";
 import Article from "../../components/Article.astro";
 
+type NewsExtended = Omit<News, "author"> & { author?: Staff };
+
 export async function getStaticPaths() {
-  const newsItems = await sanityClient.fetch<News[]>(`*[_type == "news"] { 
-    _id,
-    title,
-    slug,
-    description,
-    publishedAt,
-    updatedAt,
-    content
+  const newsItems = await sanityClient.fetch<
+    NewsExtended[]
+  >(`*[_type == "news"] { 
+    ...,
+    author->,
   }`);
   return newsItems.map((news) => ({
     params: { slug: news.slug.current },
@@ -34,15 +33,51 @@ export async function getStaticPaths() {
 }
 
 const { news, otherNews } = Astro.props as {
-  news: News;
-  otherNews: News[];
+  news: NewsExtended;
+  otherNews: NewsExtended[];
 };
 ---
 
 <Layout title={news.title}>
   <Header />
 
-  <PageHeader title={news.title} />
+  <PageHeader>
+    <div class="grid md:grid-cols-3 gap-gutter">
+      <div class="md:col-span-2">
+        <h1 class="font-light text-3xl-fluid hyphens-auto">
+          {news.title}
+        </h1>
+      </div>
+      <div class="flex flex-row gap-gutter">
+        <dl class="w-1/2">
+          {
+            news.author && (
+              <>
+                <dt class="font-bold text-sm-fluid">Skrevet av</dt>
+                <dd class="text-sm-fluid">{news.author.name}</dd>
+              </>
+            )
+          }
+
+          <dt class="font-bold text-sm-fluid">Publisert</dt>
+          <dd class="text-sm-fluid">
+            {formatDate(news.publishedAt, "d. MMMM yyyy")}
+          </dd>
+        </dl>
+        {
+          news.tags && news.tags?.length > 0 && (
+            <div class="flex flex-col items-start gap-gutter w-1/2">
+              {news.tags?.map((item) => (
+                <span class="text-xs-fluid bg-grey-91 rounded-lg px-4">
+                  {item}
+                </span>
+              ))}
+            </div>
+          )
+        }
+      </div>
+    </div>
+  </PageHeader>
 
   <Article>
     <PortableText value={news.content} />
