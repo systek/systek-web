@@ -20,7 +20,7 @@ import Logos from "../../components/logo/Logos.astro";
 
 const [workersInfo, logoItems, workItems, serviceItems] = await Promise.all([
   fetchWorkerSingleton(),
-  fetchLogoItems(),
+  fetchLogoItems(12),
   fetchWorkItems(),
   fetchServiceItems(),
 ]);
