@@ -55,7 +55,7 @@
   --radius-md: 0.5rem;
   --radius-lg: 1rem;
 
-  --spacing-gap-sm: 0.425rem;
+  --spacing-gap-sm: 0.5rem;
   --spacing-gap-md: 0.5rem;
   --spacing-gap-lg: calc((0.5 / 105) * 100vw);
 

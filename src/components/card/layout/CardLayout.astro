@@ -1,17 +1,11 @@
 ---
 interface Props {
   class?: string;
-  color?: "transparent" | "grey";
 }
 
-const { color = "transparent", class: className } = Astro.props;
-
-const colorClasses = {
-  transparent: "",
-  grey: "",
-}[color];
+const { class: className } = Astro.props;
 ---
 
-<div class:list={["grid gap-gutter lg:grid-cols-4", colorClasses, className]}>
+<div class:list={["grid gap-x-gutter gap-y-gap lg:grid-cols-4", className]}>
   <slot />
 </div>

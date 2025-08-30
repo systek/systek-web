@@ -7,149 +7,147 @@ import Arrow from "./Arrow.astro";
 const locations = await fetchLocations();
 ---
 
-<div class="pt-page">
-  <footer class="flex flex-col mx-grid my-8 gap-section lg:mt-page-lg">
-    <div class="flex justify-between">
-      <Arrow position="topLeft" />
-      <Arrow position="topRight" />
-    </div>
+<footer class="flex flex-col mx-grid my-8 gap-section lg:mt-page-lg">
+  <div class="flex justify-between">
+    <Arrow position="topLeft" />
+    <Arrow position="topRight" />
+  </div>
 
-    <div class="grid gap-section lg:grid-cols-2 lg:gap-grid-lg">
-      <Accordion class="lg:mr-section-lg">
-        <AccordionItem title="Om Systek">
-          <div
-            class="grid grid-cols-2 gap-gutter mr-9 max-w-[35rem] lg:max-w-[33.333vw]"
-          >
-            <div class="flex flex-col gap-2">
-              <p class="text-text-secondary text-sm-fluid">Systek AS</p>
-              <p class="text-text-secondary text-sm-fluid">
-                Org.nr: 927 415 305 <span class="hidden md:inline">MVA</span>
-              </p>
-              <p class="text-text-secondary text-sm-fluid">
-                Denne siden bruker ikke cookies
-              </p>
-            </div>
-          </div>
-        </AccordionItem>
-        <AccordionItem title="Nyttige lenker">
-          <div
-            class="grid grid-cols-2 gap-gutter mr-9 max-w-[35rem] lg:max-w-[33.333vw]"
-          >
-            <div class="flex flex-col gap-2">
-              <p class="text-sm-fluid">
-                <a class="link-underline" href="/personvern"
-                  >Personvernerklæring</a
-                >
-              </p>
-              <p class="text-sm-fluid">
-                <a class="link-underline" href="/barekraft">Bærekraft</a>
-              </p>
-            </div>
-            <div class="flex flex-col gap-2">
-              <p class="text-sm-fluid">
-                <a class="link-underline" href="/nyheter">Nyheter</a>
-              </p>
-            </div>
-          </div>
-        </AccordionItem>
-        <AccordionItem title="Sosiale medier">
-          <div
-            class="grid grid-cols-2 gap-gutter mr-9 max-w-[35rem] lg:max-w-[33.333vw]"
-          >
-            <div class="flex flex-col gap-2">
-              <p class="text-sm-fluid">
-                <a
-                  class="link-underline"
-                  href="https://www.facebook.com/Systek.no"
-                  target="_blank"
-                  rel="noopener noreferrer">Facebook</a
-                >
-              </p>
-              <p class="text-sm-fluid">
-                <a
-                  class="link-underline"
-                  href="https://www.instagram.com/systek.no/"
-                  target="_blank"
-                  rel="noopener noreferrer">Instagram</a
-                >
-              </p>
-            </div>
-            <div class="flex flex-col gap-2">
-              <p class="text-sm-fluid">
-                <a
-                  class="link-underline"
-                  href="https://no.linkedin.com/company/systek-as"
-                  target="_blank"
-                  rel="noopener noreferrer">LinkedIn</a
-                >
-              </p>
-              <p class="text-sm-fluid">
-                <a
-                  class="link-underline"
-                  href="https://medium.com/systek"
-                  target="_blank"
-                  rel="noopener noreferrer">Medium</a
-                >
-              </p>
-            </div>
-          </div>
-        </AccordionItem>
-      </Accordion>
-
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-gutter">
-        {
-          locations.map((location) => (
-            <p class="text-sm-fluid">
-              <>
-                <span class="font-bold">{location.name}</span>
-                <br />
-              </>
-              <>
-                <a
-                  class="link-underline"
-                  href={location.mapLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {location.address}
-                </a>
-                <br />
-              </>
-              {location.address2}
-              <br />
-              {location.phone}
-              <br />
-              <a class="link-underline" href={`mailto:${location.email}}`}>
-                {location.email}
-              </a>
+  <div class="grid gap-section lg:grid-cols-2 lg:gap-grid-lg">
+    <Accordion class="lg:mr-section-lg">
+      <AccordionItem title="Om Systek">
+        <div
+          class="grid grid-cols-2 gap-gutter mr-9 max-w-[35rem] lg:max-w-[33.333vw]"
+        >
+          <div class="flex flex-col gap-2">
+            <p class="text-text-secondary text-sm-fluid">Systek AS</p>
+            <p class="text-text-secondary text-sm-fluid">
+              Org.nr: 927 415 305 <span class="hidden md:inline">MVA</span>
             </p>
-          ))
-        }
-      </div>
+            <p class="text-text-secondary text-sm-fluid">
+              Denne siden bruker ikke cookies
+            </p>
+          </div>
+        </div>
+      </AccordionItem>
+      <AccordionItem title="Nyttige lenker">
+        <div
+          class="grid grid-cols-2 gap-gutter mr-9 max-w-[35rem] lg:max-w-[33.333vw]"
+        >
+          <div class="flex flex-col gap-2">
+            <p class="text-sm-fluid">
+              <a class="link-underline" href="/personvern"
+                >Personvernerklæring</a
+              >
+            </p>
+            <p class="text-sm-fluid">
+              <a class="link-underline" href="/barekraft">Bærekraft</a>
+            </p>
+          </div>
+          <div class="flex flex-col gap-2">
+            <p class="text-sm-fluid">
+              <a class="link-underline" href="/nyheter">Nyheter</a>
+            </p>
+          </div>
+        </div>
+      </AccordionItem>
+      <AccordionItem title="Sosiale medier">
+        <div
+          class="grid grid-cols-2 gap-gutter mr-9 max-w-[35rem] lg:max-w-[33.333vw]"
+        >
+          <div class="flex flex-col gap-2">
+            <p class="text-sm-fluid">
+              <a
+                class="link-underline"
+                href="https://www.facebook.com/Systek.no"
+                target="_blank"
+                rel="noopener noreferrer">Facebook</a
+              >
+            </p>
+            <p class="text-sm-fluid">
+              <a
+                class="link-underline"
+                href="https://www.instagram.com/systek.no/"
+                target="_blank"
+                rel="noopener noreferrer">Instagram</a
+              >
+            </p>
+          </div>
+          <div class="flex flex-col gap-2">
+            <p class="text-sm-fluid">
+              <a
+                class="link-underline"
+                href="https://no.linkedin.com/company/systek-as"
+                target="_blank"
+                rel="noopener noreferrer">LinkedIn</a
+              >
+            </p>
+            <p class="text-sm-fluid">
+              <a
+                class="link-underline"
+                href="https://medium.com/systek"
+                target="_blank"
+                rel="noopener noreferrer">Medium</a
+              >
+            </p>
+          </div>
+        </div>
+      </AccordionItem>
+    </Accordion>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-gutter">
+      {
+        locations.map((location) => (
+          <p class="text-sm-fluid">
+            <>
+              <span class="font-bold">{location.name}</span>
+              <br />
+            </>
+            <>
+              <a
+                class="link-underline"
+                href={location.mapLink}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {location.address}
+              </a>
+              <br />
+            </>
+            {location.address2}
+            <br />
+            {location.phone}
+            <br />
+            <a class="link-underline" href={`mailto:${location.email}}`}>
+              {location.email}
+            </a>
+          </p>
+        ))
+      }
     </div>
+  </div>
 
-    <div class="flex justify-between">
-      <Arrow position="middleLeft" />
-      <Arrow position="middleRight" />
-    </div>
+  <div class="flex justify-between">
+    <Arrow position="middleLeft" />
+    <Arrow position="middleRight" />
+  </div>
 
-    <picture>
-      <img
-        alt="Systek"
-        src="/images/systek-logo.svg"
-        class="w-full"
-        draggable="false"
-      />
-    </picture>
+  <picture>
+    <img
+      alt="Systek"
+      src="/images/systek-logo.svg"
+      class="w-full"
+      draggable="false"
+    />
+  </picture>
 
-    <div class="flex items-end justify-between">
-      <Arrow position="bottomLeft" />
+  <div class="flex items-end justify-between">
+    <Arrow position="bottomLeft" />
 
-      <p class="text-xs-fluid">
-        @{new Date().getFullYear()} Systek. All rights reserved
-      </p>
+    <p class="text-xs-fluid">
+      @{new Date().getFullYear()} Systek. All rights reserved
+    </p>
 
-      <Arrow position="bottomRight" />
-    </div>
-  </footer>
-</div>
+    <Arrow position="bottomRight" />
+  </div>
+</footer>

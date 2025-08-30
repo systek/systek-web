@@ -24,7 +24,7 @@ const locations = await fetchLocations();
     locations && (
       <CardLayout class="border-t border-stroke mx-grid pt-grid mt-section">
         <CardRightColumn title="Kontorer">
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-x-gutter gap-y-section">
             {locations.map((item) => (
               <div class="group">
                 <picture>
@@ -38,7 +38,7 @@ const locations = await fetchLocations();
                     sizes={`(min-width: 105rem) calc(${oneHalf("lg", threeFourth("lg"))}), (min-width: 50rem) calc(${oneHalf("md")}), calc(${fullWidth("sm")})`}
                   />
                 </picture>
-                <p class="text-sm-fluid mt-gutter">
+                <p class="text-sm-fluid mt-gap">
                   <>
                     <span class="font-bold">{item.name}</span>
                     <br />
