@@ -24,6 +24,15 @@ export const workerPageType = defineType({
           ],
         },
       },
+      fields: [
+        {
+          name: "alt",
+          title: "Alt tekst",
+          type: "string",
+          description: "Beskriv bildet for synshemmede og SEO",
+          validation: (Rule) => Rule.required(),
+        },
+      ],
       validation: (Rule) => Rule.required(),
     }),
     defineField({

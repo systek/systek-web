@@ -1989,6 +1989,7 @@ export type WorkerPageType = {
     media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
+    alt: string;
     _type: "image";
   };
   logoTitle: string;
