@@ -40,7 +40,7 @@ export async function fetchLocations(): Promise<Location[]> {
 }
 
 export async function fetchNewsItems(limit = 8, skip = 0): Promise<News[]> {
-  return sanityClient.fetch(`*[_type == "news" && defined(slug)] | order(publishedAt asc)[${skip}...${skip + limit}] {
+  return sanityClient.fetch(`*[_type == "news" && defined(slug)] | order(publishedAt desc)[${skip}...${skip + limit}] {
     _id,
     title,
     description,

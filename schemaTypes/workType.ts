@@ -81,6 +81,13 @@ export const workType = defineType({
     }),
     contentField,
     defineField({
+      name: "technologiesTitle",
+      title: "Brukte teknologier tittel",
+      type: "string",
+      description: "Tittel over brukte teknologier",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       type: "array",
       name: "technologies",
       title: "Brukte teknologier",

@@ -2,14 +2,16 @@
 import type { Work } from "../../lib/sanity.types";
 
 interface Props {
+  title?: string;
   technologies: Work["technologies"];
 }
 
-const { technologies } = Astro.props;
+const { technologies, title = "Teknologier brukt gjennom arbeidet" } =
+  Astro.props;
 ---
 
 <div class="my-grid">
-  <p class="font-bold text-sm-fluid">Teknologier brukt gjennom arbeidet</p>
+  <p class="font-bold text-sm-fluid">{title}</p>
   <div class="flex flex-row flex-wrap gap-x-2 text-sm-fluid">
     {
       technologies?.map((item, index) => (

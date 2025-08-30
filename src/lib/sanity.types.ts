@@ -516,6 +516,7 @@ export type Work = {
     _key: string;
     [internalGroqTypeReferenceTo]?: "citation";
   }>;
+  technologiesTitle: string;
   technologies?: Array<string>;
   stats?: {
     title: string;

@@ -40,6 +40,7 @@ export async function getStaticPaths() {
     description,
     content,
     stats,
+    technologiesTitle,
     technologies,
     citation->,
     services[]->,
@@ -113,7 +114,10 @@ const workItems = _workItems
 
     <Stats stats={work.stats} />
 
-    <Technologies technologies={work.technologies} />
+    <Technologies
+      title={work.technologiesTitle}
+      technologies={work.technologies}
+    />
 
     <div class="my-section">
       <p class="font-bold text-sm-fluid">Likte du artikkelen?</p>
