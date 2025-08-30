@@ -11,12 +11,13 @@ import CardRightColumn from "../components/card/layout/CardRightColumn.astro";
 import Article from "../components/Article.astro";
 import PortableText from "../components/PortableText.astro";
 import Citation from "../components/card/Citation.astro";
-import LinkBox from "../components/LinkBox.astro";
+import GridListItem from "../components/grid-list/GridListItem.astro";
 import Footer from "../components/Footer.astro";
 import ContactTwo, {
   type ContactImage,
 } from "../components/card/ContactTwo.astro";
 import Faq, { type FaqItem } from "../components/card/Faq.astro";
+import GridList from "../components/grid-list/GridList.astro";
 
 const workhereData = await fetchWorkhereSingleton();
 const vacantPositions = await fetchVacantPositions();
@@ -59,25 +60,20 @@ const vacantPositions = await fetchVacantPositions();
         {workhereData.vacanciesTitle}
       </p>
 
-      <div class="grid gap-gutter mt-section md:grid-cols-3">
+      <GridList class="mt-section">
         {
           vacantPositions.map((item) => (
-            <LinkBox href={item.href} color="grey">
-              <div>
-                <p class="font-medium text-lg-fluid group-link-underline">
-                  {item.title}
-                </p>
-              </div>
+            <GridListItem href={item.href} title={item.title}>
               <div>
                 <p class="text-sm-fluid">{item.description}</p>
                 <div class="mt-gutter inline-block border border-grey-10 rounded-full py-0 px-gap">
                   <span class="text-xs-fluid">{item.location}</span>
                 </div>
               </div>
-            </LinkBox>
+            </GridListItem>
           ))
         }
-      </div>
+      </GridList>
     </CardRightColumn>
   </CardLayout>
 

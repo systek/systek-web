@@ -12,11 +12,12 @@ import {
   fetchServiceItems,
 } from "../../lib/sanity.queries";
 import Button from "../../components/Button.astro";
-import LinkBox from "../../components/LinkBox.astro";
+import GridListItem from "../../components/grid-list/GridListItem.astro";
 import Image from "../../components/Image.astro";
 import PageHeader from "../../components/PageHeader.astro";
 import { fullWidth, oneHalf, threeFourth } from "../../utils/number";
 import Logos from "../../components/logo/Logos.astro";
+import GridList from "../../components/grid-list/GridList.astro";
 
 const [workersInfo, logoItems, workItems, serviceItems] = await Promise.all([
   fetchWorkerSingleton(),
@@ -100,20 +101,18 @@ const [workersInfo, logoItems, workItems, serviceItems] = await Promise.all([
 
     <Button href="/tjenester" class="mt-grid">Se våre tjenester</Button>
 
-    <div class="grid gap-gutter mt-section md:grid-cols-3">
+    <GridList class="mt-section">
       {
         serviceItems.map((item) => (
-          <LinkBox href={`/tjenester/${item.slug.current}`} color="grey">
-            <div>
-              <p class="font-medium text-lg-fluid group-link-underline">
-                {item.title}
-              </p>
-            </div>
+          <GridListItem
+            href={`/tjenester/${item.slug.current}`}
+            title={item.title}
+          >
             <p class="text-sm-fluid">{item.description}</p>
-          </LinkBox>
+          </GridListItem>
         ))
       }
-    </div>
+    </GridList>
   </CardRightColumn>
 </CardLayout>
 

@@ -20,11 +20,12 @@ import {
 import CardRightColumn from "../components/card/layout/CardRightColumn.astro";
 import Accordion from "../components/accordion/Accordion.astro";
 import AccordionItem from "../components/accordion/AccordionItem.astro";
-import LinkBox from "../components/LinkBox.astro";
+import GridListItem from "../components/grid-list/GridListItem.astro";
 import Contact from "../components/card/Contact.astro";
 import { formatDate } from "../utils/date";
 import Logos from "../components/logo/Logos.astro";
 import { fullWidth, oneFourth, oneHalf, threeFourth } from "../utils/number";
+import GridList from "../components/grid-list/GridList.astro";
 
 const [
   frontPageData,
@@ -87,20 +88,18 @@ const [
 
       <Button href="/tjenester" class="mt-grid">Se våre tjenester</Button>
 
-      <div class="grid gap-gutter mt-section md:grid-cols-3">
+      <GridList class="mt-section">
         {
           serviceItems.map((item) => (
-            <LinkBox href={`/tjenester/${item.slug.current}`} color="grey">
-              <div>
-                <p class="font-medium text-lg-fluid group-link-underline">
-                  {item.title}
-                </p>
-              </div>
+            <GridListItem
+              href={`/tjenester/${item.slug.current}`}
+              title={item.title}
+            >
               <p class="text-sm-fluid">{item.description}</p>
-            </LinkBox>
+            </GridListItem>
           ))
         }
-      </div>
+      </GridList>
     </CardRightColumn>
   </CardLayout>
 
