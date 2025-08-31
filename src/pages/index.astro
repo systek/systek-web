@@ -191,6 +191,7 @@ const [
             // This will onlly be checked at build time
             const date = new Date(item.date);
             const formatedDate = formatDate(date);
+            const mobileFormatDate = formatDate(date, "d. MMM");
             const isDone = date < new Date();
             return (
               <div>
@@ -211,7 +212,7 @@ const [
                       <p class="text-xs-fluid">{item.title}</p>
                     </a>
                   )}
-                  <p class="text-xs-fluid">{formatedDate}</p>
+                  <p class="text-xs-fluid whitespace-nowrap">{mobileFormatDate}</p>
                 </div>
 
                 <div
