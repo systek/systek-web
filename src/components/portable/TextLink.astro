@@ -1,0 +1,23 @@
+---
+import { sanityClient } from "sanity:client";
+const { node } = Astro.props as { node: { markDef: { href: string; } } };
+const { markDef } = node;
+
+function isEmailWithoutMailto(value: string) {
+  if (typeof value !== 'string' || !value) {
+    return false;
+  }
+
+  if (value.startsWith('mailto:')) {
+    return false;
+  }
+
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  return emailRegex.test(value);
+}
+
+const isExternal = markDef.href.startsWith("https://");
+const href = isEmailWithoutMailto(markDef.href) ? `mailto:${markDef.href}` : markDef.href;
+---
+
+<a class="link-underline" href={href} target={isExternal ? "_blank" : ""} rel="noopener noreferrer"><slot /></Pilestredet></a>

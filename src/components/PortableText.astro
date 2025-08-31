@@ -13,6 +13,7 @@ import ImageOne from "./image/ImageOne.astro";
 import ImageGallery from "./image/ImageGallery.astro";
 import ImageThree from "./image/ImageThree.astro";
 import Citation from "./portable/Citation.astro";
+import TextLink from "./portable/TextLink.astro";
 
 const components = {
   type: {
@@ -29,6 +30,7 @@ const components = {
   },
   mark: {
     internalLink: InternalLink,
+    link: TextLink
   },
   block: PortableBlock,
   list: List,
