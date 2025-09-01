@@ -2,7 +2,7 @@
 import Arrow from "./Arrow.astro";
 ---
 
-<div class="h-[90vh] relative">
+<div class="h-[calc(100vh-var(--height-header))] relative">
   <Arrow color="black" position="topLeft" class="absolute top-grid left-grid" />
   <Arrow
     color="black"
@@ -28,7 +28,7 @@ import Arrow from "./Arrow.astro";
 
   DOMLoaded(() => {
     const canvas = document.querySelector(
-      "[data-connections-canvas]",
+      "[data-connections-canvas]"
     ) as HTMLDivElement;
     const hasViewportWidthChanged = widthChecker();
 

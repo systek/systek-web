@@ -7,6 +7,10 @@ export function setupHeader(header: HTMLElement, sentinel: HTMLElement) {
     "--width-scrollbar",
     `${window.innerWidth - document.body.clientWidth}px`
   );
+  document.body.style.setProperty(
+    "--height-header",
+    `${header.offsetHeight}px`
+  );
 
   // header is not sticky on mobile
   if (window.innerWidth < 800) {

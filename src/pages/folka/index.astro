@@ -167,7 +167,6 @@ const staffByInitial = staffItems.reduce(
 
 <script>
   import {
-    setHeaderSize,
     setupRadios,
     toggleLetterVisibility,
     toggleStaffVisibility,
@@ -208,14 +207,6 @@ const staffByInitial = staffItems.reduce(
 
     setupRadios("location", locationRadios, filterValues, consolidate);
     setupRadios("department", departmentRadios, filterValues, consolidate);
-
-    setHeaderSize(header);
-
-    handleResize(() => {
-      if (hasViewportWidthChanged()) {
-        setHeaderSize(header);
-      }
-    });
 
     // todo: accordionItem "Avdelinger" should be closed on mobile
   });
