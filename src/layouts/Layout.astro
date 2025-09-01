@@ -18,6 +18,9 @@ const baseUrl = `https://${siteSettings.hostname}`;
 const siteTitle = siteSettings.title;
 const siteDescription = siteSettings.description;
 const canonical = baseUrl + Astro.url.pathname;
+
+// todo: siteSettings.ogImage (upload public/images/og-image)
+const siteImage = image || `${baseUrl}/images/og-image/og-image-white.png`;
 ---
 
 <!doctype html>
@@ -36,7 +39,7 @@ const canonical = baseUrl + Astro.url.pathname;
     <meta content={title || siteTitle} property="og:title" />
     <meta content={description || siteDescription} property="og:description" />
     <meta content={siteTitle} property="og:site_name" />
-    <meta content={image || `${baseUrl}/images/temp.png`} property="og:image" />
+    <meta content={image || siteImage} property="og:image" />
     <meta content={canonical} property="og:url" />
     <meta content="website" property="og:type" />
     <meta content="nb_NO" property="og:locale" />
