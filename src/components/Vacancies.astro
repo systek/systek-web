@@ -1,0 +1,86 @@
+---
+import CardLayout from "./card/layout/CardLayout.astro";
+import CardRightColumn from "./card/layout/CardRightColumn.astro";
+import CardTitle from "./card/layout/CardTitle.astro";
+import { type Vacancies as VacanciesType } from "../lib/sanity.types";
+import { formatDate } from "../utils/date";
+import Button from "./Button.astro";
+import ExternalIcon from "../../assets/icons/external.svg";
+import clsx from "clsx";
+
+interface Props {
+  vacancies: VacanciesType[];
+}
+
+const { vacancies } = Astro.props;
+---
+
+<CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
+  <CardRightColumn title="Ledige stillinger">
+    <CardTitle>
+      Vil du bli en del et 100% ansatteid selskap drevet av dyktige kolleger i
+      et tverrfaglig miljø?
+    </CardTitle>
+  </CardRightColumn>
+
+  <div class="mt-section lg:col-span-4">
+    <!-- seperate markup for mobile and desktop -->
+    <div
+      class="flex justify-between py-4 border-b md:hidden gap-gutter border-stroke"
+    >
+      <p class="font-bold text-xs-fluid">Søknad</p>
+      <p class="font-bold text-xs-fluid">Frist</p>
+    </div>
+
+    <div
+      class="hidden grid-cols-4 py-4 border-b md:grid gap-gutter border-stroke"
+    >
+      <p class="font-bold text-xs-fluid">Stillingstittel</p>
+      <p class="font-bold text-xs-fluid">Frist</p>
+      <p class="font-bold text-xs-fluid">Sted</p>
+      <p class="font-bold text-xs-fluid">Søknad</p>
+    </div>
+    {
+      vacancies.map((item, index) => {
+        const date = item.date ? new Date(item.date) : undefined;
+        const formatedDate = date ? formatDate(date) : "Løpende";
+        const expired = date ? date < new Date() : false;
+        return (
+          <div>
+            <div
+              class={clsx(
+                "flex md:hidden justify-between items-center py-4 border-b gap-gutter border-stroke",
+                { "line-through": expired }
+              )}
+            >
+              <a
+                href={item.href}
+                class="flex items-center gap-1 link-underline"
+              >
+                <ExternalIcon class="size-2.5 lg:size-[0.595vw]" />
+                <p class="text-xs-fluid">{item.title}</p>
+              </a>
+
+              <p class="text-xs-fluid">{formatedDate}</p>
+            </div>
+
+            <div class="hidden grid-cols-4 py-4 border-b md:grid gap-gutter border-stroke">
+              <p class="text-xs-fluid">{item.title}</p>
+              <p class="text-xs-fluid">{formatedDate}</p>
+              <p class="text-xs-fluid">{item.location}</p>
+              <p class="text-xs-fluid">
+                <Button size="sm" href={item.href}>
+                  Se stillingsinstruks
+                </Button>
+              </p>
+            </div>
+          </div>
+        );
+      })
+    }
+
+    <div class="hidden ml-[25%] mt-grid md:block">
+      <Button href="/jobbe-her"> Se alle ledige stillinger </Button>
+    </div>
+  </div>
+</CardLayout>

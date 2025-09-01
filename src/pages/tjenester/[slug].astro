@@ -1,8 +1,6 @@
 ---
 import { sanityClient } from "sanity:client";
-import clsx from "clsx";
 
-import ExternalIcon from "../../assets/icons/external.svg";
 import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
@@ -13,7 +11,7 @@ import type {
   Citation as CitationType,
   Service,
   Work,
-  Vacancies,
+  Vacancies as VacanciesType,
 } from "../../lib/sanity.types";
 import CardLayout from "../../components/card/layout/CardLayout.astro";
 import CardRightColumn from "../../components/card/layout/CardRightColumn.astro";
@@ -21,9 +19,8 @@ import Button from "../../components/Button.astro";
 import Contact from "../../components/card/Contact.astro";
 import { getOGImageUrl } from "../../utils/image";
 import PageHeader from "../../components/PageHeader.astro";
-import { formatDate } from "../../utils/date";
 import Article from "../../components/Article.astro";
-import { fullWidth, gutter, oneHalf, threeFourth, vw } from "../../utils/number";
+import { fullWidth, oneHalf, threeFourth } from "../../utils/number";
 import CardTitle from "../../components/card/layout/CardTitle.astro";
 
 type PageType = Omit<Service, "citation" | "works"> & {
@@ -51,7 +48,7 @@ const { service } = Astro.props as {
   service: PageType;
 };
 
-const vacancies: Vacancies[] = await sanityClient.fetch(
+const vacancies: VacanciesType[] = await sanityClient.fetch(
   `*[_type == "vacancies" && service._ref == $serviceId]{
     title,
     date,
@@ -110,7 +107,7 @@ const vacancies: Vacancies[] = await sanityClient.fetch(
                   alt={item.image.alt}
                   width={603}
                   height={452}
-                  sizes={`(min-width: 105rem) calc(${oneHalf('lg', threeFourth("lg"))}), (min-width: 50rem) calc(${oneHalf("md")}), calc(${fullWidth("sm")})`}
+                  sizes={`(min-width: 105rem) calc(${oneHalf("lg", threeFourth("lg"))}), (min-width: 50rem) calc(${oneHalf("md")}), calc(${fullWidth("sm")})`}
                 />
               </picture>
               <p class="mt-gap font-bold text-md-fluid group-link-underline">
@@ -124,79 +121,7 @@ const vacancies: Vacancies[] = await sanityClient.fetch(
     )
   }
 
-{vacancies.length > 0 && (
-  <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
-    <CardRightColumn title="Ledige stillinger">
-      <CardTitle>
-        Vil du bli en del et 100% ansatteid selskap drevet av dyktige kolleger i
-        et tverrfaglig miljø?
-      </CardTitle>
-    </CardRightColumn>
-
-    <div class="mt-section lg:col-span-4">
-      <!-- seperate markup for mobile and desktop -->
-      <div
-        class="flex justify-between py-4 border-b md:hidden gap-gutter border-stroke"
-      >
-        <p class="font-bold text-xs-fluid">Søknad</p>
-        <p class="font-bold text-xs-fluid">Frist</p>
-      </div>
-
-      <div
-        class="hidden grid-cols-4 py-4 border-b md:grid gap-gutter border-stroke"
-      >
-        <p class="font-bold text-xs-fluid">Stillingstittel</p>
-        <p class="font-bold text-xs-fluid">Frist</p>
-        <p class="font-bold text-xs-fluid">Sted</p>
-        <p class="font-bold text-xs-fluid">Søknad</p>
-      </div>
-      {
-        vacancies.map((item, index) => {
-          const date = item.date ? new Date(item.date) : undefined;
-          const formatedDate = date ? formatDate(date) : "Løpende";
-          const expired = date ? date < new Date() : false;
-          return (
-            <div>
-              <div
-                class={clsx(
-                  "flex md:hidden justify-between items-center py-4 border-b gap-gutter border-stroke",
-                  { "line-through": expired }
-                )}
-              >
-                <a
-                  href={item.href}
-                  class="flex items-center gap-1 link-underline"
-                >
-                  <ExternalIcon class="size-2.5 lg:size-[0.595vw]" />
-                  <p class="text-xs-fluid">{item.title}</p>
-                </a>
-
-                <p class="text-xs-fluid">{formatedDate}</p>
-              </div>
-
-              <div class="hidden grid-cols-4 py-4 border-b md:grid gap-gutter border-stroke">
-                <p class="text-xs-fluid">{item.title}</p>
-                <p class="text-xs-fluid">{formatedDate}</p>
-                <p class="text-xs-fluid">{item.location}</p>
-                <p class="text-xs-fluid">
-                  <Button size="sm" href={item.href}>
-                    Se stillingsinstruks
-                  </Button>
-                </p>
-              </div>
-            </div>
-          );
-        })
-      }
-
-      <div class="hidden ml-[25%] mt-grid md:block">
-        <Button href="/jobbe-her">
-          Se alle ledige stillinger
-        </Button>
-      </div>
-    </div>
-  </CardLayout>
-  )}
+  {/* vacancies.length > 0 && <Vacancies vacancies={vacancies} />*/}
 
   {
     service.contact && (
