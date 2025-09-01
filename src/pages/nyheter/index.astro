@@ -20,7 +20,6 @@ const newsItems = await fetchNewsItems(10, 0);
 
   <CardLayout class="mt-page mx-grid pt-grid">
     <CardRightColumn title="Nyheter">
-      <!-- todo: time element does not match figma on desktop -->
       {
         newsItems.map((item) => (
           <div class="flex justify-between py-grid border-b gap-gutter border-stroke">

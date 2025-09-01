@@ -52,7 +52,7 @@ const [
 
   <div
     id="main-content"
-    class="grid items-start mx-grid mt-section gap-gutter lg:grid-cols-2 scroll-mt-[var(--height-header)]"
+    class="grid mx-grid mt-section gap-gutter scroll-mt-[var(--height-header)] lg:grid-cols-2"
   >
     <h2 class="font-light text-4xl-fluid">{frontPageData.title}</h2>
     <div>
@@ -289,18 +289,19 @@ const [
       <Button class="mt-grid" href="/nyheter">Se alle nyheter</Button>
 
       <div class="border-t border-stroke mt-section">
-        <!-- todo: time element does not match figma on desktop -->
         {
           newsItems.map((item) => (
-            <div class="flex justify-between py-grid border-b gap-gutter border-stroke">
-              <a
-                class="flex items-center gap-1 link-underline"
-                href={`/nyheter/${item.slug.current}`}
-              >
-                <ExternalIcon class="size-2.5 lg:size-[0.595vw]" />
-                <p class="text-xs-fluid">{item.title}</p>
-              </a>
-              <p class="md:pr-64 text-xs-fluid">
+            <div class="flex justify-between py-grid border-b gap-gutter border-stroke md:grid md:grid-cols-4">
+              <div class="md:col-span-3">
+                <a
+                  class="inline-flex items-center gap-1 link-underline"
+                  href={`/nyheter/${item.slug.current}`}
+                >
+                  <ExternalIcon class="size-2.5 lg:size-[0.595vw] shrink-0" />
+                  <p class="text-xs-fluid">{item.title}</p>
+                </a>
+              </div>
+              <p class="text-xs-fluid whitespace-nowrap">
                 {formatDate(item.publishedAt)}
               </p>
             </div>
