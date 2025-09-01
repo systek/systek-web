@@ -188,7 +188,8 @@ export async function fetchWorkhereSingleton(): Promise<WorkherePageTypeExtended
     introText[]{
       ...,
       _type == "citation" => @->
-    }
+    },
+    citation->
   }`);
 }
 
