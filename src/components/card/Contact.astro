@@ -38,13 +38,20 @@ const { button, label, title, email, text, image } = Astro.props;
   <div class="mt-section-sm md:mt-section-md lg:mt-0 lg:col-span-2">
     <picture>
       <Image
-        class="w-full rounded-md aspect-square md:aspect-[4/3] object-cover"
-        mode="cover"
+        class="w-full rounded-md aspect-[4/3] hidden md:block"
         image={image}
         alt={image.alt}
-        width={810}
-        height={608}
-        sizes={`(min-width: 105rem) calc(${oneHalf("lg")}), (min-width: 50rem) calc(${fullWidth("md")}), calc(${fullWidth("sm")})`}
+        width={1000}
+        height={750}
+        sizes={`(min-width: 105rem) 50vw, 100vw`}
+      />
+      <Image
+        class="w-full rounded-md aspect-square block md:hidden"
+        image={image}
+        alt={image.alt}
+        width={1000}
+        height={1000}
+        sizes={`100vw`}
       />
     </picture>
   </div>

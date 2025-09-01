@@ -40,13 +40,12 @@ const { label, title, text, contacts } = Astro.props;
         <div class="mt-section-sm md:mt-section-md lg:mt-0">
           <picture>
             <Image
-              class="w-full rounded-md aspect-square object-cover"
-              mode="cover"
+              class="w-full rounded-md aspect-square"
               image={contact}
               alt={contact.alt}
-              width={395}
-              height={395}
-              sizes={`(min-width: 105rem) calc(${oneFourth("lg")}), (min-width: 50rem) calc(${oneHalf("md")}), calc(${fullWidth("sm")})`}
+              width={1000}
+              height={1000}
+              sizes={`(min-width: 105rem) 25vw, (min-width: 50rem) 50vw, 100vw`}
             />
           </picture>
           <p class="mt-gap font-bold text-md-fluid">{contact.name}</p>

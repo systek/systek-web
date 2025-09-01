@@ -116,12 +116,11 @@ const staffByInitial = staffItems.reduce(
                 <picture class="aspect-square overflow-hidden">
                   <Image
                     alt={item.name}
-                    class="w-full aspect-square object-cover rounded-md"
+                    class="w-full aspect-square rounded-md"
                     image={item.image}
-                    mode="cover"
-                    width={291}
-                    height={291}
-                    sizes={`(min-width: 105rem) calc(${oneFourth("lg", threeFourth("lg"))}), (min-width: 50rem) calc(${oneFourth("md")}), calc(${oneHalf("sm")})`}
+                    width={500}
+                    height={500}
+                    sizes={`(min-width: 105rem) 18.75vw, (min-width: 50rem) 25vw, 50vw`}
                   />
                 </picture>
 

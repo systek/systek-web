@@ -41,13 +41,22 @@ const { image, title } = Astro.props;
 
         <Image
           alt={image.alt}
-          class="w-full rounded-md aspect-[4/3] md:aspect-[2/1] object-cover"
+          class="w-full rounded-md aspect-[2/1] hidden md:block"
           image={image}
           loading="eager"
-          mode="cover"
-          width={1640}
-          height={820}
-          sizes={`(min-width: 105rem) calc(${fullWidth("lg")}), (min-width: 50rem) calc(${fullWidth("md")}), calc(${fullWidth("sm")})`}
+          width={2000}
+          height={1000}
+          sizes={`100vw`}
+        />
+
+        <Image
+          alt={image.alt}
+          class="w-full rounded-md aspect-[4/3] block md:hidden"
+          image={image}
+          loading="eager"
+          width={1000}
+          height={750}
+          sizes={`100vw`}
         />
       </>
     )

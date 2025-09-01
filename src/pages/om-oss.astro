@@ -30,13 +30,12 @@ const locations = await fetchLocations();
               <div class="group">
                 <picture>
                   <Image
-                    class="w-full rounded-md object-cover aspect-[4/3]"
+                    class="w-full rounded-md aspect-[4/3]"
                     image={item.image}
-                    mode="cover"
                     alt={item.image.alt}
-                    width={603}
-                    height={452}
-                    sizes={`(min-width: 105rem) calc(${oneHalf("lg", threeFourth("lg"))}), (min-width: 50rem) calc(${oneHalf("md")}), calc(${fullWidth("sm")})`}
+                    width={1000}
+                    height={750}
+                    sizes={`(min-width: 105rem) 25vw, (min-width: 50rem) 33vw, 50vw`}
                   />
                 </picture>
                 <p class="text-sm-fluid mt-gap">

@@ -21,6 +21,9 @@ if (!node?.first || !node.second || !node.third) {
 }
 
 const { first, second, third } = node;
+/*
+todo: test this component, set width/height/sizes
+*/
 ---
 
 <div
@@ -31,7 +34,7 @@ const { first, second, third } = node;
       <Image
         image={first}
         alt={first.alt}
-        class="object-cover w-full rounded-md aspect-square"
+        class="w-full rounded-md aspect-square"
       />
     </picture>
 
@@ -39,7 +42,7 @@ const { first, second, third } = node;
       <Image
         image={second}
         alt={second.alt}
-        class="w-full object-cover rounded-md aspect-square lg:aspect-[4/5]"
+        class="w-full rounded-md aspect-square lg:aspect-[4/5]"
       />
     </picture>
   </div>
@@ -49,7 +52,7 @@ const { first, second, third } = node;
       <Image
         image={third}
         alt={third.alt}
-        class="w-full object-cover rounded-md aspect-[4/5] lg:aspect-[4/3]"
+        class="w-full rounded-md aspect-[4/5] lg:aspect-[4/3]"
       />
     </picture>
   </div>

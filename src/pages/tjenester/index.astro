@@ -60,13 +60,12 @@ const [servicesInfo, serviceItems] = await Promise.all([
     <div>
       <picture>
         <Image
-          class="w-full rounded-md aspect-[4/3] object-cover"
+          class="w-full rounded-md aspect-[4/3]"
           image={servicesInfo.heroImage}
           alt={servicesInfo.heroImage.alt}
-          mode="cover"
-          width={820}
-          height={615}
-          sizes={`(min-width: 105rem) calc(${fullWidth("lg")} / 2), (min-width: 50rem) calc(${fullWidth("md")}), calc(${fullWidth("sm")})`}
+          width={2000}
+          height={1500}
+          sizes={`(min-width: 105rem) 50vw, 100vw`}
         />
       </picture>
     </div>
@@ -84,12 +83,19 @@ const [servicesInfo, serviceItems] = await Promise.all([
         <picture>
           <Image
             alt={servicesInfo.secondaryImage.alt}
-            class="w-full object-cover rounded-md lg:rounded-lg aspect-[4/3] lg:aspect-[2/1]"
+            class="w-full rounded-md lg:rounded-lg aspect-[2/1] hidden md:block"
             image={servicesInfo.secondaryImage}
-            mode="cover"
-            width={1225}
-            height={613}
-            sizes={`calc(${threeFourth("lg")}), (min-width: 50rem) calc(${fullWidth("md")}), calc(${fullWidth("sm")})`}
+            width={2000}
+            height={1000}
+            sizes={`(min-width: 105rem) 75vw, 100vw`}
+          />
+          <Image
+            alt={servicesInfo.secondaryImage.alt}
+            class="w-full rounded-md aspect-[4/3] block md:hidden"
+            image={servicesInfo.secondaryImage}
+            width={1000}
+            height={750}
+            sizes={`100vw`}
           />
         </picture>
       </div>

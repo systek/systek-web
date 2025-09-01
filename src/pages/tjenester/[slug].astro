@@ -101,13 +101,12 @@ const vacancies: VacanciesType[] = await sanityClient.fetch(
             <a class="group" href={`/arbeider/${item.slug.current}`}>
               <picture>
                 <Image
-                  class="w-full rounded-md object-cover aspect-[4/3]"
+                  class="w-full rounded-md aspect-[4/3]"
                   image={item.image}
-                  mode="cover"
                   alt={item.image.alt}
-                  width={603}
-                  height={452}
-                  sizes={`(min-width: 105rem) calc(${oneHalf("lg", threeFourth("lg"))}), (min-width: 50rem) calc(${oneHalf("md")}), calc(${fullWidth("sm")})`}
+                  width={1000}
+                  height={750}
+                  sizes={`(min-width: 105rem) 37.5vw, (min-width: 50rem) 50vw, 100vw`}
                 />
               </picture>
               <p class="mt-gap font-bold text-md-fluid group-link-underline">

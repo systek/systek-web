@@ -65,6 +65,10 @@ const _workItems = await fetchWorkItems(4);
 const workItems = _workItems
   .filter((item) => item.slug.current !== work.slug.current)
   .slice(0, 3);
+
+/*
+todo: test work.contactTwo component, set width/height/sizes
+*/
 ---
 
 <Layout title={work.description}>
@@ -144,7 +148,7 @@ const workItems = _workItems
                 <div class="flex gap-gutter">
                   <picture>
                     <Image
-                      class="w-[160px] h-[160px] rounded-md aspect-square object-cover"
+                      class="w-[160px] h-[160px] rounded-md aspect-square"
                       image={item.image}
                     />
                   </picture>
@@ -191,18 +195,17 @@ const workItems = _workItems
               <picture>
                 <Image
                   class={clsx(
-                    "w-full rounded-md object-cover",
+                    "w-full rounded-md",
                     index % 3 === 2 ? "aspect-square" : "aspect-[4/3]"
                   )}
                   image={item.image}
-                  mode="cover"
                   alt={item.image.alt}
-                  width={index % 3 === 0 ? 810 : 395}
-                  height={index === 0 ? 608 : index === 1 ? 296 : 395}
+                  width={index % 3 === 0 ? 2000 : 1000}
+                  height={index === 0 ? 1500 : index === 1 ? 750 : 1000}
                   sizes={
                     index % 3 === 0
-                      ? `(min-width: 105rem) calc(${oneHalf("lg")}), (min-width: 50rem) calc(${oneHalf("md")}), calc(${fullWidth("sm")})`
-                      : `(min-width: 105rem) calc(${oneFourth("lg")}), (min-width: 50rem) calc(${oneFourth("md")}), calc(${oneHalf("sm")})`
+                      ? `(min-width: 50rem) 50vw, 100vw`
+                      : `(min-width: 50rem) 25vw, 50vw`
                   }
                 />
               </picture>
