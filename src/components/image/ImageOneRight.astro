@@ -30,8 +30,10 @@ const { node } = Astro.props;
       sizes={`100vw`}
     />
 
-    {node.caption && <figcaption class="mt-gutter text-xs-fluid">
-      {node.caption}
-    </figcaption>}
+    {
+      node.caption && (
+        <figcaption class="mt-gap text-xs-fluid">{node.caption}</figcaption>
+      )
+    }
   </figure>
 </div>
