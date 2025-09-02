@@ -16,12 +16,14 @@ interface Props {
 const { label, title, text, image, points } = Astro.props as Props;
 ---
 
-<CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
+<CardLayout
+  class="border-t mt-page border-stroke mx-grid pt-grid gap-y-section"
+>
   <div class="flex flex-col lg:col-span-2">
     <h2 class="font-bold text-sm-fluid">{label}</h2>
     <div class="mt-auto max-w-[37rem] lg:max-w-[35.238vw]">
-      <h3 class="mt-gap font-light text-2xl-fluid">{title}</h3>
-      <p class="mt-grid text-md-fluid md:mt-6">
+      <h3 class="my-gap font-light text-2xl-fluid">{title}</h3>
+      <p class="my-grid text-md-fluid md:mt-6">
         {text}
       </p>
 
@@ -44,14 +46,14 @@ const { label, title, text, image, points } = Astro.props as Props;
       </div>
     </div>
   </div>
-  <div class="mt-section-sm md:mt-section-md lg:mt-0 lg:col-span-2">
+  <div class="lg:col-span-2">
     <picture>
       <Image
         class="w-full rounded-md aspect-[4/3] hidden md:block"
         image={image}
         alt={image.alt}
-        width={2000}
-        height={1500}
+        width={1000}
+        height={750}
         sizes={`(min-width: 105rem) 50vw, 100vw`}
       />
       <Image

@@ -24,6 +24,7 @@ import PageHeader from "../../components/PageHeader.astro";
 import { formatDate } from "../../utils/date";
 import Article from "../../components/Article.astro";
 import CardTitle from "../../components/card/layout/CardTitle.astro";
+import { vw } from "../../utils/number";
 
 type WorkExtended = Omit<Work, "citation" | "services"> & {
   citation: CitationType;
@@ -140,6 +141,7 @@ todo: test work.contactTwo component, set width/height/sizes
       <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
         <CardRightColumn title={work.contactTwo.label}>
           <CardTitle>{work.contactTwo.title}</CardTitle>
+
           <Button class="mt-grid" href="/jobbe-her">
             Kontakt oss
           </Button>
@@ -150,8 +152,12 @@ todo: test work.contactTwo component, set width/height/sizes
                 <div class="flex gap-gutter">
                   <picture>
                     <Image
-                      class="w-[160px] h-[160px] rounded-md aspect-square"
+                      class="rounded-md aspect-square size-28 md:size-40 lg:size-[9.5238vw]"
+                      alt={item.name}
+                      width={400}
+                      height={400}
                       image={item.image}
+                      sizes={`(min-width: 105rem) ${vw(10)}, 10rem`}
                     />
                   </picture>
                   <div class="flex flex-col items-start">
