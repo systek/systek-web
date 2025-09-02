@@ -69,7 +69,7 @@ const colorClasses = {
 }[color];
 ---
 
-<div class={className}>
+<div aria-hidden="true" class={className}>
   <MobileArrow class:list={[colorClasses, "block md:hidden"]} />
   <TabletArrow class:list={[colorClasses, "hidden md:block lg:hidden"]} />
   <DesktopArrow
