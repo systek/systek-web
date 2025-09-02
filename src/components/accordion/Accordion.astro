@@ -1,11 +1,11 @@
 ---
 import AccordionItem from "./AccordionItem.astro";
 
-type AccordionItem = typeof AccordionItem;
+type AccordionItemType = typeof AccordionItem;
 
 interface Props {
   class?: string;
-  children: AccordionItem | AccordionItem[];
+  children: AccordionItemType | AccordionItemType[];
 }
 
 const { class: className } = Astro.props;

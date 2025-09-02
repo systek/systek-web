@@ -40,8 +40,8 @@ type BreakpointConfig = {
 };
 
 export const setupConnections = function (rootEl: HTMLDivElement) {
-  let boxes: Box[] = [];
-  let lines: Line[] = [];
+  const boxes: Box[] = [];
+  const lines: Line[] = [];
   let raf: number | null = null;
 
   const breakpoints: BreakpointConfig[] = [
@@ -94,7 +94,7 @@ export const setupConnections = function (rootEl: HTMLDivElement) {
   const breakpointConfig: BreakpointConfig =
     breakpoints.find((bp) => window.innerWidth <= bp.width) || breakpoints[0];
 
-  let config: Config & BreakpointConfig = Object.assign(
+  const config: Config & BreakpointConfig = Object.assign(
     {
       texts: ["Bra", "folk", "smarte", "løsninger"],
       white: "#fcf6ee",
@@ -198,22 +198,6 @@ export const setupConnections = function (rootEl: HTMLDivElement) {
       pullBoxesToNewPositions(index);
       await sleep(750);
     }
-  }
-
-  function startClick() {
-    // Click start
-    let clickStep = 0;
-    stage.on("click", async (e) => {
-      if (e.target === stage) {
-        if (clickStep >= config.texts.length) {
-          return;
-        }
-        const text = config.texts[clickStep];
-        await makeBox(clickStep, text);
-        pullBoxesToNewPositions(clickStep);
-        clickStep++;
-      }
-    });
   }
 
   animate();

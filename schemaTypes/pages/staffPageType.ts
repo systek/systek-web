@@ -1,5 +1,4 @@
 import { defineField, defineType } from "sanity";
-import { contactField } from "../shared/contactField";
 import { imageGallery } from "../shared/imageGallery";
 import { workHereField } from "../shared/workHereField";
 

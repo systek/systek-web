@@ -10,7 +10,7 @@ const destination =
     `* [_type == "post" && _id == $id] {slug {current}}[0]`,
     {
       id: markDef._ref,
-    },
+    }
   ));
 
 const linkText = node.children.map((c: any) => c.text).join(" ");

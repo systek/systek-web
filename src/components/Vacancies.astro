@@ -41,7 +41,7 @@ const { vacancies } = Astro.props;
       <p class="font-bold text-xs-fluid">Søknad</p>
     </div>
     {
-      vacancies.map((item, index) => {
+      vacancies.map((item) => {
         const date = item.date ? new Date(item.date) : undefined;
         const formatedDate = date ? formatDate(date) : "Løpende";
         const expired = date ? date < new Date() : false;

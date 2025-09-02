@@ -2,7 +2,7 @@
 import Image from "../Image.astro";
 
 // todo: infer type from sanity schema
-interface Image {
+interface ImageType {
   _type: "image";
   asset: {
     _ref: string;
@@ -14,8 +14,8 @@ interface Image {
 
 interface Props {
   node: {
-    first: Image;
-    second: Image;
+    first: ImageType;
+    second: ImageType;
   };
 }
 

@@ -1,14 +1,13 @@
 ---
-import { sanityClient } from "sanity:client";
-const { node } = Astro.props as { node: { markDef: { href: string; } } };
+const { node } = Astro.props as { node: { markDef: { href: string } } };
 const { markDef } = node;
 
 function isEmailWithoutMailto(value: string) {
-  if (typeof value !== 'string' || !value) {
+  if (typeof value !== "string" || !value) {
     return false;
   }
 
-  if (value.startsWith('mailto:')) {
+  if (value.startsWith("mailto:")) {
     return false;
   }
 
@@ -17,7 +16,14 @@ function isEmailWithoutMailto(value: string) {
 }
 
 const isExternal = markDef.href.startsWith("https://");
-const href = isEmailWithoutMailto(markDef.href) ? `mailto:${markDef.href}` : markDef.href;
+const href = isEmailWithoutMailto(markDef.href)
+  ? `mailto:${markDef.href}`
+  : markDef.href;
 ---
 
-<a class="link-underline" href={href} target={isExternal ? "_blank" : ""} rel="noopener noreferrer"><slot /></a>
+<a
+  class="link-underline"
+  href={href}
+  target={isExternal ? "_blank" : ""}
+  rel="noopener noreferrer"><slot /></a
+>
