@@ -81,7 +81,9 @@ export const setupConnections = function (rootEl: HTMLDivElement) {
     {
       width: window.innerWidth,
       fontSize: 60 * (window.innerWidth / 1680),
-      textPadding: [8, 14, 8, 14],
+      textPadding: [6, 16, 6, 16].map(
+        (val) => val * (window.innerWidth / 1680),
+      ) as [number, number, number, number],
       initialStagePaddingY: window.innerHeight * 0.05,
       initialStagePaddingX: window.innerWidth * 0.1,
       stagePadding: 20,
@@ -103,7 +105,7 @@ export const setupConnections = function (rootEl: HTMLDivElement) {
       maxLineLength: window.innerWidth * 0.4, //window.innerWidth < 1680 ? 600 : window.innerWidth * 0.4,
       minLineLength: window.innerWidth * 0.1, //window.innerWidth < 1680 ? 100 : window.innerWidth * 0.06,
     },
-    breakpointConfig
+    breakpointConfig,
   );
 
   // Setup starts
@@ -162,15 +164,15 @@ export const setupConnections = function (rootEl: HTMLDivElement) {
     y: number,
     width: number,
     height: number,
-    stage: Konva.Stage
+    stage: Konva.Stage,
   ) {
     const newY = Math.min(
       Math.max(y, config.stagePadding),
-      stage.height() - config.stagePadding - height
+      stage.height() - config.stagePadding - height,
     );
     const newX = Math.min(
       Math.max(x, config.stagePadding),
-      stage.width() - config.stagePadding - width
+      stage.width() - config.stagePadding - width,
     );
     return { x: newX, y: newY };
   }
@@ -222,7 +224,7 @@ export const setupConnections = function (rootEl: HTMLDivElement) {
     text: string,
     x: number,
     y: number,
-    stage: Konva.Stage
+    stage: Konva.Stage,
   ): Box {
     const textItem = new Konva.Text({
       fontSize: config.fontSize,
@@ -262,7 +264,7 @@ export const setupConnections = function (rootEl: HTMLDivElement) {
           y - this.h / 2,
           this.w,
           this.h,
-          stage
+          stage,
         );
 
         // Apply force to this box
@@ -346,12 +348,12 @@ export function setupObserver(canvas: HTMLDivElement): void {
     ([entry]) => {
       document.body.style.setProperty(
         "--color-background",
-        chroma.mix(colorEnd, colorStart, entry.intersectionRatio).css()
+        chroma.mix(colorEnd, colorStart, entry.intersectionRatio).css(),
       );
     },
     {
       threshold: Array.from({ length: 101 }, (_, i) => i / 100),
-    }
+    },
   );
   observer.observe(canvas);
 }
