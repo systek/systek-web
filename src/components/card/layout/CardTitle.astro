@@ -1,17 +1,19 @@
 ---
+import clsx from "clsx";
+import TitleAs from "../../TitleAs.astro";
+
 interface Props {
   class?: string;
+  titleAs?: "h1" | "h2" | "h3" | "p";
 }
 
-const { class: className } = Astro.props;
+const { class: className, titleAs = "h3" } = Astro.props;
 ---
 
-<h2
-  class:list={[
-    "font-light text-2xl-fluid",
-    "max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw]",
-    className,
-  ]}
->
+<TitleAs as={titleAs} class={clsx(
+  "font-light text-2xl-fluid",
+  "max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw]",
+  className,
+)}>
   <slot />
-</h2>
+</TitleAs>

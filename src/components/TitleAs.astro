@@ -1,0 +1,19 @@
+---
+interface Props {
+  as?: 'h1' | 'h2' | 'h3' | 'p';
+  class?: string
+}
+const { as = "h2", class: className } = Astro.props;
+---
+{as === "h1" ? (
+  <h1 class={className}><slot /></h1>
+) : as === "h2" ? (
+  <h2 class={className}><slot /></h2>
+) : as === "h3" ? (
+  <h3 class={className}><slot /></h3>
+) : as === "p" ? (
+  <p class={className}><slot /></p>
+) : (
+  <span class={className}><slot /></>
+)
+}

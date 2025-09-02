@@ -27,12 +27,12 @@ const vacantPositions = await fetchVacantPositions();
   <Header />
   <PageHeader image={workhereData.heroImage}>
     <CardLayout>
-      <CardRightColumn title={workhereData.topLabel}>
-        <h1
+      <CardRightColumn title={workhereData.topLabel} titleAs="h1">
+        <h2
           class="max-w-[72rem] lg:max-w-[68.571vw] md:mr-20 lg:mr-[4.7619vw] font-light text-3xl-fluid"
         >
           {workhereData.title}
-        </h1>
+        </h2>
       </CardRightColumn>
     </CardLayout>
   </PageHeader>
@@ -54,11 +54,11 @@ const vacantPositions = await fetchVacantPositions();
 
   <CardLayout class="mt-page mx-grid border-t border-stroke pt-grid">
     <CardRightColumn>
-      <p
+      <h2
         class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-[4.7619vw] font-light text-2xl-fluid"
       >
         {workhereData.vacanciesTitle}
-      </p>
+      </h2>
 
       <GridList class="mt-section">
         {
@@ -97,11 +97,11 @@ const vacantPositions = await fetchVacantPositions();
 
   <CardLayout class="border-t border-stroke mt-page pt-grid mx-grid">
     <CardRightColumn title={workhereData.faqLabel}>
-      <p
+      <h3
         class="max-w-[65rem] lg:max-w-[61.905vw] md:mr-[4.7619vw] font-light text-2xl-fluid"
       >
         {workhereData.faqTitle}
-      </p>
+      </h3>
       <Faq class="mt-section" items={workhereData.faqList as FaqItem[]} />
     </CardRightColumn>
   </CardLayout>
