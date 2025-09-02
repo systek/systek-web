@@ -51,7 +51,7 @@ const { label, title, text, contacts } = Astro.props;
           <p class="mt-gap font-bold text-md-fluid">{contact.name}</p>
           <p class="text-md-fluid">{contact.position}</p>
           <p class="text-sm-fluid">
-            {contact.phone} · {contact.email}
+            {contact.phone} · <a class="link-underline" href={`mailto:${contact.email}`}>{contact.email}</a>
           </p>
         </div>
       ))

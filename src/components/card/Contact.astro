@@ -1,5 +1,5 @@
 ---
-import { fullWidth, oneHalf, vw } from "../../utils/number";
+import type { Image as SanityImage } from "sanity";
 import Button from "../Button.astro";
 import Image from "../Image.astro";
 import CardLayout from "./layout/CardLayout.astro";
@@ -10,7 +10,7 @@ interface Props {
   label: string;
   text: string;
   title: string;
-  image: any;
+  image: SanityImage;
 }
 
 const { button, label, title, email, text, image } = Astro.props;

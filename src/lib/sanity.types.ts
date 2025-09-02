@@ -1766,6 +1766,7 @@ export type ServicesPageType = {
       media?: unknown;
       hotspot?: SanityImageHotspot;
       crop?: SanityImageCrop;
+      alt: string;
       _type: "image";
     };
   };
@@ -2016,6 +2017,7 @@ export type Service = {
       media?: unknown;
       hotspot?: SanityImageHotspot;
       crop?: SanityImageCrop;
+      alt: string;
       _type: "image";
     };
   };
@@ -2072,6 +2074,7 @@ export type WorkerPageType = {
       media?: unknown;
       hotspot?: SanityImageHotspot;
       crop?: SanityImageCrop;
+      alt: string;
       _type: "image";
     };
   };
@@ -2156,6 +2159,7 @@ export type FrontPageType = {
       media?: unknown;
       hotspot?: SanityImageHotspot;
       crop?: SanityImageCrop;
+      alt: string;
       _type: "image";
     };
   };

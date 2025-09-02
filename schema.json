@@ -11022,6 +11022,13 @@
                     },
                     "optional": true
                   },
+                  "alt": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "string"
+                    },
+                    "optional": false
+                  },
                   "_type": {
                     "type": "objectAttribute",
                     "value": {
@@ -12589,6 +12596,13 @@
                     },
                     "optional": true
                   },
+                  "alt": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "string"
+                    },
+                    "optional": false
+                  },
                   "_type": {
                     "type": "objectAttribute",
                     "value": {
@@ -12909,6 +12923,13 @@
                       "name": "sanity.imageCrop"
                     },
                     "optional": true
+                  },
+                  "alt": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "string"
+                    },
+                    "optional": false
                   },
                   "_type": {
                     "type": "objectAttribute",
@@ -13410,6 +13431,13 @@
                       "name": "sanity.imageCrop"
                     },
                     "optional": true
+                  },
+                  "alt": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "string"
+                    },
+                    "optional": false
                   },
                   "_type": {
                     "type": "objectAttribute",

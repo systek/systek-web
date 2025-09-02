@@ -324,8 +324,11 @@ const [
                   <p class="text-xs-fluid">{item.title}</p>
                 </a>
               </div>
-              <p class="text-xs-fluid whitespace-nowrap">
+              <p class="text-xs-fluid whitespace-nowrap hidden md:block">
                 {formatDate(item.publishedAt)}
+              </p>
+              <p class="text-xs-fluid whitespace-nowrap block md:hidden">
+                {formatDate(item.publishedAt, "d. MMM")}
               </p>
             </div>
           ))

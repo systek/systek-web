@@ -45,6 +45,14 @@ export const contactField = defineField({
           ],
         },
       },
+      fields: [
+        defineField({
+          name: "alt",
+          title: "Alt-tekst",
+          type: "string",
+          validation: (Rule) => Rule.required(),
+        }),
+      ],
       validation: (Rule) => Rule.required(),
     }),
   ],
