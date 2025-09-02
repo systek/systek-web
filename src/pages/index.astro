@@ -118,7 +118,7 @@ const [
   </CardLayout>
 
   <div
-    class="mx-grid grid grid-cols-2 gap-x-gutter gap-y-grid mt-section md:grid-cols-4"
+    class="mx-grid grid grid-cols-2 gap-x-gutter gap-y-section mt-section md:grid-cols-4"
   >
     {
       frontPageData.selectedWorks.map((item, index) => (
@@ -333,10 +333,10 @@ const [
           ))
         }
       </div>
+
+      <Logos class="mt-page" logos={logoItems} />
     </CardRightColumn>
   </CardLayout>
-
-  <Logos class="my-page" logos={logoItems} />
 
   <CardLayout class="border-t my-page border-stroke mx-grid pt-grid">
     <CardRightColumn title="Blogg">
@@ -346,7 +346,7 @@ const [
         Se alle blogginnlegg
       </Button>
 
-      <div class="grid md:grid-cols-2 gap-gutter mt-section">
+      <div class="grid gap-x-gutter gap-y-section mt-section md:grid-cols-2">
         {
           blogItems.map((item) => (
             <a class="group" href={item.link}>

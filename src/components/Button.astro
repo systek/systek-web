@@ -1,6 +1,6 @@
 ---
 interface Props {
-  color?: "transparent" | "black";
+  color?: "transparent" | "black" | "grey";
   href?: string;
   size?: "sm" | "md";
   class?: string;
@@ -15,7 +15,7 @@ const {
 } = Astro.props;
 
 const sizeClasses = {
-  sm: "px-gutter py-0 text-xs-fluid",
+  sm: "px-gap py-0 text-xs-fluid",
   md: "px-grid py-gap text-sm-fluid",
 }[size];
 
@@ -25,6 +25,7 @@ const colorClasses = {
     "bg-transparent text-text border border-grey-10 hover:bg-grey-10 hover:text-off-white",
   black:
     "bg-grey-10 text-off-white border border-grey-10 hover:bg-transparent hover:text-text",
+  grey: "bg-grey-91 text-text border border-grey-91 hover:bg-grey-10 hover:text-off-white",
 }[color];
 
 const buttonClasses = [

@@ -74,38 +74,41 @@ todo: test work.contactTwo component, set width/height/sizes
   <Header />
 
   <PageHeader image={work.image}>
-    <div class="grid md:grid-cols-3 gap-gutter">
+    <div class="grid md:grid-cols-3 gap-section">
       <div class="md:col-span-2">
         <h1 class="font-light text-3xl-fluid hyphens-auto">
           {work.description}
         </h1>
       </div>
-      <div class="flex flex-row gap-gutter">
-        <dl>
-          <dt class="font-bold text-sm-fluid">Kunde</dt>
-          <dd class="text-sm-fluid">{work.title}</dd>
+      <div class="grid lg:grid-cols-2 gap-grid">
+        <div class="grid grid-cols-2 lg:grid-cols-1 gap-grid">
+          <div>
+            <p class="font-bold text-sm-fluid">Kunde</p>
+            <p class="text-sm-fluid">{work.title}</p>
+          </div>
           {
             work.startDate && (
-              <>
-                <dt class="font-bold text-sm-fluid mt-gutter">Periode</dt>
-                <dd class="text-sm-fluid">
+              <div>
+                <p class="font-bold text-sm-fluid">Periode</p>
+                <p class="text-sm-fluid">
                   {work.startDate && formatDate(work.startDate, "MMM yyyy")}
                   {work.startDate && work.endDate ? " - " : ""}
                   {work.endDate && formatDate(work.endDate, "MMM yyyy")}
-                </dd>
-              </>
+                </p>
+              </div>
             )
           }
-        </dl>
-        <div class="flex flex-col items-start gap-gutter">
+        </div>
+        <div class="flex flex-col items-start gap-gap">
           {
             work.services.map((item) => (
-              <a
+              <Button
+                color="grey"
                 href={`/tjenester/${item.slug.current}`}
-                class="text-xs-fluid bg-grey-91 rounded-lg px-4 border-[3px] focus:border-grey-91 border-transparent hover:bg-grey-10 hover:text-off-white focus:outline-[6px] focus:outline-grey-10 focus:bg-grey-91 focus:text-grey-10"
+                size="sm"
               >
                 {item.title}
-              </a>
+              </Button>
             ))
           }
         </div>
@@ -183,41 +186,41 @@ todo: test work.contactTwo component, set width/height/sizes
 
       <Button class="mt-grid" href="/arbeider">Se alle arbeider</Button>
     </CardRightColumn>
-
-    <div
-      class="grid grid-cols-2 lg:col-span-4 md:grid-cols-4 gap-gutter mt-section"
-    >
-      {
-        workItems.map((item, index) => (
-          <div class={clsx("group", index % 3 === 0 && "col-span-2")}>
-            <a href={`/arbeider/${item.slug.current}`}>
-              <picture>
-                <Image
-                  class={clsx(
-                    "w-full rounded-md",
-                    index % 3 === 2 ? "aspect-square" : "aspect-[4/3]"
-                  )}
-                  image={item.image}
-                  alt={item.image.alt}
-                  width={index % 3 === 0 ? 2000 : 1000}
-                  height={index === 0 ? 1500 : index === 1 ? 750 : 1000}
-                  sizes={
-                    index % 3 === 0
-                      ? `(min-width: 50rem) 50vw, 100vw`
-                      : `(min-width: 50rem) 25vw, 50vw`
-                  }
-                />
-              </picture>
-              <p class="mt-gap font-bold text-md-fluid hyphens-auto group-link-underline">
-                {item.title}
-              </p>
-              <p class="text-md-fluid">{item.description}</p>
-            </a>
-          </div>
-        ))
-      }
-    </div>
   </CardLayout>
+
+  <div
+    class="mx-grid grid grid-cols-2 gap-x-gutter gap-y-section mt-section md:grid-cols-4"
+  >
+    {
+      workItems.map((item, index) => (
+        <div class={clsx("group", index % 3 === 0 && "col-span-2")}>
+          <a href={`/arbeider/${item.slug.current}`}>
+            <picture>
+              <Image
+                class={clsx(
+                  "w-full rounded-md",
+                  index % 3 === 2 ? "aspect-square" : "aspect-[4/3]"
+                )}
+                image={item.image}
+                alt={item.image.alt}
+                width={index % 3 === 0 ? 2000 : 1000}
+                height={index === 0 ? 1500 : index === 1 ? 750 : 1000}
+                sizes={
+                  index % 3 === 0
+                    ? `(min-width: 50rem) 50vw, 100vw`
+                    : `(min-width: 50rem) 25vw, 50vw`
+                }
+              />
+            </picture>
+            <p class="mt-gap font-bold text-md-fluid hyphens-auto group-link-underline">
+              {item.title}
+            </p>
+            <p class="text-md-fluid">{item.description}</p>
+          </a>
+        </div>
+      ))
+    }
+  </div>
 
   <Footer />
 </Layout>

@@ -7,7 +7,7 @@ import Arrow from "./Arrow.astro";
 const locations = await fetchLocations();
 ---
 
-<footer class="flex flex-col mx-grid my-8 gap-section lg:mt-page-lg">
+<footer class="flex flex-col mx-grid mb-grid mt-page gap-section">
   <div class="flex justify-between">
     <Arrow position="topLeft" />
     <Arrow position="topRight" />
@@ -95,7 +95,7 @@ const locations = await fetchLocations();
       </AccordionItem>
     </Accordion>
 
-    <div class="grid grid-cols-2 md:grid-cols-3 gap-gutter">
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-x-gutter gap-y-grid">
       {
         locations.map((location) => (
           <p class="text-sm-fluid">

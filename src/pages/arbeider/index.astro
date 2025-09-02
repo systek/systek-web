@@ -47,20 +47,14 @@ const [workersInfo, logoItems, workItems, serviceItems] = await Promise.all([
       <CardTitle titleAs="h2">
         {workersInfo.logoTitle}
       </CardTitle>
-    </CardRightColumn>
-  </CardLayout>
 
-  <Logos class="mt-section" logos={logoItems} />
+      <Logos class="mt-section" logos={logoItems} />
 
-  <CardLayout class="mt-page mx-grid">
-    <CardRightColumn>
-      <CardTitle titleAs="h2">
+      <CardTitle titleAs="h2" class="mt-page">
         {workersInfo.listTitle}
       </CardTitle>
 
-      <div
-        class="grid md:grid-cols-2 gap-x-gutter mt-section gap-y-grid-lg md:gap-y-section-md lg:gap-y-section-lg"
-      >
+      <div class="grid md:grid-cols-2 gap-x-gutter mt-section gap-y-section">
         {
           workItems.map((item) => (
             <a class="group" href={`/arbeider/${item.slug.current}`}>

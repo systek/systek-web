@@ -1,7 +1,5 @@
 ---
 import type { Logo as LogoType } from "../../lib/sanity.types";
-import CardRightColumn from "../card/layout/CardRightColumn.astro";
-import CardLayout from "../card/layout/CardLayout.astro";
 import Logo from "./Logo.astro";
 
 interface Props {
@@ -20,18 +18,19 @@ for (let i = 0; i < numberOfLines; i++) {
 }
 ---
 
-<CardLayout class:list={["mx-grid", className]}>
-  <CardRightColumn>
-    <div class="grid gap-section mx-auto max-w-[30rem] md:max-w-full">
-      {
-        logoLines.map((logoLine) => (
-          <div class="grid grid-cols-2 gap-section md:flex md:justify-between">
-            {logoLine.map((item) => (
-              <Logo image={item.image} alt={item.image.alt} />
-            ))}
-          </div>
-        ))
-      }
-    </div>
-  </CardRightColumn>
-</CardLayout>
+<div
+  class:list={[
+    "grid gap-section mx-auto max-w-[30rem] md:max-w-full",
+    className,
+  ]}
+>
+  {
+    logoLines.map((logoLine) => (
+      <div class="grid grid-cols-2 gap-section md:flex md:justify-between">
+        {logoLine.map((item) => (
+          <Logo image={item.image} alt={item.image.alt} />
+        ))}
+      </div>
+    ))
+  }
+</div>

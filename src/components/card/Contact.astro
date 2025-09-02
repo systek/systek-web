@@ -16,7 +16,9 @@ interface Props {
 const { button, label, title, email, text, image } = Astro.props;
 ---
 
-<CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
+<CardLayout
+  class="border-t mt-page border-stroke mx-grid pt-grid gap-y-section"
+>
   <div class="flex flex-col lg:col-span-2">
     <h2 class="font-bold text-sm-fluid">{label}</h2>
     <div class="mt-auto max-w-[37rem] lg:max-w-[35.238vw]">
@@ -27,7 +29,7 @@ const { button, label, title, email, text, image } = Astro.props;
         {text}
       </p>
 
-      <div class="flex items-center my-grid gap-grid">
+      <div class="flex items-center mt-grid gap-grid">
         <Button href={`mailto:${email}`}>
           {button}
         </Button>
@@ -35,7 +37,7 @@ const { button, label, title, email, text, image } = Astro.props;
       </div>
     </div>
   </div>
-  <div class="mt-section-sm md:mt-section-md lg:mt-0 lg:col-span-2">
+  <div class="lg:col-span-2">
     <picture>
       <Image
         class="w-full rounded-md aspect-[4/3] hidden md:block"
