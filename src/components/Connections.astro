@@ -2,7 +2,7 @@
 import Arrow from "./Arrow.astro";
 ---
 
-<div class="h-[calc(100vh-var(--height-header))] relative">
+<div class="h-[calc(100svh-var(--height-header))] relative">
   <Arrow color="black" position="topLeft" class="absolute top-grid left-grid" />
   <Arrow
     color="black"
@@ -19,7 +19,13 @@ import Arrow from "./Arrow.astro";
     position="bottomLeft"
     class="absolute bottom-grid left-grid"
   />
-  <div role="img" aria-label="Bra folk, smarte løsninger" data-connections-canvas class="absolute inset-0 overflow-hidden"></div>
+  <div
+    role="img"
+    aria-label="Bra folk, smarte løsninger"
+    data-connections-canvas
+    class="absolute inset-0 overflow-hidden"
+  >
+  </div>
 </div>
 
 <script>
