@@ -16,6 +16,7 @@ const { node } = Astro.props;
       <Image
         class="w-full rounded-lg aspect-[2/1] hidden md:block"
         image={node}
+        alt={node.alt}
         width={2000}
         height={1000}
         sizes={`(min-width: 105rem) ${vw(68)}, 68rem`}
@@ -23,13 +24,14 @@ const { node } = Astro.props;
       <Image
         class="w-full rounded-md aspect-[4/3] block md:hidden"
         image={node}
+        alt={node.alt}
         width={1000}
         height={750}
         sizes={`100vw`}
       />
-      <figcaption class="mt-gutter text-xs-fluid">
+      {node.caption && <figcaption class="mt-gutter text-xs-fluid">
         {node.caption}
-      </figcaption>
+      </figcaption>}
     </figure>
   </div>
 </div>
