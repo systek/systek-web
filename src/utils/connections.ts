@@ -234,6 +234,7 @@ export const setupConnections = function (rootEl: HTMLDivElement) {
       fill: config.textColor,
       x: config.textPadding[1],
       y: config.textPadding[0],
+      draggable: false,
     });
     const textBackground = new Konva.Rect({
       width: textItem.width() + config.textPadding[1] + config.textPadding[3],
@@ -241,6 +242,7 @@ export const setupConnections = function (rootEl: HTMLDivElement) {
       fill: config.yellow,
       strokeWidth: 0,
       cornerRadius: 4,
+      draggable: false,
     });
     const textGroup = new Konva.Group({
       x: x - textItem.width() / 2 - config.textPadding[1],
