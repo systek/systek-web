@@ -114,42 +114,35 @@ const [
       </CardTitle>
 
       <Button class="mt-grid" href="/arbeider">Se alle arbeider</Button>
+
+      <div class="grid gap-x-gutter gap-y-section mt-section md:grid-cols-2">
+        {
+          frontPageData.selectedWorks
+            .slice(0, 2) // todo: undo this commit
+            .map((item, index) => (
+              <div class="group">
+                <a href={`/arbeider/${item.slug.current}`}>
+                  <picture>
+                    <Image
+                      class="w-full rounded-md aspect-[4/3]"
+                      image={item.image}
+                      alt={item.image.alt}
+                      width={1000}
+                      height={750}
+                      sizes={`(min-width: 105rem) 37.5vw, (min-width: 50rem) 50vw, 100vw`}
+                    />
+                  </picture>
+                  <p class="mt-gap font-bold text-md-fluid hyphens-auto group-link-underline">
+                    {item.title}
+                  </p>
+                  <p class="text-md-fluid leading-snug">{item.description}</p>
+                </a>
+              </div>
+            ))
+        }
+      </div>
     </CardRightColumn>
   </CardLayout>
-
-  <div
-    class="mx-grid grid grid-cols-2 gap-x-gutter gap-y-section mt-section md:grid-cols-4"
-  >
-    {
-      frontPageData.selectedWorks.map((item, index) => (
-        <div class={clsx("group", index % 3 === 0 && "col-span-2")}>
-          <a href={`/arbeider/${item.slug.current}`}>
-            <picture>
-              <Image
-                class={clsx(
-                  "w-full rounded-md",
-                  index % 3 === 2 ? "aspect-square" : "aspect-[4/3]"
-                )}
-                image={item.image}
-                alt={item.image.alt}
-                width={index % 3 === 0 ? 2000 : 1000}
-                height={index === 0 ? 1500 : index === 1 ? 750 : 1000}
-                sizes={
-                  index % 3 === 0
-                    ? `(min-width: 50rem) 50vw, 100vw`
-                    : `(min-width: 50rem) 25vw, 50vw`
-                }
-              />
-            </picture>
-            <p class="mt-gap font-bold text-md-fluid hyphens-auto group-link-underline">
-              {item.title}
-            </p>
-            <p class="text-md-fluid">{item.description}</p>
-          </a>
-        </div>
-      ))
-    }
-  </div>
 
   <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
     <CardRightColumn title="Foredrag og fagmøter">
@@ -264,7 +257,7 @@ const [
         {frontPageData.vacanciesTitle}
       </CardTitle>
 
-      <Button class="mt-grid" href="/jobbe-her"> Se ledige stillinger </Button>
+      <Button class="mt-grid" href="/jobbe-her">Se ledige stillinger</Button>
     </CardRightColumn>
   </CardLayout>
 
