@@ -21,6 +21,7 @@ import { getOGImageUrl } from "../../utils/image";
 import PageHeader from "../../components/PageHeader.astro";
 import Article from "../../components/Article.astro";
 import CardTitle from "../../components/card/layout/CardTitle.astro";
+import Vacancies from "../../components/Vacancies.astro";
 
 type PageType = Omit<Service, "citation" | "works"> & {
   citation: CitationType;
@@ -84,7 +85,7 @@ const vacancies: VacanciesType[] = await sanityClient.fetch(
 
   {
     service.works && (
-      <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
+      <CardLayout class="mt-page mx-grid pt-grid border-t border-stroke">
         <CardRightColumn title="Arbeider">
           <CardTitle>
             Relaterte arbeider innen {service.title.toLowerCase()}
@@ -95,12 +96,12 @@ const vacancies: VacanciesType[] = await sanityClient.fetch(
         </CardRightColumn>
 
         <div />
-        <div class="grid lg:col-span-3 md:grid-cols-2 gap-gutter mt-section">
+        <div class="gap-gutter mt-section grid md:grid-cols-2 lg:col-span-3">
           {service.works.map((item) => (
             <a class="group" href={`/arbeider/${item.slug.current}`}>
               <picture>
                 <Image
-                  class="w-full rounded-md aspect-[4/3]"
+                  class="aspect-[4/3] w-full rounded-md"
                   image={item.image}
                   alt={item.image.alt}
                   width={1000}
@@ -108,7 +109,7 @@ const vacancies: VacanciesType[] = await sanityClient.fetch(
                   sizes={`(min-width: 105rem) 37.5vw, (min-width: 50rem) 50vw, 100vw`}
                 />
               </picture>
-              <p class="mt-gap font-bold text-md-fluid group-link-underline">
+              <p class="mt-gap text-md-fluid group-link-underline font-bold">
                 {item.title}
               </p>
               <p class="text-md-fluid">{item.description}</p>
@@ -119,7 +120,7 @@ const vacancies: VacanciesType[] = await sanityClient.fetch(
     )
   }
 
-  {/* vacancies.length > 0 && <Vacancies vacancies={vacancies} />*/}
+  {vacancies.length > 0 && <Vacancies vacancies={vacancies} />}
 
   {
     service.contact && (

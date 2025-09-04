@@ -5,7 +5,7 @@ import CardTitle from "./card/layout/CardTitle.astro";
 import { type Vacancies as VacanciesType } from "../lib/sanity.types";
 import { formatDate } from "../utils/date";
 import Button from "./Button.astro";
-import ExternalIcon from "../../assets/icons/external.svg";
+import ExternalIcon from "../assets/icons/external.svg";
 import clsx from "clsx";
 
 interface Props {
@@ -22,65 +22,64 @@ const { vacancies } = Astro.props;
       et tverrfaglig miljø?
     </CardTitle>
   </CardRightColumn>
-
-  <div class="mt-section lg:col-span-4">
-    <!-- seperate markup for mobile and desktop -->
-    <div
-      class="gap-gutter flex justify-between border-b border-stroke py-4 md:hidden"
-    >
-      <p class="text-xs-fluid font-bold">Søknad</p>
-      <p class="text-xs-fluid font-bold">Frist</p>
-    </div>
-
-    <div
-      class="gap-gutter hidden grid-cols-4 border-b border-stroke py-4 md:grid"
-    >
-      <p class="text-xs-fluid font-bold">Stillingstittel</p>
-      <p class="text-xs-fluid font-bold">Frist</p>
-      <p class="text-xs-fluid font-bold">Sted</p>
-      <p class="text-xs-fluid font-bold">Søknad</p>
-    </div>
-    {
-      vacancies.map((item) => {
-        const date = item.date ? new Date(item.date) : undefined;
-        const formatedDate = date ? formatDate(date) : "Løpende";
-        const expired = date ? date < new Date() : false;
-        return (
-          <div>
-            <div
-              class={clsx(
-                "gap-gutter flex items-center justify-between border-b border-stroke py-4 md:hidden",
-                { "line-through": expired }
-              )}
-            >
-              <a
-                href={item.href}
-                class="link-underline flex items-center gap-1"
-              >
-                <ExternalIcon class="size-2.5 lg:size-[0.595vw]" />
-                <p class="text-xs-fluid">{item.title}</p>
-              </a>
-
-              <p class="text-xs-fluid">{formatedDate}</p>
-            </div>
-
-            <div class="gap-gutter hidden grid-cols-4 border-b border-stroke py-4 md:grid">
-              <p class="text-xs-fluid">{item.title}</p>
-              <p class="text-xs-fluid">{formatedDate}</p>
-              <p class="text-xs-fluid">{item.location}</p>
-              <p class="text-xs-fluid">
-                <Button size="sm" href={item.href}>
-                  Se stillingsinstruks
-                </Button>
-              </p>
-            </div>
-          </div>
-        );
-      })
-    }
-
-    <div class="mt-grid ml-[25%] hidden md:block">
-      <Button href="/jobbe-her"> Se alle ledige stillinger </Button>
-    </div>
-  </div>
 </CardLayout>
+
+<div class="mx-grid mt-section lg:col-span-4">
+  <!-- seperate markup for mobile and desktop -->
+  <div
+    class="gap-gutter flex justify-between border-b border-stroke py-4 md:hidden"
+  >
+    <p class="text-xs-fluid font-bold">Søknad</p>
+    <p class="text-xs-fluid font-bold">Frist</p>
+  </div>
+
+  <div
+    class="gap-gutter hidden grid-cols-5 border-b border-stroke py-4 md:grid lg:grid-cols-4"
+  >
+    <p class="text-xs-fluid col-span-2 font-bold lg:col-span-1">
+      Stillingstittel
+    </p>
+    <p class="text-xs-fluid font-bold">Frist</p>
+    <p class="text-xs-fluid font-bold">Sted</p>
+    <p class="text-xs-fluid font-bold">Søknad</p>
+  </div>
+  {
+    vacancies.map((item) => {
+      const date = item.date ? new Date(item.date) : undefined;
+      const formatedDate = date ? formatDate(date) : "Løpende";
+      const expired = date ? date < new Date() : false;
+      return (
+        <div>
+          <div
+            class={clsx(
+              "gap-gutter flex items-center justify-between border-b border-stroke py-4 md:hidden",
+              { "line-through": expired }
+            )}
+          >
+            <a href={item.href} class="link-underline flex items-center gap-1">
+              <ExternalIcon class="size-2.5 lg:size-[0.595vw]" />
+              <p class="text-xs-fluid">{item.title}</p>
+            </a>
+
+            <p class="text-xs-fluid">{formatedDate}</p>
+          </div>
+
+          <div class="gap-gutter hidden grid-cols-5 border-b border-stroke py-4 md:grid lg:grid-cols-4">
+            <p class="text-xs-fluid col-span-2 lg:col-span-1">{item.title}</p>
+            <p class="text-xs-fluid">{formatedDate}</p>
+            <p class="text-xs-fluid">{item.location}</p>
+            <p class="text-xs-fluid">
+              <Button size="sm" href={item.href}>
+                Se stillingsinstruks
+              </Button>
+            </p>
+          </div>
+        </div>
+      );
+    })
+  }
+
+  <div class="mt-grid ml-[40%] hidden md:block lg:ml-[25%]">
+    <Button href="/jobbe-her"> Se alle ledige stillinger </Button>
+  </div>
+</div>
