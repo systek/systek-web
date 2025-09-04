@@ -13,28 +13,26 @@ const locations = await fetchLocations();
     <Arrow position="topRight" />
   </div>
 
-  <div class="grid gap-section lg:grid-cols-2 lg:gap-grid-lg">
+  <div class="grid gap-y-section gap-x-grid lg:grid-cols-2">
     <Accordion class="lg:mr-section-lg">
       <AccordionItem title="Om Systek">
         <div
-          class="grid grid-cols-2 gap-gutter mr-9 max-w-[35rem] lg:max-w-[33.333vw]"
+          class="flex flex-col gap-gap mr-9 max-w-[35rem] lg:max-w-[33.333vw]"
         >
-          <div class="flex flex-col gap-2">
-            <p class="text-text-secondary text-sm-fluid">Systek AS</p>
-            <p class="text-text-secondary text-sm-fluid">
-              Org.nr: 927 415 305 <span class="hidden md:inline">MVA</span>
-            </p>
-            <p class="text-text-secondary text-sm-fluid">
-              Denne siden bruker ikke cookies
-            </p>
-          </div>
+          <p class="text-text-secondary text-sm-fluid">Systek AS</p>
+          <p class="text-text-secondary text-sm-fluid">
+            Org.nr: 927 415 305 <span class="hidden md:inline">MVA</span>
+          </p>
+          <p class="text-text-secondary text-sm-fluid">
+            Denne siden bruker ikke cookies
+          </p>
         </div>
       </AccordionItem>
       <AccordionItem title="Nyttige lenker">
         <div
           class="grid grid-cols-2 gap-gutter mr-9 max-w-[35rem] lg:max-w-[33.333vw]"
         >
-          <div class="flex flex-col gap-2">
+          <div class="flex flex-col gap-gap">
             <p class="text-sm-fluid">
               <a class="link-underline" href="/personvern"
                 >Personvernerklæring</a
@@ -44,7 +42,7 @@ const locations = await fetchLocations();
               <a class="link-underline" href="/barekraft">Bærekraft</a>
             </p>
           </div>
-          <div class="flex flex-col gap-2">
+          <div class="flex flex-col gap-gap">
             <p class="text-sm-fluid">
               <a class="link-underline" href="/nyheter">Nyheter</a>
             </p>
@@ -55,7 +53,7 @@ const locations = await fetchLocations();
         <div
           class="grid grid-cols-2 gap-gutter mr-9 max-w-[35rem] lg:max-w-[33.333vw]"
         >
-          <div class="flex flex-col gap-2">
+          <div class="flex flex-col gap-gap">
             <p class="text-sm-fluid">
               <a
                 class="link-underline"
@@ -73,7 +71,7 @@ const locations = await fetchLocations();
               >
             </p>
           </div>
-          <div class="flex flex-col gap-2">
+          <div class="flex flex-col gap-gap">
             <p class="text-sm-fluid">
               <a
                 class="link-underline"

@@ -45,7 +45,7 @@ const links = [
               <a
                 href={link.href}
                 class={clsx(
-                  "text-sm-fluid inline-block",
+                  "text-sm-fluid",
                   active === link.href
                     ? "regular-underline"
                     : "hover:regular-underline"
@@ -58,9 +58,9 @@ const links = [
         }
       </ul>
     </nav>
-    <Button class="hidden md:block" color="black" href="/jobbe-her"
-      >Jobbe her?</Button
-    >
+    <Button class="hidden md:block" color="black" href="/jobbe-her">
+      Jobbe her?
+    </Button>
 
     <Button data-modal-trigger class="md:hidden" color="black" size="md">
       Meny
@@ -68,7 +68,7 @@ const links = [
   </header>
 
   <dialog
-    class="flex backdrop:bg-transparent bg-off-white top-auto flex-col h-full max-w-full bottom-0 max-h-[calc(100%-68px)] w-full fixed p-grid z-[var(--z-dialog)] modal-animate hidden"
+    class="flex backdrop:bg-transparent bg-off-white top-auto flex-col h-full max-w-full bottom-0 max-h-[calc(100%-var(--height-header))] w-full fixed p-grid z-[var(--z-dialog)] modal-animate hidden"
     data-modal
   >
     <div class="flex justify-between">

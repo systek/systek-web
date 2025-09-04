@@ -31,7 +31,7 @@ const { label, title, text, image, points } = Astro.props as Props;
         points?.length && (
           <ul class="my-grid text-text-secondary">
             {points.map((point) => (
-              <li class="flex items-center gap-2">
+              <li class="flex items-center gap-gap">
                 <CheckIcon class="size-4 lg:size-[0.952vw]" />
                 <p class="text-sm-fluid">{point}</p>
               </li>

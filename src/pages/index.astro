@@ -119,25 +119,23 @@ const [
         {
           frontPageData.selectedWorks
             .slice(0, 2) // todo: undo this commit
-            .map((item, index) => (
-              <div class="group">
-                <a href={`/arbeider/${item.slug.current}`}>
-                  <picture>
-                    <Image
-                      class="w-full rounded-md aspect-[4/3]"
-                      image={item.image}
-                      alt={item.image.alt}
-                      width={1000}
-                      height={750}
-                      sizes={`(min-width: 105rem) 37.5vw, (min-width: 50rem) 50vw, 100vw`}
-                    />
-                  </picture>
-                  <p class="mt-gap font-bold text-md-fluid hyphens-auto group-link-underline">
-                    {item.title}
-                  </p>
-                  <p class="text-md-fluid leading-snug">{item.description}</p>
-                </a>
-              </div>
+            .map((item) => (
+              <a class="group" href={`/arbeider/${item.slug.current}`}>
+                <picture>
+                  <Image
+                    class="w-full rounded-md aspect-[4/3]"
+                    image={item.image}
+                    alt={item.image.alt}
+                    width={1000}
+                    height={750}
+                    sizes={`(min-width: 105rem) 37.5vw, (min-width: 50rem) 50vw, 100vw`}
+                  />
+                </picture>
+                <p class="mt-gap font-bold text-md-fluid hyphens-auto group-link-underline">
+                  {item.title}
+                </p>
+                <p class="text-md-fluid leading-snug">{item.description}</p>
+              </a>
             ))
         }
       </div>

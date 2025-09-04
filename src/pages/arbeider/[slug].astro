@@ -199,31 +199,32 @@ todo: test work.contactTwo component, set width/height/sizes
   >
     {
       workItems.map((item, index) => (
-        <div class={clsx("group", index % 3 === 0 && "col-span-2")}>
-          <a href={`/arbeider/${item.slug.current}`}>
-            <picture>
-              <Image
-                class={clsx(
-                  "w-full rounded-md",
-                  index % 3 === 2 ? "aspect-square" : "aspect-[4/3]"
-                )}
-                image={item.image}
-                alt={item.image.alt}
-                width={index % 3 === 0 ? 2000 : 1000}
-                height={index === 0 ? 1500 : index === 1 ? 750 : 1000}
-                sizes={
-                  index % 3 === 0
-                    ? `(min-width: 50rem) 50vw, 100vw`
-                    : `(min-width: 50rem) 25vw, 50vw`
-                }
-              />
-            </picture>
-            <p class="mt-gap font-bold text-md-fluid hyphens-auto group-link-underline">
-              {item.title}
-            </p>
-            <p class="text-md-fluid">{item.description}</p>
-          </a>
-        </div>
+        <a
+          class={clsx("group", index % 3 === 0 && "col-span-2")}
+          href={`/arbeider/${item.slug.current}`}
+        >
+          <picture>
+            <Image
+              class={clsx(
+                "w-full rounded-md",
+                index % 3 === 2 ? "aspect-square" : "aspect-[4/3]"
+              )}
+              image={item.image}
+              alt={item.image.alt}
+              width={index % 3 === 0 ? 2000 : 1000}
+              height={index === 0 ? 1500 : index === 1 ? 750 : 1000}
+              sizes={
+                index % 3 === 0
+                  ? `(min-width: 50rem) 50vw, 100vw`
+                  : `(min-width: 50rem) 25vw, 50vw`
+              }
+            />
+          </picture>
+          <p class="mt-gap font-bold text-md-fluid hyphens-auto group-link-underline">
+            {item.title}
+          </p>
+          <p class="text-md-fluid">{item.description}</p>
+        </a>
       ))
     }
   </div>

@@ -65,7 +65,7 @@ const staffByInitial = staffItems.reduce(
         <div>
           <Accordion class="lg:border-t-0">
             <AccordionItem open title="Lokasjon">
-              <div class="flex flex-col gap-2">
+              <div class="flex flex-col gap-gap">
                 <Radio name="location" label="Vis alle" value="all" checked />
                 {
                   locations.map((location) => (
@@ -79,7 +79,7 @@ const staffByInitial = staffItems.reduce(
               </div>
             </AccordionItem>
             <AccordionItem open title="Avdeling">
-              <div class="flex flex-col gap-2">
+              <div class="flex flex-col gap-gap">
                 <Radio name="department" label="Vis alle" value="all" checked />
                 {
                   services.map((service) => (
@@ -111,7 +111,7 @@ const staffByInitial = staffItems.reduce(
               <div
                 data-location={item.location?.slug.current || "none"}
                 data-department={item.serviceType?.slug.current || "none"}
-                class="flex flex-col gap-2 lg:gap-4"
+                class="flex flex-col gap-gap"
               >
                 <picture class="aspect-square overflow-hidden">
                   <Image
