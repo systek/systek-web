@@ -204,7 +204,7 @@ const [
                     { "line-through": isDone }
                   )}
                 >
-                  {isDone ? (
+                  {isDone || !item.slug?.current ? (
                     <p class="text-xs-fluid">{item.title}</p>
                   ) : (
                     <a
