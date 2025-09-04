@@ -1,5 +1,5 @@
 ---
-import TitleAs from '../../TitleAs.astro';
+import TitleAs from "../../TitleAs.astro";
 
 interface Props {
   title?: string;
@@ -10,7 +10,13 @@ const { title, titleAs } = Astro.props;
 ---
 
 <div>
-  {title && <TitleAs as={titleAs} class="font-bold text-sm-fluid">{title}</TitleAs>}
+  {
+    title && (
+      <TitleAs as={titleAs} class="text-sm-fluid font-bold">
+        {title}
+      </TitleAs>
+    )
+  }
 </div>
 <div class="lg:col-span-3">
   <slot />

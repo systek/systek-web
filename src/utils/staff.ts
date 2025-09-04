@@ -4,7 +4,7 @@ export function setupRadios(
   name: string,
   radios: NodeListOf<HTMLInputElement>,
   filterValues: { key: string; value: string }[],
-  callback: () => void
+  callback: () => void,
 ) {
   radios.forEach((radio) => {
     radio.addEventListener("change", () => {
@@ -19,11 +19,11 @@ export function setupRadios(
 
 export function toggleStaffVisibility(
   staff: HTMLElement,
-  filterValues: { key: string; value: string }[]
+  filterValues: { key: string; value: string }[],
 ): void {
   const isHidden = filterValues.some(
     (filter) =>
-      filter.value !== "all" && staff.dataset[filter.key] !== filter.value
+      filter.value !== "all" && staff.dataset[filter.key] !== filter.value,
   );
   if (isHidden) {
     staff.classList.add("hidden");
@@ -34,10 +34,10 @@ export function toggleStaffVisibility(
 
 export function toggleLetterVisibility(
   letter: HTMLElement,
-  children: NodeListOf<HTMLElement>
+  children: NodeListOf<HTMLElement>,
 ) {
   const isHidden = Array.from(children).every((staff) =>
-    staff.classList.contains("hidden")
+    staff.classList.contains("hidden"),
   );
 
   if (isHidden) {

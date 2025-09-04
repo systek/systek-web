@@ -22,14 +22,14 @@ const locations = await fetchLocations();
   <PageHeader title={about.title} />
   {
     locations && (
-      <CardLayout class="border-t border-stroke mx-grid pt-grid mt-section">
+      <CardLayout class="mx-grid pt-grid mt-section border-t border-stroke">
         <CardRightColumn title="Kontorer">
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-x-gutter gap-y-section">
+          <div class="gap-x-gutter gap-y-section grid grid-cols-1 md:grid-cols-3">
             {locations.map((item) => (
               <div>
                 <picture>
                   <Image
-                    class="w-full rounded-md aspect-[4/3]"
+                    class="aspect-[4/3] w-full rounded-md"
                     image={item.image}
                     alt={item.image.alt}
                     width={1000}
@@ -69,12 +69,12 @@ const locations = await fetchLocations();
     )
   }
 
-  <Article class="border-t border-stroke pt-grid mt-page">
-    <h2 class="font-light text-2xl-fluid">{about.contentTitle}</h2>
+  <Article class="pt-grid mt-page border-t border-stroke">
+    <h2 class="text-2xl-fluid font-light">{about.contentTitle}</h2>
     <PortableText value={about.content} />
   </Article>
 
-  <CardLayout class="border-t border-stroke pt-grid mt-page mx-grid">
+  <CardLayout class="pt-grid mt-page mx-grid border-t border-stroke">
     <CardRightColumn title={about.summaryLabel}>
       <CardTitle>
         {about.summaryTitle}

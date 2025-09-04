@@ -51,9 +51,9 @@ const [
 
   <div
     id="main-content"
-    class="grid mx-grid mt-section gap-gutter scroll-mt-[var(--height-header)] lg:grid-cols-2"
+    class="mx-grid mt-section gap-gutter grid scroll-mt-[var(--height-header)] lg:grid-cols-2"
   >
-    <h1 class="font-light text-4xl-fluid">{frontPageData.title}</h1>
+    <h1 class="text-4xl-fluid font-light">{frontPageData.title}</h1>
     <div>
       <p class="text-lg-fluid">
         {frontPageData.topDescription}
@@ -67,7 +67,7 @@ const [
     <picture>
       <Image
         alt={frontPageData.heroImage.alt}
-        class="w-full rounded-md aspect-[2/1] hidden md:block"
+        class="hidden aspect-[2/1] w-full rounded-md md:block"
         image={frontPageData.heroImage}
         width={2000}
         height={1000}
@@ -75,7 +75,7 @@ const [
       />
       <Image
         alt={frontPageData.heroImage.alt}
-        class="w-full rounded-md aspect-[4/3] block md:hidden"
+        class="block aspect-[4/3] w-full rounded-md md:hidden"
         image={frontPageData.heroImage}
         width={1000}
         height={750}
@@ -84,7 +84,7 @@ const [
     </picture>
   </div>
 
-  <CardLayout class="border-t mt-section border-stroke mx-grid pt-grid">
+  <CardLayout class="mt-section mx-grid pt-grid border-t border-stroke">
     <CardRightColumn title="Tjenester">
       <CardTitle>
         {frontPageData.servicesTitle}
@@ -107,7 +107,7 @@ const [
     </CardRightColumn>
   </CardLayout>
 
-  <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
+  <CardLayout class="mt-page mx-grid pt-grid border-t border-stroke">
     <CardRightColumn title="Arbeider">
       <CardTitle>
         {frontPageData.workTitle}
@@ -115,7 +115,7 @@ const [
 
       <Button class="mt-grid" href="/arbeider">Se alle arbeider</Button>
 
-      <div class="grid gap-x-gutter gap-y-section mt-section md:grid-cols-2">
+      <div class="gap-x-gutter gap-y-section mt-section grid md:grid-cols-2">
         {
           frontPageData.selectedWorks
             .slice(0, 2) // todo: undo this commit
@@ -123,7 +123,7 @@ const [
               <a class="group" href={`/arbeider/${item.slug.current}`}>
                 <picture>
                   <Image
-                    class="w-full rounded-md aspect-[4/3]"
+                    class="aspect-[4/3] w-full rounded-md"
                     image={item.image}
                     alt={item.image.alt}
                     width={1000}
@@ -131,7 +131,7 @@ const [
                     sizes={`(min-width: 105rem) 37.5vw, (min-width: 50rem) 50vw, 100vw`}
                   />
                 </picture>
-                <p class="mt-gap font-bold text-md-fluid hyphens-auto group-link-underline">
+                <p class="mt-gap text-md-fluid group-link-underline font-bold hyphens-auto">
                   {item.title}
                 </p>
                 <p class="text-md-fluid leading-snug">{item.description}</p>
@@ -142,7 +142,7 @@ const [
     </CardRightColumn>
   </CardLayout>
 
-  <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
+  <CardLayout class="mt-page mx-grid pt-grid border-t border-stroke">
     <CardRightColumn title="Foredrag og fagmøter">
       <CardTitle>
         {frontPageData.activityTitle}
@@ -152,7 +152,7 @@ const [
         <picture>
           <Image
             alt={frontPageData.activityImage.alt}
-            class="w-full rounded-md lg:rounded-lg aspect-[2/1] hidden md:block"
+            class="hidden aspect-[2/1] w-full rounded-md md:block lg:rounded-lg"
             image={frontPageData.activityImage}
             width={2000}
             height={1000}
@@ -161,7 +161,7 @@ const [
 
           <Image
             alt={frontPageData.activityImage.alt}
-            class="w-full rounded-md aspect-[4/3] block md:hidden"
+            class="block aspect-[4/3] w-full rounded-md md:hidden"
             image={frontPageData.activityImage}
             width={1000}
             height={750}
@@ -170,22 +170,22 @@ const [
         </picture>
       </div>
 
-      <div class="md:border-t md:border-stroke mt-section">
+      <div class="mt-section md:border-t md:border-stroke">
         <!-- seperate markup for mobile and desktop -->
         <div
-          class="flex justify-between py-4 border-b md:hidden gap-gutter border-stroke"
+          class="gap-gutter flex justify-between border-b border-stroke py-4 md:hidden"
         >
-          <p class="font-bold text-xs-fluid">Hva skjer</p>
-          <p class="font-bold text-xs-fluid">Dato</p>
+          <p class="text-xs-fluid font-bold">Hva skjer</p>
+          <p class="text-xs-fluid font-bold">Dato</p>
         </div>
 
         <div
-          class="hidden grid-cols-5 py-grid border-b md:grid gap-gutter border-stroke"
+          class="py-grid gap-gutter hidden grid-cols-5 border-b border-stroke md:grid"
         >
-          <p class="font-bold text-xs-fluid col-span-2">Hva skjer</p>
-          <p class="font-bold text-xs-fluid">Dato</p>
-          <p class="font-bold text-xs-fluid">Sted</p>
-          <p class="font-bold text-xs-fluid">Påmelding</p>
+          <p class="text-xs-fluid col-span-2 font-bold">Hva skjer</p>
+          <p class="text-xs-fluid font-bold">Dato</p>
+          <p class="text-xs-fluid font-bold">Sted</p>
+          <p class="text-xs-fluid font-bold">Påmelding</p>
         </div>
         <!-- todo: add logic for line through, format date -->
         {
@@ -200,7 +200,7 @@ const [
               <div>
                 <div
                   class={clsx(
-                    "flex md:hidden justify-between items-center py-4 border-b gap-gutter border-stroke",
+                    "gap-gutter flex items-center justify-between border-b border-stroke py-4 md:hidden",
                     { "line-through": isDone }
                   )}
                 >
@@ -209,7 +209,7 @@ const [
                   ) : (
                     <a
                       href={item.slug?.current}
-                      class="flex items-center gap-1 link-underline"
+                      class="link-underline flex items-center gap-1"
                     >
                       <ExternalIcon class="size-2.5 lg:size-[0.595vw]" />
                       <p class="text-xs-fluid">{item.title}</p>
@@ -222,7 +222,7 @@ const [
 
                 <div
                   class={clsx(
-                    "hidden md:grid grid-cols-5 py-grid border-b gap-gutter border-stroke",
+                    "py-grid gap-gutter hidden grid-cols-5 border-b border-stroke md:grid",
                     { "line-through": isDone }
                   )}
                 >
@@ -249,7 +249,7 @@ const [
     </CardRightColumn>
   </CardLayout>
 
-  <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
+  <CardLayout class="mt-page mx-grid pt-grid border-t border-stroke">
     <CardRightColumn title="Jobbe her?">
       <CardTitle>
         {frontPageData.vacanciesTitle}
@@ -264,7 +264,7 @@ const [
       {
         frontPageData.vacanciesPoints.map((point, index) => (
           <AccordionItem bold open={index === 0} size="lg" title={point.title}>
-            <p class="text-sm-fluid text-text-secondary max-w-[35rem]">
+            <p class="text-sm-fluid max-w-[35rem] text-text-secondary">
               {point.description}
             </p>
           </AccordionItem>
@@ -276,7 +276,7 @@ const [
       <picture>
         <Image
           alt={frontPageData.vacanciesImage.alt}
-          class="w-full rounded-md lg:rounded-lg aspect-[2/1] hidden md:block"
+          class="hidden aspect-[2/1] w-full rounded-md md:block lg:rounded-lg"
           image={frontPageData.vacanciesImage}
           width={2000}
           height={1000}
@@ -285,7 +285,7 @@ const [
 
         <Image
           alt={frontPageData.vacanciesImage.alt}
-          class="w-full rounded-md aspect-[4/3] block md:hidden"
+          class="block aspect-[4/3] w-full rounded-md md:hidden"
           image={frontPageData.vacanciesImage}
           width={1000}
           height={750}
@@ -295,29 +295,29 @@ const [
     </div>
   </CardLayout>
 
-  <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
+  <CardLayout class="mt-page mx-grid pt-grid border-t border-stroke">
     <CardRightColumn title="Nyheter">
       <CardTitle>Siste nytt fra Systek</CardTitle>
 
       <Button class="mt-grid" href="/nyheter">Se alle nyheter</Button>
 
-      <div class="border-t border-stroke mt-section">
+      <div class="mt-section border-t border-stroke">
         {
           newsItems.map((item) => (
-            <div class="flex justify-between py-grid border-b gap-gutter border-stroke md:grid md:grid-cols-4">
+            <div class="py-grid gap-gutter flex justify-between border-b border-stroke md:grid md:grid-cols-4">
               <div class="md:col-span-3">
                 <a
-                  class="inline-flex items-center gap-1 link-underline"
+                  class="link-underline inline-flex items-center gap-1"
                   href={`/nyheter/${item.slug.current}`}
                 >
-                  <ExternalIcon class="size-2.5 lg:size-[0.595vw] shrink-0" />
+                  <ExternalIcon class="size-2.5 shrink-0 lg:size-[0.595vw]" />
                   <p class="text-xs-fluid">{item.title}</p>
                 </a>
               </div>
-              <p class="text-xs-fluid whitespace-nowrap hidden md:block">
+              <p class="text-xs-fluid hidden whitespace-nowrap md:block">
                 {formatDate(item.publishedAt)}
               </p>
-              <p class="text-xs-fluid whitespace-nowrap block md:hidden">
+              <p class="text-xs-fluid block whitespace-nowrap md:hidden">
                 {formatDate(item.publishedAt, "d. MMM")}
               </p>
             </div>
@@ -329,7 +329,7 @@ const [
     </CardRightColumn>
   </CardLayout>
 
-  <CardLayout class="border-t my-page border-stroke mx-grid pt-grid">
+  <CardLayout class="my-page mx-grid pt-grid border-t border-stroke">
     <CardRightColumn title="Blogg">
       <CardTitle>Les våre siste artikler fra fag-bloggen</CardTitle>
 
@@ -337,13 +337,13 @@ const [
         Se alle blogginnlegg
       </Button>
 
-      <div class="grid gap-x-gutter gap-y-section mt-section md:grid-cols-2">
+      <div class="gap-x-gutter gap-y-section mt-section grid md:grid-cols-2">
         {
           blogItems.map((item) => (
             <a class="group" href={item.link}>
               <picture>
                 <Image
-                  class="w-full rounded-md aspect-[4/3]"
+                  class="aspect-[4/3] w-full rounded-md"
                   image={item.image}
                   alt={item.image.alt}
                   width={1000}
@@ -351,7 +351,7 @@ const [
                   sizes={`(min-width: 105rem) 37.5vw, (min-width: 50rem) 50vw, 100vw`}
                 />
               </picture>
-              <p class="mt-gap font-bold text-md-fluid group-link-underline">
+              <p class="mt-gap text-md-fluid group-link-underline font-bold">
                 {item.title}
               </p>
               <p class="text-md-fluid">{item.description}</p>

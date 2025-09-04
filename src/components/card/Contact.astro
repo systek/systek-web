@@ -17,28 +17,28 @@ const { button, label, title, email, text, image } = Astro.props;
 ---
 
 <CardLayout
-  class="border-t mt-page border-stroke mx-grid pt-grid gap-y-section"
+  class="mt-page mx-grid pt-grid gap-y-section border-t border-stroke"
 >
   <div class="flex flex-col lg:col-span-2">
-    <h2 class="font-bold text-sm-fluid">{label}</h2>
+    <h2 class="text-sm-fluid font-bold">{label}</h2>
     <div class="mt-auto max-w-[37rem] lg:max-w-[35.238vw]">
-      <h3 class="my-gap font-light text-2xl-fluid">{title}</h3>
+      <h3 class="my-gap text-2xl-fluid font-light">{title}</h3>
       <p class="my-grid text-md-fluid">
         {text}
       </p>
 
-      <div class="flex items-center mt-grid gap-grid">
+      <div class="mt-grid gap-grid flex items-center">
         <Button href={`mailto:${email}`}>
           {button}
         </Button>
-        <a class="link-underline text-sm-fluid" href="/om-oss">Les om oss</a>
+        <a class="text-sm-fluid link-underline" href="/om-oss">Les om oss</a>
       </div>
     </div>
   </div>
   <div class="lg:col-span-2">
     <picture>
       <Image
-        class="w-full rounded-md aspect-[4/3] hidden md:block"
+        class="hidden aspect-[4/3] w-full rounded-md md:block"
         image={image}
         alt={image.alt}
         width={1000}
@@ -46,7 +46,7 @@ const { button, label, title, email, text, image } = Astro.props;
         sizes={`(min-width: 105rem) 50vw, 100vw`}
       />
       <Image
-        class="w-full rounded-md aspect-square block md:hidden"
+        class="block aspect-square w-full rounded-md md:hidden"
         image={image}
         alt={image.alt}
         width={1000}

@@ -26,19 +26,19 @@ const mbClass = {
 ---
 
 <details
-  class:list={["border-b border-stroke group/details", className]}
+  class:list={["group/details border-b border-stroke", className]}
   name={name}
   open={open}
 >
   <summary
     class={clsx(
-      "flex items-center justify-between cursor-pointer select-none gap-gutter group/summary",
+      "gap-gutter group/summary flex cursor-pointer items-center justify-between select-none",
       pyClass
     )}
   >
     <span class={clsx("text-md-fluid", bold && "font-bold")}>{title}</span>
     <div
-      class="border border-transparent p-1.75 rounded-full duration-250 transition-colors group-hover/summary:bg-yellow group-hover/summary:border-yellow-31"
+      class="rounded-full border border-transparent p-1.75 transition-colors duration-250 group-hover/summary:border-yellow-31 group-hover/summary:bg-yellow"
     >
       <ClosedIcon class="hidden group-open/details:block" />
       <OpenIcon class="block group-open/details:hidden" />

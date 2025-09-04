@@ -2,28 +2,28 @@
 import Arrow from "./Arrow.astro";
 ---
 
-<div class="h-[calc(100svh-var(--height-header))] relative">
-  <Arrow color="black" position="topLeft" class="absolute top-grid left-grid" />
+<div class="relative h-[calc(100svh-var(--height-header))]">
+  <Arrow color="black" position="topLeft" class="top-grid left-grid absolute" />
   <Arrow
     color="black"
     position="topRight"
-    class="absolute top-grid right-grid"
+    class="top-grid right-grid absolute"
   />
   <Arrow
     color="black"
     position="bottomRight"
-    class="absolute bottom-grid right-grid"
+    class="bottom-grid right-grid absolute"
   />
   <Arrow
     color="black"
     position="bottomLeft"
-    class="absolute bottom-grid left-grid"
+    class="bottom-grid left-grid absolute"
   />
   <div
     role="img"
     aria-label="Bra folk, smarte løsninger"
     data-connections-canvas
-    class="absolute inset-0 overflow-hidden pointer-events-none"
+    class="pointer-events-none absolute inset-0 overflow-hidden"
   >
   </div>
 </div>

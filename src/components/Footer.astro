@@ -7,32 +7,32 @@ import Arrow from "./Arrow.astro";
 const locations = await fetchLocations();
 ---
 
-<footer class="flex flex-col mx-grid mb-grid mt-page gap-section">
+<footer class="mx-grid mb-grid mt-page gap-section flex flex-col">
   <div class="flex justify-between">
     <Arrow position="topLeft" />
     <Arrow position="topRight" />
   </div>
 
-  <div class="grid gap-y-section gap-x-grid lg:grid-cols-2">
+  <div class="gap-y-section gap-x-grid grid lg:grid-cols-2">
     <Accordion class="lg:mr-section-lg">
       <AccordionItem title="Om Systek">
         <div
-          class="flex flex-col gap-gap mr-9 max-w-[35rem] lg:max-w-[33.333vw]"
+          class="gap-gap mr-9 flex max-w-[35rem] flex-col lg:max-w-[33.333vw]"
         >
-          <p class="text-text-secondary text-sm-fluid">Systek AS</p>
-          <p class="text-text-secondary text-sm-fluid">
+          <p class="text-sm-fluid text-text-secondary">Systek AS</p>
+          <p class="text-sm-fluid text-text-secondary">
             Org.nr: 927 415 305 <span class="hidden md:inline">MVA</span>
           </p>
-          <p class="text-text-secondary text-sm-fluid">
+          <p class="text-sm-fluid text-text-secondary">
             Denne siden bruker ikke cookies
           </p>
         </div>
       </AccordionItem>
       <AccordionItem title="Nyttige lenker">
         <div
-          class="grid grid-cols-2 gap-gutter mr-9 max-w-[35rem] lg:max-w-[33.333vw]"
+          class="gap-gutter mr-9 grid max-w-[35rem] grid-cols-2 lg:max-w-[33.333vw]"
         >
-          <div class="flex flex-col gap-gap">
+          <div class="gap-gap flex flex-col">
             <p class="text-sm-fluid">
               <a class="link-underline" href="/personvern"
                 >Personvernerklæring</a
@@ -42,7 +42,7 @@ const locations = await fetchLocations();
               <a class="link-underline" href="/barekraft">Bærekraft</a>
             </p>
           </div>
-          <div class="flex flex-col gap-gap">
+          <div class="gap-gap flex flex-col">
             <p class="text-sm-fluid">
               <a class="link-underline" href="/nyheter">Nyheter</a>
             </p>
@@ -51,9 +51,9 @@ const locations = await fetchLocations();
       </AccordionItem>
       <AccordionItem title="Sosiale medier">
         <div
-          class="grid grid-cols-2 gap-gutter mr-9 max-w-[35rem] lg:max-w-[33.333vw]"
+          class="gap-gutter mr-9 grid max-w-[35rem] grid-cols-2 lg:max-w-[33.333vw]"
         >
-          <div class="flex flex-col gap-gap">
+          <div class="gap-gap flex flex-col">
             <p class="text-sm-fluid">
               <a
                 class="link-underline"
@@ -71,7 +71,7 @@ const locations = await fetchLocations();
               >
             </p>
           </div>
-          <div class="flex flex-col gap-gap">
+          <div class="gap-gap flex flex-col">
             <p class="text-sm-fluid">
               <a
                 class="link-underline"
@@ -93,7 +93,7 @@ const locations = await fetchLocations();
       </AccordionItem>
     </Accordion>
 
-    <div class="grid grid-cols-2 md:grid-cols-3 gap-x-gutter gap-y-grid">
+    <div class="gap-x-gutter gap-y-grid grid grid-cols-2 md:grid-cols-3">
       {
         locations.map((location) => (
           <p class="text-sm-fluid">

@@ -34,7 +34,7 @@ const [workersInfo, logoItems, workItems, serviceItems] = await Promise.all([
     <CardLayout>
       <CardRightColumn title="Arbeider" titleAs="h1">
         <h2
-          class="max-w-[72rem] lg:max-w-[68.571vw] md:mr-20 lg:mr-[4.7619vw] font-light text-3xl-fluid"
+          class="text-3xl-fluid max-w-[72rem] font-light md:mr-20 lg:mr-[4.7619vw] lg:max-w-[68.571vw]"
         >
           {workersInfo.title}
         </h2>
@@ -54,13 +54,13 @@ const [workersInfo, logoItems, workItems, serviceItems] = await Promise.all([
         {workersInfo.listTitle}
       </CardTitle>
 
-      <div class="grid md:grid-cols-2 gap-x-gutter mt-section gap-y-section">
+      <div class="gap-x-gutter mt-section gap-y-section grid md:grid-cols-2">
         {
           workItems.map((item) => (
             <a class="group" href={`/arbeider/${item.slug.current}`}>
               <picture>
                 <Image
-                  class="w-full rounded-md aspect-[4/3]"
+                  class="aspect-[4/3] w-full rounded-md"
                   image={item.image}
                   alt={item.image.alt}
                   width={1000}
@@ -68,7 +68,7 @@ const [workersInfo, logoItems, workItems, serviceItems] = await Promise.all([
                   sizes={`(min-width: 105rem) 37.5vw, (min-width: 50rem) 50vw, 100vw`}
                 />
               </picture>
-              <p class="mt-gap font-bold text-md-fluid group-link-underline">
+              <p class="mt-gap text-md-fluid group-link-underline font-bold">
                 {item.title}
               </p>
               <p class="text-md-fluid">{item.description}</p>
@@ -80,7 +80,7 @@ const [workersInfo, logoItems, workItems, serviceItems] = await Promise.all([
   </CardLayout>
 </Layout>
 
-<CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
+<CardLayout class="mt-page mx-grid pt-grid border-t border-stroke">
   <CardRightColumn title="Tjenester">
     <CardTitle>
       {workersInfo.servicesTitle}

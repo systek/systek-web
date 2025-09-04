@@ -47,7 +47,7 @@ const staffByInitial = staffItems.reduce(
     <CardLayout>
       <CardRightColumn title="Folka" titleAs="h1">
         <h2
-          class="max-w-[72rem] lg:max-w-[68.571vw] md:mr-20 lg:mr-[4.7619vw] font-light text-3xl-fluid"
+          class="text-3xl-fluid max-w-[72rem] font-light md:mr-20 lg:mr-[4.7619vw] lg:max-w-[68.571vw]"
         >
           {staffPage.title}
         </h2>
@@ -56,16 +56,16 @@ const staffByInitial = staffItems.reduce(
   </PageHeader>
 
   <div
-    class="grid gap-section mt-section mx-grid relative lg:pb-section lg:min-h-dvh"
+    class="gap-section mt-section mx-grid lg:pb-section relative grid lg:min-h-dvh"
   >
     <div
-      class="lg:z-[var(--z-filter)] lg:absolute lg:top-0 lg:bottom-0 lg:right-[calc(75%+16px)] lg:w-auto lg:min-w-[15.298vw]"
+      class="lg:absolute lg:top-0 lg:right-[calc(75%+16px)] lg:bottom-0 lg:z-[var(--z-filter)] lg:w-auto lg:min-w-[15.298vw]"
     >
       <div class="lg:sticky lg:top-[calc(var(--height-header)+8px)]">
         <div>
           <Accordion class="lg:border-t-0">
             <AccordionItem open title="Lokasjon">
-              <div class="flex flex-col gap-gap">
+              <div class="gap-gap flex flex-col">
                 <Radio name="location" label="Vis alle" value="all" checked />
                 {
                   locations.map((location) => (
@@ -79,7 +79,7 @@ const staffByInitial = staffItems.reduce(
               </div>
             </AccordionItem>
             <AccordionItem open title="Avdeling">
-              <div class="flex flex-col gap-gap">
+              <div class="gap-gap flex flex-col">
                 <Radio name="department" label="Vis alle" value="all" checked />
                 {
                   services.map((service) => (
@@ -99,24 +99,24 @@ const staffByInitial = staffItems.reduce(
 
     {
       Object.entries(staffByInitial).map(([initial, staffList]) => (
-        <div class="grid gap-gutter lg:grid-cols-4" data-letter={initial}>
+        <div class="gap-gutter grid lg:grid-cols-4" data-letter={initial}>
           <div class="hidden lg:block">
-            <p class="sticky top-[calc(var(--height-header)+8px)] text-4xl-fluid my-4">
+            <p class="text-4xl-fluid sticky top-[calc(var(--height-header)+8px)] my-4">
               {initial}
             </p>
           </div>
 
-          <div class="grid grid-cols-2 gap-x-gutter gap-y-section lg:col-span-3 md:grid-cols-4">
+          <div class="gap-x-gutter gap-y-section grid grid-cols-2 md:grid-cols-4 lg:col-span-3">
             {staffList.map((item) => (
               <div
                 data-location={item.location?.slug.current || "none"}
                 data-department={item.serviceType?.slug.current || "none"}
-                class="flex flex-col gap-gap"
+                class="gap-gap flex flex-col"
               >
                 <picture class="aspect-square overflow-hidden">
                   <Image
                     alt={item.name}
-                    class="w-full aspect-square rounded-md"
+                    class="aspect-square w-full rounded-md"
                     image={item.image}
                     width={500}
                     height={500}
@@ -125,7 +125,7 @@ const staffByInitial = staffItems.reduce(
                 </picture>
 
                 <div>
-                  <p class="text-sm-fluid font-bold leading-snug">
+                  <p class="text-sm-fluid leading-snug font-bold">
                     {item.name}
                   </p>
                   <p class="text-sm-fluid leading-snug">{item.position}</p>

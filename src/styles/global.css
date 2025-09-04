@@ -10,7 +10,7 @@
 }
 
 body {
-  @apply text-base antialiased bg-background text-text;
+  @apply bg-background text-base text-text antialiased;
   font-family: var(--font-sans);
 }
 
@@ -18,7 +18,7 @@ body {
   @apply relative inline-block;
 
   &::after {
-    @apply content-[""] absolute w-full h-px bottom-0 left-0 bg-grey-10 origin-bottom-left;
+    @apply absolute bottom-0 left-0 h-px w-full origin-bottom-left bg-grey-10 content-[""];
     transform: scaleX(1);
     transition: transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
   }
@@ -30,14 +30,14 @@ body {
 }
 
 @utility regular-underline {
-  @apply underline underline-offset-5 decoration-1 lg:underline-offset-[0.2976vw];
+  @apply underline decoration-1 underline-offset-5 lg:underline-offset-[0.2976vw];
 }
 
 @utility group-link-underline {
   @apply relative inline-block;
 
   &::after {
-    @apply content-[""] absolute w-full h-px bottom-0 left-0 bg-grey-10 origin-bottom-left;
+    @apply absolute bottom-0 left-0 h-px w-full origin-bottom-left bg-grey-10 content-[""];
     transform: scaleX(1);
     transition: transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
   }

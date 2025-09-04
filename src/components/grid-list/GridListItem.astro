@@ -10,15 +10,15 @@ const { class: className, href, title } = Astro.props;
 
 <a
   class:list={[
-    "flex flex-col justify-between gap-section p-5 rounded-lg group",
-    "md:p-6 lg:p-[1.4286vw] lg:aspect-[4/3]",
-    "duration-250 transition-colors bg-grey-91 hover:bg-orange",
+    "gap-section group flex flex-col justify-between rounded-lg p-5",
+    "md:p-6 lg:aspect-[4/3] lg:p-[1.4286vw]",
+    "bg-grey-91 transition-colors duration-250 hover:bg-orange",
     className,
   ]}
   href={href}
 >
   <div>
-    <p class="font-medium text-lg-fluid group-link-underline">{title}</p>
+    <p class="text-lg-fluid group-link-underline font-medium">{title}</p>
   </div>
 
   <slot />

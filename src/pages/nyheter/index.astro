@@ -22,15 +22,15 @@ const newsItems = await fetchNewsItems(10, 0);
     <CardRightColumn title="Nyheter">
       {
         newsItems.map((item) => (
-          <div class="flex justify-between py-grid border-b gap-gutter border-stroke">
+          <div class="py-grid gap-gutter flex justify-between border-b border-stroke">
             <a
-              class="flex items-center gap-1 link-underline"
+              class="link-underline flex items-center gap-1"
               href={`/nyheter/${item.slug.current}`}
             >
               <ExternalIcon class="size-2.5 lg:size-[0.595vw]" />
               <p class="text-xs-fluid">{item.title}</p>
             </a>
-            <p class="md:pr-64 text-xs-fluid">{formatDate(item.publishedAt)}</p>
+            <p class="text-xs-fluid md:pr-64">{formatDate(item.publishedAt)}</p>
           </div>
         ))
       }

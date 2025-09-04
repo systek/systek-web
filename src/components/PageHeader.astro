@@ -13,7 +13,7 @@ const { image, title } = Astro.props;
 
 <div
   id="main-content"
-  class="flex flex-col m-grid gap-section scroll-mt-[var(--height-header)]"
+  class="m-grid gap-section flex scroll-mt-[var(--height-header)] flex-col"
 >
   <div class="flex justify-between">
     <Arrow position="topLeft" />
@@ -22,7 +22,7 @@ const { image, title } = Astro.props;
 
   {
     title && (
-      <h1 class="font-light text-4xl-fluid hyphens-auto md:text-center md:mx-auto md:max-w-[72rem] lg:max-w-[68.571vw]">
+      <h1 class="text-4xl-fluid font-light hyphens-auto md:mx-auto md:max-w-[72rem] md:text-center lg:max-w-[68.571vw]">
         {title}
       </h1>
     )
@@ -40,7 +40,7 @@ const { image, title } = Astro.props;
 
         <Image
           alt={image.alt}
-          class="w-full rounded-md aspect-[2/1] hidden md:block"
+          class="hidden aspect-[2/1] w-full rounded-md md:block"
           image={image}
           loading="eager"
           width={2000}
@@ -50,7 +50,7 @@ const { image, title } = Astro.props;
 
         <Image
           alt={image.alt}
-          class="w-full rounded-md aspect-[4/3] block md:hidden"
+          class="block aspect-[4/3] w-full rounded-md md:hidden"
           image={image}
           loading="eager"
           width={1000}

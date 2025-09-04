@@ -75,22 +75,22 @@ todo: test work.contactTwo component, set width/height/sizes
   <Header />
 
   <PageHeader image={work.image}>
-    <div class="grid md:grid-cols-3 gap-section">
+    <div class="gap-section grid md:grid-cols-3">
       <div class="md:col-span-2">
-        <h1 class="font-light text-3xl-fluid hyphens-auto">
+        <h1 class="text-3xl-fluid font-light hyphens-auto">
           {work.description}
         </h1>
       </div>
-      <div class="grid lg:grid-cols-2 gap-grid">
-        <div class="grid grid-cols-2 lg:grid-cols-1 gap-grid">
+      <div class="gap-grid grid lg:grid-cols-2">
+        <div class="gap-grid grid grid-cols-2 lg:grid-cols-1">
           <div>
-            <p class="font-bold text-sm-fluid">Kunde</p>
+            <p class="text-sm-fluid font-bold">Kunde</p>
             <p class="text-sm-fluid">{work.title}</p>
           </div>
           {
             work.startDate && (
               <div>
-                <p class="font-bold text-sm-fluid">Periode</p>
+                <p class="text-sm-fluid font-bold">Periode</p>
                 <p class="text-sm-fluid">
                   {work.startDate && formatDate(work.startDate, "MMM yyyy")}
                   {work.startDate && work.endDate ? " - " : ""}
@@ -100,7 +100,7 @@ todo: test work.contactTwo component, set width/height/sizes
             )
           }
         </div>
-        <div class="flex flex-col items-start gap-gap">
+        <div class="gap-gap flex flex-col items-start">
           {
             work.services.map((item) => (
               <Button
@@ -128,7 +128,7 @@ todo: test work.contactTwo component, set width/height/sizes
     />
 
     <div class="my-section">
-      <p class="font-bold text-sm-fluid">Likte du artikkelen?</p>
+      <p class="text-sm-fluid font-bold">Likte du artikkelen?</p>
       <p class="text-sm-fluid">Del den med noen andre!</p>
       <Button data-copy-link-button class="mt-grid">Kopier lenke</Button>
     </div>
@@ -138,7 +138,7 @@ todo: test work.contactTwo component, set width/height/sizes
 
   {
     work.contactTwo && (
-      <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
+      <CardLayout class="mt-page mx-grid pt-grid border-t border-stroke">
         <CardRightColumn title={work.contactTwo.label}>
           <CardTitle>{work.contactTwo.title}</CardTitle>
 
@@ -146,13 +146,13 @@ todo: test work.contactTwo component, set width/height/sizes
             Kontakt oss
           </Button>
 
-          <div class="grid gap-gutter mt-section">
+          <div class="gap-gutter mt-section grid">
             {work.contactTwo.contacts.map((item: Staff, index) => (
               <>
-                <div class="flex gap-gutter">
+                <div class="gap-gutter flex">
                   <picture>
                     <Image
-                      class="rounded-md aspect-square size-28 md:size-40 lg:size-[9.5238vw]"
+                      class="aspect-square size-28 rounded-md md:size-40 lg:size-[9.5238vw]"
                       alt={item.name}
                       width={400}
                       height={400}
@@ -166,7 +166,7 @@ todo: test work.contactTwo component, set width/height/sizes
                     {item.email && (
                       <a
                         href={`mailto:${item.email}`}
-                        class="link-underline text-xs-fluid mt-auto"
+                        class="text-xs-fluid link-underline mt-auto"
                       >
                         Send {item.name.split(" ")[0]} en e-post
                       </a>
@@ -184,7 +184,7 @@ todo: test work.contactTwo component, set width/height/sizes
     )
   }
 
-  <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
+  <CardLayout class="mt-page mx-grid pt-grid border-t border-stroke">
     <CardRightColumn title="Arbeider">
       <CardTitle>
         Les om hvordan vi har bistått kunder med vår kompetanse
@@ -195,7 +195,7 @@ todo: test work.contactTwo component, set width/height/sizes
   </CardLayout>
 
   <div
-    class="mx-grid grid grid-cols-2 gap-x-gutter gap-y-section mt-section md:grid-cols-4"
+    class="mx-grid gap-x-gutter gap-y-section mt-section grid grid-cols-2 md:grid-cols-4"
   >
     {
       workItems.map((item, index) => (
@@ -220,7 +220,7 @@ todo: test work.contactTwo component, set width/height/sizes
               }
             />
           </picture>
-          <p class="mt-gap font-bold text-md-fluid hyphens-auto group-link-underline">
+          <p class="mt-gap text-md-fluid group-link-underline font-bold hyphens-auto">
             {item.title}
           </p>
           <p class="text-md-fluid">{item.description}</p>

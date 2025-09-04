@@ -43,24 +43,24 @@ const { news, otherNews } = Astro.props as {
   <Header />
 
   <PageHeader>
-    <div class="grid md:grid-cols-3 gap-section">
+    <div class="gap-section grid md:grid-cols-3">
       <div class="md:col-span-2">
-        <h1 class="font-light text-3xl-fluid hyphens-auto">
+        <h1 class="text-3xl-fluid font-light hyphens-auto">
           {news.title}
         </h1>
       </div>
-      <div class="grid lg:grid-cols-2 gap-grid">
-        <div class="grid grid-cols-2 lg:grid-cols-1 gap-grid">
+      <div class="gap-grid grid lg:grid-cols-2">
+        <div class="gap-grid grid grid-cols-2 lg:grid-cols-1">
           {
             news.author && (
               <div>
-                <p class="font-bold text-sm-fluid">Skrevet av</p>
+                <p class="text-sm-fluid font-bold">Skrevet av</p>
                 <p class="text-sm-fluid">{news.author.name}</p>
               </div>
             )
           }
           <div>
-            <p class="font-bold text-sm-fluid">Publisert</p>
+            <p class="text-sm-fluid font-bold">Publisert</p>
             <p class="text-sm-fluid">
               {formatDate(news.publishedAt, "d. MMMM yyyy")}
             </p>
@@ -68,9 +68,9 @@ const { news, otherNews } = Astro.props as {
         </div>
         {
           news.tags && news.tags?.length > 0 && (
-            <div class="flex flex-col items-start gap-gap">
+            <div class="gap-gap flex flex-col items-start">
               {news.tags?.map((item) => (
-                <span class="px-gap py-0 text-xs-fluid bg-grey-91 text-text border border-grey-91 rounded-full">
+                <span class="px-gap text-xs-fluid rounded-full border border-grey-91 bg-grey-91 py-0 text-text">
                   {item}
                 </span>
               ))}
@@ -85,24 +85,24 @@ const { news, otherNews } = Astro.props as {
     <PortableText value={news.content} />
   </Article>
 
-  <CardLayout class="border-t mt-page border-stroke mx-grid pt-grid">
+  <CardLayout class="mt-page mx-grid pt-grid border-t border-stroke">
     <CardRightColumn title="Nyheter">
       <CardTitle>Siste nytt fra Systek</CardTitle>
 
       <Button class="mt-grid" href="/nyheter">Se alle nyheter</Button>
 
-      <div class="border-t border-stroke mt-section">
+      <div class="mt-section border-t border-stroke">
         {
           otherNews.map((item) => (
-            <div class="flex justify-between py-grid border-b gap-gutter border-stroke">
+            <div class="py-grid gap-gutter flex justify-between border-b border-stroke">
               <a
-                class="flex items-center gap-1 link-underline"
+                class="link-underline flex items-center gap-1"
                 href={`/nyheter/${item.slug.current}`}
               >
                 <ExternalIcon class="size-2.5 lg:size-[0.595vw]" />
                 <p class="text-xs-fluid">{item.title}</p>
               </a>
-              <p class="md:pr-64 text-xs-fluid">
+              <p class="text-xs-fluid md:pr-64">
                 {formatDate(item.publishedAt)}
               </p>
             </div>

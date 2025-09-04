@@ -10,10 +10,13 @@ interface Props {
 const { class: className, titleAs = "h3" } = Astro.props;
 ---
 
-<TitleAs as={titleAs} class={clsx(
-  "font-light text-2xl-fluid",
-  "max-w-[65rem] lg:max-w-[61.905vw] md:mr-20 lg:mr-[4.7619vw]",
-  className,
-)}>
+<TitleAs
+  as={titleAs}
+  class={clsx(
+    "text-2xl-fluid font-light",
+    "max-w-[65rem] md:mr-20 lg:mr-[4.7619vw] lg:max-w-[61.905vw]",
+    className
+  )}
+>
   <slot />
 </TitleAs>

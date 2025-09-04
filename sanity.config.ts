@@ -23,7 +23,7 @@ export default defineConfig({
               .child(
                 S.document()
                   .schemaType("siteSettings")
-                  .documentId("siteSettings")
+                  .documentId("siteSettings"),
               ),
             S.divider(),
             S.listItem()
@@ -31,42 +31,42 @@ export default defineConfig({
               .child(
                 S.document()
                   .schemaType("frontPageType")
-                  .documentId("frontPageType")
+                  .documentId("frontPageType"),
               ),
             S.listItem()
               .title("Arbeider")
               .child(
                 S.document()
                   .schemaType("workerPageType")
-                  .documentId("workerPageType")
+                  .documentId("workerPageType"),
               ),
             S.listItem()
               .title("Tjenester")
               .child(
                 S.document()
                   .schemaType("servicesPageType")
-                  .documentId("servicesPageType")
+                  .documentId("servicesPageType"),
               ),
             S.listItem()
               .title("Folka")
               .child(
                 S.document()
                   .schemaType("staffPageType")
-                  .documentId("staffPageType")
+                  .documentId("staffPageType"),
               ),
             S.listItem()
               .title("Jobbe her")
               .child(
                 S.document()
                   .schemaType("workherePageType")
-                  .documentId("workherePageType")
+                  .documentId("workherePageType"),
               ),
             S.listItem()
               .title("Om oss")
               .child(
                 S.document()
                   .schemaType("aboutPageType")
-                  .documentId("aboutPageType")
+                  .documentId("aboutPageType"),
               ),
             S.divider(),
             S.listItem()
@@ -84,7 +84,7 @@ export default defineConfig({
                   "workherePageType",
                   "aboutPageType",
                   "page",
-                ].includes(item.getId() || "") === false
+                ].includes(item.getId() || "") === false,
             ),
           ]),
     }),

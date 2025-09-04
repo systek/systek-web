@@ -18,10 +18,10 @@ const { buttonText, citation, class: className, href, title } = Astro.props;
 ---
 
 <CardLayout
-  class:list={["border-t mt-page border-stroke mx-grid pt-grid", className]}
+  class:list={["mt-page mx-grid pt-grid border-t border-stroke", className]}
 >
   <CardRightColumn title={title}>
-    <p class="max-w-[50rem] lg:max-w-[47.619vw] font-light text-xl-fluid">
+    <p class="text-xl-fluid max-w-[50rem] font-light lg:max-w-[47.619vw]">
       «{citation.text}»
     </p>
     <CitationSub

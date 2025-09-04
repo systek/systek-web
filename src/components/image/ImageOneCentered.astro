@@ -14,7 +14,7 @@ const { node } = Astro.props;
   <div class="md:mx-grid-md">
     <figure class="md:mx-auto md:max-w-[68rem] lg:max-w-[64.7619vw]">
       <Image
-        class="w-full rounded-lg aspect-[2/1] hidden md:block"
+        class="hidden aspect-[2/1] w-full rounded-lg md:block"
         image={node}
         alt={node.alt}
         width={2000}
@@ -22,7 +22,7 @@ const { node } = Astro.props;
         sizes={`(min-width: 105rem) ${vw(68)}, 68rem`}
       />
       <Image
-        class="w-full rounded-md aspect-[4/3] block md:hidden"
+        class="block aspect-[4/3] w-full rounded-md md:hidden"
         image={node}
         alt={node.alt}
         width={1000}

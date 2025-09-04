@@ -20,13 +20,13 @@ for (let i = 0; i < numberOfLines; i++) {
 
 <div
   class:list={[
-    "grid gap-section mx-auto max-w-[30rem] md:max-w-full",
+    "gap-section mx-auto grid max-w-[30rem] md:max-w-full",
     className,
   ]}
 >
   {
     logoLines.map((logoLine) => (
-      <div class="grid grid-cols-2 gap-section md:flex md:justify-between">
+      <div class="gap-section grid grid-cols-2 md:flex md:justify-between">
         {logoLine.map((item) => (
           <Logo image={item.image} alt={item.image.alt} />
         ))}

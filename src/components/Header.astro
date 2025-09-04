@@ -20,7 +20,7 @@ const links = [
 
 <div class="sr-only focus-within:not-sr-only">
   <a
-    class="z-[var(--z-dialog)] absolute top-gap left-gap border border-grey-10 bg-white p-grid underline underline-offset-5 text-xl-fluid"
+    class="top-gap left-gap p-grid text-xl-fluid absolute z-[var(--z-dialog)] border border-grey-10 bg-white underline underline-offset-5"
     href="#main-content"
   >
     Gå til hovedinnhold
@@ -28,7 +28,7 @@ const links = [
 </div>
 
 <div data-header-sentinel class="hidden h-px md:block"></div>
-<div class="md:sticky md:top-0 md:bg-background md:z-[var(--z-header)] px-grid">
+<div class="px-grid md:sticky md:top-0 md:z-[var(--z-header)] md:bg-background">
   <header data-header class="flex items-center justify-between gap-4 py-2.5">
     <a href="/">
       <img
@@ -68,15 +68,15 @@ const links = [
   </header>
 
   <dialog
-    class="flex backdrop:bg-transparent bg-off-white top-auto flex-col h-full max-w-full bottom-0 max-h-[calc(100%-var(--height-header))] w-full fixed p-grid z-[var(--z-dialog)] modal-animate hidden"
+    class="p-grid modal-animate fixed top-auto bottom-0 z-[var(--z-dialog)] flex hidden h-full max-h-[calc(100%-var(--height-header))] w-full max-w-full flex-col bg-off-white backdrop:bg-transparent"
     data-modal
   >
     <div class="flex justify-between">
       <Arrow position="topLeft" />
       <Arrow position="topRight" />
     </div>
-    <nav class="flex items-center justify-center flex-1">
-      <ul class="flex flex-col gap-section py-grid">
+    <nav class="flex flex-1 items-center justify-center">
+      <ul class="gap-section py-grid flex flex-col">
         {
           links.map((link) => (
             <li class="text-center">
@@ -97,7 +97,7 @@ const links = [
       <Arrow position="middleRight" />
     </div>
 
-    <Button class="mx-auto my-grid" color="black" href="/jobbe-her"
+    <Button class="my-grid mx-auto" color="black" href="/jobbe-her"
       >Jobbe her?</Button
     >
 

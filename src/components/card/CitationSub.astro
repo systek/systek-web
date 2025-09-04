@@ -17,7 +17,7 @@ const { title, subtitle, image, class: className } = Astro.props;
   <div class="size-10 lg:size-[2.381vw]">
     <picture>
       <Image
-        class="w-full rounded-full aspect-square"
+        class="aspect-square w-full rounded-full"
         image={image}
         alt={title}
         width={80}
@@ -28,9 +28,9 @@ const { title, subtitle, image, class: className } = Astro.props;
   </div>
 
   <div>
-    <p class="font-bold leading-tight text-sm-fluid text-text-secondary">
+    <p class="text-sm-fluid leading-tight font-bold text-text-secondary">
       {title}
     </p>
-    <p class="leading-tight text-sm-fluid text-text-secondary">{subtitle}</p>
+    <p class="text-sm-fluid leading-tight text-text-secondary">{subtitle}</p>
   </div>
 </div>
