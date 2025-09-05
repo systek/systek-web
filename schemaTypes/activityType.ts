@@ -39,4 +39,41 @@ export const activityType = defineType({
       options: { source: "title" },
     }),
   ],
+  preview: {
+    select: {
+      title: "title",
+      date: "date",
+      internal: "internal",
+    },
+    prepare({ title, date, internal }) {
+      const dateObj = date ? new Date(date) : null;
+      const formattedDate = dateObj
+        ? dateObj.toLocaleDateString("no-NO", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+          })
+        : "Ukjent dato";
+      return {
+        title,
+        subtitle: `${formattedDate} ${internal ? "(Intern)" : ""}`,
+      };
+    }
+  },
+  orderings: [
+    {
+      title: 'Dato, nyeste først',
+      name: 'dateDesc',
+      by: [
+        {field: 'date', direction: 'desc'}
+      ]
+    },
+    {
+      title: 'Dato, eldste først',
+      name: 'dateAsc',
+      by: [
+        {field: 'date', direction: 'asc'}
+      ]
+    }
+  ]
 });

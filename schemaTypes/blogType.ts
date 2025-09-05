@@ -55,4 +55,16 @@ export const blogType = defineType({
       validation: (rule) => rule.required(),
     }),
   ],
+  preview: {
+    select: {
+      title: "title",
+      authorName: "author.name",
+    },
+    prepare({ title, authorName }) {
+      return {
+        title,
+        subtitle: authorName ? `Av ${authorName}` : "",
+      };
+    }
+  }
 });

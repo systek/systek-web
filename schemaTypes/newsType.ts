@@ -52,4 +52,25 @@ export const newsType = defineType({
     }),
     contentField,
   ],
+  preview: {
+    select: {
+      title: "title",
+      publishedAt: "publishedAt",
+      authorName: "author.name",
+    },
+    prepare({ title, publishedAt, authorName }) {
+      const dateObj = publishedAt ? new Date(publishedAt) : null;
+      const formattedDate = dateObj
+        ? dateObj.toLocaleDateString("no-NO", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+          })
+        : "Ukjent dato";
+      return {
+        title,
+        subtitle: `${formattedDate} ${authorName ? `- ${authorName}` : ""}`,
+      };
+    },
+  },
 });
