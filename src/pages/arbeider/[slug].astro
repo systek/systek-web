@@ -66,10 +66,6 @@ const _workItems = await fetchWorkItems(4);
 const workItems = _workItems
   .filter((item) => item.slug.current !== work.slug.current)
   .slice(0, 3);
-
-/*
-todo: test work.contactTwo component, set width/height/sizes
-*/
 ---
 
 <Layout title={work.description}>
@@ -121,7 +117,7 @@ todo: test work.contactTwo component, set width/height/sizes
   <Article>
     <PortableText value={work.content} />
 
-    <Stats stats={work.stats} />
+    {work.stats && <Stats stats={work.stats} />}
 
     <Technologies
       title={work.technologiesTitle}
