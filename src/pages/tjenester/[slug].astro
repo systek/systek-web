@@ -48,8 +48,9 @@ const { service } = Astro.props as {
   service: PageType;
 };
 
+// Fetch related vacancies and order those with service first
 const vacancies: VacanciesType[] = await sanityClient.fetch(
-  `*[_type == "vacancies" && (service._ref == $serviceId || service == null)]{
+  `*[_type == "vacancies" && (service._ref == $serviceId || service == null)] | order(service._ref asc, date desc) {
     title,
     date,
     location,

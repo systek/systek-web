@@ -44,7 +44,7 @@ export async function fetchNewsItems(limit = 8, skip = 0): Promise<News[]> {
     _id,
     title,
     description,
-    slug, 
+    slug,
     publishedAt,
     updatedAt
   }`);
@@ -88,7 +88,7 @@ export async function fetchBlogItems(): Promise<
     title,
     description,
     author->,
-    link, 
+    link,
     image
   }`);
 }
@@ -193,8 +193,9 @@ export async function fetchWorkhereSingleton(): Promise<WorkherePageTypeExtended
   }`);
 }
 
+// Fetch vacant positions, order those with service set first by service, then by date
 export async function fetchVacantPositions(): Promise<Vacancies[]> {
-  return sanityClient.fetch(`*[_type == "vacancies"] | order(date desc) {
+  return sanityClient.fetch(`*[_type == "vacancies"] | order(service._ref asc, date desc) {
     _id,
     title,
     description,
