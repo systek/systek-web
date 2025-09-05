@@ -47,4 +47,17 @@ export const vacanciesType = defineType({
       to: [{ type: "service" }],
     }),
   ],
+  preview: {
+    select: {
+      title: "title",
+      location: "location",
+      serviceType: "service.title",
+    },
+    prepare({ title, location, serviceType }) {
+      return {
+        title,
+        subtitle: location + (serviceType ? ` - ${serviceType}` : ""),
+      };
+    }
+  }
 });
