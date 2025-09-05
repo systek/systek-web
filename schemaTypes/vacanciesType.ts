@@ -45,7 +45,6 @@ export const vacanciesType = defineType({
       description: "Brukes for å vise relaterte stillinger på tjenestesider",
       type: "reference",
       to: [{ type: "service" }],
-      validation: (rule) => rule.required(),
     }),
   ],
 });
