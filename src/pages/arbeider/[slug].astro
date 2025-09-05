@@ -25,6 +25,7 @@ import { formatDate } from "../../utils/date";
 import Article from "../../components/Article.astro";
 import CardTitle from "../../components/card/layout/CardTitle.astro";
 import { vw } from "../../utils/number";
+import Copy from "../../components/Copy.astro";
 
 type WorkExtended = Omit<Work, "citation" | "services"> & {
   citation: CitationType;
@@ -127,11 +128,7 @@ todo: test work.contactTwo component, set width/height/sizes
       technologies={work.technologies}
     />
 
-    <div class="my-section">
-      <p class="text-sm-fluid font-bold">Likte du artikkelen?</p>
-      <p class="text-sm-fluid">Del den med noen andre!</p>
-      <Button data-copy-link-button class="mt-grid">Kopier lenke</Button>
-    </div>
+    <Copy class="my-section" />
   </Article>
 
   {work.citation && <Citation title="Tjenester" citation={work.citation} />}
@@ -231,24 +228,3 @@ todo: test work.contactTwo component, set width/height/sizes
 
   <Footer />
 </Layout>
-
-<script>
-  import { DOMLoaded } from "../../utils/utils";
-
-  DOMLoaded(() => {
-    const button = document.querySelector(
-      "[data-copy-link-button]"
-    ) as HTMLButtonElement;
-
-    const initialText = button.innerText;
-
-    button.addEventListener("click", () => {
-      navigator.clipboard.writeText(window.location.href);
-      button.innerText = "Kopiert!";
-
-      setTimeout(() => {
-        button.innerText = initialText;
-      }, 5000);
-    });
-  });
-</script>
