@@ -49,7 +49,7 @@ const { service } = Astro.props as {
 };
 
 const vacancies: VacanciesType[] = await sanityClient.fetch(
-  `*[_type == "vacancies" && service._ref == $serviceId]{
+  `*[_type == "vacancies" && (service._ref == $serviceId || service == null)]{
     title,
     date,
     location,
