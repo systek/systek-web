@@ -102,11 +102,14 @@ const { news, otherNews } = Astro.props as {
                 class="link-underline flex items-center gap-1"
                 href={`/nyheter/${item.slug.current}`}
               >
-                <ExternalIcon class="size-2.5 lg:size-[0.595vw]" />
-                <p class="text-xs-fluid">{item.title}</p>
+                <ExternalIcon class="size-2.5 shrink-0 lg:size-[0.595vw]" />
+                <p class="text-xs-fluid whitespace-nowrap">{item.title}</p>
               </a>
-              <p class="text-xs-fluid md:pr-64">
+              <p class="text-xs-fluid hidden whitespace-nowrap md:block">
                 {formatDate(item.publishedAt)}
+              </p>
+              <p class="text-xs-fluid block whitespace-nowrap md:hidden">
+                {formatDate(item.publishedAt, "d. MMM")}
               </p>
             </div>
           ))

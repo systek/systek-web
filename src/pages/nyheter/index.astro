@@ -27,10 +27,12 @@ const newsItems = await fetchNewsItems(10, 0);
               class="link-underline flex items-center gap-1"
               href={`/nyheter/${item.slug.current}`}
             >
-              <ExternalIcon class="size-2.5 lg:size-[0.595vw]" />
+              <ExternalIcon class="size-2.5 shrink-0 lg:size-[0.595vw]" />
               <p class="text-xs-fluid">{item.title}</p>
             </a>
-            <p class="text-xs-fluid md:pr-64">{formatDate(item.publishedAt)}</p>
+            <p class="text-xs-fluid whitespace-nowrap md:pr-64">
+              {formatDate(item.publishedAt)}
+            </p>
           </div>
         ))
       }
