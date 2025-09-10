@@ -169,7 +169,7 @@ const staffByInitial = staffItems.reduce(
     toggleLetterVisibility,
     toggleStaffVisibility,
   } from "../../utils/staff";
-  import { DOMLoaded, handleResize, widthChecker } from "../../utils/utils";
+  import { DOMLoaded } from "../../utils/utils";
 
   DOMLoaded(() => {
     const header = document.querySelector("[data-header]") as HTMLElement;
@@ -181,7 +181,6 @@ const staffByInitial = staffItems.reduce(
     const departmentRadios = document.querySelectorAll<HTMLInputElement>(
       'input[name="department"]'
     );
-    const hasViewportWidthChanged = widthChecker();
     const filterValues: { key: string; value: string }[] = [
       {
         key: "location",
@@ -193,7 +192,7 @@ const staffByInitial = staffItems.reduce(
       },
     ];
 
-    function consolidate() {
+    function callback() {
       staff.forEach((staffEl) => toggleStaffVisibility(staffEl, filterValues));
 
       letters.forEach((letter) => {
@@ -203,8 +202,8 @@ const staffByInitial = staffItems.reduce(
       });
     }
 
-    setupRadios("location", locationRadios, filterValues, consolidate);
-    setupRadios("department", departmentRadios, filterValues, consolidate);
+    setupRadios("location", locationRadios, filterValues, callback);
+    setupRadios("department", departmentRadios, filterValues, callback);
 
     // todo: accordionItem "Avdelinger" should be closed on mobile
   });

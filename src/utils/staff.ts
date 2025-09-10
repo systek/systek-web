@@ -1,5 +1,3 @@
-// src/utils/staff-filter.ts
-
 export function setupRadios(
   name: string,
   radios: NodeListOf<HTMLInputElement>,
