@@ -208,14 +208,9 @@ const [
             const isDone = date < new Date();
             return (
               <div>
-                <div
-                  class={clsx(
-                    "gap-gutter flex items-center justify-between border-b border-stroke py-4 md:hidden",
-                    { "line-through": isDone }
-                  )}
-                >
+                <div class="gap-gutter flex items-center justify-between border-b border-stroke py-4 md:hidden">
                   {isDone || !item.slug?.current ? (
-                    <p class="text-xs-fluid">{item.title}</p>
+                    <p class={clsx("text-xs-fluid", { "line-through": isDone })}>{item.title}</p>
                   ) : (
                     <a
                       href={item.slug?.current}
@@ -225,21 +220,16 @@ const [
                       <p class="text-xs-fluid">{item.title}</p>
                     </a>
                   )}
-                  <p class="text-xs-fluid whitespace-nowrap">
+                  <p class={clsx("text-xs-fluid whitespace-nowrap", { "line-through": isDone })}>
                     {mobileFormatDate}
                   </p>
                 </div>
 
-                <div
-                  class={clsx(
-                    "py-grid gap-gutter hidden grid-cols-5 border-b border-stroke md:grid",
-                    { "line-through": isDone }
-                  )}
-                >
-                  <p class="text-xs-fluid col-span-2">{item.title}</p>
-                  <p class="text-xs-fluid">{formatedDate}</p>
-                  <p class="text-xs-fluid">{item.location}</p>
-                  <p class="text-xs-fluid">
+                <div class="py-grid gap-gutter hidden grid-cols-5 border-b border-stroke md:grid">
+                  <p class={clsx("text-xs-fluid col-span-2", { "line-through": isDone })}>{item.title}</p>
+                  <p class={clsx("text-xs-fluid", { "line-through": isDone })}>{formatedDate}</p>
+                  <p class={clsx("text-xs-fluid", { "line-through": isDone })}>{item.location}</p>
+                  <p class={clsx("text-xs-fluid", { "line-through": isDone })}>
                     {isDone ? (
                       "Avsluttet"
                     ) : item.slug?.current ? (
