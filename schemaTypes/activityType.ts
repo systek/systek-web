@@ -33,10 +33,10 @@ export const activityType = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
-      name: "slug",
-      title: "Slug",
-      type: "slug",
-      options: { source: "title" },
+      name: "registrationUrl",
+      title: "Registrerings url",
+      type: "url",
+      validation: (rule) => rule.uri({ scheme: ["http", "https", "mailto"] }),
     }),
   ],
   preview: {
@@ -58,22 +58,18 @@ export const activityType = defineType({
         title,
         subtitle: `${formattedDate} ${internal ? "(Intern)" : ""}`,
       };
-    }
+    },
   },
   orderings: [
     {
-      title: 'Dato, nyeste først',
-      name: 'dateDesc',
-      by: [
-        {field: 'date', direction: 'desc'}
-      ]
+      title: "Dato, nyeste først",
+      name: "dateDesc",
+      by: [{ field: "date", direction: "desc" }],
     },
     {
-      title: 'Dato, eldste først',
-      name: 'dateAsc',
-      by: [
-        {field: 'date', direction: 'asc'}
-      ]
-    }
-  ]
+      title: "Dato, eldste først",
+      name: "dateAsc",
+      by: [{ field: "date", direction: "asc" }],
+    },
+  ],
 });

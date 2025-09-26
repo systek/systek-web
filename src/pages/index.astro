@@ -10,7 +10,7 @@ import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import Layout from "../layouts/Layout.astro";
 import {
-  fetchActivityItems,
+  fetchActivityItemsByDate,
   fetchBlogItems,
   fetchFrontPageSingleton,
   fetchLogoItems,
@@ -38,7 +38,7 @@ const [
   fetchFrontPageSingleton(),
   fetchServiceItems(),
   fetchNewsItems(2),
-  fetchActivityItems(5),
+  fetchActivityItemsByDate(5),
   fetchBlogItems(),
   fetchLogoItems(12),
 ]);
@@ -209,31 +209,50 @@ const [
             return (
               <div>
                 <div class="gap-gutter flex items-center justify-between border-b border-stroke py-4 md:hidden">
-                  {isDone || !item.slug?.current ? (
-                    <p class={clsx("text-xs-fluid", { "line-through": isDone })}>{item.title}</p>
+                  {isDone || !item.registrationUrl ? (
+                    <p
+                      class={clsx("text-xs-fluid", { "line-through": isDone })}
+                    >
+                      {item.title}
+                    </p>
                   ) : (
                     <a
-                      href={item.slug?.current}
+                      href={item.registrationUrl}
+                      target="_blank"
                       class="link-underline flex items-center gap-1"
                     >
                       <ExternalIcon class="size-2.5 shrink-0 lg:size-[0.595vw]" />
                       <p class="text-xs-fluid">{item.title}</p>
                     </a>
                   )}
-                  <p class={clsx("text-xs-fluid whitespace-nowrap", { "line-through": isDone })}>
+                  <p
+                    class={clsx("text-xs-fluid whitespace-nowrap", {
+                      "line-through": isDone,
+                    })}
+                  >
                     {mobileFormatDate}
                   </p>
                 </div>
 
                 <div class="py-grid gap-gutter hidden grid-cols-5 border-b border-stroke md:grid">
-                  <p class={clsx("text-xs-fluid col-span-2", { "line-through": isDone })}>{item.title}</p>
-                  <p class={clsx("text-xs-fluid", { "line-through": isDone })}>{formatedDate}</p>
-                  <p class={clsx("text-xs-fluid", { "line-through": isDone })}>{item.location}</p>
+                  <p
+                    class={clsx("text-xs-fluid col-span-2", {
+                      "line-through": isDone,
+                    })}
+                  >
+                    {item.title}
+                  </p>
+                  <p class={clsx("text-xs-fluid", { "line-through": isDone })}>
+                    {formatedDate}
+                  </p>
+                  <p class={clsx("text-xs-fluid", { "line-through": isDone })}>
+                    {item.location}
+                  </p>
                   <p class={clsx("text-xs-fluid", { "line-through": isDone })}>
                     {isDone ? (
                       "Avsluttet"
-                    ) : item.slug?.current ? (
-                      <Button size="sm" href={item.slug.current}>
+                    ) : !item.internal && item.registrationUrl ? (
+                      <Button size="sm" href={item.registrationUrl}>
                         Meld meg på
                       </Button>
                     ) : (

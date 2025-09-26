@@ -18,6 +18,7 @@ import type {
   WorkerPageType,
   WorkherePageType,
 } from "./sanity.types";
+import { format } from "date-fns";
 
 export async function fetchServiceItems(): Promise<Service[]> {
   return sanityClient.fetch(`*[_type == "service" && defined(slug) && visible == true] | order(order asc) {
@@ -76,8 +77,28 @@ export async function fetchActivityItems(limit = 5): Promise<Activity[]> {
     title,
     date,
     location,
-    slug
+    internal,
+    registrationUrl
   }`);
+}
+export async function fetchActivityItemsByDate(
+  limit = 5,
+  date = new Date(),
+): Promise<Activity[]> {
+  const today = format(date, "yyyy-MM-dd");
+  return sanityClient.fetch(
+    `*[_type == "activity" && date >= $today] | order(date asc)${limit ? `[0...${limit}]` : ""} {
+    _id,
+    title,
+    date,
+    location,
+    internal,
+    registrationUrl
+  }`,
+    {
+      today: today,
+    },
+  );
 }
 
 export async function fetchBlogItems(): Promise<
