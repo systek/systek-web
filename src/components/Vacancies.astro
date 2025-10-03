@@ -18,7 +18,7 @@ const { vacancies } = Astro.props;
 <CardLayout class="mt-page mx-grid pt-grid border-t border-stroke">
   <CardRightColumn title="Ledige stillinger">
     <CardTitle>
-      Vil du bli en del et 100% ansatteid selskap drevet av dyktige kolleger i
+      Vil du bli en del et 100 % ansatteid selskap drevet av dyktige kolleger i
       et tverrfaglig miljø?
     </CardTitle>
   </CardRightColumn>
@@ -34,14 +34,13 @@ const { vacancies } = Astro.props;
   </div>
 
   <div
-    class="gap-gutter hidden grid-cols-5 border-b border-stroke py-4 md:grid lg:grid-cols-4"
+    class="gap-gutter hidden grid-cols-4 border-b border-stroke py-4 md:grid lg:grid-cols-3"
   >
     <p class="text-xs-fluid col-span-2 font-bold lg:col-span-1">
       Stillingstittel
     </p>
     <p class="text-xs-fluid font-bold">Frist</p>
     <p class="text-xs-fluid font-bold">Sted</p>
-    <p class="text-xs-fluid font-bold">Søknad</p>
   </div>
   {
     vacancies.map((item) => {
@@ -64,15 +63,18 @@ const { vacancies } = Astro.props;
             <p class="text-xs-fluid whitespace-nowrap">{formatedDate}</p>
           </div>
 
-          <div class="gap-gutter hidden grid-cols-5 border-b border-stroke py-4 md:grid lg:grid-cols-4">
-            <p class="text-xs-fluid col-span-2 lg:col-span-1">{item.title}</p>
+          <div class="gap-gutter hidden grid-cols-4 border-b border-stroke py-4 md:grid lg:grid-cols-3">
+            <div class="flex-start col-span-2 flex lg:col-span-1">
+              <a
+                href={item.href}
+                class="link-underline flex items-center gap-1"
+              >
+                <ExternalIcon class="size-2.5 shrink-0 lg:size-[0.595vw]" />
+                <p class="text-xs-fluid">{item.title}</p>
+              </a>
+            </div>
             <p class="text-xs-fluid">{formatedDate}</p>
             <p class="text-xs-fluid">{item.location}</p>
-            <p class="text-xs-fluid">
-              <Button size="sm" href={item.href}>
-                Se stillingsinstruks
-              </Button>
-            </p>
           </div>
         </div>
       );
