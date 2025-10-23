@@ -236,6 +236,7 @@ export type Blog = {
     alt: string;
     _type: "image";
   };
+  publishedAt: string;
 };
 
 export type Activity = {

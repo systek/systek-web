@@ -104,7 +104,7 @@ export async function fetchActivityItemsByDate(
 export async function fetchBlogItems(
   limit = 8,
 ): Promise<(Omit<Blog, "author"> & { author: Staff })[]> {
-  return sanityClient.fetch(`*[_type == "blog"] | order(publishedAt desc)${limit ? `[0...${limit}]` : ""} {
+  return sanityClient.fetch(`*[_type == "blog" && defined(publishedAt)] | order(publishedAt desc)${limit ? `[0...${limit}]` : ""} {
     _id,
     title,
     description,

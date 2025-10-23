@@ -54,6 +54,13 @@ export const blogType = defineType({
       ],
       validation: (rule) => rule.required(),
     }),
+    defineField({
+      name: "publishedAt",
+      title: "Publisert",
+      type: "datetime",
+      initialValue: () => new Date().toISOString(),
+      validation: (rule) => rule.required(),
+    }),
   ],
   preview: {
     select: {
@@ -65,6 +72,6 @@ export const blogType = defineType({
         title,
         subtitle: authorName ? `Av ${authorName}` : "",
       };
-    }
-  }
+    },
+  },
 });
