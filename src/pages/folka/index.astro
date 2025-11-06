@@ -128,11 +128,12 @@ const staffByInitial = staffItems.reduce(
 
                   <Image
                     alt={item.name}
-                    class="hidden aspect-square w-full rounded-md blur-xl group-hover:block"
+                    class="hidden aspect-square w-full rounded-md group-hover:block"
                     image={item.imageSecondary}
                     width={500}
                     height={500}
                     sizes={`(min-width: 105rem) 18.75vw, (min-width: 50rem) 25vw, 50vw`}
+                    loading="eager"
                   />
                 </picture>
 

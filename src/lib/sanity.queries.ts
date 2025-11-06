@@ -120,7 +120,15 @@ export async function fetchStaffItems(): Promise<
     location: Location;
   })[]
 > {
-  return sanityClient.fetch(`*[_type == "staff"] | order(name asc) {
+  const collator = new Intl.Collator("nb", {
+    usage: "sort",
+    sensitivity: "base",
+  });
+
+  const items: (Omit<Staff, "serviceType" | "location"> & {
+    serviceType: Service;
+    location: Location;
+  })[] = await sanityClient.fetch(`*[_type == "staff"] | order(name asc) {
     _id,
     name,
     position,
@@ -130,6 +138,9 @@ export async function fetchStaffItems(): Promise<
     image,
     imageSecondary
   }`);
+
+  // fixes sorting Å, Æ, Ø -> Æ, Ø, Å
+  return items.toSorted((a, b) => collator.compare(a.name, b.name));
 }
 
 export async function fetchCitationItem(): Promise<Citation> {
