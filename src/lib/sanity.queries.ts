@@ -127,7 +127,8 @@ export async function fetchStaffItems(): Promise<
     location->,
     serviceType->,
     slug,
-    image
+    image,
+    imageSecondary
   }`);
 }
 

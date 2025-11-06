@@ -46,12 +46,23 @@ export const staffType = defineType({
     defineField({
       name: "image",
       type: "image",
+      title: "Hovedbilde",
       options: {
         hotspot: {
           previews: [{ title: "1:1", aspectRatio: 1 / 1 }],
         },
       },
       validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "imageSecondary",
+      type: "image",
+      title: "Sekundærbilde",
+      options: {
+        hotspot: {
+          previews: [{ title: "1:1", aspectRatio: 1 / 1 }],
+        },
+      },
     }),
   ],
   preview: {

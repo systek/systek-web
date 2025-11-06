@@ -760,6 +760,18 @@ export type Staff = {
     crop?: SanityImageCrop;
     _type: "image";
   };
+  imageSecondary?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
 };
 
 export type Location = {

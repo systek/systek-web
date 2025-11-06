@@ -65,13 +65,11 @@ export const openModal = (
 };
 
 export const closeModal = (modal: HTMLDialogElement) => {
-  const body = document.body;
   modal.classList.add("modal-animate");
-
   modal.close();
 
   setTimeout(() => {
     modal.classList.add("hidden");
-    body.style.overflow = "auto";
+    document.body.style.overflow = "auto";
   }, 150);
 };
