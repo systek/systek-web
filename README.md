@@ -14,7 +14,7 @@ Join the Systek community 🤝 and see why we’re the future of web!
 
 ### Prerequisites
 
-- Node.js >= 18.20.8
+- Node.js >= 20.19
 
 ### Installation
 
