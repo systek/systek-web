@@ -118,7 +118,7 @@ const [
   </CardLayout>
 
   <div
-    class="mx-grid gap-x-gutter gap-y-section mt-section grid grid-cols-2 md:grid-cols-4"
+    class="mx-grid gap-x-gutter gap-y-section mt-section grid grid-cols-2 items-start md:grid-cols-4"
   >
     {
       frontPageData.selectedWorks.map((item, index) => (
@@ -355,7 +355,9 @@ const [
         Se alle blogginnlegg
       </Button>
 
-      <div class="gap-x-gutter gap-y-section mt-section grid md:grid-cols-2">
+      <div
+        class="gap-x-gutter gap-y-section mt-section grid items-start md:grid-cols-2"
+      >
         {
           blogItems.map((item) => (
             <a class="group" href={item.link}>
