@@ -1,12 +1,16 @@
 ---
+import type { Image as SanityImage } from "sanity";
 import { fetchSiteSettings } from "../lib/sanity.queries";
+import { getOGImageUrl } from "../utils/image";
+
 import "../styles/global.css";
+
 
 interface Props {
   author?: string;
   bodyStyle?: string;
   description?: string;
-  image?: string;
+  image?: SanityImage;
   title?: string;
 }
 
@@ -15,18 +19,18 @@ const { author, bodyStyle, description, image, title } = Astro.props;
 const siteSettings = await fetchSiteSettings();
 
 const baseUrl = `https://${siteSettings.hostname}`;
-const siteTitle = siteSettings.title;
+const siteName = siteSettings.title;
 const siteDescription = siteSettings.description;
 const canonical = baseUrl + Astro.url.pathname;
 
-// todo: siteSettings.ogImage (upload public/images/og-image)
-const siteImage = image || `${baseUrl}/images/og-image-white.png`;
+const siteImage = image ? getOGImageUrl(image) : `${baseUrl}/images/og-image-white.png`;
+const siteTitle = title ? `${title} – ${siteName}` : siteName;
 ---
 
 <!doctype html>
 <html lang="nb">
   <head>
-    <title>{title ? `${title} – ${siteTitle}` : siteTitle}</title>
+    <title>{siteTitle}</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -36,10 +40,10 @@ const siteImage = image || `${baseUrl}/images/og-image-white.png`;
     <meta content="#fcf6ee" name="theme-color" />
     <meta content="summary" name="twitter:card" />
 
-    <meta content={title || siteTitle} property="og:title" />
+    <meta content={siteTitle} property="og:title" />
     <meta content={description || siteDescription} property="og:description" />
-    <meta content={siteTitle} property="og:site_name" />
-    <meta content={image || siteImage} property="og:image" />
+    <meta content={siteName} property="og:site_name" />
+    <meta content={siteImage} property="og:image" />
     <meta content={canonical} property="og:url" />
     <meta content="website" property="og:type" />
     <meta content="nb_NO" property="og:locale" />

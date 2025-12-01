@@ -19,6 +19,7 @@
     "@sanity/asset-utils": "^2.2.1",
     "@sanity/astro": "^3.2.6",
     "@sanity/client": "^7.6.0",
+    "@sanity/image-url": "^2.0.1",
     "@sanity/vision": "^4.15.0",
     "@tailwindcss/vite": "^4.1.17",
     "astro": "^5.12.4",

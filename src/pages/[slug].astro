@@ -5,7 +5,6 @@ import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import PortableText from "../components/PortableText.astro";
-import { getOGImageUrl } from "../utils/image";
 import PageHeader from "../components/PageHeader.astro";
 import Article from "../components/Article.astro";
 
@@ -33,8 +32,7 @@ const { page } = Astro.props as { page: Page };
 
 <Layout
   title={page.title}
-  image={page.heroImage?.asset?._ref &&
-    getOGImageUrl(page.heroImage.asset._ref)}
+  image={page.heroImage}
 >
   <Header />
 
