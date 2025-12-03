@@ -97,21 +97,17 @@ const locations = await fetchLocations();
       {
         locations.map((location) => (
           <p class="text-sm-fluid">
-            <>
-              <span class="font-bold">{location.name}</span>
-              <br />
-            </>
-            <>
-              <a
-                class="link-underline"
-                href={location.mapLink}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {location.address}
-              </a>
-              <br />
-            </>
+            <span class="font-bold">{location.name}</span>
+            <br />
+            <a
+              class="link-underline"
+              href={location.mapLink}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {location.address}
+            </a>
+            <br />
             {location.address2}
             <br />
             {location.phone}

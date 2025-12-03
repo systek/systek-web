@@ -38,21 +38,18 @@ const locations = await fetchLocations();
                   />
                 </picture>
                 <p class="text-sm-fluid mt-gap">
-                  <>
-                    <span class="font-bold">{item.name}</span>
-                    <br />
-                  </>
-                  <>
-                    <a
-                      class="link-underline"
-                      href={item.mapLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {item.address}
-                    </a>
-                    <br />
-                  </>
+                  <span class="font-bold">{item.name}</span>
+                  <br />
+
+                  <a
+                    class="link-underline"
+                    href={item.mapLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {item.address}
+                  </a>
+                  <br />
                   {item.address2}
                   <br />
                   {item.phone}
