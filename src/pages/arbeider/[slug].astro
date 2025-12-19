@@ -26,11 +26,13 @@ import Article from "../../components/Article.astro";
 import CardTitle from "../../components/card/layout/CardTitle.astro";
 import { vw } from "../../utils/number";
 import Copy from "../../components/Copy.astro";
+import { getDescription } from "../../utils/string";
 
 type WorkExtended = Omit<Work, "citation" | "services"> & {
   citation: CitationType;
   services: Service[];
   contactTwo: Omit<Work["contactTwo"], "contacts"> & { contacts: Staff[] };
+  plainContent: string;
 };
 
 export async function getStaticPaths() {
@@ -45,6 +47,7 @@ export async function getStaticPaths() {
     stats,
     technologiesTitle,
     technologies,
+    "plainContent": pt::text(content),
     citation->,
     services[]->,
     contactTwo{
@@ -69,7 +72,11 @@ const workItems = _workItems
   .slice(0, 3);
 ---
 
-<Layout image={work.image} title={work.description}>
+<Layout
+  description={getDescription(work.plainContent)}
+  image={work.image}
+  title={work.description}
+>
   <Header />
 
   <PageHeader>

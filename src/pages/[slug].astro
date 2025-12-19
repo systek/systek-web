@@ -30,10 +30,7 @@ export async function getStaticPaths() {
 const { page } = Astro.props as { page: Page };
 ---
 
-<Layout
-  title={page.title}
-  image={page.heroImage}
->
+<Layout title={page.title} image={page.heroImage}>
   <Header />
 
   <PageHeader image={page.heroImage} title={page.title} />

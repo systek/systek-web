@@ -21,10 +21,12 @@ import PageHeader from "../../components/PageHeader.astro";
 import Article from "../../components/Article.astro";
 import CardTitle from "../../components/card/layout/CardTitle.astro";
 import Vacancies from "../../components/Vacancies.astro";
+import { getDescription } from "../../utils/string";
 
 type PageType = Omit<Service, "citation" | "works"> & {
   citation: CitationType;
   works?: Work[];
+  plainContent: string;
 };
 
 export async function getStaticPaths() {
@@ -34,6 +36,7 @@ export async function getStaticPaths() {
     title,
     heroImage,
     content,
+    "plainContent": pt::text(content),
     citation->,
     works[]->,
     contact,
@@ -62,7 +65,7 @@ const vacancies: VacanciesType[] = await sanityClient.fetch(
 
 <Layout
   title={service.title}
-  description={service.description}
+  description={getDescription(service.plainContent)}
   image={service.heroImage}
 >
   <Header />

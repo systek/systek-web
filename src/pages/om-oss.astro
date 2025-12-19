@@ -12,12 +12,17 @@ import WorkHere from "../components/card/WorkHere.astro";
 import Article from "../components/Article.astro";
 import ImageGallery from "../components/image/ImageGallery.astro";
 import CardTitle from "../components/card/layout/CardTitle.astro";
+import { getFirstImage } from "../utils/image";
 
 const about = await fetchAboutPage();
 const locations = await fetchLocations();
 ---
 
-<Layout>
+<Layout
+  description={about.title}
+  image={getFirstImage(about.content)}
+  title="Om oss"
+>
   <Header active="/om-oss" />
   <PageHeader title={about.title} />
   {

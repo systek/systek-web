@@ -16,14 +16,19 @@ import Article from "../../components/Article.astro";
 import CardTitle from "../../components/card/layout/CardTitle.astro";
 import Copy from "../../components/Copy.astro";
 import { getFirstImage } from "../../utils/image";
+import { getDescription } from "../../utils/string";
 
-type NewsExtended = Omit<News, "author"> & { author?: Staff };
+type NewsExtended = Omit<News, "author"> & {
+  author?: Staff;
+  plainContent: string;
+};
 
 export async function getStaticPaths() {
   const newsItems = await sanityClient.fetch<
     NewsExtended[]
   >(`*[_type == "news"] { 
     ...,
+    "plainContent": pt::text(content),
     author->,
   }`);
   return newsItems.map((news) => ({
@@ -41,7 +46,11 @@ const { news, otherNews } = Astro.props as {
 };
 ---
 
-<Layout image={getFirstImage(news.content)} title={news.title}>
+<Layout
+  description={getDescription(news.plainContent)}
+  image={getFirstImage(news.content)}
+  title={news.title}
+>
   <Header />
 
   <PageHeader>

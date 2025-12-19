@@ -27,7 +27,11 @@ const [workersInfo, logoItems, workItems, serviceItems] = await Promise.all([
 ]);
 ---
 
-<Layout title="Arbeider" image={workersInfo.heroImage}>
+<Layout
+  description={workersInfo.title}
+  title="Arbeider"
+  image={workersInfo.heroImage}
+>
   <Header active="/arbeider" />
 
   <PageHeader image={workersInfo.heroImage}>

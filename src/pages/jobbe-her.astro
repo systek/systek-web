@@ -23,7 +23,11 @@ const workhereData = await fetchWorkhereSingleton();
 const vacantPositions = await fetchVacantPositions();
 ---
 
-<Layout title="Jobbe her" image={workhereData.heroImage}>
+<Layout
+  description={workhereData.title}
+  title="Jobbe her"
+  image={workhereData.heroImage}
+>
   <Header />
   <PageHeader image={workhereData.heroImage}>
     <CardLayout>
