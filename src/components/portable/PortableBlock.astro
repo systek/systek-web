@@ -27,7 +27,10 @@ const UnknownStyle = getUnknownComponent();
       <slot />
     </h2>
   ) : styleIs("blockquote") ? (
-    <blockquote {...attrs}>
+    <blockquote
+      class="my-grid text-md-fluid border-l-4 border-yellow pl-4"
+      {...attrs}
+    >
       <slot />
     </blockquote>
   ) : styleIs("normal") ? (
