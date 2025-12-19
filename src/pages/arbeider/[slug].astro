@@ -37,6 +37,7 @@ export async function getStaticPaths() {
   const works = await sanityClient.fetch(`*[_type == "work"] {
     slug,
     title,
+    image,
     startDate,
     endDate,
     description,
@@ -68,10 +69,10 @@ const workItems = _workItems
   .slice(0, 3);
 ---
 
-<Layout title={work.description}>
+<Layout image={work.image} title={work.description}>
   <Header />
 
-  <PageHeader image={work.image}>
+  <PageHeader>
     <div class="gap-section grid md:grid-cols-3">
       <div class="md:col-span-2">
         <h1 class="text-3xl-fluid font-light hyphens-auto">

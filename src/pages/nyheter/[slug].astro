@@ -15,6 +15,7 @@ import { formatDate } from "../../utils/date";
 import Article from "../../components/Article.astro";
 import CardTitle from "../../components/card/layout/CardTitle.astro";
 import Copy from "../../components/Copy.astro";
+import { getFirstImage } from "../../utils/image";
 
 type NewsExtended = Omit<News, "author"> & { author?: Staff };
 
@@ -40,7 +41,7 @@ const { news, otherNews } = Astro.props as {
 };
 ---
 
-<Layout title={news.title}>
+<Layout image={getFirstImage(news.content)} title={news.title}>
   <Header />
 
   <PageHeader>
