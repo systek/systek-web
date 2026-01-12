@@ -252,7 +252,7 @@ const [
                       "Avsluttet"
                     ) : !item.internal && item.registrationUrl ? (
                       <Button size="sm" href={item.registrationUrl}>
-                        Meld meg på
+                        {item.isRegistrationUrl ? "Meld meg på" : "Les mer her"}
                       </Button>
                     ) : (
                       "Internt"

@@ -6,6 +6,12 @@ export const activityType = defineType({
   title: "Aktiviteter",
   type: "document",
   icon: ActivityIcon,
+  fieldsets: [
+    {
+      name: "links",
+      title: "Lenke"
+    },
+  ],
   fields: [
     defineField({
       name: "title",
@@ -23,7 +29,7 @@ export const activityType = defineType({
     defineField({
       name: "location",
       title: "Lokasjon",
-      type: "text",
+      type: "string",
       validation: (rule) => rule.required(),
     }),
     defineField({
@@ -31,13 +37,26 @@ export const activityType = defineType({
       title: "Intern",
       type: "boolean",
       validation: (rule) => rule.required(),
+      fieldset: "links"
     }),
     defineField({
       name: "registrationUrl",
-      title: "Registrerings url",
+      title: "Lenke for påmelding eller mer informasjon",
       type: "url",
+      description: "Tilgjengelig for eksterne aktiviteter",
       validation: (rule) => rule.uri({ scheme: ["http", "https", "mailto"] }),
+      fieldset: "links",
     }),
+    defineField({
+      name: "isRegistrationUrl",
+      title: "Er påmeldingslenke",
+      type: "boolean",
+      initialValue: false,
+      description:
+        "Marker denne hvis lenken over er en påmeldingslenke. Hvis ikke, antas det at lenken er for mer informasjon.",
+      validation: (rule) => rule.required(),
+      fieldset: "links"
+    })
   ],
   preview: {
     select: {
@@ -49,10 +68,10 @@ export const activityType = defineType({
       const dateObj = date ? new Date(date) : null;
       const formattedDate = dateObj
         ? dateObj.toLocaleDateString("no-NO", {
-            year: "numeric",
-            month: "2-digit",
-            day: "2-digit",
-          })
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+        })
         : "Ukjent dato";
       return {
         title,

@@ -86,19 +86,36 @@ export async function fetchActivityItemsByDate(
   date = new Date(),
 ): Promise<Activity[]> {
   const today = format(date, "yyyy-MM-dd");
-  return sanityClient.fetch(
+  // Try to fetch the 5 next activities from today if posible
+  const activities = await sanityClient.fetch(
     `*[_type == "activity" && date >= $today] | order(date asc)${limit ? `[0...${limit}]` : ""} {
     _id,
     title,
     date,
     location,
     internal,
-    registrationUrl
+    registrationUrl,
+    isRegistrationUrl
   }`,
     {
       today: today,
     },
   );
+
+  if (activities.length === limit) {
+    return activities;
+  }
+
+  // If there are not enough upcoming activities, 5 newest activities are fetched
+  return sanityClient.fetch(`*[_type == "activity"] | order(date desc)${limit ? `[0...${limit}]` : ""} {
+    _id,
+    title,
+    date,
+    location,
+    internal,
+    registrationUrl,
+    isRegistrationUrl
+  }`);
 }
 
 export async function fetchBlogItems(
