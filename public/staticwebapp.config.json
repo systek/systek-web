@@ -4,11 +4,6 @@
       "route": "/varsel",
       "redirect": "https://varsel.systek.no/skjema/systek/k8Zy7v6pPDqKsWfY.11269",
       "statusCode": 301
-    },
-    {
-      "route": "/varsel/",
-      "redirect": "https://varsel.systek.no/skjema/systek/k8Zy7v6pPDqKsWfY.11269",
-      "statusCode": 301
     }
   ],
   "navigationFallback": {
