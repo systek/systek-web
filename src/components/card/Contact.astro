@@ -43,7 +43,7 @@ const { button, label, title, email, text, image } = Astro.props;
         alt={image.alt}
         width={1000}
         height={750}
-        sizes={`(min-width: 105rem) 50vw, 100vw`}
+        sizes="(min-width: 105rem) 50vw, 100vw"
       />
       <Image
         class="block aspect-square w-full rounded-md md:hidden"
@@ -51,7 +51,7 @@ const { button, label, title, email, text, image } = Astro.props;
         alt={image.alt}
         width={1000}
         height={1000}
-        sizes={`100vw`}
+        sizes="100vw"
       />
     </picture>
   </div>

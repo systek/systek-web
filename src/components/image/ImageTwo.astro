@@ -31,7 +31,7 @@ const { first, second } = Astro.props.node;
         class="aspect-[4/5] w-full rounded-md lg:rounded-lg"
         width={2000}
         height={2500}
-        sizes={`(min-width: 50rem) 25vw, 100vw`}
+        sizes="(min-width: 50rem) 25vw, 100vw"
       />
       <figcaption class="text-xs-fluid mt-gap">{first.caption}</figcaption>
     </figure>
@@ -43,7 +43,7 @@ const { first, second } = Astro.props.node;
         width={2000}
         height={1500}
         class="aspect-[4/3] w-full rounded-md lg:rounded-lg"
-        sizes={`(min-width: 50rem) 50vw, 100vw`}
+        sizes="(min-width: 50rem) 50vw, 100vw"
       />
       <figcaption class="text-xs-fluid mt-gap">{second.caption}</figcaption>
     </figure>
