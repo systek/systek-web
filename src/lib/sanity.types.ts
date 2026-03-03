@@ -24,12 +24,13 @@ export type Vacancies = {
   location: string;
   date?: string;
   href: string;
-  service?: {
+  services?: Array<{
     _ref: string;
     _type: "reference";
     _weak?: boolean;
+    _key: string;
     [internalGroqTypeReferenceTo]?: "service";
-  };
+  }>;
 };
 
 export type Page = {
