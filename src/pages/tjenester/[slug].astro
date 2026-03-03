@@ -50,16 +50,22 @@ const { service } = Astro.props as {
   service: PageType;
 };
 
-// Fetch related vacancies and order those with service first
+// Fetch vacancies whose services field includes the current service, or those without any services assigned, ordered by those with the current service first, then by date
 const vacancies: VacanciesType[] = await sanityClient.fetch(
-  `*[_type == "vacancies" && (service._ref == $serviceId || service == null)] | order(service._ref asc, date desc) {
-    title,
-    date,
-    location,
-    description,
-    href
-  }`,
-  { serviceId: service._id }
+  `
+    *[_type == "vacancies" && (
+      $serviceId in services[]._ref ||
+      !defined(services)
+    )]
+    | order(select($serviceId in services[]._ref => 0, 1) asc, date desc) {
+      title,
+      date,
+      location,
+      description,
+      href
+    }
+  `,
+  { serviceId: service._id },
 );
 ---
 

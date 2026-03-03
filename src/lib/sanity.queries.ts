@@ -243,16 +243,23 @@ export async function fetchWorkhereSingleton(): Promise<WorkherePageTypeExtended
   }`);
 }
 
-// Fetch vacant positions, order those with service set first by service, then by date
+// Fetch vacant positions, order those with at least one linked service first, then by date
 export async function fetchVacantPositions(): Promise<Vacancies[]> {
-  return sanityClient.fetch(`*[_type == "vacancies"] | order(service._ref asc, date desc) {
+  const today = format(new Date(), "yyyy-MM-dd");
+
+  return sanityClient.fetch(
+    `*[_type == "vacancies" && (!defined(date) || date >= $today)] | order(select(defined(services[0]) => 0, 1) asc, date desc) {
     _id,
     title,
     description,
     location,
     date,
     href
-  }`);
+  }`,
+    {
+      today,
+    },
+  );
 }
 
 export async function fetchSiteSettings(): Promise<SiteSettings> {

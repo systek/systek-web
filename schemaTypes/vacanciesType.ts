@@ -40,24 +40,28 @@ export const vacanciesType = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
-      name: "service",
-      title: "Tilknyttet tjeneste",
+      name: "services",
+      title: "Tilknyttede tjenester",
       description: "Brukes for å vise relaterte stillinger på tjenestesider",
-      type: "reference",
-      to: [{ type: "service" }],
+      type: "array",
+      of: [
+        {
+          type: "reference",
+          to: [{ type: "service" }],
+        },
+      ],
     }),
   ],
   preview: {
     select: {
       title: "title",
       location: "location",
-      serviceType: "service.title",
     },
-    prepare({ title, location, serviceType }) {
+    prepare({ title, location }) {
       return {
         title,
-        subtitle: location + (serviceType ? ` - ${serviceType}` : ""),
+        subtitle: location,
       };
-    }
-  }
+    },
+  },
 });
