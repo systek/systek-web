@@ -228,7 +228,7 @@ export const setupConnections = function (rootEl: HTMLDivElement) {
   ): Box {
     const textItem = new Konva.Text({
       fontSize: config.fontSize,
-      fontFamily: `"KHTeka", "Inter", system-ui, sans-serif`,
+      fontFamily: '"KHTeka", "Inter", system-ui, sans-serif',
       fontStyle: "300",
       text: text,
       fill: config.textColor,

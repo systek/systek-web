@@ -15,7 +15,7 @@ const { label, class: className, ...props } = Astro.props;
     type="radio"
     class:list={[
       "relative size-6 appearance-none rounded-full bg-transparent transition-colors",
-      "shadow-[0_0_0_1px_theme(colors.grey.10)] hover:shadow-[0_0_0_2px_theme(colors.grey.10)]",
+      "shadow-[0_0_0_1px_var(--color-grey-10)] hover:shadow-[0_0_0_2px_var(--color-grey-10)]",
       "checked:bg-[#FF8C45]",
       "checked:after:absolute checked:after:top-1/2 checked:after:left-1/2 checked:after:size-2.5 checked:after:-translate-x-1/2 checked:after:-translate-y-1/2 checked:after:rounded-full checked:after:bg-grey-10 checked:after:content-['']",
       className,

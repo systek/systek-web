@@ -8,7 +8,7 @@ interface Props {
 const { stats } = Astro.props;
 ---
 
-<div class="my-section lg:mx-[calc(50%-50vw+(var(--width-scrollbar)/2)))]">
+<div class="my-section lg:mx-[calc(50%-50vw+(var(--width-scrollbar)/2))]">
   <div
     class="gap-gutter px-gutter py-gutter grid rounded-lg bg-yellow lg:mx-grid-lg lg:grid-cols-4"
   >
@@ -20,7 +20,7 @@ const { stats } = Astro.props;
       <div class="gap-gutter mt-section grid lg:grid-cols-3">
         {
           stats?.items?.map((item) => (
-            <div class="p-grid gap-grid grid rounded-lg bg-off-white lg:aspect-[4/3]">
+            <div class="p-grid gap-grid grid rounded-lg bg-off-white lg:aspect-4/3">
               <span class="text-4xl-fluid hyphen-auto font-light">
                 {item.value}
               </span>

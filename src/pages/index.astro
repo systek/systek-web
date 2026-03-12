@@ -51,7 +51,7 @@ const [
 
   <div
     id="main-content"
-    class="mx-grid mt-section gap-gutter grid scroll-mt-[var(--height-header)] lg:grid-cols-2"
+    class="mx-grid mt-section gap-gutter grid scroll-mt-(--height-header) lg:grid-cols-2"
   >
     <h1 class="text-4xl-fluid font-light">{frontPageData.title}</h1>
     <div>
@@ -67,7 +67,7 @@ const [
     <picture>
       <Image
         alt={frontPageData.heroImage.alt}
-        class="hidden aspect-[2/1] w-full rounded-md md:block"
+        class="hidden aspect-2/1 w-full rounded-md md:block"
         image={frontPageData.heroImage}
         width={2000}
         height={1000}
@@ -75,7 +75,7 @@ const [
       />
       <Image
         alt={frontPageData.heroImage.alt}
-        class="block aspect-[4/3] w-full rounded-md md:hidden"
+        class="block aspect-4/3 w-full rounded-md md:hidden"
         image={frontPageData.heroImage}
         width={1000}
         height={750}
@@ -130,7 +130,7 @@ const [
             <Image
               class={clsx(
                 "w-full rounded-md",
-                index % 3 === 2 ? "aspect-square" : "aspect-[4/3]"
+                index % 3 === 2 ? "aspect-square" : "aspect-4/3",
               )}
               image={item.image}
               alt={item.image.alt}
@@ -138,8 +138,8 @@ const [
               height={index === 0 ? 1500 : index === 1 ? 750 : 1000}
               sizes={
                 index % 3 === 0
-                  ? `(min-width: 50rem) 50vw, 100vw`
-                  : `(min-width: 50rem) 25vw, 50vw`
+                  ? "(min-width: 50rem) 50vw, 100vw"
+                  : "(min-width: 50rem) 25vw, 50vw"
               }
             />
           </picture>
@@ -162,7 +162,7 @@ const [
         <picture>
           <Image
             alt={frontPageData.activityImage.alt}
-            class="hidden aspect-[2/1] w-full rounded-md md:block lg:rounded-lg"
+            class="hidden aspect-2/1 w-full rounded-md md:block lg:rounded-lg"
             image={frontPageData.activityImage}
             width={2000}
             height={1000}
@@ -171,7 +171,7 @@ const [
 
           <Image
             alt={frontPageData.activityImage.alt}
-            class="block aspect-[4/3] w-full rounded-md md:hidden"
+            class="block aspect-4/3 w-full rounded-md md:hidden"
             image={frontPageData.activityImage}
             width={1000}
             height={750}
@@ -294,7 +294,7 @@ const [
       <picture>
         <Image
           alt={frontPageData.vacanciesImage.alt}
-          class="hidden aspect-[2/1] w-full rounded-md md:block lg:rounded-lg"
+          class="hidden aspect-2/1 w-full rounded-md md:block lg:rounded-lg"
           image={frontPageData.vacanciesImage}
           width={2000}
           height={1000}
@@ -303,7 +303,7 @@ const [
 
         <Image
           alt={frontPageData.vacanciesImage.alt}
-          class="block aspect-[4/3] w-full rounded-md md:hidden"
+          class="block aspect-4/3 w-full rounded-md md:hidden"
           image={frontPageData.vacanciesImage}
           width={1000}
           height={750}
@@ -363,7 +363,7 @@ const [
             <a class="group" href={item.link}>
               <picture>
                 <Image
-                  class="aspect-[4/3] w-full rounded-md"
+                  class="aspect-4/3 w-full rounded-md"
                   image={item.image}
                   alt={item.image.alt}
                   width={1000}

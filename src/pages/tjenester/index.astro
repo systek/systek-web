@@ -30,7 +30,7 @@ const [servicesInfo, serviceItems] = await Promise.all([
 
   <div
     id="main-content"
-    class="mx-grid mt-section grid scroll-mt-[var(--height-header)] lg:grid-cols-2"
+    class="mx-grid mt-section grid scroll-mt-(--height-header) lg:grid-cols-2"
   >
     <div
       class="flex max-h-48 flex-col items-start justify-end md:max-h-80 lg:order-2 lg:max-h-none lg:flex-row-reverse lg:items-center"
@@ -63,7 +63,7 @@ const [servicesInfo, serviceItems] = await Promise.all([
     <div>
       <picture>
         <Image
-          class="aspect-[4/3] w-full rounded-md"
+          class="aspect-4/3 w-full rounded-md"
           image={servicesInfo.heroImage}
           alt={servicesInfo.heroImage.alt}
           width={2000}
@@ -86,7 +86,7 @@ const [servicesInfo, serviceItems] = await Promise.all([
         <picture>
           <Image
             alt={servicesInfo.secondaryImage.alt}
-            class="hidden aspect-[2/1] w-full rounded-md md:block lg:rounded-lg"
+            class="hidden aspect-2/1 w-full rounded-md md:block lg:rounded-lg"
             image={servicesInfo.secondaryImage}
             width={2000}
             height={1000}
@@ -94,7 +94,7 @@ const [servicesInfo, serviceItems] = await Promise.all([
           />
           <Image
             alt={servicesInfo.secondaryImage.alt}
-            class="block aspect-[4/3] w-full rounded-md md:hidden"
+            class="block aspect-4/3 w-full rounded-md md:hidden"
             image={servicesInfo.secondaryImage}
             width={1000}
             height={750}

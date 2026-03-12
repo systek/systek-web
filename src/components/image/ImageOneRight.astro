@@ -10,10 +10,10 @@ interface Props {
 const { node } = Astro.props;
 ---
 
-<div class="my-section md:mr-[calc(50%-50vw+(var(--width-scrollbar)/2)))]">
+<div class="my-section md:mr-[calc(50%-50vw+(var(--width-scrollbar)/2))]">
   <figure class="md:mr-grid-md lg:mr-grid-lg">
     <Image
-      class="hidden aspect-[2/1] w-full rounded-lg md:block"
+      class="hidden aspect-2/1 w-full rounded-lg md:block"
       image={node}
       alt={node.alt}
       width={2000}
@@ -22,7 +22,7 @@ const { node } = Astro.props;
     />
 
     <Image
-      class="block aspect-[4/3] w-full rounded-md md:hidden"
+      class="block aspect-4/3 w-full rounded-md md:hidden"
       image={node}
       alt={node.alt}
       width={1000}

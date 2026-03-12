@@ -10,11 +10,11 @@ interface Props {
 const { node } = Astro.props;
 ---
 
-<div class="my-section md:mx-[calc(50%-50vw+(var(--width-scrollbar)/2)))]">
+<div class="my-section md:mx-[calc(50%-50vw+(var(--width-scrollbar)/2))]">
   <div class="md:mx-grid-md">
     <figure class="md:mx-auto md:max-w-[68rem] lg:max-w-[64.7619vw]">
       <Image
-        class="hidden aspect-[2/1] w-full rounded-lg md:block"
+        class="hidden aspect-2/1 w-full rounded-lg md:block"
         image={node}
         alt={node.alt}
         width={2000}
@@ -22,7 +22,7 @@ const { node } = Astro.props;
         sizes={`(min-width: 105rem) ${vw(68)}, 68rem`}
       />
       <Image
-        class="block aspect-[4/3] w-full rounded-md md:hidden"
+        class="block aspect-4/3 w-full rounded-md md:hidden"
         image={node}
         alt={node.alt}
         width={1000}
