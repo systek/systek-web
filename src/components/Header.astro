@@ -68,7 +68,10 @@ const links = [
   </header>
 
   <dialog
-    class="p-grid modal-animate fixed top-auto bottom-0 z-(--z-dialog) flex hidden h-full max-h-[calc(100%-var(--height-header))] w-full max-w-full flex-col bg-off-white backdrop:bg-transparent"
+    class:list={[
+      "p-grid modal-animate fixed top-auto bottom-0 z-(--z-dialog) flex h-full max-h-[calc(100%-var(--height-header))] w-full max-w-full flex-col bg-off-white backdrop:bg-transparent",
+      "hidden", // class is toggled with JS
+    ]}
     data-modal
   >
     <div class="flex justify-between">
