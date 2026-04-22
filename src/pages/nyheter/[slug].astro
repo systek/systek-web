@@ -17,6 +17,7 @@ import CardTitle from "../../components/card/layout/CardTitle.astro";
 import Copy from "../../components/Copy.astro";
 import { getFirstImage } from "../../utils/image";
 import { getDescription } from "../../utils/string";
+import { fetchNewsItems } from "../../lib/sanity.queries";
 
 type NewsExtended = Omit<News, "author"> & {
   author?: Staff;
@@ -31,11 +32,13 @@ export async function getStaticPaths() {
     "plainContent": pt::text(content),
     author->,
   }`);
+  const latestNews = await fetchNewsItems(6);
+
   return newsItems.map((news) => ({
     params: { slug: news.slug.current },
     props: {
       news,
-      otherNews: newsItems.filter((on) => on._id !== news._id).slice(0, 5),
+      otherNews: latestNews.filter((on) => on._id !== news._id).slice(0, 5),
     },
   }));
 }
@@ -113,7 +116,7 @@ const { news, otherNews } = Astro.props as {
                 href={`/nyheter/${item.slug.current}`}
               >
                 <ExternalIcon class="size-2.5 shrink-0 lg:size-[0.595vw]" />
-                <p class="text-xs-fluid whitespace-nowrap">{item.title}</p>
+                <p class="text-xs-fluid">{item.title}</p>
               </a>
               <p class="text-xs-fluid hidden whitespace-nowrap md:block">
                 {formatDate(item.publishedAt)}
