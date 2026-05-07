@@ -5,7 +5,6 @@ import { getOGImageUrl } from "../utils/image";
 
 import "../styles/global.css";
 
-
 interface Props {
   author?: string;
   bodyStyle?: string;
@@ -23,7 +22,9 @@ const siteName = siteSettings.title;
 const siteDescription = siteSettings.description;
 const canonical = baseUrl + Astro.url.pathname;
 
-const siteImage = image ? getOGImageUrl(image) : `${baseUrl}/images/og-image-white.png`;
+const siteImage = image
+  ? getOGImageUrl(image)
+  : `${baseUrl}/images/og-image-white.png`;
 const siteTitle = title ? `${title} – ${siteName}` : siteName;
 ---
 

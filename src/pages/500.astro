@@ -28,7 +28,7 @@ import Article from "../components/Article.astro";
 
   DOMLoaded(() => {
     const button = document.querySelector(
-      "[data-refresh-button]"
+      "[data-refresh-button]",
     ) as HTMLButtonElement;
     button.addEventListener("click", () => {
       window.location.reload();

@@ -6,7 +6,7 @@ export default defineCliConfig({
     dataset: "production",
   },
   deployment: {
-    appId: 'yibbyuzsah7ywgznzui0xvgt',
+    appId: "yibbyuzsah7ywgznzui0xvgt",
   },
   /**
    * Enable auto-updates for studios.

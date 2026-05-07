@@ -20,7 +20,7 @@ const { class: className } = Astro.props;
 
   DOMLoaded(() => {
     const button = document.querySelector(
-      "[data-copy-link-button]"
+      "[data-copy-link-button]",
     ) as HTMLButtonElement;
 
     const initialText = button.innerText;
