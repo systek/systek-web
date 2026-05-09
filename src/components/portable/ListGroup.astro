@@ -9,8 +9,8 @@ const {
 ---
 
 <div class="my-grid p-grid rounded-lg border border-stroke">
-  {title && <p class="text-md-fluid hyphens-auto">{title}</p>}
+  {title && <p class="text-md-fluid break-words">{title}</p>}
   <ul id={key} class="ml-4 list-inside list-disc">
-    {items?.map((item) => <li class="text-md-fluid hyphens-auto">{item}</li>)}
+    {items?.map((item) => <li class="text-md-fluid break-words">{item}</li>)}
   </ul>
 </div>

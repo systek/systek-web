@@ -48,6 +48,10 @@ body {
   }
 }
 
+@utility break-words {
+  word-break: break-word;
+}
+
 .modal-animate {
   animation: slide-out-down 0.15s forwards;
 }
