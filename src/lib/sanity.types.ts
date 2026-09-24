@@ -239,7 +239,7 @@ export type Blog = {
   _rev: string;
   title: string;
   description: string;
-  author: {
+  author?: {
     _ref: string;
     _type: "reference";
     _weak?: boolean;

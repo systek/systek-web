@@ -376,7 +376,7 @@ const [
               </p>
               <p class="text-md-fluid">{item.description}</p>
               <p class="text-sm-fluid leading-snug">
-                Skrevet av {item.author.name}
+                Skrevet av {item.author?.name ?? "Systek"}
               </p>
             </a>
           ))

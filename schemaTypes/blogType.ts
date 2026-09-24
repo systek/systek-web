@@ -24,7 +24,6 @@ export const blogType = defineType({
       title: "Forfatter",
       type: "reference",
       to: [{ type: "staff" }],
-      validation: (rule) => rule.required(),
     }),
     defineField({
       name: "link",
