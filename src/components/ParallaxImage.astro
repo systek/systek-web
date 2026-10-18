@@ -1,0 +1,27 @@
+---
+import type { Image as SanityImage } from "sanity";
+import Image from "./Image.astro";
+
+const {
+  class: className,
+  height,
+  ...props
+} = Astro.props as {
+  image: SanityImage;
+  class?: string;
+  alt: string;
+  loading?: "eager" | "lazy";
+  mode?: "cover" | "contain";
+  width?: number;
+  height?: number;
+  sizes?: string;
+};
+---
+
+<div class:list={["parallax-frame", className]}>
+  <Image
+    {...props}
+    class="parallax-image"
+    height={height && Math.round(height * 1.2)}
+  />
+</div>

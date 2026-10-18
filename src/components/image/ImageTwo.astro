@@ -1,6 +1,6 @@
 ---
 import type { ImageTwoFirst, ImageTwoSecond } from "../../lib/sanity.types";
-import Image from "../Image.astro";
+import ParallaxImage from "../ParallaxImage.astro";
 
 interface Props {
   node: {
@@ -14,8 +14,8 @@ const { first, second } = Astro.props.node;
 
 <div class="my-section md:mx-[calc(50%-50vw+(var(--width-scrollbar)/2))]">
   <div class="gap-section grid md:mx-grid md:grid-cols-2">
-    <figure class="md:mx-section md:mt-page lg:mx-page">
-      <Image
+    <figure class="parallax-offset md:mx-section md:mt-page lg:mx-page">
+      <ParallaxImage
         image={first}
         alt={first.alt ?? ""}
         class="aspect-4/5 w-full rounded-md lg:rounded-lg"
@@ -27,7 +27,7 @@ const { first, second } = Astro.props.node;
     </figure>
 
     <figure>
-      <Image
+      <ParallaxImage
         image={second}
         alt={second.alt ?? ""}
         width={2000}

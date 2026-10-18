@@ -57,16 +57,14 @@ const [workersInfo, logoItems, workItems, serviceItems] = await Promise.all([
       <div class="gap-x-gutter mt-section gap-y-section grid items-start md:grid-cols-2">
         {workItems.map((item) => (
           <a class="group" href={`/arbeider/${item.slug.current}`}>
-            <picture>
-              <Image
-                class="aspect-4/3 w-full rounded-md"
-                image={item.image}
-                alt={item.image.alt}
-                width={1000}
-                height={750}
-                sizes="(min-width: 80rem) 37.5vw, (min-width: 50rem) 50vw, 100vw"
-              />
-            </picture>
+            <Image
+              class="aspect-4/3 w-full rounded-md"
+              image={item.image}
+              alt={item.image.alt}
+              width={1000}
+              height={750}
+              sizes="(min-width: 80rem) 37.5vw, (min-width: 50rem) 50vw, 100vw"
+            />
             <p class="mt-gap text-md-fluid group-link-underline font-bold">
               {item.title}
             </p>

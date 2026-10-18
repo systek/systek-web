@@ -2,6 +2,7 @@
 import clsx from "clsx";
 
 import Image from "../components/Image.astro";
+import ParallaxImage from "../components/ParallaxImage.astro";
 import ExternalIcon from "../assets/icons/external.svg";
 import Button from "../components/Button.astro";
 import CardLayout from "../components/card/layout/CardLayout.astro";
@@ -64,24 +65,22 @@ const [
   </div>
 
   <div class="mt-section mx-grid">
-    <picture>
-      <Image
-        alt={frontPageData.heroImage.alt}
-        class="hidden aspect-2/1 w-full rounded-md md:block"
-        image={frontPageData.heroImage}
-        width={2000}
-        height={1000}
-        sizes="100vw"
-      />
-      <Image
-        alt={frontPageData.heroImage.alt}
-        class="block aspect-4/3 w-full rounded-md md:hidden"
-        image={frontPageData.heroImage}
-        width={1000}
-        height={750}
-        sizes="100vw"
-      />
-    </picture>
+    <ParallaxImage
+      alt={frontPageData.heroImage.alt}
+      class="hidden aspect-2/1 w-full rounded-md md:block"
+      image={frontPageData.heroImage}
+      width={2000}
+      height={1000}
+      sizes="100vw"
+    />
+    <ParallaxImage
+      alt={frontPageData.heroImage.alt}
+      class="block aspect-4/3 w-full rounded-md md:hidden"
+      image={frontPageData.heroImage}
+      width={1000}
+      height={750}
+      sizes="100vw"
+    />
   </div>
 
   <CardLayout class="mt-section mx-grid pt-grid border-t border-stroke">
@@ -121,23 +120,21 @@ const [
         class={clsx("group", index % 3 === 0 && "col-span-2")}
         href={`/arbeider/${item.slug.current}`}
       >
-        <picture>
-          <Image
-            class={clsx(
-              "w-full rounded-md",
-              index % 3 === 2 ? "aspect-square" : "aspect-4/3",
-            )}
-            image={item.image}
-            alt={item.image.alt}
-            width={index % 3 === 0 ? 2000 : 1000}
-            height={index === 0 ? 1500 : index === 1 ? 750 : 1000}
-            sizes={
-              index % 3 === 0
-                ? "(min-width: 50rem) 50vw, 100vw"
-                : "(min-width: 50rem) 25vw, 50vw"
-            }
-          />
-        </picture>
+        <Image
+          class={clsx(
+            "w-full rounded-md",
+            index % 3 === 2 ? "aspect-square" : "aspect-4/3",
+          )}
+          image={item.image}
+          alt={item.image.alt}
+          width={index % 3 === 0 ? 2000 : 1000}
+          height={index === 0 ? 1500 : index === 1 ? 750 : 1000}
+          sizes={
+            index % 3 === 0
+              ? "(min-width: 50rem) 50vw, 100vw"
+              : "(min-width: 50rem) 25vw, 50vw"
+          }
+        />
         <p class="mt-gap text-md-fluid group-link-underline font-bold break-words">
           {item.title}
         </p>
@@ -151,25 +148,23 @@ const [
       <CardTitle>{frontPageData.activityTitle}</CardTitle>
 
       <div class="mt-section">
-        <picture>
-          <Image
-            alt={frontPageData.activityImage.alt}
-            class="hidden aspect-2/1 w-full rounded-md md:block lg:rounded-lg"
-            image={frontPageData.activityImage}
-            width={2000}
-            height={1000}
-            sizes="(min-width: 80rem) 75vw, 100vw"
-          />
+        <ParallaxImage
+          alt={frontPageData.activityImage.alt}
+          class="hidden aspect-2/1 w-full rounded-md md:block lg:rounded-lg"
+          image={frontPageData.activityImage}
+          width={2000}
+          height={1000}
+          sizes="(min-width: 80rem) 75vw, 100vw"
+        />
 
-          <Image
-            alt={frontPageData.activityImage.alt}
-            class="block aspect-4/3 w-full rounded-md md:hidden"
-            image={frontPageData.activityImage}
-            width={1000}
-            height={750}
-            sizes="100vw"
-          />
-        </picture>
+        <ParallaxImage
+          alt={frontPageData.activityImage.alt}
+          class="block aspect-4/3 w-full rounded-md md:hidden"
+          image={frontPageData.activityImage}
+          width={1000}
+          height={750}
+          sizes="100vw"
+        />
       </div>
 
       <div class="mt-section md:border-t md:border-stroke">
@@ -265,25 +260,23 @@ const [
     </Accordion>
 
     <div class="lg:col-span-3">
-      <picture>
-        <Image
-          alt={frontPageData.vacanciesImage.alt}
-          class="hidden aspect-2/1 w-full rounded-md md:block lg:rounded-lg"
-          image={frontPageData.vacanciesImage}
-          width={2000}
-          height={1000}
-          sizes="(min-width: 80rem) 75vw, 100vw"
-        />
+      <ParallaxImage
+        alt={frontPageData.vacanciesImage.alt}
+        class="hidden aspect-2/1 w-full rounded-md md:block lg:rounded-lg"
+        image={frontPageData.vacanciesImage}
+        width={2000}
+        height={1000}
+        sizes="(min-width: 80rem) 75vw, 100vw"
+      />
 
-        <Image
-          alt={frontPageData.vacanciesImage.alt}
-          class="block aspect-4/3 w-full rounded-md md:hidden"
-          image={frontPageData.vacanciesImage}
-          width={1000}
-          height={750}
-          sizes="100vw"
-        />
-      </picture>
+      <ParallaxImage
+        alt={frontPageData.vacanciesImage.alt}
+        class="block aspect-4/3 w-full rounded-md md:hidden"
+        image={frontPageData.vacanciesImage}
+        width={1000}
+        height={750}
+        sizes="100vw"
+      />
     </div>
   </CardLayout>
 
@@ -332,16 +325,14 @@ const [
       <div class="gap-x-gutter gap-y-section mt-section grid items-start md:grid-cols-2">
         {blogItems.map((item) => (
           <a class="group" href={item.link}>
-            <picture>
-              <Image
-                class="aspect-4/3 w-full rounded-md"
-                image={item.image}
-                alt={item.image.alt}
-                width={1000}
-                height={750}
-                sizes="(min-width: 80rem) 37.5vw, (min-width: 50rem) 50vw, 100vw"
-              />
-            </picture>
+            <Image
+              class="aspect-4/3 w-full rounded-md"
+              image={item.image}
+              alt={item.image.alt}
+              width={1000}
+              height={750}
+              sizes="(min-width: 80rem) 37.5vw, (min-width: 50rem) 50vw, 100vw"
+            />
             <p class="mt-gap text-md-fluid group-link-underline font-bold">
               {item.title}
             </p>

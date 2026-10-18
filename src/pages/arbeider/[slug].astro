@@ -109,16 +109,14 @@ const workItems = _workItems
           {work.contactTwo.contacts.map((item, index, contacts) => (
             <>
               <div class="gap-gutter flex">
-                <picture>
-                  <Image
-                    class="aspect-square size-28 rounded-md md:size-40 lg:size-[9.5238vw]"
-                    alt=""
-                    width={400}
-                    height={400}
-                    image={item.image}
-                    sizes={`(min-width: 80rem) ${vw(10)}, 10rem`}
-                  />
-                </picture>
+                <Image
+                  class="aspect-square size-28 rounded-md md:size-40 lg:size-[9.5238vw]"
+                  alt=""
+                  width={400}
+                  height={400}
+                  image={item.image}
+                  sizes={`(min-width: 80rem) ${vw(10)}, 10rem`}
+                />
                 <div class="flex flex-col items-start">
                   <p class="text-md-fluid font-bold">{item.name}</p>
                   <p class="text-md-fluid">{item.position}</p>
@@ -158,23 +156,21 @@ const workItems = _workItems
         class={clsx("group", index % 3 === 0 && "col-span-2")}
         href={`/arbeider/${item.slug.current}`}
       >
-        <picture>
-          <Image
-            class={clsx(
-              "w-full rounded-md",
-              index % 3 === 2 ? "aspect-square" : "aspect-4/3",
-            )}
-            image={item.image}
-            alt={item.image.alt}
-            width={index % 3 === 0 ? 2000 : 1000}
-            height={index === 0 ? 1500 : index === 1 ? 750 : 1000}
-            sizes={
-              index % 3 === 0
-                ? "(min-width: 50rem) 50vw, 100vw"
-                : "(min-width: 50rem) 25vw, 50vw"
-            }
-          />
-        </picture>
+        <Image
+          class={clsx(
+            "w-full rounded-md",
+            index % 3 === 2 ? "aspect-square" : "aspect-4/3",
+          )}
+          image={item.image}
+          alt={item.image.alt}
+          width={index % 3 === 0 ? 2000 : 1000}
+          height={index === 0 ? 1500 : index === 1 ? 750 : 1000}
+          sizes={
+            index % 3 === 0
+              ? "(min-width: 50rem) 50vw, 100vw"
+              : "(min-width: 50rem) 25vw, 50vw"
+          }
+        />
         <p class="mt-gap text-md-fluid group-link-underline font-bold break-words">
           {item.title}
         </p>

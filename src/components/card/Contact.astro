@@ -32,23 +32,21 @@ const { button, label, title, email, text, image } = Astro.props;
     </div>
   </div>
   <div class="lg:col-span-2">
-    <picture>
-      <Image
-        class="hidden aspect-4/3 w-full rounded-md md:block"
-        image={image}
-        alt={image.alt}
-        width={1000}
-        height={750}
-        sizes="(min-width: 80rem) 50vw, 100vw"
-      />
-      <Image
-        class="block aspect-square w-full rounded-md md:hidden"
-        image={image}
-        alt={image.alt}
-        width={1000}
-        height={1000}
-        sizes="100vw"
-      />
-    </picture>
+    <Image
+      class="hidden aspect-4/3 w-full rounded-md md:block"
+      image={image}
+      alt={image.alt}
+      width={1000}
+      height={750}
+      sizes="(min-width: 80rem) 50vw, 100vw"
+    />
+    <Image
+      class="block aspect-square w-full rounded-md md:hidden"
+      image={image}
+      alt={image.alt}
+      width={1000}
+      height={1000}
+      sizes="100vw"
+    />
   </div>
 </CardLayout>

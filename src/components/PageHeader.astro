@@ -1,6 +1,6 @@
 ---
 import type { Image as ImageType } from "sanity";
-import Image from "./Image.astro";
+import ParallaxImage from "./ParallaxImage.astro";
 import Arrow from "./Arrow.astro";
 
 interface Props {
@@ -35,7 +35,7 @@ const { image, title } = Astro.props;
         <Arrow position="middleRight" />
       </div>
 
-      <Image
+      <ParallaxImage
         alt={image.alt}
         class="hidden aspect-2/1 w-full rounded-md md:block"
         image={image}
@@ -45,7 +45,7 @@ const { image, title } = Astro.props;
         sizes="100vw"
       />
 
-      <Image
+      <ParallaxImage
         alt={image.alt}
         class="block aspect-4/3 w-full rounded-md md:hidden"
         image={image}

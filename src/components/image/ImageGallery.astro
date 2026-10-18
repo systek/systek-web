@@ -1,6 +1,6 @@
 ---
 import type { ImageGallery } from "../../lib/sanity.types";
-import Image from "../Image.astro";
+import ParallaxImage from "../ParallaxImage.astro";
 
 interface Props {
   node?: ImageGallery | null;
@@ -16,75 +16,67 @@ const { first, second, third, fourth } = node;
 ---
 
 <div class="mt-section gap-gutter grid grid-cols-2 lg:col-span-4 lg:grid-cols-2">
-  <div class="gap-gutter flex flex-col lg:flex-row">
-    <picture>
-      <Image
-        class="aspect-square w-full rounded-md"
-        image={first}
-        alt={first.alt ?? ""}
-        width={2000}
-        height={2000}
-        sizes="(min-width: 80rem) 25vw, 50vw"
-      />
-    </picture>
+  <div class="gap-gutter flex flex-col items-start lg:flex-row">
+    <ParallaxImage
+      class="aspect-square w-full rounded-md"
+      image={first}
+      alt={first.alt ?? ""}
+      width={2000}
+      height={2000}
+      sizes="(min-width: 80rem) 25vw, 50vw"
+    />
 
-    <picture>
-      <Image
-        image={second}
-        alt={second.alt ?? ""}
-        width={2000}
-        height={2500}
-        class="hidden aspect-4/5 w-full rounded-md lg:block"
-        sizes="(min-width: 80rem) 25vw, 50vw"
-      />
-      <Image
-        image={fourth}
-        alt={fourth.alt ?? ""}
-        width={1000}
-        height={1000}
-        class="block aspect-square w-full rounded-md lg:hidden"
-        sizes="50vw"
-      />
-    </picture>
+    <ParallaxImage
+      image={second}
+      alt={second.alt ?? ""}
+      width={2000}
+      height={2500}
+      class="hidden aspect-4/5 w-full rounded-md lg:block"
+      sizes="(min-width: 80rem) 25vw, 50vw"
+    />
+    <ParallaxImage
+      image={fourth}
+      alt={fourth.alt ?? ""}
+      width={1000}
+      height={1000}
+      class="block aspect-square w-full rounded-md lg:hidden"
+      sizes="50vw"
+    />
   </div>
 
-  <div class="gap-gutter flex flex-col lg:flex-row">
-    <picture>
-      <Image
-        image={third}
-        alt={third.alt ?? ""}
-        width={2000}
-        height={1500}
-        class="hidden aspect-4/3 w-full rounded-md lg:block"
-        sizes="(min-width: 80rem) 25vw, 50vw"
-      />
-      <Image
-        image={second}
-        alt={second.alt ?? ""}
-        width={1000}
-        height={1250}
-        class="block aspect-4/5 w-full rounded-md lg:hidden"
-        sizes="50vw"
-      />
-    </picture>
+  <div class="gap-gutter flex flex-col items-start lg:flex-row">
+    <ParallaxImage
+      image={third}
+      alt={third.alt ?? ""}
+      width={2000}
+      height={1500}
+      class="hidden aspect-4/3 w-full rounded-md lg:block"
+      sizes="(min-width: 80rem) 25vw, 50vw"
+    />
+    <ParallaxImage
+      image={second}
+      alt={second.alt ?? ""}
+      width={1000}
+      height={1250}
+      class="block aspect-4/5 w-full rounded-md lg:hidden"
+      sizes="50vw"
+    />
 
-    <picture>
-      <Image
-        image={fourth}
-        alt={fourth.alt ?? ""}
-        width={2000}
-        height={2000}
-        class="hidden aspect-square w-full rounded-md lg:block"
-        sizes="(min-width: 80rem) 25vw, 50vw"
-      />
-      <Image
-        image={third}
-        alt={third.alt ?? ""}
-        width={1000}
-        height={750}
-        class="block aspect-4/3 w-full rounded-md lg:hidden"
-        sizes="50vw"
-      />
-    </picture>
+    <ParallaxImage
+      image={fourth}
+      alt={fourth.alt ?? ""}
+      width={2000}
+      height={2000}
+      class="hidden aspect-square w-full rounded-md lg:block"
+      sizes="(min-width: 80rem) 25vw, 50vw"
+    />
+    <ParallaxImage
+      image={third}
+      alt={third.alt ?? ""}
+      width={1000}
+      height={750}
+      class="block aspect-4/3 w-full rounded-md lg:hidden"
+      sizes="50vw"
+    />
   </div>
 </div>

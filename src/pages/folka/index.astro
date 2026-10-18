@@ -102,7 +102,7 @@ const staffByInitial = staffItems.reduce(
               data-department={item.serviceType?.slug.current || "none"}
               class="gap-gap group flex flex-col"
             >
-              <picture class="aspect-square overflow-hidden">
+              <div class="aspect-square overflow-hidden">
                 <Image
                   alt=""
                   class={clsx(
@@ -124,7 +124,7 @@ const staffByInitial = staffItems.reduce(
                   sizes="(min-width: 80rem) 18.75vw, (min-width: 50rem) 25vw, 50vw"
                   loading="eager"
                 />
-              </picture>
+              </div>
 
               <div>
                 <p class="text-sm-fluid leading-snug font-bold">{item.name}</p>

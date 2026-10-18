@@ -11,7 +11,7 @@ import {
   fetchServicesSingleton,
 } from "../../lib/sanity.queries";
 import Contact from "../../components/card/Contact.astro";
-import Image from "../../components/Image.astro";
+import ParallaxImage from "../../components/ParallaxImage.astro";
 import GridList from "../../components/grid-list/GridList.astro";
 
 const [servicesInfo, serviceItems] = await Promise.all([
@@ -55,16 +55,14 @@ const [servicesInfo, serviceItems] = await Promise.all([
     </div>
 
     <div>
-      <picture>
-        <Image
-          class="aspect-4/3 w-full rounded-md"
-          image={servicesInfo.heroImage}
-          alt={servicesInfo.heroImage.alt}
-          width={2000}
-          height={1500}
-          sizes="(min-width: 80rem) 50vw, 100vw"
-        />
-      </picture>
+      <ParallaxImage
+        class="aspect-4/3 w-full rounded-md"
+        image={servicesInfo.heroImage}
+        alt={servicesInfo.heroImage.alt}
+        width={2000}
+        height={1500}
+        sizes="(min-width: 80rem) 50vw, 100vw"
+      />
     </div>
   </div>
 
@@ -75,24 +73,22 @@ const [servicesInfo, serviceItems] = await Promise.all([
       </h2>
 
       <div class="mt-section">
-        <picture>
-          <Image
-            alt={servicesInfo.secondaryImage.alt}
-            class="hidden aspect-2/1 w-full rounded-md md:block lg:rounded-lg"
-            image={servicesInfo.secondaryImage}
-            width={2000}
-            height={1000}
-            sizes="(min-width: 80rem) 75vw, 100vw"
-          />
-          <Image
-            alt={servicesInfo.secondaryImage.alt}
-            class="block aspect-4/3 w-full rounded-md md:hidden"
-            image={servicesInfo.secondaryImage}
-            width={1000}
-            height={750}
-            sizes="100vw"
-          />
-        </picture>
+        <ParallaxImage
+          alt={servicesInfo.secondaryImage.alt}
+          class="hidden aspect-2/1 w-full rounded-md md:block lg:rounded-lg"
+          image={servicesInfo.secondaryImage}
+          width={2000}
+          height={1000}
+          sizes="(min-width: 80rem) 75vw, 100vw"
+        />
+        <ParallaxImage
+          alt={servicesInfo.secondaryImage.alt}
+          class="block aspect-4/3 w-full rounded-md md:hidden"
+          image={servicesInfo.secondaryImage}
+          width={1000}
+          height={750}
+          sizes="100vw"
+        />
       </div>
 
       <GridList class="mt-section">

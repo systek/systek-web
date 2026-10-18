@@ -31,16 +31,14 @@ const locations = await fetchLocations();
         <div class="gap-x-gutter gap-y-section grid grid-cols-1 md:grid-cols-3">
           {locations.map((item) => (
             <div>
-              <picture>
-                <Image
-                  class="aspect-4/3 w-full rounded-md"
-                  image={item.image}
-                  alt={item.image.alt}
-                  width={1000}
-                  height={750}
-                  sizes="(min-width: 80rem) 25vw, (min-width: 50rem) 33vw, 50vw"
-                />
-              </picture>
+              <Image
+                class="aspect-4/3 w-full rounded-md"
+                image={item.image}
+                alt={item.image.alt}
+                width={1000}
+                height={750}
+                sizes="(min-width: 80rem) 25vw, (min-width: 50rem) 33vw, 50vw"
+              />
               <p class="text-sm-fluid mt-gap">
                 <span class="font-bold">{item.name}</span>
                 <br />
