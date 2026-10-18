@@ -3,7 +3,7 @@ import type { Work } from "../../lib/sanity.types";
 
 interface Props {
   title?: string;
-  technologies: Work["technologies"];
+  technologies: Work["technologies"] | null;
 }
 
 const { technologies, title = "Teknologier brukt gjennom arbeidet" } =

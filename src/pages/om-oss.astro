@@ -11,7 +11,6 @@ import PortableText from "../components/PortableText.astro";
 import WorkHere from "../components/card/WorkHere.astro";
 import Article from "../components/Article.astro";
 import ImageGallery from "../components/image/ImageGallery.astro";
-import type { Gallery } from "../components/image/ImageGallery.astro";
 import CardTitle from "../components/card/layout/CardTitle.astro";
 import { getFirstImage } from "../utils/image";
 
@@ -59,7 +58,7 @@ const locations = await fetchLocations();
                 <br />
                 {item.phone}
                 <br />
-                <a class="link-underline" href={`mailto:${item.email}}`}>
+                <a class="link-underline" href={`mailto:${item.email}`}>
                   {item.email}
                 </a>
               </p>
@@ -80,7 +79,7 @@ const locations = await fetchLocations();
       <CardTitle>{about.summaryTitle}</CardTitle>
     </CardRightColumn>
 
-    <ImageGallery node={about.imageGallery as unknown as Gallery} />
+    <ImageGallery node={about.imageGallery} />
   </CardLayout>
 
   {about.workHere && (

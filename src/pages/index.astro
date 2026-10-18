@@ -186,62 +186,54 @@ const [
           <p class="text-xs-fluid font-bold">Påmelding</p>
         </div>
         {activityItems.map((item) => {
-          // TODO: move this logic into a client-side component
-          // This will onlly be checked at build time
           const date = new Date(item.date);
           const formatedDate = formatDate(date);
           const mobileFormatDate = formatDate(date, "d. MMM");
           const isDone = date < new Date();
           return (
-            <div>
+            <div
+              class="group"
+              data-activity-date={item.date}
+              data-done={isDone ? "" : undefined}
+            >
               <div class="gap-gutter flex items-center justify-between border-b border-stroke py-4 md:hidden">
-                {isDone || !item.registrationUrl ? (
-                  <p class={clsx("text-xs-fluid", { "line-through": isDone })}>
-                    {item.title}
-                  </p>
-                ) : (
+                {item.registrationUrl && (
                   <a
                     href={item.registrationUrl}
                     target="_blank"
-                    class="link-underline flex items-center gap-1"
+                    class="link-underline flex items-center gap-1 group-data-done:hidden"
                   >
                     <ExternalIcon class="size-2.5 shrink-0 lg:size-[0.595vw]" />
                     <p class="text-xs-fluid">{item.title}</p>
                   </a>
                 )}
                 <p
-                  class={clsx("text-xs-fluid whitespace-nowrap", {
-                    "line-through": isDone,
-                  })}
-                >
-                  {mobileFormatDate}
-                </p>
-              </div>
-
-              <div class="py-grid gap-gutter hidden grid-cols-5 border-b border-stroke md:grid">
-                <p
-                  class={clsx("text-xs-fluid col-span-2", {
-                    "line-through": isDone,
+                  class={clsx("text-xs-fluid group-data-done:line-through", {
+                    "hidden group-data-done:block": item.registrationUrl,
                   })}
                 >
                   {item.title}
                 </p>
-                <p class={clsx("text-xs-fluid", { "line-through": isDone })}>
-                  {formatedDate}
+                <p class="text-xs-fluid whitespace-nowrap group-data-done:line-through">
+                  {mobileFormatDate}
                 </p>
-                <p class={clsx("text-xs-fluid", { "line-through": isDone })}>
-                  {item.location}
-                </p>
-                <p class={clsx("text-xs-fluid", { "line-through": isDone })}>
-                  {isDone ? (
-                    "Avsluttet"
-                  ) : !item.internal && item.registrationUrl ? (
-                    <Button size="sm" href={item.registrationUrl}>
-                      {item.isRegistrationUrl ? "Meld meg på" : "Les mer her"}
-                    </Button>
-                  ) : (
-                    "Internt"
-                  )}
+              </div>
+
+              <div class="py-grid gap-gutter hidden grid-cols-5 border-b border-stroke group-data-done:line-through md:grid">
+                <p class="text-xs-fluid col-span-2">{item.title}</p>
+                <p class="text-xs-fluid">{formatedDate}</p>
+                <p class="text-xs-fluid">{item.location}</p>
+                <p class="text-xs-fluid">
+                  <span class="hidden group-data-done:inline">Avsluttet</span>
+                  <span class="group-data-done:hidden">
+                    {!item.internal && item.registrationUrl ? (
+                      <Button size="sm" href={item.registrationUrl}>
+                        {item.isRegistrationUrl ? "Meld meg på" : "Les mer her"}
+                      </Button>
+                    ) : (
+                      "Internt"
+                    )}
+                  </span>
                 </p>
               </div>
             </div>
@@ -376,3 +368,14 @@ const [
 
   <Footer />
 </Layout>
+
+<script>
+  const now = new Date();
+  document
+    .querySelectorAll<HTMLElement>("[data-activity-date]")
+    .forEach((item) => {
+      if (new Date(item.dataset.activityDate!) < now) {
+        item.dataset.done = "";
+      }
+    });
+</script>

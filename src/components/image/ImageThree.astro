@@ -1,16 +1,16 @@
 ---
-import type { Image as SanityImage } from "sanity";
+import type {
+  ImagesThreeFirst,
+  ImagesThreeSecond,
+  ImagesThreeThird,
+} from "../../lib/sanity.types";
 import Image from "../Image.astro";
-
-type ImageWithAlt = SanityImage & {
-  alt: string;
-};
 
 interface Props {
   node?: {
-    first: ImageWithAlt;
-    second: ImageWithAlt;
-    third: ImageWithAlt;
+    first: ImagesThreeFirst;
+    second: ImagesThreeSecond;
+    third: ImagesThreeThird;
   };
 }
 
@@ -21,9 +21,6 @@ if (!node?.first || !node.second || !node.third) {
 }
 
 const { first, second, third } = node;
-/*
-todo: test this component, set width/height/sizes
-*/
 ---
 
 <div class="mt-section gap-gutter grid grid-cols-2 lg:col-span-4 lg:grid-cols-2">
@@ -31,7 +28,7 @@ todo: test this component, set width/height/sizes
     <picture>
       <Image
         image={first}
-        alt={first.alt}
+        alt={first.alt ?? ""}
         class="aspect-square w-full rounded-md"
       />
     </picture>
@@ -39,7 +36,7 @@ todo: test this component, set width/height/sizes
     <picture>
       <Image
         image={second}
-        alt={second.alt}
+        alt={second.alt ?? ""}
         class="aspect-square w-full rounded-md lg:aspect-4/5"
       />
     </picture>
@@ -49,7 +46,7 @@ todo: test this component, set width/height/sizes
     <picture>
       <Image
         image={third}
-        alt={third.alt}
+        alt={third.alt ?? ""}
         class="aspect-4/5 w-full rounded-md lg:aspect-4/3"
       />
     </picture>

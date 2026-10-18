@@ -1,21 +1,17 @@
 ---
-import type { Image as ImageType } from "sanity";
+import type { WorkherePageQueryResult } from "../../lib/sanity.types";
 import Image from "../Image.astro";
 import CardLayout from "./layout/CardLayout.astro";
 
-export type ContactImage = ImageType & {
-  alt: string;
-  name?: string;
-  position?: string;
-  email?: string;
-  phone?: string;
-};
+type Contacts = NonNullable<
+  NonNullable<WorkherePageQueryResult>["contactTwo"]
+>["contacts"];
 
 interface Props {
   label: string;
   title: string;
   text: string;
-  contacts: ContactImage[];
+  contacts: Contacts;
 }
 
 const { label, title, text, contacts } = Astro.props;
@@ -36,7 +32,7 @@ const { label, title, text, contacts } = Astro.props;
           <Image
             class="aspect-square w-full rounded-md"
             image={contact}
-            alt={contact.alt}
+            alt={contact.alt ?? ""}
             width={1000}
             height={1000}
             sizes="(min-width: 80rem) 25vw, (min-width: 50rem) 50vw, 100vw"

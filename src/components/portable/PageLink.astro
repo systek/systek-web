@@ -1,11 +1,9 @@
 ---
+import type { PageBlock } from "../../lib/sanity.queries";
 import Button from "../Button.astro";
 
 interface Props {
-  node: {
-    page: { slug: { current: string } };
-    text: string;
-  };
+  node: PageBlock<"internal-link">;
 }
 
 const {
@@ -13,6 +11,8 @@ const {
 } = Astro.props;
 ---
 
-<Button href={`/${page.slug.current}`} class="w-full" color="black" size="md">
-  {text}
-</Button>
+{page && (
+  <Button href={`/${page.slug.current}`} class="w-full" color="black" size="md">
+    {text}
+  </Button>
+)}

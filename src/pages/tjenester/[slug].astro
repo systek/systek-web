@@ -1,5 +1,9 @@
 ---
-import { sanityClient } from "sanity:client";
+import type { InferGetStaticPropsType } from "astro";
+import {
+  fetchServicePages,
+  fetchServiceVacancies,
+} from "../../lib/sanity.queries";
 
 import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
@@ -7,12 +11,6 @@ import Footer from "../../components/Footer.astro";
 import PortableText from "../../components/PortableText.astro";
 import Image from "../../components/Image.astro";
 import Citation from "../../components/card/Citation.astro";
-import type {
-  Citation as CitationType,
-  Service,
-  Work,
-  Vacancies as VacanciesType,
-} from "../../lib/sanity.types";
 import CardLayout from "../../components/card/layout/CardLayout.astro";
 import CardRightColumn from "../../components/card/layout/CardRightColumn.astro";
 import Button from "../../components/Button.astro";
@@ -23,50 +21,19 @@ import CardTitle from "../../components/card/layout/CardTitle.astro";
 import Vacancies from "../../components/Vacancies.astro";
 import { getDescription } from "../../utils/string";
 
-type PageType = Omit<Service, "citation" | "works"> & {
-  citation: CitationType;
-  works?: Work[];
-  plainContent: string;
-};
-
 export async function getStaticPaths() {
-  const services: PageType[] = await sanityClient.fetch(`*[_type == "service"] {
-    _id,
-    slug,
-    title,
-    heroImage,
-    content,
-    "plainContent": pt::text(content),
-    citation->,
-    works[]->,
-    contact,
-  }`);
+  const services = await fetchServicePages();
   return services.map((service) => ({
     params: { slug: service.slug.current },
     props: { service },
   }));
 }
-const { service } = Astro.props as {
-  service: PageType;
-};
 
-// Fetch vacancies whose services field includes the current service, or those without any services assigned, ordered by those with the current service first, then by date
-const vacancies: VacanciesType[] = await sanityClient.fetch(
-  `
-    *[_type == "vacancies" && (
-      $serviceId in services[]._ref ||
-      !defined(services)
-    )]
-    | order(select($serviceId in services[]._ref => 0, 1) asc, date desc) {
-      title,
-      date,
-      location,
-      description,
-      href
-    }
-  `,
-  { serviceId: service._id },
-);
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { service } = Astro.props;
+
+const vacancies = await fetchServiceVacancies(service._id);
 ---
 
 <Layout
@@ -83,10 +50,7 @@ const vacancies: VacanciesType[] = await sanityClient.fetch(
   </Article>
 
   {service.citation && (
-    <Citation
-      title="Tjenester"
-      citation={service.citation as unknown as CitationType}
-    />
+    <Citation title="Tjenester" citation={service.citation} />
   )}
 
   {service.works && (

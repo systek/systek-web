@@ -1336,3 +1336,1186 @@ export type AllSanitySchemaTypes =
   | SanityAssetSourceData
   | SanityImageAsset
   | Geopoint;
+
+// Source: src/lib/sanity.queries.ts
+// Variable: serviceItemsQuery
+// Query: *[_type == "service" && defined(slug) && visible == true] | order(order asc) {  _id,  title,  description,  slug}
+export type ServiceItemsQueryResult = Array<{
+  _id: string;
+  title: string;
+  description: string;
+  slug: Slug;
+}>;
+
+// Source: src/lib/sanity.queries.ts
+// Variable: serviceItemsAllQuery
+// Query: *[_type == "service" && defined(slug)] | order(order asc) {  title,  slug}
+export type ServiceItemsAllQueryResult = Array<{
+  title: string;
+  slug: Slug;
+}>;
+
+// Source: src/lib/sanity.queries.ts
+// Variable: locationsQuery
+// Query: *[_type == "location"] | order(order asc)
+export type LocationsQueryResult = Array<{
+  _id: string;
+  _type: "location";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name: string;
+  slug: Slug;
+  order: number;
+  address: string;
+  address2: string;
+  phone: string;
+  email: string;
+  mapLink: string;
+  image: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "image";
+  };
+}>;
+
+// Source: src/lib/sanity.queries.ts
+// Variable: newsItemsQuery
+// Query: *[_type == "news" && defined(slug)] | order(publishedAt desc)[$start...$end] {  _id,  title,  description,  slug,  publishedAt,  updatedAt}
+export type NewsItemsQueryResult = Array<{
+  _id: string;
+  title: string;
+  description: string;
+  slug: Slug;
+  publishedAt: string;
+  updatedAt: null;
+}>;
+
+// Source: src/lib/sanity.queries.ts
+// Variable: logoItemsQuery
+// Query: *[_type == "logo" && defined(image)] | order(order asc)[0...$limit] {  _id,  title,  image}
+export type LogoItemsQueryResult = Array<{
+  _id: string;
+  title: string;
+  image: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "image";
+  };
+}>;
+
+// Source: src/lib/sanity.queries.ts
+// Variable: workItemsQuery
+// Query: *[_type == "work" && defined(slug)] | order(order asc) {  _id,  title,  description,  slug,  image}
+export type WorkItemsQueryResult = Array<{
+  _id: string;
+  title: string;
+  description: string;
+  slug: Slug;
+  image: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "image";
+  };
+}>;
+
+// Source: src/lib/sanity.queries.ts
+// Variable: activityItemsUpcomingQuery
+// Query: *[_type == "activity" && date >= $today] | order(date asc)[0...$limit] {  _id,  title,  date,  location,  internal,  registrationUrl,  isRegistrationUrl}
+export type ActivityItemsUpcomingQueryResult = Array<{
+  _id: string;
+  title: string;
+  date: string;
+  location: string;
+  internal: boolean;
+  registrationUrl: string | null;
+  isRegistrationUrl: boolean;
+}>;
+
+// Source: src/lib/sanity.queries.ts
+// Variable: activityItemsLatestQuery
+// Query: *[_type == "activity"] | order(date desc)[0...$limit] {  _id,  title,  date,  location,  internal,  registrationUrl,  isRegistrationUrl}
+export type ActivityItemsLatestQueryResult = Array<{
+  _id: string;
+  title: string;
+  date: string;
+  location: string;
+  internal: boolean;
+  registrationUrl: string | null;
+  isRegistrationUrl: boolean;
+}>;
+
+// Source: src/lib/sanity.queries.ts
+// Variable: blogItemsQuery
+// Query: *[_type == "blog" && defined(publishedAt)] | order(publishedAt desc)[0...$limit] {  _id,  title,  description,  author->{ name },  link,  image}
+export type BlogItemsQueryResult = Array<{
+  _id: string;
+  title: string;
+  description: string;
+  author: {
+    name: string;
+  } | null;
+  link: string;
+  image: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "image";
+  };
+}>;
+
+// Source: src/lib/sanity.queries.ts
+// Variable: staffItemsQuery
+// Query: *[_type == "staff"] | order(name asc) {  _id,  name,  position,  location->{ slug },  serviceType->{ slug },  slug,  image,  imageSecondary}
+export type StaffItemsQueryResult = Array<{
+  _id: string;
+  name: string;
+  position: string;
+  location: {
+    slug: Slug;
+  };
+  serviceType: {
+    slug: Slug;
+  };
+  slug: Slug;
+  image: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  imageSecondary: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  } | null;
+}>;
+
+// Source: src/lib/sanity.queries.ts
+// Variable: frontPageQuery
+// Query: *[_type == "frontPageType"][0] {  title,  topDescription,  heroImage,  servicesTitle,  workTitle,  selectedWorks[]->{    _id,    title,    description,    slug,    image  },  activityTitle,  activityImage,  vacanciesTitle,  vacanciesPoints,  vacanciesImage,  contact}
+export type FrontPageQueryResult = {
+  title: string;
+  topDescription: string;
+  heroImage: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  servicesTitle: string;
+  workTitle: string;
+  selectedWorks: Array<{
+    _id: string;
+    title: string;
+    description: string;
+    slug: Slug;
+    image: {
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt: string;
+      _type: "image";
+    };
+  }>;
+  activityTitle: string;
+  activityImage: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  vacanciesTitle: string;
+  vacanciesPoints: Array<{
+    title: string;
+    description: string;
+    _key: string;
+  }>;
+  vacanciesImage: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  contact: Contact | null;
+} | null;
+
+// Source: src/lib/sanity.queries.ts
+// Variable: workerPageQuery
+// Query: *[_type == "workerPageType"][0] {  title,  heroImage,  logoTitle,  listTitle,  servicesTitle,  contact,  workCount}
+export type WorkerPageQueryResult = {
+  title: string;
+  heroImage: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "image";
+  };
+  logoTitle: string;
+  listTitle: string;
+  servicesTitle: string;
+  contact: Contact | null;
+  workCount: number;
+} | null;
+
+// Source: src/lib/sanity.queries.ts
+// Variable: servicesPageQuery
+// Query: *[_type == "servicesPageType"][0] {  ...,  citations->}
+export type ServicesPageQueryResult = {
+  _id: string;
+  _type: "servicesPageType";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title: string;
+  heroImage: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  description: string;
+  secondaryImage: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  citations: {
+    _id: string;
+    _type: "citation";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    text: string;
+    service: ServiceReference;
+    name: string;
+    position: string;
+    picture: {
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+  } | null;
+  contact?: Contact;
+} | null;
+
+// Source: src/lib/sanity.queries.ts
+// Variable: staffPageQuery
+// Query: *[_type == "staffPageType"][0] {  title,  heroImage,  galleryText,  imageGallery,  workHere}
+export type StaffPageQueryResult = {
+  title: string;
+  heroImage: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  galleryText: string;
+  imageGallery: ImageGallery | null;
+  workHere: WorkHere | null;
+} | null;
+
+// Source: src/lib/sanity.queries.ts
+// Variable: workherePageQuery
+// Query: *[_type == "workherePageType"][0] {  ...,  introText[]{    ...,    _type == "citation" => @->  },  citation->}
+export type WorkherePageQueryResult = {
+  _id: string;
+  _type: "workherePageType";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title: string;
+  heroImage: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  topLabel: string;
+  introText: Array<
+    | {
+        _key: string;
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+      }
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "blockquote" | "h2" | "normal";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "data";
+        _key: string;
+      }
+    | {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        caption?: string;
+        variant: "center" | "right";
+        _type: "image";
+        _key: string;
+      }
+    | {
+        first: First;
+        second: Second;
+        third: Third;
+        fourth: Fourth;
+        _type: "imageGallery";
+        _key: string;
+      }
+    | {
+        first: ImagesThreeFirst;
+        second: ImagesThreeSecond;
+        third: ImagesThreeThird;
+        _type: "imagesThree";
+        _key: string;
+      }
+    | {
+        first: ImageTwoFirst;
+        second: ImageTwoSecond;
+        _type: "imageTwo";
+        _key: string;
+      }
+    | {
+        title: string;
+        items: Array<string>;
+        _type: "list-group";
+        _key: string;
+      }
+    | {
+        items: Array<string>;
+        _type: "tags-list";
+        _key: string;
+      }
+  >;
+  citation: {
+    _id: string;
+    _type: "citation";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    text: string;
+    service: ServiceReference;
+    name: string;
+    position: string;
+    picture: {
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+  } | null;
+  vacanciesTitle: string;
+  contentTitel?: string;
+  content: Array<
+    | ({
+        _key: string;
+      } & CitationReference)
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "blockquote" | "h2" | "normal";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "data";
+        _key: string;
+      }
+    | {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        caption?: string;
+        variant: "center" | "right";
+        _type: "image";
+        _key: string;
+      }
+    | {
+        first: First;
+        second: Second;
+        third: Third;
+        fourth: Fourth;
+        _type: "imageGallery";
+        _key: string;
+      }
+    | {
+        first: ImagesThreeFirst;
+        second: ImagesThreeSecond;
+        third: ImagesThreeThird;
+        _type: "imagesThree";
+        _key: string;
+      }
+    | {
+        first: ImageTwoFirst;
+        second: ImageTwoSecond;
+        _type: "imageTwo";
+        _key: string;
+      }
+    | {
+        title: string;
+        items: Array<string>;
+        _type: "list-group";
+        _key: string;
+      }
+    | {
+        items: Array<string>;
+        _type: "tags-list";
+        _key: string;
+      }
+  >;
+  contactTwo?: {
+    label: string;
+    title: string;
+    text: string;
+    contacts: Array<{
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      name?: string;
+      position?: string;
+      email?: string;
+      phone?: string;
+      _type: "contact";
+      _key: string;
+    }>;
+  };
+  faqTitle: string;
+  faqLabel: string;
+  faqList?: Array<{
+    title: string;
+    description: string;
+    _key: string;
+  }>;
+  tldrTitle: string;
+  tldrText: Array<
+    | ({
+        _key: string;
+      } & CitationReference)
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "blockquote" | "h2" | "normal";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "data";
+        _key: string;
+      }
+    | {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        caption?: string;
+        variant: "center" | "right";
+        _type: "image";
+        _key: string;
+      }
+    | {
+        first: First;
+        second: Second;
+        third: Third;
+        fourth: Fourth;
+        _type: "imageGallery";
+        _key: string;
+      }
+    | {
+        first: ImagesThreeFirst;
+        second: ImagesThreeSecond;
+        third: ImagesThreeThird;
+        _type: "imagesThree";
+        _key: string;
+      }
+    | {
+        first: ImageTwoFirst;
+        second: ImageTwoSecond;
+        _type: "imageTwo";
+        _key: string;
+      }
+    | {
+        title: string;
+        items: Array<string>;
+        _type: "list-group";
+        _key: string;
+      }
+    | {
+        items: Array<string>;
+        _type: "tags-list";
+        _key: string;
+      }
+  >;
+} | null;
+
+// Source: src/lib/sanity.queries.ts
+// Variable: vacantPositionsQuery
+// Query: *[_type == "vacancies" && (!defined(date) || date >= $today)] | order(select(defined(services[0]) => 0, 1) asc, date desc) {  _id,  title,  description,  location,  date,  href}
+export type VacantPositionsQueryResult = Array<{
+  _id: string;
+  title: string;
+  description: string;
+  location: string;
+  date: string | null;
+  href: string;
+}>;
+
+// Source: src/lib/sanity.queries.ts
+// Variable: serviceVacanciesQuery
+// Query: *[_type == "vacancies" && (  $serviceId in services[]._ref ||  !defined(services))] | order(select($serviceId in services[]._ref => 0, 1) asc, date desc) {  title,  date,  location,  description,  href}
+export type ServiceVacanciesQueryResult = Array<{
+  title: string;
+  date: string | null;
+  location: string;
+  description: string;
+  href: string;
+}>;
+
+// Source: src/lib/sanity.queries.ts
+// Variable: siteSettingsQuery
+// Query: *[_type == "siteSettings"][0] {  title,  description,  hostname,  analytics,  analyticsHostname}
+export type SiteSettingsQueryResult = {
+  title: string;
+  description: string;
+  hostname: string;
+  analytics: boolean;
+  analyticsHostname: string;
+} | null;
+
+// Source: src/lib/sanity.queries.ts
+// Variable: aboutPageQuery
+// Query: *[_type == "aboutPageType"][0]
+export type AboutPageQueryResult = {
+  _id: string;
+  _type: "aboutPageType";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title: string;
+  contentTitle: string;
+  content: Array<
+    | ({
+        _key: string;
+      } & CitationReference)
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "blockquote" | "h2" | "normal";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "data";
+        _key: string;
+      }
+    | {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        caption?: string;
+        variant: "center" | "right";
+        _type: "image";
+        _key: string;
+      }
+    | {
+        first: First;
+        second: Second;
+        third: Third;
+        fourth: Fourth;
+        _type: "imageGallery";
+        _key: string;
+      }
+    | {
+        first: ImagesThreeFirst;
+        second: ImagesThreeSecond;
+        third: ImagesThreeThird;
+        _type: "imagesThree";
+        _key: string;
+      }
+    | {
+        first: ImageTwoFirst;
+        second: ImageTwoSecond;
+        _type: "imageTwo";
+        _key: string;
+      }
+    | {
+        title: string;
+        items: Array<string>;
+        _type: "list-group";
+        _key: string;
+      }
+    | {
+        items: Array<string>;
+        _type: "tags-list";
+        _key: string;
+      }
+  >;
+  summaryLabel: string;
+  summaryTitle: string;
+  imageGallery?: ImageGallery;
+  workHere?: WorkHere;
+} | null;
+
+// Source: src/lib/sanity.queries.ts
+// Variable: pagesQuery
+// Query: *[_type == "page"] {  slug,  title,  heroImage,  content[]{    ...,    _type == "file" => {      ...,      asset->    },    _type == "internal-link" => {      ...,      page->{ slug }    }  }}
+export type PagesQueryResult = Array<{
+  slug: Slug;
+  title: string;
+  heroImage: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "image";
+  } | null;
+  content: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "h2" | "normal";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        url?: string;
+        text?: string;
+        _type: "external-link";
+        _key: string;
+      }
+    | {
+        asset: {
+          _id: string;
+          _type: "sanity.fileAsset";
+          _createdAt: string;
+          _updatedAt: string;
+          _rev: string;
+          originalFilename?: string;
+          label?: string;
+          title?: string;
+          description?: string;
+          altText?: string;
+          sha1hash: string;
+          extension: string;
+          mimeType: string;
+          size: number;
+          assetId: string;
+          uploadId?: string;
+          path: string;
+          url: string;
+          source?: SanityAssetSourceData;
+        } | null;
+        media?: unknown;
+        title: string;
+        _type: "file";
+        _key: string;
+      }
+    | {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        caption?: string;
+        variant: "center" | "right";
+        _type: "image";
+        _key: string;
+      }
+    | {
+        first: First;
+        second: Second;
+        third: Third;
+        fourth: Fourth;
+        _type: "imageGallery";
+        _key: string;
+      }
+    | {
+        first: ImageTwoFirst;
+        second: ImageTwoSecond;
+        _type: "imageTwo";
+        _key: string;
+      }
+    | {
+        page: {
+          slug: Slug;
+        } | null;
+        text?: string;
+        _type: "internal-link";
+        _key: string;
+      }
+  >;
+}>;
+
+// Source: src/lib/sanity.queries.ts
+// Variable: servicePagesQuery
+// Query: *[_type == "service"] {  _id,  slug,  title,  heroImage,  content,  "plainContent": pt::text(content),  citation->,  works[]->{ title, slug, image, description },  contact,}
+export type ServicePagesQueryResult = Array<{
+  _id: string;
+  slug: Slug;
+  title: string;
+  heroImage: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    caption?: string;
+    _type: "image";
+  };
+  content: Array<
+    | ({
+        _key: string;
+      } & CitationReference)
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "blockquote" | "h2" | "normal";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "data";
+        _key: string;
+      }
+    | {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        caption?: string;
+        variant: "center" | "right";
+        _type: "image";
+        _key: string;
+      }
+    | {
+        first: First;
+        second: Second;
+        third: Third;
+        fourth: Fourth;
+        _type: "imageGallery";
+        _key: string;
+      }
+    | {
+        first: ImagesThreeFirst;
+        second: ImagesThreeSecond;
+        third: ImagesThreeThird;
+        _type: "imagesThree";
+        _key: string;
+      }
+    | {
+        first: ImageTwoFirst;
+        second: ImageTwoSecond;
+        _type: "imageTwo";
+        _key: string;
+      }
+    | {
+        title: string;
+        items: Array<string>;
+        _type: "list-group";
+        _key: string;
+      }
+    | {
+        items: Array<string>;
+        _type: "tags-list";
+        _key: string;
+      }
+  >;
+  plainContent: string;
+  citation: {
+    _id: string;
+    _type: "citation";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    text: string;
+    service: ServiceReference;
+    name: string;
+    position: string;
+    picture: {
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+  } | null;
+  works: Array<{
+    title: string;
+    slug: Slug;
+    image: {
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt: string;
+      _type: "image";
+    };
+    description: string;
+  }> | null;
+  contact: Contact | null;
+}>;
+
+// Source: src/lib/sanity.queries.ts
+// Variable: workPagesQuery
+// Query: *[_type == "work"] {  slug,  title,  image,  startDate,  endDate,  description,  content,  stats,  technologiesTitle,  technologies,  "plainContent": pt::text(content),  citation->,  services[]->{ title, slug },  contactTwo{    label,    title,    contacts[]->  },}
+export type WorkPagesQueryResult = Array<{
+  slug: Slug;
+  title: string;
+  image: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "image";
+  };
+  startDate: string | null;
+  endDate: string | null;
+  description: string;
+  content: Array<
+    | ({
+        _key: string;
+      } & CitationReference)
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "blockquote" | "h2" | "normal";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "data";
+        _key: string;
+      }
+    | {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        caption?: string;
+        variant: "center" | "right";
+        _type: "image";
+        _key: string;
+      }
+    | {
+        first: First;
+        second: Second;
+        third: Third;
+        fourth: Fourth;
+        _type: "imageGallery";
+        _key: string;
+      }
+    | {
+        first: ImagesThreeFirst;
+        second: ImagesThreeSecond;
+        third: ImagesThreeThird;
+        _type: "imagesThree";
+        _key: string;
+      }
+    | {
+        first: ImageTwoFirst;
+        second: ImageTwoSecond;
+        _type: "imageTwo";
+        _key: string;
+      }
+    | {
+        title: string;
+        items: Array<string>;
+        _type: "list-group";
+        _key: string;
+      }
+    | {
+        items: Array<string>;
+        _type: "tags-list";
+        _key: string;
+      }
+  >;
+  stats: {
+    title: string;
+    items?: Array<{
+      label: string;
+      value: string;
+      _type: "statItem";
+      _key: string;
+    }>;
+  } | null;
+  technologiesTitle: string;
+  technologies: Array<string> | null;
+  plainContent: string;
+  citation: {
+    _id: string;
+    _type: "citation";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    text: string;
+    service: ServiceReference;
+    name: string;
+    position: string;
+    picture: {
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+  } | null;
+  services: Array<{
+    title: string;
+    slug: Slug;
+  }>;
+  contactTwo: {
+    label: string;
+    title: string;
+    contacts: Array<{
+      _id: string;
+      _type: "staff";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      name: string;
+      slug: Slug;
+      position: string;
+      location: LocationReference;
+      serviceType: ServiceReference;
+      email?: string;
+      image: {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      };
+      imageSecondary?: {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      };
+    }>;
+  } | null;
+}>;
+
+// Source: src/lib/sanity.queries.ts
+// Variable: newsPagesQuery
+// Query: *[_type == "news"] {  ...,  "plainContent": pt::text(content),  author->{ name },}
+export type NewsPagesQueryResult = Array<{
+  _id: string;
+  _type: "news";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title: string;
+  description: string;
+  slug: Slug;
+  author: {
+    name: string;
+  } | null;
+  publishedAt: string;
+  tags?: Array<string>;
+  content: Array<
+    | ({
+        _key: string;
+      } & CitationReference)
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "blockquote" | "h2" | "normal";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "data";
+        _key: string;
+      }
+    | {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        caption?: string;
+        variant: "center" | "right";
+        _type: "image";
+        _key: string;
+      }
+    | {
+        first: First;
+        second: Second;
+        third: Third;
+        fourth: Fourth;
+        _type: "imageGallery";
+        _key: string;
+      }
+    | {
+        first: ImagesThreeFirst;
+        second: ImagesThreeSecond;
+        third: ImagesThreeThird;
+        _type: "imagesThree";
+        _key: string;
+      }
+    | {
+        first: ImageTwoFirst;
+        second: ImageTwoSecond;
+        _type: "imageTwo";
+        _key: string;
+      }
+    | {
+        title: string;
+        items: Array<string>;
+        _type: "list-group";
+        _key: string;
+      }
+    | {
+        items: Array<string>;
+        _type: "tags-list";
+        _key: string;
+      }
+  >;
+  plainContent: string;
+}>;
+
+// Query TypeMap
+declare global {
+  interface SanityQueries {
+    '*[_type == "service" && defined(slug) && visible == true] | order(order asc) {\n  _id,\n  title,\n  description,\n  slug\n}': ServiceItemsQueryResult;
+    '*[_type == "service" && defined(slug)] | order(order asc) {\n  title,\n  slug\n}': ServiceItemsAllQueryResult;
+    '*[_type == "location"] | order(order asc)': LocationsQueryResult;
+    '*[_type == "news" && defined(slug)] | order(publishedAt desc)[$start...$end] {\n  _id,\n  title,\n  description,\n  slug,\n  publishedAt,\n  updatedAt\n}': NewsItemsQueryResult;
+    '*[_type == "logo" && defined(image)] | order(order asc)[0...$limit] {\n  _id,\n  title,\n  image\n}': LogoItemsQueryResult;
+    '*[_type == "work" && defined(slug)] | order(order asc) {\n  _id,\n  title,\n  description,\n  slug,\n  image\n}': WorkItemsQueryResult;
+    '*[_type == "activity" && date >= $today] | order(date asc)[0...$limit] {\n  _id,\n  title,\n  date,\n  location,\n  internal,\n  registrationUrl,\n  isRegistrationUrl\n}': ActivityItemsUpcomingQueryResult;
+    '*[_type == "activity"] | order(date desc)[0...$limit] {\n  _id,\n  title,\n  date,\n  location,\n  internal,\n  registrationUrl,\n  isRegistrationUrl\n}': ActivityItemsLatestQueryResult;
+    '*[_type == "blog" && defined(publishedAt)] | order(publishedAt desc)[0...$limit] {\n  _id,\n  title,\n  description,\n  author->{ name },\n  link,\n  image\n}': BlogItemsQueryResult;
+    '*[_type == "staff"] | order(name asc) {\n  _id,\n  name,\n  position,\n  location->{ slug },\n  serviceType->{ slug },\n  slug,\n  image,\n  imageSecondary\n}': StaffItemsQueryResult;
+    '*[_type == "frontPageType"][0] {\n  title,\n  topDescription,\n  heroImage,\n  servicesTitle,\n  workTitle,\n  selectedWorks[]->{\n    _id,\n    title,\n    description,\n    slug,\n    image\n  },\n  activityTitle,\n  activityImage,\n  vacanciesTitle,\n  vacanciesPoints,\n  vacanciesImage,\n  contact\n}': FrontPageQueryResult;
+    '*[_type == "workerPageType"][0] {\n  title,\n  heroImage,\n  logoTitle,\n  listTitle,\n  servicesTitle,\n  contact,\n  workCount\n}': WorkerPageQueryResult;
+    '*[_type == "servicesPageType"][0] {\n  ...,\n  citations->\n}': ServicesPageQueryResult;
+    '*[_type == "staffPageType"][0] {\n  title,\n  heroImage,\n  galleryText,\n  imageGallery,\n  workHere\n}': StaffPageQueryResult;
+    '*[_type == "workherePageType"][0] {\n  ...,\n  introText[]{\n    ...,\n    _type == "citation" => @->\n  },\n  citation->\n}': WorkherePageQueryResult;
+    '*[_type == "vacancies" && (!defined(date) || date >= $today)] | order(select(defined(services[0]) => 0, 1) asc, date desc) {\n  _id,\n  title,\n  description,\n  location,\n  date,\n  href\n}': VacantPositionsQueryResult;
+    '*[_type == "vacancies" && (\n  $serviceId in services[]._ref ||\n  !defined(services)\n)] | order(select($serviceId in services[]._ref => 0, 1) asc, date desc) {\n  title,\n  date,\n  location,\n  description,\n  href\n}': ServiceVacanciesQueryResult;
+    '*[_type == "siteSettings"][0] {\n  title,\n  description,\n  hostname,\n  analytics,\n  analyticsHostname\n}': SiteSettingsQueryResult;
+    '*[_type == "aboutPageType"][0]': AboutPageQueryResult;
+    '*[_type == "page"] {\n  slug,\n  title,\n  heroImage,\n  content[]{\n    ...,\n    _type == "file" => {\n      ...,\n      asset->\n    },\n    _type == "internal-link" => {\n      ...,\n      page->{ slug }\n    }\n  }\n}': PagesQueryResult;
+    '*[_type == "service"] {\n  _id,\n  slug,\n  title,\n  heroImage,\n  content,\n  "plainContent": pt::text(content),\n  citation->,\n  works[]->{ title, slug, image, description },\n  contact,\n}': ServicePagesQueryResult;
+    '*[_type == "work"] {\n  slug,\n  title,\n  image,\n  startDate,\n  endDate,\n  description,\n  content,\n  stats,\n  technologiesTitle,\n  technologies,\n  "plainContent": pt::text(content),\n  citation->,\n  services[]->{ title, slug },\n  contactTwo{\n    label,\n    title,\n    contacts[]->\n  },\n}': WorkPagesQueryResult;
+    '*[_type == "news"] {\n  ...,\n  "plainContent": pt::text(content),\n  author->{ name },\n}': NewsPagesQueryResult;
+  }
+}
+// Lets @sanity/client releases that predate the global registry read it too
+declare module "@sanity/client" {
+  interface SanityQueries extends globalThis.SanityQueries {}
+}

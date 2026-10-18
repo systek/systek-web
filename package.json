@@ -15,7 +15,7 @@
     "sanity:start": "sanity start",
     "sanity:build": "sanity build",
     "sanity:deploy": "sanity deploy",
-    "sanity:generate-types": "sanity schema extract --enforce-required-fields && sanity typegen generate"
+    "sanity:generate-types": "sanity schema extract --enforce-required-fields --force && sanity typegen generate"
   },
   "dependencies": {
     "@astrojs/react": "^7.1.0",
@@ -29,6 +29,7 @@
     "chroma-js": "^3.2.0",
     "clsx": "^2.1.1",
     "date-fns": "^4.4.0",
+    "groq": "^6.19.0",
     "konva": "^10.9.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",

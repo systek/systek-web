@@ -1,6 +1,6 @@
 ---
-import { sanityClient } from "sanity:client";
-import type { Page } from "../lib/sanity.types";
+import type { InferGetStaticPropsType } from "astro";
+import { fetchPages } from "../lib/sanity.queries";
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
@@ -9,25 +9,16 @@ import PageHeader from "../components/PageHeader.astro";
 import Article from "../components/Article.astro";
 
 export async function getStaticPaths() {
-  const pages = await sanityClient.fetch(`*[_type == "page"] { 
-    slug,
-    title,
-    heroImage,
-    content[]{
-      ...,
-      _type == "file" => {
-        ...,
-        asset->
-      }
-    }
-  }`);
-  return pages.map((page: Page) => ({
+  const pages = await fetchPages();
+  return pages.map((page) => ({
     params: { slug: page.slug.current },
     props: { page },
   }));
 }
 
-const { page } = Astro.props as { page: Page };
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { page } = Astro.props;
 ---
 
 <Layout title={page.title} image={page.heroImage}>

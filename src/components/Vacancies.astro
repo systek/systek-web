@@ -2,14 +2,14 @@
 import CardLayout from "./card/layout/CardLayout.astro";
 import CardRightColumn from "./card/layout/CardRightColumn.astro";
 import CardTitle from "./card/layout/CardTitle.astro";
-import { type Vacancies as VacanciesType } from "../lib/sanity.types";
+import type { ServiceVacanciesQueryResult } from "../lib/sanity.types";
 import { formatDate } from "../utils/date";
 import Button from "./Button.astro";
 import ExternalIcon from "../assets/icons/external.svg";
 import clsx from "clsx";
 
 interface Props {
-  vacancies: VacanciesType[];
+  vacancies: ServiceVacanciesQueryResult;
 }
 
 const { vacancies } = Astro.props;

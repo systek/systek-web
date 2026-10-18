@@ -12,7 +12,6 @@ import {
 } from "../../lib/sanity.queries";
 import Contact from "../../components/card/Contact.astro";
 import Image from "../../components/Image.astro";
-import type { Citation as CitationType } from "../../lib/sanity.types";
 import GridList from "../../components/grid-list/GridList.astro";
 
 const [servicesInfo, serviceItems] = await Promise.all([
@@ -113,7 +112,7 @@ const [servicesInfo, serviceItems] = await Promise.all([
     <Citation
       href="/tjenester/design-og-brukeropplevelse"
       title="Tjenester"
-      citation={servicesInfo.citations as unknown as CitationType}
+      citation={servicesInfo.citations}
       buttonText="Les om tjenesten"
       title="Design og brukeropplevelse"
     />

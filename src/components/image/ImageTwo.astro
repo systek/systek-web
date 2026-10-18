@@ -1,21 +1,11 @@
 ---
+import type { ImageTwoFirst, ImageTwoSecond } from "../../lib/sanity.types";
 import Image from "../Image.astro";
-
-// todo: infer type from sanity schema
-interface ImageType {
-  _type: "image";
-  asset: {
-    _ref: string;
-    _type: "reference";
-  };
-  alt: string;
-  caption: string;
-}
 
 interface Props {
   node: {
-    first: ImageType;
-    second: ImageType;
+    first: ImageTwoFirst;
+    second: ImageTwoSecond;
   };
 }
 
@@ -27,7 +17,7 @@ const { first, second } = Astro.props.node;
     <figure class="md:mx-section md:mt-page lg:mx-page">
       <Image
         image={first}
-        alt={first.alt}
+        alt={first.alt ?? ""}
         class="aspect-4/5 w-full rounded-md lg:rounded-lg"
         width={2000}
         height={2500}
@@ -39,7 +29,7 @@ const { first, second } = Astro.props.node;
     <figure>
       <Image
         image={second}
-        alt={second.alt}
+        alt={second.alt ?? ""}
         width={2000}
         height={1500}
         class="aspect-4/3 w-full rounded-md lg:rounded-lg"

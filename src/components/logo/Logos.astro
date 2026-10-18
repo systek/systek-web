@@ -1,10 +1,10 @@
 ---
-import type { Logo as LogoType } from "../../lib/sanity.types";
+import type { LogoItemsQueryResult } from "../../lib/sanity.types";
 import Logo from "./Logo.astro";
 
 interface Props {
   class?: string;
-  logos: LogoType[];
+  logos: LogoItemsQueryResult;
 }
 
 const { class: className, logos } = Astro.props;
@@ -12,7 +12,7 @@ const { class: className, logos } = Astro.props;
 const perLine = 4;
 const numberOfLines = Math.ceil(logos.length / perLine);
 
-const logoLines: LogoType[][] = [];
+const logoLines: LogoItemsQueryResult[] = [];
 for (let i = 0; i < numberOfLines; i++) {
   logoLines.push(logos.slice(i * perLine, (i + 1) * perLine));
 }

@@ -1,14 +1,8 @@
 ---
-import { sanityClient } from "sanity:client";
+import type { InferGetStaticPropsType } from "astro";
 import clsx from "clsx";
 
-import type {
-  Citation as CitationType,
-  Service,
-  Staff,
-  Work,
-} from "../../lib/sanity.types";
-import { fetchWorkItems } from "../../lib/sanity.queries";
+import { fetchWorkItems, fetchWorkPages } from "../../lib/sanity.queries";
 import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
@@ -28,43 +22,17 @@ import { vw } from "../../utils/number";
 import Copy from "../../components/Copy.astro";
 import { getDescription } from "../../utils/string";
 
-type WorkExtended = Omit<Work, "citation" | "services"> & {
-  citation: CitationType;
-  services: Service[];
-  contactTwo: Omit<Work["contactTwo"], "contacts"> & { contacts: Staff[] };
-  plainContent: string;
-};
-
 export async function getStaticPaths() {
-  const works = await sanityClient.fetch(`*[_type == "work"] {
-    slug,
-    title,
-    image,
-    startDate,
-    endDate,
-    description,
-    content,
-    stats,
-    technologiesTitle,
-    technologies,
-    "plainContent": pt::text(content),
-    citation->,
-    services[]->,
-    contactTwo{
-      label,
-      title,
-      contacts[]->
-    },
-  }`);
-  return works.map((work: WorkExtended) => ({
+  const works = await fetchWorkPages();
+  return works.map((work) => ({
     params: { slug: work.slug.current },
     props: { work },
   }));
 }
 
-const { work } = Astro.props as {
-  work: WorkExtended;
-};
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { work } = Astro.props;
 
 const _workItems = await fetchWorkItems(4);
 const workItems = _workItems
@@ -138,7 +106,7 @@ const workItems = _workItems
       <CardRightColumn title={work.contactTwo.label}>
         <CardTitle>{work.contactTwo.title}</CardTitle>
         <div class="gap-gutter mt-section grid">
-          {work.contactTwo.contacts.map((item: Staff, index) => (
+          {work.contactTwo.contacts.map((item, index, contacts) => (
             <>
               <div class="gap-gutter flex">
                 <picture>
@@ -164,9 +132,7 @@ const workItems = _workItems
                   )}
                 </div>
               </div>
-              {index < work.contactTwo.contacts.length - 1 && (
-                <hr class="border-stroke" />
-              )}
+              {index < contacts.length - 1 && <hr class="border-stroke" />}
             </>
           ))}
         </div>

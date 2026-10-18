@@ -17,7 +17,6 @@ import {
 import Image from "../../components/Image.astro";
 import PageHeader from "../../components/PageHeader.astro";
 import ImageGallery from "../../components/image/ImageGallery.astro";
-import type { Gallery } from "../../components/image/ImageGallery.astro";
 import WorkHere from "../../components/card/WorkHere.astro";
 import CardTitle from "../../components/card/layout/CardTitle.astro";
 
@@ -146,7 +145,7 @@ const staffByInitial = staffItems.reduce(
       </CardTitle>
     </CardRightColumn>
 
-    <ImageGallery node={staffPage.imageGallery as unknown as Gallery} />
+    <ImageGallery node={staffPage.imageGallery} />
   </CardLayout>
 
   {staffPage.workHere && (

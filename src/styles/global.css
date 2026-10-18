@@ -56,9 +56,6 @@ body {
   animation: slide-in-up 0.25s linear;
 }
 
-/* 
- todo: make tailwind theme vars for animation timing, duration, etc
- */
 @keyframes slide-in-up {
   0% {
     transform: translateY(100%);

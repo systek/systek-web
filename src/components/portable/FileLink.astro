@@ -1,17 +1,14 @@
 ---
-import type { Asset } from "sanity";
+import type { PageBlock } from "../../lib/sanity.queries";
 import Button from "../Button.astro";
 
 interface Props {
-  node: {
-    asset: Asset;
-    title: string;
-  };
+  node: PageBlock<"file">;
 }
 
 const { node } = Astro.props;
 ---
 
-<Button href={node.asset.url} class="my-grid w-full" size="md">
+<Button href={node.asset?.url} class="my-grid w-full" size="md">
   {node.title}
 </Button>
