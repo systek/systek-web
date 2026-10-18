@@ -62,7 +62,7 @@ const staffByInitial = staffItems.reduce(
       class="lg:absolute lg:top-0 lg:right-[calc(75%+16px)] lg:bottom-0 lg:z-(--z-filter) lg:w-auto lg:min-w-[15.298vw]"
     >
       <div class="lg:sticky lg:top-[calc(var(--height-header)+8px)]">
-        <div>
+        <div data-filters>
           <Accordion class="lg:border-t-0">
             <AccordionItem open title="Lokasjon">
               <div class="gap-gap flex flex-col">
@@ -182,6 +182,13 @@ const staffByInitial = staffItems.reduce(
   const letters = document.querySelectorAll<HTMLElement>("[data-letter]");
   const filters = ["location", "department"];
 
+  // 105rem is --breakpoint-lg
+  if (!matchMedia("(min-width: 105rem)").matches) {
+    document
+      .querySelectorAll<HTMLDetailsElement>("[data-filters] details")
+      .forEach((details) => (details.open = false));
+  }
+
   document.addEventListener("change", () => {
     const selected = filters.map((key) => [
       key,
@@ -203,6 +210,4 @@ const staffByInitial = staffItems.reduce(
       ),
     );
   });
-
-  // todo: accordionItem "Avdelinger" should be closed on mobile
 </script>
