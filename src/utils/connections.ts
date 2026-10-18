@@ -1,348 +1,352 @@
 import Konva from "konva";
 import chroma from "chroma-js";
-import { sleep } from "./utils";
 
+type Point = { x: number; y: number };
+type Easing = (t: number, b: number, c: number, d: number) => number;
+type Motion = { x: [ms: number, Easing]; y: [ms: number, Easing] };
 type Box = {
+  group: Konva.Group;
+  bg: Konva.Rect;
   w: number;
   h: number;
-  body: Konva.Group;
-  text: Konva.Text;
-  background: Konva.Rect;
-  pullToPlace: (x: number, y: number, timeMS?: number) => void;
-  setVisible: (timeMs?: number) => void;
-  setColor: () => void;
+  home: Point;
+  v: Point;
+  tweens: Konva.Tween[];
 };
 
-type Line = {
-  boxA: Box;
-  boxB: Box;
-  body: Konva.Line;
+function cubicBezier(x1: number, y1: number, x2: number, y2: number): Easing {
+  const bez = (p1: number, p2: number, s: number) =>
+    3 * (1 - s) * (1 - s) * s * p1 + 3 * (1 - s) * s * s * p2 + s * s * s;
+  return (t, b, c, d) => {
+    let [lo, hi] = [0, 1];
+    for (let i = 0; i < 30; i++) {
+      const mid = (lo + hi) / 2;
+      if (bez(x1, x2, mid) < t / d) lo = mid;
+      else hi = mid;
+    }
+    return b + c * bez(y1, y2, (lo + hi) / 2);
+  };
+}
+
+const TEXTS = ["Bra", "folk", "smarte", "løsninger"];
+const WHITE = "#fcf6ee";
+const YELLOW = "#ffd24c";
+
+// Timings and curves measured from Systek_Sammenkoblinger_16-9.mp4.
+// y settles faster than x, so boxes move in curves.
+const STEP_MS = 700;
+const LAST_BOX_WHITE_MS = 370;
+const softEaseOut = cubicBezier(0.25, 0.35, 0.4, 1);
+const snapEaseOut = cubicBezier(0.2, 0.9, 0.55, 1);
+const collapseEaseInOut = cubicBezier(0.65, 0.05, 0, 0.95);
+const PUSH: Motion = { x: [750, softEaseOut], y: [550, snapEaseOut] };
+const SPAWN: Motion = { x: [550, softEaseOut], y: [700, snapEaseOut] };
+const COLLAPSE: Motion = {
+  x: [950, collapseEaseInOut],
+  y: [950, collapseEaseInOut],
 };
 
-type Config = {
-  texts: string[];
-  white: string;
-  yellow: string;
-  textColor: string;
-  maxLineLength: number;
-  minLineLength: number;
-};
+const WRAPPED_ROW_GAP = 2; // in box heights
 
-type BreakpointConfig = {
-  width: number;
-  fontSize: number;
-  textPadding: [number, number, number, number];
-  initialStagePaddingY: number;
-  initialStagePaddingX: number;
-  stagePadding: number;
-  lineWidth: number;
-  repulsionForce: number;
-};
+const TETHER_STIFFNESS = 60;
+const HOME_STIFFNESS = 10;
+const DAMPING = 8;
+const PHYSICS_STEP = 1 / 120;
 
-export const setupConnections = function (rootEl: HTMLDivElement) {
-  const boxes: Box[] = [];
-  const lines: Line[] = [];
-  let raf: number | null = null;
+// Box centers per step, as fractions of the stage
+const STEPS: [number, number][][] = [
+  [[0.4, 0.56]],
+  [
+    [0.22, 0.815],
+    [0.5, 0.24],
+  ],
+  [
+    [0.2, 0.815],
+    [0.46, 0.165],
+    [0.67, 0.585],
+  ],
+  [
+    [0.19, 0.82],
+    [0.44, 0.16],
+    [0.64, 0.62],
+    [0.81, 0.27],
+  ],
+];
 
-  const breakpoints: BreakpointConfig[] = [
-    {
-      // Mobile
-      width: 384, // --breakpoint-sm
-      fontSize: 32,
-      textPadding: [4, 8, 4, 8],
-      initialStagePaddingY: 80,
-      initialStagePaddingX: 16,
-      stagePadding: 16,
-      lineWidth: 1,
-      repulsionForce: 2000,
-    },
-    {
-      // Tablet
-      width: 800, // --breakpoint-md
-      fontSize: 48,
-      textPadding: [4, 12, 4, 12],
-      initialStagePaddingY: 80,
-      initialStagePaddingX: 80,
-      stagePadding: 20,
-      lineWidth: 2,
-      repulsionForce: 4000,
-    },
-    {
-      // Desktop
-      width: 1680, // --breakpoint-lg
-      fontSize: 60,
-      textPadding: [6, 16, 6, 16],
-      initialStagePaddingY: 80,
-      initialStagePaddingX: 80,
-      stagePadding: 20,
-      lineWidth: 2,
-      repulsionForce: 4000,
-    },
-    {
-      width: window.innerWidth,
-      fontSize: 60 * (window.innerWidth / 1680),
-      textPadding: [6, 16, 6, 16].map(
-        (val) => val * (window.innerWidth / 1680),
-      ) as [number, number, number, number],
-      initialStagePaddingY: window.innerHeight * 0.05,
-      initialStagePaddingX: window.innerWidth * 0.1,
-      stagePadding: 20,
-      lineWidth: 2,
-      repulsionForce: 4000 * (window.innerWidth / 1680),
-    },
-  ];
+// On small screens the last box spawns below instead, pushing the third one up
+const LAST_STEP_SMALL: [number, number][] = [
+  [0.19, 0.82],
+  [0.44, 0.16],
+  [0.64, 0.4],
+  [0.81, 0.8],
+];
 
-  // Find matching breakpoint config
-  const breakpointConfig: BreakpointConfig =
-    breakpoints.find((bp) => window.innerWidth <= bp.width) || breakpoints[0];
+let teardown: (() => void) | undefined;
 
-  const config: Config & BreakpointConfig = Object.assign(
-    {
-      texts: ["Bra", "folk", "smarte", "løsninger"],
-      white: "#fcf6ee",
-      yellow: "#ffd24c",
-      textColor: "rgb(26, 26, 26)",
-      maxLineLength: window.innerWidth * 0.4, //window.innerWidth < 1680 ? 600 : window.innerWidth * 0.4,
-      minLineLength: window.innerWidth * 0.1, //window.innerWidth < 1680 ? 100 : window.innerWidth * 0.06,
-    },
-    breakpointConfig,
-  );
+export function setupConnections(root: HTMLDivElement) {
+  teardown?.();
 
-  // Setup starts
+  const vw = window.innerWidth;
+  const [fontSize, padY, padX] =
+    vw <= 384
+      ? [32, 4, 8]
+      : vw <= 800
+        ? [48, 4, 12]
+        : [60, 6, 16].map((v) => (v * Math.max(vw, 1680)) / 1680);
+  const margin = vw <= 384 ? 16 : 20;
+
   const stage = new Konva.Stage({
-    container: rootEl,
-    width: rootEl.offsetWidth,
-    height: rootEl.offsetHeight,
+    container: root,
+    width: root.offsetWidth,
+    height: root.offsetHeight,
+  });
+  const lineLayer = new Konva.Layer();
+  const boxLayer = new Konva.Layer();
+  stage.add(lineLayer, boxLayer);
+
+  const boxes: Box[] = [];
+  const lines: Konva.Line[] = [];
+  const restLengths: number[] = [];
+  let dragged: Box | null = null;
+  let dragPrev: Point = { x: 0, y: 0 };
+  let simulating = false;
+  let leftover = 0;
+
+  const clamp = (box: Box, x: number, y: number): Point => ({
+    x: Math.min(Math.max(x, margin), stage.width() - margin - box.w),
+    y: Math.min(Math.max(y, margin), stage.height() - margin - box.h),
   });
 
-  const layer = new Konva.Layer();
-  const subLayer = new Konva.Layer();
-  stage.add(subLayer);
-  stage.add(layer);
-
-  function updateLines() {
-    for (const line of lines) {
-      const { boxA, boxB } = line;
-      const { x: xA, y: yA } = boxA.body.getClientRect();
-      const { x: xB, y: yB } = boxB.body.getClientRect();
-      line.body.points([xA + boxA.w + 4, yA + boxA.h + 4, xB - 4, yB - 4]);
-    }
-  }
-
-  function animate() {
-    updateLines();
-
-    raf = requestAnimationFrame(animate);
-  }
-
-  if (raf) {
-    cancelAnimationFrame(raf);
-  }
-
-  async function makeBox(step: number, text: string) {
-    const [x, y] = getStartPositions(step);
-    // Add all boxes to the center
-    const startX = x * stage.width();
-    const startY = y * stage.height();
-
-    const box = createBox(text, startX, startY, stage);
-    boxes.push(box);
-    layer.add(box.body);
-    box.setVisible();
-
-    const prevBox = boxes[step - 1];
-    if (step > 0 && prevBox) {
-      prevBox.setColor();
-      const line = createLine(prevBox, box);
-      lines.push(line);
-      subLayer.add(line.body);
-    }
-  }
-
-  function ensureInsideStage(
-    x: number,
-    y: number,
-    width: number,
-    height: number,
-    stage: Konva.Stage,
-  ) {
-    const newY = Math.min(
-      Math.max(y, config.stagePadding),
-      stage.height() - config.stagePadding - height,
-    );
-    const newX = Math.min(
-      Math.max(x, config.stagePadding),
-      stage.width() - config.stagePadding - width,
-    );
-    return { x: newX, y: newY };
-  }
-
-  async function pullBoxesToNewPositions(step: number) {
-    const positions = getPositionsPercent(step);
-    if (!positions) {
-      return;
-    }
-
-    for (let i = 0; i < boxes.length; i++) {
-      const box = boxes[i];
-      const [x, y] = positions[i];
-      const destX = x * stage.width();
-      const destY = y * stage.height();
-
-      box.pullToPlace(destX, destY, 500);
-    }
-  }
-
-  async function start() {
-    for (const text of config.texts) {
-      const index = config.texts.indexOf(text);
-      makeBox(index, text);
-      pullBoxesToNewPositions(index);
-      await sleep(750);
-    }
-  }
-
-  animate();
-  start();
-
-  // utils
-  function createLine(boxA: Box, boxB: Box): Line {
-    const { x: xA, y: yA } = boxA.body.getPosition();
-    const { x: xB, y: yB } = boxB.body.getPosition();
-    return {
-      boxA,
-      boxB,
-      body: new Konva.Line({
-        points: [xA + boxA.w + 4, yA + boxA.h + 4, xB - 4, yB - 4],
-        stroke: config.white,
-        strokeWidth: config.lineWidth,
+  function moveTo(box: Box, cx: number, cy: number, { x, y }: Motion) {
+    box.home = clamp(box, cx - box.w / 2, cy - box.h / 2);
+    box.tweens.forEach((t) => t.destroy());
+    box.tweens = [
+      new Konva.Tween({
+        node: box.group,
+        duration: x[0] / 1000,
+        easing: x[1],
+        x: box.home.x,
       }),
-    };
+      new Konva.Tween({
+        node: box.group,
+        duration: y[0] / 1000,
+        easing: y[1],
+        y: box.home.y,
+      }),
+    ];
+    box.tweens.forEach((t) => t.play());
   }
 
-  function createBox(
-    text: string,
-    x: number,
-    y: number,
-    stage: Konva.Stage,
-  ): Box {
-    const textItem = new Konva.Text({
-      fontSize: config.fontSize,
+  // Each new box pops in next to the previous one, alternating above and below
+  function addBox(i: number) {
+    const lastBelow = vw <= 600 && i === TEXTS.length - 1;
+    const text = new Konva.Text({
+      text: TEXTS[i],
+      fontSize,
       fontFamily: '"KHTeka", "Inter", system-ui, sans-serif',
       fontStyle: "300",
-      text: text,
-      fill: config.textColor,
-      x: config.textPadding[1],
-      y: config.textPadding[0],
-      draggable: false,
+      fill: "rgb(26, 26, 26)",
+      x: padX,
+      y: padY,
     });
-    const textBackground = new Konva.Rect({
-      width: textItem.width() + config.textPadding[1] + config.textPadding[3],
-      height: textItem.height() + config.textPadding[0] + config.textPadding[2],
-      fill: config.yellow,
-      strokeWidth: 0,
+    const w = text.width() + 2 * padX;
+    const h = text.height() + 2 * padY;
+    const bg = new Konva.Rect({
+      width: w,
+      height: h,
+      fill: YELLOW,
       cornerRadius: 4,
-      draggable: false,
     });
-    const textGroup = new Konva.Group({
-      x: x - textItem.width() / 2 - config.textPadding[1],
-      y: y - textItem.height() / 2 - config.textPadding[0],
-      width: textItem.width() + config.textPadding[1] + config.textPadding[3],
-      height: textItem.height() + config.textPadding[0] + config.textPadding[2],
-      draggable: false,
-      opacity: 0,
+    const box: Box = {
+      group: new Konva.Group().add(bg, text),
+      bg,
+      w,
+      h,
+      home: { x: 0, y: 0 },
+      v: { x: 0, y: 0 },
+      tweens: [],
+    };
+
+    const prev = boxes.at(-1);
+    if (!prev) {
+      box.group.position(
+        clamp(
+          box,
+          stage.width() / 2 - 0.4 * h - w,
+          stage.height() / 2 + 0.13 * h - h / 2,
+        ),
+      );
+    } else {
+      const { x, y } = prev.group.position();
+      box.group.position(
+        i % 2 && !lastBelow
+          ? clamp(box, x + prev.w - 0.78 * h, y - 1.67 * h)
+          : clamp(
+              box,
+              x + prev.w + (lastBelow ? 0.3 : 1.16) * h,
+              y + prev.h + 1.1 * h,
+            ),
+      );
+      prev.bg.fill(WHITE);
+      lines.push(
+        new Konva.Line({ stroke: WHITE, strokeWidth: vw <= 384 ? 1 : 2 }),
+      );
+      lineLayer.add(lines[i - 1]);
+    }
+    boxes.push(box);
+    boxLayer.add(box.group);
+
+    (lastBelow ? LAST_STEP_SMALL : STEPS[i]).forEach(([x, y], j) =>
+      moveTo(
+        boxes[j],
+        x * stage.width(),
+        y * stage.height(),
+        j === i ? SPAWN : PUSH,
+      ),
+    );
+  }
+
+  // One centered row, wrapping into more rows if it doesn't fit
+  function collapse() {
+    const gap = boxes[0].h;
+    const rows: Box[][] = [[]];
+    let rowWidth = -gap;
+    for (const box of boxes) {
+      rowWidth += gap + box.w;
+      if (rowWidth > stage.width() - 2 * margin && rows.at(-1)!.length) {
+        rows.push([]);
+        rowWidth = box.w;
+      }
+      rows.at(-1)!.push(box);
+    }
+
+    rows.forEach((row, r) => {
+      let x =
+        (stage.width() - row.reduce((sum, box) => sum + box.w + gap, -gap)) / 2;
+      const y =
+        stage.height() / 2 +
+        (r - (rows.length - 1) / 2) * gap * (1 + WRAPPED_ROW_GAP);
+      for (const box of row) {
+        moveTo(box, x + box.w / 2, y, COLLAPSE);
+        x += box.w + gap;
+      }
     });
-    textGroup.add(textBackground).add(textItem);
+  }
 
-    const box = {
-      w: textGroup.width(),
-      h: textGroup.height(),
-      body: textGroup,
-      text: textItem,
-      background: textBackground,
-      pullToPlace(x: number, y: number, timeMS = 1000) {
-        const { x: newX, y: newY } = ensureInsideStage(
-          x - this.w / 2,
-          y - this.h / 2,
-          this.w,
-          this.h,
-          stage,
-        );
+  // Lines become springs between the boxes, and a weak spring pulls each box home
+  function enableDragging() {
+    lines.forEach((_, i) => {
+      const [a, b] = [boxes[i], boxes[i + 1]];
+      restLengths[i] = Math.hypot(
+        b.home.x + b.w / 2 - a.home.x - a.w / 2,
+        b.home.y + b.h / 2 - a.home.y - a.h / 2,
+      );
+    });
 
-        // Apply force to this box
-        const tween = new Konva.Tween({
-          node: this.body,
-          duration: timeMS / 1000,
-          x: newX,
-          y: newY,
-          easing: Konva.Easings.EaseOut,
+    for (const box of boxes) {
+      box.group.draggable(true);
+      box.group.dragBoundFunc((p) => clamp(box, p.x, p.y));
+      box.group.on("dragstart", () => {
+        boxes.forEach((b) => b.tweens.forEach((t) => t.destroy()));
+        dragged = box;
+        dragPrev = box.group.position();
+        simulating = true;
+      });
+      box.group.on("dragend", () => (dragged = null));
+      box.group.on("pointerdown", () => {
+        box.bg.fill(YELLOW);
+        window.addEventListener("pointerup", () => box.bg.fill(WHITE), {
+          once: true,
         });
-        tween.play();
-      },
-      setVisible(timeMs = 400) {
-        new Konva.Tween({
-          node: this.body,
-          duration: timeMs / 1000,
-          opacity: 1,
-          easing: Konva.Easings.Linear,
-        }).play();
-      },
-      setColor() {
-        this.background.fill(config.white);
-      },
-    } as Box;
-
-    return box;
-  }
-
-  // We have 4 steps, one for each box
-  // We will tween as they are added
-  // At first step we will only have the first box
-  // At second step we will have the first and second box, and so on
-  // The positions will be calculated based on the step
-  // The positions will be in percentage of the stage width and height
-  // The positions will be in the format [x, y] where x and y are between 0 and 1
-  function getPositionsPercent(step: number) {
-    if (step < 0 || step > 3) {
-      throw new Error("Step must be between 0 and 3");
-    }
-    if (step === 0) {
-      return [[0.4, 0.5]];
-    }
-    if (step === 1) {
-      return [
-        [0.25, 0.34],
-        [0.6, 0.5],
-      ];
-    }
-    if (step === 2) {
-      return [
-        [0.22, 0.36],
-        [0.7, 0.3],
-        [0.4, 0.72],
-      ];
-    }
-    if (step === 3) {
-      return [
-        [0.2, 0.32],
-        [0.75, 0.2],
-        [0.32, 0.65],
-        [0.6, 0.85],
-      ];
+      });
     }
   }
 
-  // Initial placement of boxes as they spawn in
-  function getStartPositions(boxIndex = 0) {
-    return [
-      [0.5, 0.5],
-      [0.55, 0.5],
-      [0.45, 0.68],
-      [0.65, 0.7],
-    ][boxIndex];
-  }
-};
+  function simulate(dt: number) {
+    if (dragged && dt > 0) {
+      const p = dragged.group.position();
+      dragged.v.x = (dragged.v.x + (p.x - dragPrev.x) / dt) / 2;
+      dragged.v.y = (dragged.v.y + (p.y - dragPrev.y) / dt) / 2;
+      dragPrev = p;
+    }
 
+    for (leftover += dt; leftover >= PHYSICS_STEP; leftover -= PHYSICS_STEP) {
+      const forces = boxes.map((b) => ({
+        x: HOME_STIFFNESS * (b.home.x - b.group.x()) - DAMPING * b.v.x,
+        y: HOME_STIFFNESS * (b.home.y - b.group.y()) - DAMPING * b.v.y,
+      }));
+      lines.forEach((_, i) => {
+        const [a, b] = [boxes[i], boxes[i + 1]];
+        const dx = b.group.x() + b.w / 2 - a.group.x() - a.w / 2;
+        const dy = b.group.y() + b.h / 2 - a.group.y() - a.h / 2;
+        const distance = Math.hypot(dx, dy) || 1;
+        const f = (TETHER_STIFFNESS * (distance - restLengths[i])) / distance;
+        forces[i].x += f * dx;
+        forces[i].y += f * dy;
+        forces[i + 1].x -= f * dx;
+        forces[i + 1].y -= f * dy;
+      });
+      boxes.forEach((b, i) => {
+        if (b === dragged) return;
+        b.v.x += forces[i].x * PHYSICS_STEP;
+        b.v.y += forces[i].y * PHYSICS_STEP;
+        const x = b.group.x() + b.v.x * PHYSICS_STEP;
+        const y = b.group.y() + b.v.y * PHYSICS_STEP;
+        const p = clamp(b, x, y);
+        if (p.x !== x) b.v.x = 0;
+        if (p.y !== y) b.v.y = 0;
+        b.group.position(p);
+      });
+    }
+
+    const settled =
+      !dragged &&
+      boxes.every(
+        (b) =>
+          Math.hypot(b.v.x, b.v.y) < 2 &&
+          Math.hypot(b.home.x - b.group.x(), b.home.y - b.group.y()) < 0.5,
+      );
+    if (settled) {
+      boxes.forEach((b) => {
+        b.group.position(b.home);
+        b.v = { x: 0, y: 0 };
+      });
+      simulating = false;
+    }
+  }
+
+  let lastTime = performance.now();
+  let raf = requestAnimationFrame(function frame(time) {
+    if (simulating) simulate(Math.min((time - lastTime) / 1000, 1 / 30));
+    lastTime = time;
+    lines.forEach((line, i) => {
+      const [a, b] = [boxes[i], boxes[i + 1]];
+      line.points([
+        a.group.x() + a.w + 4,
+        a.group.y() + a.h + 4,
+        b.group.x() - 4,
+        b.group.y() - 4,
+      ]);
+    });
+    raf = requestAnimationFrame(frame);
+  });
+
+  const end = TEXTS.length * STEP_MS;
+  const timers = [
+    ...TEXTS.map((_, i) => setTimeout(() => addBox(i), i * STEP_MS)),
+    setTimeout(collapse, end),
+    setTimeout(() => boxes.at(-1)!.bg.fill(WHITE), end + LAST_BOX_WHITE_MS),
+    setTimeout(enableDragging, end + COLLAPSE.x[0]),
+  ];
+
+  teardown = () => {
+    timers.forEach(clearTimeout);
+    cancelAnimationFrame(raf);
+    stage.destroy();
+  };
+}
+
+// Fades the page background from blue to off-white as the canvas scrolls out
 export function setupObserver(canvas: HTMLDivElement): void {
   const colorStart = "#97d2ec"; // --color-blue
   const colorEnd = "#fcf6ee"; // --color-off-white
