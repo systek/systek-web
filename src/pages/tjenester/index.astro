@@ -32,11 +32,11 @@ const [servicesInfo, serviceItems] = await Promise.all([
     id="main-content"
     class="mx-grid mt-section grid scroll-mt-(--height-header) lg:grid-cols-2"
   >
-    <div class="flex max-h-48 flex-col items-start justify-end md:max-h-80 lg:order-2 lg:max-h-none lg:flex-row-reverse lg:items-center">
-      <h1 class="text-4xl-fluid ml-[80%] -translate-x-1/1 rounded-sm bg-yellow px-1 py-1 font-light md:ml-[70%] md:px-3 md:py-2 lg:ml-0 lg:translate-x-0 lg:-translate-y-1/2">
+    <div class="grid h-48 grid-cols-[1fr_auto_1fr] grid-rows-[0_auto_1fr] md:h-80 lg:order-2 lg:h-auto lg:grid-cols-2 lg:grid-rows-[1fr_auto_2fr]">
+      <h1 class="text-4xl-fluid col-start-2 row-start-2 rounded-sm bg-yellow px-1 py-1 font-light md:px-3 md:py-2 lg:justify-self-start">
         Tjenester
       </h1>
-      <div class="h-2/5 w-8/10 self-start p-1 md:w-7/10 lg:h-1/2 lg:w-1/2 lg:self-end">
+      <div class="col-span-2 col-start-1 row-start-3 min-h-0 p-1 lg:col-span-1 lg:row-span-2 lg:row-start-2">
         <svg
           class="pointer-events-none h-full w-full stroke-blue-dark"
           viewBox="0 0 402 362"
