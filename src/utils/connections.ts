@@ -83,7 +83,8 @@ const LAST_STEP_SMALL: [number, number][] = [
 
 let teardown: (() => void) | undefined;
 
-export function setupConnections(root: HTMLDivElement) {
+// Without the intro, the boxes are placed straight in their final row
+export function setupConnections(root: HTMLDivElement, intro = true) {
   teardown?.();
 
   const vw = window.innerWidth;
@@ -332,12 +333,25 @@ export function setupConnections(root: HTMLDivElement) {
   });
 
   const end = TEXTS.length * STEP_MS;
-  const timers = [
-    ...TEXTS.map((_, i) => setTimeout(() => addBox(i), i * STEP_MS)),
-    setTimeout(collapse, end),
-    setTimeout(() => boxes.at(-1)!.bg.fill(WHITE), end + LAST_BOX_WHITE_MS),
-    setTimeout(enableDragging, end + COLLAPSE.x[0]),
-  ];
+  const timers = intro
+    ? [
+        ...TEXTS.map((_, i) => setTimeout(() => addBox(i), i * STEP_MS)),
+        setTimeout(collapse, end),
+        setTimeout(() => boxes.at(-1)!.bg.fill(WHITE), end + LAST_BOX_WHITE_MS),
+        setTimeout(enableDragging, end + COLLAPSE.x[0]),
+      ]
+    : [];
+
+  if (!intro) {
+    TEXTS.forEach((_, i) => addBox(i));
+    collapse();
+    boxes.forEach((box) => {
+      box.tweens.forEach((t) => t.destroy());
+      box.group.position(box.home);
+      box.bg.fill(WHITE);
+    });
+    enableDragging();
+  }
 
   teardown = () => {
     timers.forEach(clearTimeout);

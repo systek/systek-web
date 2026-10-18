@@ -38,5 +38,5 @@ import Arrow from "./Arrow.astro";
   setupObserver(canvas);
   // Text is measured when the boxes are created, so wait for the web font
   document.fonts.ready.then(() => setupConnections(canvas));
-  onWidthChange(() => setupConnections(canvas));
+  onWidthChange(() => setupConnections(canvas, false));
 </script>
