@@ -23,8 +23,8 @@ const { first, second } = Astro.props.node;
 ---
 
 <div class="my-section md:mx-[calc(50%-50vw+(var(--width-scrollbar)/2))]">
-  <div class="gap-section grid md:mx-grid-md md:grid-cols-2 lg:mx-grid-lg">
-    <figure class="md:mx-section-md md:mt-page-md lg:mx-page-lg lg:mt-page-lg">
+  <div class="gap-section grid md:mx-grid md:grid-cols-2">
+    <figure class="md:mx-section md:mt-page lg:mx-page">
       <Image
         image={first}
         alt={first.alt}

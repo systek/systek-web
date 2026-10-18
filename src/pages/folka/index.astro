@@ -54,7 +54,7 @@ const staffByInitial = staffItems.reduce(
     </CardLayout>
   </PageHeader>
 
-  <div class="gap-section mt-section mx-grid lg:pb-section relative grid lg:min-h-dvh">
+  <div class="gap-section mt-section mx-grid relative grid lg:min-h-dvh">
     <div class="lg:absolute lg:top-0 lg:right-[calc(75%+16px)] lg:bottom-0 lg:z-(--z-filter) lg:w-auto lg:min-w-[15.298vw]">
       <div class="lg:sticky lg:top-[calc(var(--height-header)+8px)]">
         <div data-filters>
@@ -113,7 +113,7 @@ const staffByInitial = staffItems.reduce(
                   image={item.image}
                   width={500}
                   height={500}
-                  sizes="(min-width: 105rem) 18.75vw, (min-width: 50rem) 25vw, 50vw"
+                  sizes="(min-width: 80rem) 18.75vw, (min-width: 50rem) 25vw, 50vw"
                 />
 
                 <Image
@@ -122,7 +122,7 @@ const staffByInitial = staffItems.reduce(
                   image={item.imageSecondary}
                   width={500}
                   height={500}
-                  sizes="(min-width: 105rem) 18.75vw, (min-width: 50rem) 25vw, 50vw"
+                  sizes="(min-width: 80rem) 18.75vw, (min-width: 50rem) 25vw, 50vw"
                   loading="eager"
                 />
               </picture>
@@ -167,8 +167,8 @@ const staffByInitial = staffItems.reduce(
   const letters = document.querySelectorAll<HTMLElement>("[data-letter]");
   const filters = ["location", "department"];
 
-  // 105rem is --breakpoint-lg
-  if (!matchMedia("(min-width: 105rem)").matches) {
+  // 80rem is --breakpoint-lg
+  if (!matchMedia("(min-width: 80rem)").matches) {
     document
       .querySelectorAll<HTMLDetailsElement>("[data-filters] details")
       .forEach((details) => (details.open = false));

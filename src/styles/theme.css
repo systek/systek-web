@@ -14,13 +14,9 @@
   --color-blue: #97d2ec;
   --color-blue-dark: #53b4df;
   --color-grey-10: #1a1a1a;
-  --color-grey-17: #2b2b2b;
   --color-grey-32: #54524f;
-  --color-grey-44: #74716d;
-  --color-grey-60: #9e9a94;
   --color-grey-78: #cfc8bf;
   --color-grey-91: #eee9e2;
-  --color-black: #000;
   --color-white: #fff;
 
   /* inferred colors */
@@ -32,55 +28,55 @@
   --breakpoint-*: initial;
   --breakpoint-sm: 24rem;
   --breakpoint-md: 50rem;
-  --breakpoint-lg: 105rem;
+  /* The desktop design starts at lg. It's drawn 105rem wide and scales with the viewport */
+  --breakpoint-lg: 80rem;
 
   --container-*: initial;
-  --container-sm: var(--breakpoint-sm);
   --container-md: var(--breakpoint-md);
-  --container-lg: var(--breakpoint-lg);
 
   --font-weight-*: initial;
   --font-weight-light: 300;
-  --font-weight-normal: 400;
   --font-weight-medium: 500;
   --font-weight-bold: 700;
-  --font-weight-black: 900;
 
-  /*
-  * todo: responsive border radius
-  * --radius-lg: calc((x / 105) * 100vw); 
-  */
   --radius-*: initial;
   --radius-sm: 0.25rem;
   --radius-md: 0.5rem;
   --radius-lg: 1rem;
 
-  --spacing-gap-sm: 0.5rem;
-  --spacing-gap-md: 0.5rem;
-  --spacing-gap-lg: calc((0.5 / 105) * 100vw);
+  /* Base unit for numeric spacing and sizing like p-4 and size-6 */
+  --spacing: 0.25rem;
 
-  --spacing-grid-sm: 1rem;
-  --spacing-grid-md: 1.25rem;
-  --spacing-grid-lg: calc((1.25 / 105) * 100vw); /* 1.25rem */
-
-  --spacing-gutter-sm: 0.75rem;
-  --spacing-gutter-md: 1.25rem;
-  --spacing-gutter-lg: calc((1.25 / 105) * 100vw); /* 1.25rem */
-
-  --spacing-section-sm: 2.5rem;
-  --spacing-section-md: 3.5rem;
-  --spacing-section-lg: calc((4 / 105) * 100vw); /* 4rem */
-
-  --spacing-page-sm: 4rem;
-  --spacing-page-md: 8rem;
-  --spacing-page-lg: calc((9 / 105) * 100vw); /* 9rem */
-
-  --stroke-base: 1px;
-  --stroke-md: 2px;
+  /* Spacing scales, mobile values. md and lg values are set below */
+  --spacing-gap: 0.5rem;
+  --spacing-grid: 1rem;
+  --spacing-gutter: 0.75rem;
+  --spacing-section: 2.5rem;
+  --spacing-page: 4rem;
 
   /* z-index hierarchy */
-  --z-base: auto;
   --z-filter: 1;
   --z-header: 2;
   --z-dialog: 3;
+}
+
+/* From lg everything follows the viewport, relative to the 105rem design: (rem / 105) * 100vw */
+:root {
+  @variant md {
+    --spacing-grid: 1.25rem;
+    --spacing-gutter: 1.25rem;
+    --spacing-section: 3.5rem;
+    --spacing-page: 8rem;
+  }
+  @variant lg {
+    --radius-sm: calc((0.25 / 105) * 100vw);
+    --radius-md: calc((0.5 / 105) * 100vw);
+    --radius-lg: calc((1 / 105) * 100vw);
+    --spacing: calc((0.25 / 105) * 100vw);
+    --spacing-gap: calc((0.5 / 105) * 100vw);
+    --spacing-grid: calc((1.25 / 105) * 100vw);
+    --spacing-gutter: calc((1.25 / 105) * 100vw);
+    --spacing-section: calc((4 / 105) * 100vw);
+    --spacing-page: calc((9 / 105) * 100vw);
+  }
 }

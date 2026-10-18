@@ -31,7 +31,7 @@ const { label, title, text, contacts } = Astro.props;
   </div>
   <div class="gap-gutter grid md:grid-cols-2 lg:col-span-2">
     {contacts.map((contact) => (
-      <div class="mt-section-sm md:mt-section-md lg:mt-0">
+      <div class="mt-section lg:mt-0">
         <picture>
           <Image
             class="aspect-square w-full rounded-md"
@@ -39,7 +39,7 @@ const { label, title, text, contacts } = Astro.props;
             alt={contact.alt}
             width={1000}
             height={1000}
-            sizes="(min-width: 105rem) 25vw, (min-width: 50rem) 50vw, 100vw"
+            sizes="(min-width: 80rem) 25vw, (min-width: 50rem) 50vw, 100vw"
           />
         </picture>
         <p class="mt-gap text-md-fluid font-bold">{contact.name}</p>

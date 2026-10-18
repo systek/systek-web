@@ -11,7 +11,7 @@ const { node } = Astro.props;
 ---
 
 <div class="my-section md:mx-[calc(50%-50vw+(var(--width-scrollbar)/2))]">
-  <div class="md:mx-grid-md">
+  <div class="md:mx-5">
     <figure class="md:mx-auto md:max-w-272 lg:max-w-[64.7619vw]">
       <Image
         class="hidden aspect-2/1 w-full rounded-lg md:block"
@@ -19,7 +19,7 @@ const { node } = Astro.props;
         alt={node.alt}
         width={2000}
         height={1000}
-        sizes={`(min-width: 105rem) ${vw(68)}, 68rem`}
+        sizes={`(min-width: 80rem) ${vw(68)}, 68rem`}
       />
       <Image
         class="block aspect-4/3 w-full rounded-md md:hidden"

@@ -88,12 +88,14 @@ export function setupConnections(root: HTMLDivElement, intro = true) {
   teardown?.();
 
   const vw = window.innerWidth;
-  const [fontSize, padY, padX] =
+  // From lg (1280px) the desktop sizes scale with the viewport, relative to the 1680px design
+  const scale = vw >= 1280 ? vw / 1680 : 1;
+  const [fontSize, padY, padX, radius] =
     vw <= 384
-      ? [32, 4, 8]
+      ? [32, 4, 8, 4]
       : vw <= 800
-        ? [48, 4, 12]
-        : [60, 6, 16].map((v) => (v * Math.max(vw, 1680)) / 1680);
+        ? [48, 4, 12, 4]
+        : [60, 6, 16, 4].map((v) => v * scale);
   const margin = vw <= 384 ? 16 : 20;
 
   const stage = new Konva.Stage({
@@ -156,7 +158,7 @@ export function setupConnections(root: HTMLDivElement, intro = true) {
       width: w,
       height: h,
       fill: YELLOW,
-      cornerRadius: 4,
+      cornerRadius: radius,
     });
     const box: Box = {
       group: new Konva.Group().add(bg, text),

@@ -1,17 +1,13 @@
 @import "tailwindcss";
 @import "./theme.css";
-@import "./spacing.css";
 
 @theme {
-  --color-text: var(--color-grey-10);
-  --color-background: var(--color-off-white);
-  --color-stroke: var(--color-grey-78);
   --height-header: 62px;
 }
 
 body {
-  @apply bg-background text-base text-text antialiased;
-  font-family: var(--font-sans);
+  /* Same as text-sm-fluid, so default text scales with the desktop design */
+  @apply bg-background text-base text-text antialiased lg:text-[0.9524vw];
 }
 
 @utility link-underline {
