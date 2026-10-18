@@ -29,22 +29,15 @@ import Arrow from "./Arrow.astro";
 </div>
 
 <script>
-  import { DOMLoaded, handleResize, widthChecker } from "../utils/utils";
+  import { onWidthChange } from "../utils/utils";
   import { setupConnections, setupObserver } from "../utils/connections";
 
-  DOMLoaded(() => {
-    const canvas = document.querySelector(
-      "[data-connections-canvas]",
-    ) as HTMLDivElement;
-    const hasViewportWidthChanged = widthChecker();
+  const canvas = document.querySelector<HTMLDivElement>(
+    "[data-connections-canvas]",
+  )!;
 
-    setupConnections(canvas);
-    setupObserver(canvas);
-
-    handleResize(() => {
-      if (hasViewportWidthChanged()) {
-        setupConnections(canvas);
-      }
-    });
-  });
+  setupObserver(canvas);
+  // Text is measured when the boxes are created, so wait for the web font
+  document.fonts.ready.then(() => setupConnections(canvas));
+  onWidthChange(() => setupConnections(canvas));
 </script>

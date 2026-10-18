@@ -16,22 +16,14 @@ const { class: className } = Astro.props;
 </div>
 
 <script>
-  import { DOMLoaded } from "../utils/utils";
+  const button = document.querySelector<HTMLButtonElement>(
+    "[data-copy-link-button]",
+  )!;
+  const text = button.innerText;
 
-  DOMLoaded(() => {
-    const button = document.querySelector(
-      "[data-copy-link-button]",
-    ) as HTMLButtonElement;
-
-    const initialText = button.innerText;
-
-    button.addEventListener("click", () => {
-      navigator.clipboard.writeText(window.location.href);
-      button.innerText = "Kopiert!";
-
-      setTimeout(() => {
-        button.innerText = initialText;
-      }, 5000);
-    });
+  button.addEventListener("click", () => {
+    navigator.clipboard.writeText(window.location.href);
+    button.innerText = "Kopiert!";
+    setTimeout(() => (button.innerText = text), 5000);
   });
 </script>

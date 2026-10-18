@@ -34,7 +34,7 @@ const links = [
       <img
         src="/images/systek-logo.svg"
         alt="Systek"
-        class="w-[98px] lg:w-[5.833vw]"
+        class="w-24.5 lg:w-[5.833vw]"
       />
     </a>
     <nav class="hidden md:block">
@@ -112,28 +112,18 @@ const links = [
 </div>
 
 <script>
-  import { DOMLoaded, handleResize, widthChecker } from "../utils/utils";
+  import { onWidthChange } from "../utils/utils";
   import { setupHeader, openModal } from "../utils/header";
 
-  DOMLoaded(() => {
-    const header = document.querySelector("[data-header]") as HTMLElement;
-    const sentinel = document.querySelector(
-      "[data-header-sentinel]",
-    ) as HTMLElement;
-    const modal = document.querySelector("[data-modal]") as HTMLDialogElement;
-    const modalTrigger = document.querySelector(
-      "[data-modal-trigger]",
-    ) as HTMLButtonElement;
-    const hasViewportWidthChanged = widthChecker();
+  const header = document.querySelector<HTMLElement>("[data-header]")!;
+  const sentinel = document.querySelector<HTMLElement>(
+    "[data-header-sentinel]",
+  )!;
+  const modal = document.querySelector<HTMLDialogElement>("[data-modal]")!;
 
-    setupHeader(header, sentinel);
-
-    handleResize(() => {
-      if (hasViewportWidthChanged()) {
-        setupHeader(header, sentinel);
-      }
-    });
-
-    modalTrigger.addEventListener("click", () => openModal(modal, header));
-  });
+  setupHeader(header, sentinel);
+  onWidthChange(() => setupHeader(header, sentinel));
+  document
+    .querySelector("[data-modal-trigger]")!
+    .addEventListener("click", () => openModal(modal, header));
 </script>

@@ -47,7 +47,7 @@ const staffByInitial = staffItems.reduce(
     <CardLayout>
       <CardRightColumn title="Folka" titleAs="h1">
         <h2
-          class="text-3xl-fluid max-w-[72rem] font-light md:mr-20 lg:mr-[4.7619vw] lg:max-w-[68.571vw]"
+          class="text-3xl-fluid max-w-288 font-light md:mr-20 lg:mr-[4.7619vw] lg:max-w-[68.571vw]"
         >
           {staffPage.title}
         </h2>
@@ -178,46 +178,31 @@ const staffByInitial = staffItems.reduce(
 </Layout>
 
 <script>
-  import {
-    setupRadios,
-    toggleLetterVisibility,
-    toggleStaffVisibility,
-  } from "../../utils/staff";
-  import { DOMLoaded } from "../../utils/utils";
+  const staff = document.querySelectorAll<HTMLElement>("[data-location]");
+  const letters = document.querySelectorAll<HTMLElement>("[data-letter]");
+  const filters = ["location", "department"];
 
-  DOMLoaded(() => {
-    const staff = document.querySelectorAll<HTMLElement>("[data-location]");
-    const letters = document.querySelectorAll<HTMLElement>("[data-letter]");
-    const locationRadios = document.querySelectorAll<HTMLInputElement>(
-      'input[name="location"]',
+  document.addEventListener("change", () => {
+    const selected = filters.map((key) => [
+      key,
+      document.querySelector<HTMLInputElement>(`input[name="${key}"]:checked`)!
+        .value,
+    ]);
+    staff.forEach((person) =>
+      person.classList.toggle(
+        "hidden",
+        selected.some(
+          ([key, value]) => value !== "all" && person.dataset[key] !== value,
+        ),
+      ),
     );
-    const departmentRadios = document.querySelectorAll<HTMLInputElement>(
-      'input[name="department"]',
+    letters.forEach((letter) =>
+      letter.classList.toggle(
+        "hidden",
+        !letter.querySelector("[data-location]:not(.hidden)"),
+      ),
     );
-    const filterValues: { key: string; value: string }[] = [
-      {
-        key: "location",
-        value: "all",
-      },
-      {
-        key: "department",
-        value: "all",
-      },
-    ];
-
-    function callback() {
-      staff.forEach((staffEl) => toggleStaffVisibility(staffEl, filterValues));
-
-      letters.forEach((letter) => {
-        const children =
-          letter.querySelectorAll<HTMLElement>("[data-location]");
-        toggleLetterVisibility(letter, children);
-      });
-    }
-
-    setupRadios("location", locationRadios, filterValues, callback);
-    setupRadios("department", departmentRadios, filterValues, callback);
-
-    // todo: accordionItem "Avdelinger" should be closed on mobile
   });
+
+  // todo: accordionItem "Avdelinger" should be closed on mobile
 </script>

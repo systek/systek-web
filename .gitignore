@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 # sanity
 .sanity/
+
+# claude code
+.claude/
