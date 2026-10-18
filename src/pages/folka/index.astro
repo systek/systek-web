@@ -189,19 +189,32 @@ const staffByInitial = staffItems.reduce(
       .forEach((details) => (details.open = false));
   }
 
-  document.addEventListener("change", () => {
-    const selected = filters.map((key) => [
-      key,
-      document.querySelector<HTMLInputElement>(`input[name="${key}"]:checked`)!
-        .value,
-    ]);
+  const staffList = [...staff];
+  const radios = document.querySelectorAll<HTMLInputElement>(
+    "[data-filters] input",
+  );
+
+  function update() {
+    const selected: Record<string, string> = {};
+    for (const key of filters) {
+      selected[key] = document.querySelector<HTMLInputElement>(
+        `input[name="${key}"]:checked`,
+      )!.value;
+    }
+    const matches = (person: HTMLElement, filter = selected) =>
+      filters.every(
+        (key) => filter[key] === "all" || person.dataset[key] === filter[key],
+      );
+
     staff.forEach((person) =>
-      person.classList.toggle(
-        "hidden",
-        selected.some(
-          ([key, value]) => value !== "all" && person.dataset[key] !== value,
-        ),
-      ),
+      person.classList.toggle("hidden", !matches(person)),
+    );
+    // Disable options that would give no hits with the other filter
+    radios.forEach(
+      (radio) =>
+        (radio.disabled = !staffList.some((person) =>
+          matches(person, { ...selected, [radio.name]: radio.value }),
+        )),
     );
     letters.forEach((letter) =>
       letter.classList.toggle(
@@ -209,5 +222,8 @@ const staffByInitial = staffItems.reduce(
         !letter.querySelector("[data-location]:not(.hidden)"),
       ),
     );
-  });
+  }
+
+  update();
+  document.addEventListener("change", update);
 </script>
