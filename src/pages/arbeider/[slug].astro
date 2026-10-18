@@ -118,7 +118,7 @@ const workItems = _workItems
                   sizes={`(min-width: 80rem) ${vw(10)}, 10rem`}
                 />
                 <div class="flex flex-col items-start">
-                  <p class="text-md-fluid font-bold">{item.name}</p>
+                  <h4 class="text-md-fluid font-bold">{item.name}</h4>
                   <p class="text-md-fluid">{item.position}</p>
                   {item.email && (
                     <a
@@ -171,9 +171,9 @@ const workItems = _workItems
               : "(min-width: 50rem) 25vw, 50vw"
           }
         />
-        <p class="mt-gap text-md-fluid group-link-underline font-bold break-words">
+        <h4 class="mt-gap text-md-fluid group-link-underline font-bold break-words">
           {item.title}
-        </p>
+        </h4>
         <p class="text-md-fluid">{item.description}</p>
       </a>
     ))}

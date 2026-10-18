@@ -96,6 +96,7 @@ const [
           <GridListItem
             href={`/tjenester/${item.slug.current}`}
             title={item.title}
+            titleAs="h4"
           >
             <p class="text-sm-fluid">{item.description}</p>
           </GridListItem>
@@ -135,9 +136,9 @@ const [
               : "(min-width: 50rem) 25vw, 50vw"
           }
         />
-        <p class="mt-gap text-md-fluid group-link-underline font-bold break-words">
+        <h4 class="mt-gap text-md-fluid group-link-underline font-bold break-words">
           {item.title}
-        </p>
+        </h4>
         <p class="text-md-fluid">{item.description}</p>
       </a>
     ))}
@@ -333,9 +334,9 @@ const [
               height={750}
               sizes="(min-width: 80rem) 37.5vw, (min-width: 50rem) 50vw, 100vw"
             />
-            <p class="mt-gap text-md-fluid group-link-underline font-bold">
+            <h4 class="mt-gap text-md-fluid group-link-underline font-bold">
               {item.title}
-            </p>
+            </h4>
             <p class="text-md-fluid">{item.description}</p>
             <p class="text-sm-fluid leading-snug">
               Skrevet av {item.author?.name ?? "Systek"}

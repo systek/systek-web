@@ -58,7 +58,7 @@ const vacantPositions = await fetchVacantPositions();
 
       <GridList class="mt-section">
         {vacantPositions.map((item) => (
-          <GridListItem href={item.href} title={item.title}>
+          <GridListItem href={item.href} title={item.title} titleAs="h3">
             <div>
               <p class="text-sm-fluid">{item.description}</p>
               <div class="mt-gutter px-gap inline-block rounded-full border border-grey-10 py-0">

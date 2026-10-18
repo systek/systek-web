@@ -1,11 +1,14 @@
 ---
+import TitleAs from "../TitleAs.astro";
+
 interface Props {
   class?: string;
   href: string;
   title: string;
+  titleAs: "h2" | "h3" | "h4" | "h5" | "h6";
 }
 
-const { class: className, href, title } = Astro.props;
+const { class: className, href, title, titleAs } = Astro.props;
 ---
 
 <a
@@ -18,7 +21,12 @@ const { class: className, href, title } = Astro.props;
   href={href}
 >
   <div>
-    <p class="text-lg-fluid group-link-underline font-medium">{title}</p>
+    <TitleAs
+      as={titleAs}
+      class="text-lg-fluid group-link-underline font-medium"
+    >
+      {title}
+    </TitleAs>
   </div>
 
   <slot />

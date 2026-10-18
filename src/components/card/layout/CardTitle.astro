@@ -4,7 +4,7 @@ import TitleAs from "../../TitleAs.astro";
 
 interface Props {
   class?: string;
-  titleAs?: "h1" | "h2" | "h3" | "p";
+  titleAs?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p";
 }
 
 const { class: className, titleAs = "h3" } = Astro.props;

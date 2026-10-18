@@ -39,10 +39,8 @@ const locations = await fetchLocations();
                 height={750}
                 sizes="(min-width: 80rem) 25vw, (min-width: 50rem) 33vw, 50vw"
               />
-              <p class="text-sm-fluid mt-gap">
-                <span class="font-bold">{item.name}</span>
-                <br />
-
+              <h3 class="text-sm-fluid mt-gap font-bold">{item.name}</h3>
+              <p class="text-sm-fluid">
                 <a
                   class="link-underline"
                   href={item.mapLink}

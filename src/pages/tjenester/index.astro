@@ -96,6 +96,7 @@ const [servicesInfo, serviceItems] = await Promise.all([
           <GridListItem
             href={`/tjenester/${item.slug.current}`}
             title={item.title}
+            titleAs="h3"
           >
             <p class="text-sm-fluid">{item.description}</p>
           </GridListItem>

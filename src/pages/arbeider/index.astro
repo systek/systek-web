@@ -65,9 +65,9 @@ const [workersInfo, logoItems, workItems, serviceItems] = await Promise.all([
               height={750}
               sizes="(min-width: 80rem) 37.5vw, (min-width: 50rem) 50vw, 100vw"
             />
-            <p class="mt-gap text-md-fluid group-link-underline font-bold">
+            <h3 class="mt-gap text-md-fluid group-link-underline font-bold">
               {item.title}
-            </p>
+            </h3>
             <p class="text-md-fluid">{item.description}</p>
           </a>
         ))}
@@ -89,6 +89,7 @@ const [workersInfo, logoItems, workItems, serviceItems] = await Promise.all([
         <GridListItem
           href={`/tjenester/${item.slug.current}`}
           title={item.title}
+          titleAs="h4"
         >
           <p class="text-sm-fluid">{item.description}</p>
         </GridListItem>
