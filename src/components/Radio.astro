@@ -10,9 +10,7 @@ interface Props {
 const { label, class: className, ...props } = Astro.props;
 ---
 
-<label
-  class="flex items-center gap-3 transition-opacity has-disabled:opacity-40"
->
+<label class="flex items-center gap-3 transition-opacity has-disabled:opacity-40">
   <input
     type="radio"
     class:list={[

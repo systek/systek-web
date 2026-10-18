@@ -8,22 +8,15 @@ export function getOGImageUrl(source: SanityImage): string {
   return builder.image(source).height(630).width(1200).url();
 }
 
-// todo: use proper type annotations
-export function getFirstImage(node: any): any | undefined {
-  if (!node) return undefined;
-  if (Array.isArray(node)) {
-    for (const item of node) {
-      const found = getFirstImage(item);
-      if (found) return found;
-    }
-    return undefined;
+// Depth-first search for the first image in Sanity content
+export function getFirstImage(node: unknown): SanityImage | undefined {
+  if (!node || typeof node !== "object") return undefined;
+  const record = node as Record<string, unknown>;
+  if (record._type === "image" || record.type === "image") {
+    return record as SanityImage;
   }
-  if (typeof node === "object") {
-    if (node._type === "image" || node.type === "image") return node;
-    for (const key of Object.keys(node)) {
-      const found = getFirstImage(node[key]);
-      if (found) return found;
-    }
+  for (const value of Array.isArray(node) ? node : Object.values(record)) {
+    const found = getFirstImage(value);
+    if (found) return found;
   }
-  return undefined;
 }

@@ -1,5 +1,5 @@
 import { defineField } from "sanity";
-import { ImagesIcon } from "@sanity/icons";
+import { ImagesIcon } from "@sanity/icons/Images";
 
 export const imageGallery = defineField({
   type: "object",

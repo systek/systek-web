@@ -27,51 +27,55 @@ const locations = await fetchLocations();
         </div>
       </AccordionItem>
       <AccordionItem title="Nyttige lenker">
-        <div
-          class="gap-gutter mr-9 grid max-w-140 grid-cols-2 lg:max-w-[33.333vw]"
-        >
+        <div class="gap-gutter mr-9 grid max-w-140 grid-cols-2 lg:max-w-[33.333vw]">
           <div class="gap-gap flex flex-col">
             <p class="text-sm-fluid">
-              <a class="link-underline" href="/personvern"
-                >Personvernerklæring</a
-              >
+              <a class="link-underline" href="/personvern">
+                Personvernerklæring
+              </a>
             </p>
             <p class="text-sm-fluid">
-              <a class="link-underline" href="/barekraft">Bærekraft</a>
+              <a class="link-underline" href="/barekraft">
+                Bærekraft
+              </a>
             </p>
           </div>
           <div class="gap-gap flex flex-col">
             <p class="text-sm-fluid">
-              <a class="link-underline" href="/nyheter">Nyheter</a>
+              <a class="link-underline" href="/nyheter">
+                Nyheter
+              </a>
             </p>
             <p class="text-sm-fluid">
-              <a class="link-underline" href="/varslingsportal"
-                >Varslingsportal</a
-              >
+              <a class="link-underline" href="/varslingsportal">
+                Varslingsportal
+              </a>
             </p>
           </div>
         </div>
       </AccordionItem>
       <AccordionItem title="Sosiale medier">
-        <div
-          class="gap-gutter mr-9 grid max-w-140 grid-cols-2 lg:max-w-[33.333vw]"
-        >
+        <div class="gap-gutter mr-9 grid max-w-140 grid-cols-2 lg:max-w-[33.333vw]">
           <div class="gap-gap flex flex-col">
             <p class="text-sm-fluid">
               <a
                 class="link-underline"
                 href="https://www.facebook.com/Systek.no"
                 target="_blank"
-                rel="noopener noreferrer">Facebook</a
+                rel="noopener noreferrer"
               >
+                Facebook
+              </a>
             </p>
             <p class="text-sm-fluid">
               <a
                 class="link-underline"
                 href="https://www.instagram.com/systek.no/"
                 target="_blank"
-                rel="noopener noreferrer">Instagram</a
+                rel="noopener noreferrer"
               >
+                Instagram
+              </a>
             </p>
           </div>
           <div class="gap-gap flex flex-col">
@@ -80,16 +84,20 @@ const locations = await fetchLocations();
                 class="link-underline"
                 href="https://no.linkedin.com/company/systek-as"
                 target="_blank"
-                rel="noopener noreferrer">LinkedIn</a
+                rel="noopener noreferrer"
               >
+                LinkedIn
+              </a>
             </p>
             <p class="text-sm-fluid">
               <a
                 class="link-underline"
                 href="https://medium.com/systek"
                 target="_blank"
-                rel="noopener noreferrer">Medium</a
+                rel="noopener noreferrer"
               >
+                Medium
+              </a>
             </p>
           </div>
         </div>
@@ -97,30 +105,28 @@ const locations = await fetchLocations();
     </Accordion>
 
     <div class="gap-x-gutter gap-y-grid grid grid-cols-2 md:grid-cols-3">
-      {
-        locations.map((location) => (
-          <p class="text-sm-fluid">
-            <span class="font-bold">{location.name}</span>
-            <br />
-            <a
-              class="link-underline"
-              href={location.mapLink}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {location.address}
-            </a>
-            <br />
-            {location.address2}
-            <br />
-            {location.phone}
-            <br />
-            <a class="link-underline" href={`mailto:${location.email}}`}>
-              {location.email}
-            </a>
-          </p>
-        ))
-      }
+      {locations.map((location) => (
+        <p class="text-sm-fluid">
+          <span class="font-bold">{location.name}</span>
+          <br />
+          <a
+            class="link-underline"
+            href={location.mapLink}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {location.address}
+          </a>
+          <br />
+          {location.address2}
+          <br />
+          {location.phone}
+          <br />
+          <a class="link-underline" href={`mailto:${location.email}}`}>
+            {location.email}
+          </a>
+        </p>
+      ))}
     </div>
   </div>
 

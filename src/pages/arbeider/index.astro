@@ -37,9 +37,7 @@ const [workersInfo, logoItems, workItems, serviceItems] = await Promise.all([
   <PageHeader image={workersInfo.heroImage}>
     <CardLayout>
       <CardRightColumn title="Arbeider" titleAs="h1">
-        <h2
-          class="text-3xl-fluid max-w-288 font-light md:mr-20 lg:mr-[4.7619vw] lg:max-w-[68.571vw]"
-        >
+        <h2 class="text-3xl-fluid max-w-288 font-light md:mr-20 lg:mr-[4.7619vw] lg:max-w-[68.571vw]">
           {workersInfo.title}
         </h2>
       </CardRightColumn>
@@ -48,9 +46,7 @@ const [workersInfo, logoItems, workItems, serviceItems] = await Promise.all([
 
   <CardLayout class="mt-section mx-grid">
     <CardRightColumn>
-      <CardTitle titleAs="h2">
-        {workersInfo.logoTitle}
-      </CardTitle>
+      <CardTitle titleAs="h2">{workersInfo.logoTitle}</CardTitle>
 
       <Logos class="mt-section" logos={logoItems} />
 
@@ -58,29 +54,25 @@ const [workersInfo, logoItems, workItems, serviceItems] = await Promise.all([
         {workersInfo.listTitle}
       </CardTitle>
 
-      <div
-        class="gap-x-gutter mt-section gap-y-section grid items-start md:grid-cols-2"
-      >
-        {
-          workItems.map((item) => (
-            <a class="group" href={`/arbeider/${item.slug.current}`}>
-              <picture>
-                <Image
-                  class="aspect-4/3 w-full rounded-md"
-                  image={item.image}
-                  alt={item.image.alt}
-                  width={1000}
-                  height={750}
-                  sizes="(min-width: 105rem) 37.5vw, (min-width: 50rem) 50vw, 100vw"
-                />
-              </picture>
-              <p class="mt-gap text-md-fluid group-link-underline font-bold">
-                {item.title}
-              </p>
-              <p class="text-md-fluid">{item.description}</p>
-            </a>
-          ))
-        }
+      <div class="gap-x-gutter mt-section gap-y-section grid items-start md:grid-cols-2">
+        {workItems.map((item) => (
+          <a class="group" href={`/arbeider/${item.slug.current}`}>
+            <picture>
+              <Image
+                class="aspect-4/3 w-full rounded-md"
+                image={item.image}
+                alt={item.image.alt}
+                width={1000}
+                height={750}
+                sizes="(min-width: 105rem) 37.5vw, (min-width: 50rem) 50vw, 100vw"
+              />
+            </picture>
+            <p class="mt-gap text-md-fluid group-link-underline font-bold">
+              {item.title}
+            </p>
+            <p class="text-md-fluid">{item.description}</p>
+          </a>
+        ))}
       </div>
     </CardRightColumn>
   </CardLayout>
@@ -88,38 +80,34 @@ const [workersInfo, logoItems, workItems, serviceItems] = await Promise.all([
 
 <CardLayout class="mt-page mx-grid pt-grid border-t border-stroke">
   <CardRightColumn title="Tjenester">
-    <CardTitle>
-      {workersInfo.servicesTitle}
-    </CardTitle>
+    <CardTitle>{workersInfo.servicesTitle}</CardTitle>
 
-    <Button href="/tjenester" class="mt-grid">Se våre tjenester</Button>
+    <Button href="/tjenester" class="mt-grid">
+      Se våre tjenester
+    </Button>
 
     <GridList class="mt-section">
-      {
-        serviceItems.map((item) => (
-          <GridListItem
-            href={`/tjenester/${item.slug.current}`}
-            title={item.title}
-          >
-            <p class="text-sm-fluid">{item.description}</p>
-          </GridListItem>
-        ))
-      }
+      {serviceItems.map((item) => (
+        <GridListItem
+          href={`/tjenester/${item.slug.current}`}
+          title={item.title}
+        >
+          <p class="text-sm-fluid">{item.description}</p>
+        </GridListItem>
+      ))}
     </GridList>
   </CardRightColumn>
 </CardLayout>
 
-{
-  workersInfo.contact && (
-    <Contact
-      button={`Send ${workersInfo.contact.name} en e-post`}
-      email={workersInfo.contact.email}
-      label="Kontakt"
-      title={workersInfo.contact.title}
-      text={workersInfo.contact.description}
-      image={workersInfo.contact.image}
-    />
-  )
-}
+{workersInfo.contact && (
+  <Contact
+    button={`Send ${workersInfo.contact.name} en e-post`}
+    email={workersInfo.contact.email}
+    label="Kontakt"
+    title={workersInfo.contact.title}
+    text={workersInfo.contact.description}
+    image={workersInfo.contact.image}
+  />
+)}
 
 <Footer />

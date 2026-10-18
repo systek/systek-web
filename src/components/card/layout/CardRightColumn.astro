@@ -10,13 +10,11 @@ const { title, titleAs } = Astro.props;
 ---
 
 <div>
-  {
-    title && (
-      <TitleAs as={titleAs} class="text-sm-fluid font-bold">
-        {title}
-      </TitleAs>
-    )
-  }
+  {title && (
+    <TitleAs as={titleAs} class="text-sm-fluid font-bold">
+      {title}
+    </TitleAs>
+  )}
 </div>
 <div class="lg:col-span-3">
   <slot />

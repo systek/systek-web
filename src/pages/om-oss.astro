@@ -11,6 +11,7 @@ import PortableText from "../components/PortableText.astro";
 import WorkHere from "../components/card/WorkHere.astro";
 import Article from "../components/Article.astro";
 import ImageGallery from "../components/image/ImageGallery.astro";
+import type { Gallery } from "../components/image/ImageGallery.astro";
 import CardTitle from "../components/card/layout/CardTitle.astro";
 import { getFirstImage } from "../utils/image";
 
@@ -25,51 +26,49 @@ const locations = await fetchLocations();
 >
   <Header active="/om-oss" />
   <PageHeader title={about.title} />
-  {
-    locations && (
-      <CardLayout class="mx-grid pt-grid mt-section border-t border-stroke">
-        <CardRightColumn title="Kontorer">
-          <div class="gap-x-gutter gap-y-section grid grid-cols-1 md:grid-cols-3">
-            {locations.map((item) => (
-              <div>
-                <picture>
-                  <Image
-                    class="aspect-4/3 w-full rounded-md"
-                    image={item.image}
-                    alt={item.image.alt}
-                    width={1000}
-                    height={750}
-                    sizes="(min-width: 105rem) 25vw, (min-width: 50rem) 33vw, 50vw"
-                  />
-                </picture>
-                <p class="text-sm-fluid mt-gap">
-                  <span class="font-bold">{item.name}</span>
-                  <br />
+  {locations && (
+    <CardLayout class="mx-grid pt-grid mt-section border-t border-stroke">
+      <CardRightColumn title="Kontorer">
+        <div class="gap-x-gutter gap-y-section grid grid-cols-1 md:grid-cols-3">
+          {locations.map((item) => (
+            <div>
+              <picture>
+                <Image
+                  class="aspect-4/3 w-full rounded-md"
+                  image={item.image}
+                  alt={item.image.alt}
+                  width={1000}
+                  height={750}
+                  sizes="(min-width: 105rem) 25vw, (min-width: 50rem) 33vw, 50vw"
+                />
+              </picture>
+              <p class="text-sm-fluid mt-gap">
+                <span class="font-bold">{item.name}</span>
+                <br />
 
-                  <a
-                    class="link-underline"
-                    href={item.mapLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {item.address}
-                  </a>
-                  <br />
-                  {item.address2}
-                  <br />
-                  {item.phone}
-                  <br />
-                  <a class="link-underline" href={`mailto:${item.email}}`}>
-                    {item.email}
-                  </a>
-                </p>
-              </div>
-            ))}
-          </div>
-        </CardRightColumn>
-      </CardLayout>
-    )
-  }
+                <a
+                  class="link-underline"
+                  href={item.mapLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {item.address}
+                </a>
+                <br />
+                {item.address2}
+                <br />
+                {item.phone}
+                <br />
+                <a class="link-underline" href={`mailto:${item.email}}`}>
+                  {item.email}
+                </a>
+              </p>
+            </div>
+          ))}
+        </div>
+      </CardRightColumn>
+    </CardLayout>
+  )}
 
   <Article class="pt-grid mt-page border-t border-stroke">
     <h2 class="text-2xl-fluid font-light">{about.contentTitle}</h2>
@@ -78,24 +77,20 @@ const locations = await fetchLocations();
 
   <CardLayout class="pt-grid mt-page mx-grid border-t border-stroke">
     <CardRightColumn title={about.summaryLabel}>
-      <CardTitle>
-        {about.summaryTitle}
-      </CardTitle>
+      <CardTitle>{about.summaryTitle}</CardTitle>
     </CardRightColumn>
 
-    <ImageGallery node={about.imageGallery as unknown as any} />
+    <ImageGallery node={about.imageGallery as unknown as Gallery} />
   </CardLayout>
 
-  {
-    about.workHere && (
-      <WorkHere
-        title={about.workHere.title}
-        label={about.workHere.label}
-        text={about.workHere.description}
-        points={about.workHere.points}
-        image={about.workHere.image}
-      />
-    )
-  }
+  {about.workHere && (
+    <WorkHere
+      title={about.workHere.title}
+      label={about.workHere.label}
+      text={about.workHere.description}
+      points={about.workHere.points}
+      image={about.workHere.image}
+    />
+  )}
   <Footer />
 </Layout>

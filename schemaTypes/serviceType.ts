@@ -1,7 +1,7 @@
 import { defineField, defineType } from "sanity";
 import { contentField } from "./shared/content";
 import { contactField } from "./shared/contactField";
-import { CodeBlockIcon } from "@sanity/icons";
+import { CodeBlockIcon } from "@sanity/icons/CodeBlock";
 
 export const serviceType = defineType({
   name: "service",

@@ -59,13 +59,11 @@ const siteTitle = title ? `${title} – ${siteName}` : siteName;
     <slot />
   </body>
 
-  {
-    siteSettings.analytics && (
-      <script
-        defer
-        data-domain={siteSettings.analyticsHostname}
-        src="https://plausible.io/js/script.js"
-      />
-    )
-  }
+  {siteSettings.analytics && (
+    <script
+      defer
+      data-domain={siteSettings.analyticsHostname}
+      src="https://plausible.io/js/script.js"
+    />
+  )}
 </html>

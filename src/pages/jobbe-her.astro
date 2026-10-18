@@ -32,9 +32,7 @@ const vacantPositions = await fetchVacantPositions();
   <PageHeader image={workhereData.heroImage}>
     <CardLayout>
       <CardRightColumn title={workhereData.topLabel} titleAs="h1">
-        <h2
-          class="text-3xl-fluid max-w-288 font-light md:mr-20 lg:mr-[4.7619vw] lg:max-w-[68.571vw]"
-        >
+        <h2 class="text-3xl-fluid max-w-288 font-light md:mr-20 lg:mr-[4.7619vw] lg:max-w-[68.571vw]">
           {workhereData.title}
         </h2>
       </CardRightColumn>
@@ -45,82 +43,68 @@ const vacantPositions = await fetchVacantPositions();
     <PortableText value={workhereData.introText} />
   </Article>
 
-  {
-    workhereData.citation && (
-      <Citation
-        href="https://jobbi.no/i/systek"
-        citation={workhereData.citation}
-        class="mt-page"
-        buttonText="Tilbakemeldinger på Jobbi.no"
-      />
-    )
-  }
+  {workhereData.citation && (
+    <Citation
+      href="https://jobbi.no/i/systek"
+      citation={workhereData.citation}
+      class="mt-page"
+      buttonText="Tilbakemeldinger på Jobbi.no"
+    />
+  )}
 
   <CardLayout class="mt-page mx-grid pt-grid border-t border-stroke">
     <CardRightColumn>
-      <h2
-        class="text-2xl-fluid max-w-260 font-light md:mr-[4.7619vw] lg:max-w-[61.905vw]"
-      >
+      <h2 class="text-2xl-fluid max-w-260 font-light md:mr-[4.7619vw] lg:max-w-[61.905vw]">
         {workhereData.vacanciesTitle}
       </h2>
 
       <GridList class="mt-section">
-        {
-          vacantPositions.map((item) => (
-            <GridListItem href={item.href} title={item.title}>
-              <div>
-                <p class="text-sm-fluid">{item.description}</p>
-                <div class="mt-gutter px-gap inline-block rounded-full border border-grey-10 py-0">
-                  <span class="text-xs-fluid">{item.location}</span>
-                </div>
+        {vacantPositions.map((item) => (
+          <GridListItem href={item.href} title={item.title}>
+            <div>
+              <p class="text-sm-fluid">{item.description}</p>
+              <div class="mt-gutter px-gap inline-block rounded-full border border-grey-10 py-0">
+                <span class="text-xs-fluid">{item.location}</span>
               </div>
-            </GridListItem>
-          ))
-        }
+            </div>
+          </GridListItem>
+        ))}
       </GridList>
     </CardRightColumn>
   </CardLayout>
 
   <Article class="pt-grid mt-page border-t border-stroke">
-    <h2 class="text-2xl-fluid font-light">
-      {workhereData.contentTitel}
-    </h2>
+    <h2 class="text-2xl-fluid font-light">{workhereData.contentTitel}</h2>
     <PortableText value={workhereData.content} />
   </Article>
 
-  {
-    workhereData.contactTwo && (
-      <ContactTwo
-        label={workhereData.contactTwo.label}
-        title={workhereData.contactTwo.title}
-        text={workhereData.contactTwo.text}
-        contacts={workhereData.contactTwo.contacts as ContactImage[]}
-      />
-    )
-  }
+  {workhereData.contactTwo && (
+    <ContactTwo
+      label={workhereData.contactTwo.label}
+      title={workhereData.contactTwo.title}
+      text={workhereData.contactTwo.text}
+      contacts={workhereData.contactTwo.contacts as ContactImage[]}
+    />
+  )}
 
   <CardLayout class="mt-page pt-grid mx-grid border-t border-stroke">
     <CardRightColumn title={workhereData.faqLabel}>
-      <h3
-        class="text-2xl-fluid max-w-260 font-light md:mr-[4.7619vw] lg:max-w-[61.905vw]"
-      >
+      <h3 class="text-2xl-fluid max-w-260 font-light md:mr-[4.7619vw] lg:max-w-[61.905vw]">
         {workhereData.faqTitle}
       </h3>
       <Faq class="mt-section" items={workhereData.faqList as FaqItem[]} />
     </CardRightColumn>
   </CardLayout>
 
-  {
-    workhereData.tldrText && (
-      <Article class="mt-page">
-        <h2 class="my-grid text-lg-fluid font-medium">
-          {workhereData.tldrTitle}
-        </h2>
+  {workhereData.tldrText && (
+    <Article class="mt-page">
+      <h2 class="my-grid text-lg-fluid font-medium">
+        {workhereData.tldrTitle}
+      </h2>
 
-        <PortableText value={workhereData.tldrText} />
-      </Article>
-    )
-  }
+      <PortableText value={workhereData.tldrText} />
+    </Article>
+  )}
 
   <Footer />
 </Layout>

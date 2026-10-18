@@ -55,11 +55,11 @@ const [
   >
     <h1 class="text-4xl-fluid font-light">{frontPageData.title}</h1>
     <div>
-      <p class="text-lg-fluid">
-        {frontPageData.topDescription}
-      </p>
+      <p class="text-lg-fluid">{frontPageData.topDescription}</p>
 
-      <Button class="mt-grid" href="/folka">Les om folka</Button>
+      <Button class="mt-grid" href="/folka">
+        Les om folka
+      </Button>
     </div>
   </div>
 
@@ -86,77 +86,69 @@ const [
 
   <CardLayout class="mt-section mx-grid pt-grid border-t border-stroke">
     <CardRightColumn title="Tjenester">
-      <CardTitle>
-        {frontPageData.servicesTitle}
-      </CardTitle>
+      <CardTitle>{frontPageData.servicesTitle}</CardTitle>
 
-      <Button href="/tjenester" class="mt-grid">Se våre tjenester</Button>
+      <Button href="/tjenester" class="mt-grid">
+        Se våre tjenester
+      </Button>
 
       <GridList class="mt-section">
-        {
-          serviceItems.map((item) => (
-            <GridListItem
-              href={`/tjenester/${item.slug.current}`}
-              title={item.title}
-            >
-              <p class="text-sm-fluid">{item.description}</p>
-            </GridListItem>
-          ))
-        }
+        {serviceItems.map((item) => (
+          <GridListItem
+            href={`/tjenester/${item.slug.current}`}
+            title={item.title}
+          >
+            <p class="text-sm-fluid">{item.description}</p>
+          </GridListItem>
+        ))}
       </GridList>
     </CardRightColumn>
   </CardLayout>
 
   <CardLayout class="mt-page mx-grid pt-grid border-t border-stroke">
     <CardRightColumn title="Arbeider">
-      <CardTitle>
-        {frontPageData.workTitle}
-      </CardTitle>
+      <CardTitle>{frontPageData.workTitle}</CardTitle>
 
-      <Button class="mt-grid" href="/arbeider">Se alle arbeider</Button>
+      <Button class="mt-grid" href="/arbeider">
+        Se alle arbeider
+      </Button>
     </CardRightColumn>
   </CardLayout>
 
-  <div
-    class="mx-grid gap-x-gutter gap-y-section mt-section grid grid-cols-2 items-start md:grid-cols-4"
-  >
-    {
-      frontPageData.selectedWorks.map((item, index) => (
-        <a
-          class={clsx("group", index % 3 === 0 && "col-span-2")}
-          href={`/arbeider/${item.slug.current}`}
-        >
-          <picture>
-            <Image
-              class={clsx(
-                "w-full rounded-md",
-                index % 3 === 2 ? "aspect-square" : "aspect-4/3",
-              )}
-              image={item.image}
-              alt={item.image.alt}
-              width={index % 3 === 0 ? 2000 : 1000}
-              height={index === 0 ? 1500 : index === 1 ? 750 : 1000}
-              sizes={
-                index % 3 === 0
-                  ? "(min-width: 50rem) 50vw, 100vw"
-                  : "(min-width: 50rem) 25vw, 50vw"
-              }
-            />
-          </picture>
-          <p class="mt-gap text-md-fluid group-link-underline font-bold break-words">
-            {item.title}
-          </p>
-          <p class="text-md-fluid">{item.description}</p>
-        </a>
-      ))
-    }
+  <div class="mx-grid gap-x-gutter gap-y-section mt-section grid grid-cols-2 items-start md:grid-cols-4">
+    {frontPageData.selectedWorks.map((item, index) => (
+      <a
+        class={clsx("group", index % 3 === 0 && "col-span-2")}
+        href={`/arbeider/${item.slug.current}`}
+      >
+        <picture>
+          <Image
+            class={clsx(
+              "w-full rounded-md",
+              index % 3 === 2 ? "aspect-square" : "aspect-4/3",
+            )}
+            image={item.image}
+            alt={item.image.alt}
+            width={index % 3 === 0 ? 2000 : 1000}
+            height={index === 0 ? 1500 : index === 1 ? 750 : 1000}
+            sizes={
+              index % 3 === 0
+                ? "(min-width: 50rem) 50vw, 100vw"
+                : "(min-width: 50rem) 25vw, 50vw"
+            }
+          />
+        </picture>
+        <p class="mt-gap text-md-fluid group-link-underline font-bold break-words">
+          {item.title}
+        </p>
+        <p class="text-md-fluid">{item.description}</p>
+      </a>
+    ))}
   </div>
 
   <CardLayout class="mt-page mx-grid pt-grid border-t border-stroke">
     <CardRightColumn title="Arrangementer">
-      <CardTitle>
-        {frontPageData.activityTitle}
-      </CardTitle>
+      <CardTitle>{frontPageData.activityTitle}</CardTitle>
 
       <div class="mt-section">
         <picture>
@@ -182,112 +174,102 @@ const [
 
       <div class="mt-section md:border-t md:border-stroke">
         <!-- seperate markup for mobile and desktop -->
-        <div
-          class="gap-gutter flex justify-between border-b border-stroke py-4 md:hidden"
-        >
+        <div class="gap-gutter flex justify-between border-b border-stroke py-4 md:hidden">
           <p class="text-xs-fluid font-bold">Hva skjer</p>
           <p class="text-xs-fluid font-bold">Dato</p>
         </div>
 
-        <div
-          class="py-grid gap-gutter hidden grid-cols-5 border-b border-stroke md:grid"
-        >
+        <div class="py-grid gap-gutter hidden grid-cols-5 border-b border-stroke md:grid">
           <p class="text-xs-fluid col-span-2 font-bold">Hva skjer</p>
           <p class="text-xs-fluid font-bold">Dato</p>
           <p class="text-xs-fluid font-bold">Sted</p>
           <p class="text-xs-fluid font-bold">Påmelding</p>
         </div>
-        {
-          activityItems.map((item) => {
-            // TODO: move this logic into a client-side component
-            // This will onlly be checked at build time
-            const date = new Date(item.date);
-            const formatedDate = formatDate(date);
-            const mobileFormatDate = formatDate(date, "d. MMM");
-            const isDone = date < new Date();
-            return (
-              <div>
-                <div class="gap-gutter flex items-center justify-between border-b border-stroke py-4 md:hidden">
-                  {isDone || !item.registrationUrl ? (
-                    <p
-                      class={clsx("text-xs-fluid", { "line-through": isDone })}
-                    >
-                      {item.title}
-                    </p>
-                  ) : (
-                    <a
-                      href={item.registrationUrl}
-                      target="_blank"
-                      class="link-underline flex items-center gap-1"
-                    >
-                      <ExternalIcon class="size-2.5 shrink-0 lg:size-[0.595vw]" />
-                      <p class="text-xs-fluid">{item.title}</p>
-                    </a>
-                  )}
-                  <p
-                    class={clsx("text-xs-fluid whitespace-nowrap", {
-                      "line-through": isDone,
-                    })}
-                  >
-                    {mobileFormatDate}
-                  </p>
-                </div>
-
-                <div class="py-grid gap-gutter hidden grid-cols-5 border-b border-stroke md:grid">
-                  <p
-                    class={clsx("text-xs-fluid col-span-2", {
-                      "line-through": isDone,
-                    })}
-                  >
+        {activityItems.map((item) => {
+          // TODO: move this logic into a client-side component
+          // This will onlly be checked at build time
+          const date = new Date(item.date);
+          const formatedDate = formatDate(date);
+          const mobileFormatDate = formatDate(date, "d. MMM");
+          const isDone = date < new Date();
+          return (
+            <div>
+              <div class="gap-gutter flex items-center justify-between border-b border-stroke py-4 md:hidden">
+                {isDone || !item.registrationUrl ? (
+                  <p class={clsx("text-xs-fluid", { "line-through": isDone })}>
                     {item.title}
                   </p>
-                  <p class={clsx("text-xs-fluid", { "line-through": isDone })}>
-                    {formatedDate}
-                  </p>
-                  <p class={clsx("text-xs-fluid", { "line-through": isDone })}>
-                    {item.location}
-                  </p>
-                  <p class={clsx("text-xs-fluid", { "line-through": isDone })}>
-                    {isDone ? (
-                      "Avsluttet"
-                    ) : !item.internal && item.registrationUrl ? (
-                      <Button size="sm" href={item.registrationUrl}>
-                        {item.isRegistrationUrl ? "Meld meg på" : "Les mer her"}
-                      </Button>
-                    ) : (
-                      "Internt"
-                    )}
-                  </p>
-                </div>
+                ) : (
+                  <a
+                    href={item.registrationUrl}
+                    target="_blank"
+                    class="link-underline flex items-center gap-1"
+                  >
+                    <ExternalIcon class="size-2.5 shrink-0 lg:size-[0.595vw]" />
+                    <p class="text-xs-fluid">{item.title}</p>
+                  </a>
+                )}
+                <p
+                  class={clsx("text-xs-fluid whitespace-nowrap", {
+                    "line-through": isDone,
+                  })}
+                >
+                  {mobileFormatDate}
+                </p>
               </div>
-            );
-          })
-        }
+
+              <div class="py-grid gap-gutter hidden grid-cols-5 border-b border-stroke md:grid">
+                <p
+                  class={clsx("text-xs-fluid col-span-2", {
+                    "line-through": isDone,
+                  })}
+                >
+                  {item.title}
+                </p>
+                <p class={clsx("text-xs-fluid", { "line-through": isDone })}>
+                  {formatedDate}
+                </p>
+                <p class={clsx("text-xs-fluid", { "line-through": isDone })}>
+                  {item.location}
+                </p>
+                <p class={clsx("text-xs-fluid", { "line-through": isDone })}>
+                  {isDone ? (
+                    "Avsluttet"
+                  ) : !item.internal && item.registrationUrl ? (
+                    <Button size="sm" href={item.registrationUrl}>
+                      {item.isRegistrationUrl ? "Meld meg på" : "Les mer her"}
+                    </Button>
+                  ) : (
+                    "Internt"
+                  )}
+                </p>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </CardRightColumn>
   </CardLayout>
 
   <CardLayout class="mt-page mx-grid pt-grid border-t border-stroke">
     <CardRightColumn title="Jobbe her?">
-      <CardTitle>
-        {frontPageData.vacanciesTitle}
-      </CardTitle>
+      <CardTitle>{frontPageData.vacanciesTitle}</CardTitle>
 
-      <Button class="mt-grid" href="/jobbe-her">Se ledige stillinger</Button>
+      <Button class="mt-grid" href="/jobbe-her">
+        Se ledige stillinger
+      </Button>
     </CardRightColumn>
   </CardLayout>
 
   <CardLayout class="mx-grid mt-section gap-y-section">
     <Accordion class="order-1 lg:order-0">
-      {
-        frontPageData.vacanciesPoints.map((point, index) => (
-          <AccordionItem bold open={index === 0} size="lg" title={point.title}>
-            <p class="text-sm-fluid max-w-140 text-text-secondary lg:max-w-[20.9524vw]">
-              {point.description}
-            </p>
-          </AccordionItem>
-        ))
-      }
+      {frontPageData.vacanciesPoints.map((point, index) => (
+        <AccordionItem bold open={index === 0} size="lg" title={point.title}>
+          <p class="text-sm-fluid max-w-140 text-text-secondary lg:max-w-[20.9524vw]">
+            {point.description}
+          </p>
+        </AccordionItem>
+      ))}
     </Accordion>
 
     <div class="lg:col-span-3">
@@ -317,30 +299,30 @@ const [
     <CardRightColumn title="Nyheter">
       <CardTitle>Siste nytt fra Systek</CardTitle>
 
-      <Button class="mt-grid" href="/nyheter">Se alle nyheter</Button>
+      <Button class="mt-grid" href="/nyheter">
+        Se alle nyheter
+      </Button>
 
       <div class="mt-section border-t border-stroke">
-        {
-          newsItems.map((item) => (
-            <div class="py-grid gap-gutter flex justify-between border-b border-stroke md:grid md:grid-cols-4">
-              <div class="md:col-span-3">
-                <a
-                  class="link-underline inline-flex items-center gap-1"
-                  href={`/nyheter/${item.slug.current}`}
-                >
-                  <ExternalIcon class="size-2.5 shrink-0 lg:size-[0.595vw]" />
-                  <p class="text-xs-fluid">{item.title}</p>
-                </a>
-              </div>
-              <p class="text-xs-fluid hidden whitespace-nowrap md:block">
-                {formatDate(item.publishedAt)}
-              </p>
-              <p class="text-xs-fluid block whitespace-nowrap md:hidden">
-                {formatDate(item.publishedAt, "d. MMM")}
-              </p>
+        {newsItems.map((item) => (
+          <div class="py-grid gap-gutter flex justify-between border-b border-stroke md:grid md:grid-cols-4">
+            <div class="md:col-span-3">
+              <a
+                class="link-underline inline-flex items-center gap-1"
+                href={`/nyheter/${item.slug.current}`}
+              >
+                <ExternalIcon class="size-2.5 shrink-0 lg:size-[0.595vw]" />
+                <p class="text-xs-fluid">{item.title}</p>
+              </a>
             </div>
-          ))
-        }
+            <p class="text-xs-fluid hidden whitespace-nowrap md:block">
+              {formatDate(item.publishedAt)}
+            </p>
+            <p class="text-xs-fluid block whitespace-nowrap md:hidden">
+              {formatDate(item.publishedAt, "d. MMM")}
+            </p>
+          </div>
+        ))}
       </div>
 
       <Logos class="mt-page" logos={logoItems} />
@@ -355,48 +337,42 @@ const [
         Se alle blogginnlegg
       </Button>
 
-      <div
-        class="gap-x-gutter gap-y-section mt-section grid items-start md:grid-cols-2"
-      >
-        {
-          blogItems.map((item) => (
-            <a class="group" href={item.link}>
-              <picture>
-                <Image
-                  class="aspect-4/3 w-full rounded-md"
-                  image={item.image}
-                  alt={item.image.alt}
-                  width={1000}
-                  height={750}
-                  sizes="(min-width: 105rem) 37.5vw, (min-width: 50rem) 50vw, 100vw"
-                />
-              </picture>
-              <p class="mt-gap text-md-fluid group-link-underline font-bold">
-                {item.title}
-              </p>
-              <p class="text-md-fluid">{item.description}</p>
-              <p class="text-sm-fluid leading-snug">
-                Skrevet av {item.author?.name ?? "Systek"}
-              </p>
-            </a>
-          ))
-        }
+      <div class="gap-x-gutter gap-y-section mt-section grid items-start md:grid-cols-2">
+        {blogItems.map((item) => (
+          <a class="group" href={item.link}>
+            <picture>
+              <Image
+                class="aspect-4/3 w-full rounded-md"
+                image={item.image}
+                alt={item.image.alt}
+                width={1000}
+                height={750}
+                sizes="(min-width: 105rem) 37.5vw, (min-width: 50rem) 50vw, 100vw"
+              />
+            </picture>
+            <p class="mt-gap text-md-fluid group-link-underline font-bold">
+              {item.title}
+            </p>
+            <p class="text-md-fluid">{item.description}</p>
+            <p class="text-sm-fluid leading-snug">
+              Skrevet av {item.author?.name ?? "Systek"}
+            </p>
+          </a>
+        ))}
       </div>
     </CardRightColumn>
   </CardLayout>
 
-  {
-    frontPageData.contact && (
-      <Contact
-        button="Send en e-post"
-        email={frontPageData.contact.email}
-        label="Kontakt"
-        title={frontPageData.contact.title}
-        text={frontPageData.contact.description}
-        image={frontPageData.contact.image}
-      />
-    )
-  }
+  {frontPageData.contact && (
+    <Contact
+      button="Send en e-post"
+      email={frontPageData.contact.email}
+      label="Kontakt"
+      title={frontPageData.contact.title}
+      text={frontPageData.contact.description}
+      image={frontPageData.contact.image}
+    />
+  )}
 
   <Footer />
 </Layout>

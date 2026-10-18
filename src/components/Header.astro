@@ -27,7 +27,7 @@ const links = [
   </a>
 </div>
 
-<div data-header-sentinel class="hidden h-px md:block"></div>
+<div data-header-sentinel class="hidden h-px md:block" />
 <div class="px-grid md:sticky md:top-0 md:z-(--z-header) md:bg-background">
   <header data-header class="flex items-center justify-between gap-4 py-2.5">
     <a href="/">
@@ -39,23 +39,21 @@ const links = [
     </a>
     <nav class="hidden md:block">
       <ul class="flex gap-8 lg:gap-[1.9048vw]">
-        {
-          links.map((link) => (
-            <li>
-              <a
-                href={link.href}
-                class={clsx(
-                  "text-sm-fluid",
-                  active === link.href
-                    ? "regular-underline"
-                    : "hover:regular-underline",
-                )}
-              >
-                {link.text}
-              </a>
-            </li>
-          ))
-        }
+        {links.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class={clsx(
+                "text-sm-fluid",
+                active === link.href
+                  ? "regular-underline"
+                  : "hover:regular-underline",
+              )}
+            >
+              {link.text}
+            </a>
+          </li>
+        ))}
       </ul>
     </nav>
     <Button class="hidden md:block" color="black" href="/jobbe-her">
@@ -80,18 +78,16 @@ const links = [
     </div>
     <nav class="flex flex-1 items-center justify-center">
       <ul class="gap-section py-grid flex flex-col">
-        {
-          links.map((link) => (
-            <li class="text-center">
-              <a
-                href={link.href}
-                class="text-4xl font-light hover:regular-underline"
-              >
-                {link.text}
-              </a>
-            </li>
-          ))
-        }
+        {links.map((link) => (
+          <li class="text-center">
+            <a
+              href={link.href}
+              class="text-4xl font-light hover:regular-underline"
+            >
+              {link.text}
+            </a>
+          </li>
+        ))}
       </ul>
     </nav>
 
@@ -100,9 +96,9 @@ const links = [
       <Arrow position="middleRight" />
     </div>
 
-    <Button class="my-grid mx-auto" color="black" href="/jobbe-her"
-      >Jobbe her?</Button
-    >
+    <Button class="my-grid mx-auto" color="black" href="/jobbe-her">
+      Jobbe her?
+    </Button>
 
     <div class="flex justify-between">
       <Arrow position="bottomLeft" />

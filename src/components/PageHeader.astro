@@ -20,46 +20,42 @@ const { image, title } = Astro.props;
     <Arrow position="topRight" />
   </div>
 
-  {
-    title && (
-      <h1 class="text-4xl-fluid font-light break-words md:mx-auto md:max-w-288 md:text-center lg:max-w-[68.571vw]">
-        {title}
-      </h1>
-    )
-  }
+  {title && (
+    <h1 class="text-4xl-fluid font-light break-words md:mx-auto md:max-w-288 md:text-center lg:max-w-[68.571vw]">
+      {title}
+    </h1>
+  )}
 
   <slot />
 
-  {
-    image?.asset && (
-      <>
-        <div class="flex justify-between">
-          <Arrow position="middleLeft" />
-          <Arrow position="middleRight" />
-        </div>
+  {image?.asset && (
+    <>
+      <div class="flex justify-between">
+        <Arrow position="middleLeft" />
+        <Arrow position="middleRight" />
+      </div>
 
-        <Image
-          alt={image.alt}
-          class="hidden aspect-2/1 w-full rounded-md md:block"
-          image={image}
-          loading="eager"
-          width={2000}
-          height={1000}
-          sizes="100vw"
-        />
+      <Image
+        alt={image.alt}
+        class="hidden aspect-2/1 w-full rounded-md md:block"
+        image={image}
+        loading="eager"
+        width={2000}
+        height={1000}
+        sizes="100vw"
+      />
 
-        <Image
-          alt={image.alt}
-          class="block aspect-4/3 w-full rounded-md md:hidden"
-          image={image}
-          loading="eager"
-          width={1000}
-          height={750}
-          sizes="100vw"
-        />
-      </>
-    )
-  }
+      <Image
+        alt={image.alt}
+        class="block aspect-4/3 w-full rounded-md md:hidden"
+        image={image}
+        loading="eager"
+        width={1000}
+        height={750}
+        sizes="100vw"
+      />
+    </>
+  )}
 
   <div class="flex justify-between">
     <Arrow position="bottomLeft" />

@@ -25,38 +25,32 @@ const { label, title, text, contacts } = Astro.props;
   <div class="flex flex-col lg:col-span-2">
     <h2 class="text-sm-fluid font-bold">{label}</h2>
     <div class="mt-auto max-w-148 lg:max-w-[35.238vw]">
-      <h3 class="mt-gap text-2xl-fluid font-light">
-        {title}
-      </h3>
-      <p class="mt-grid text-md-fluid">
-        {text}
-      </p>
+      <h3 class="mt-gap text-2xl-fluid font-light">{title}</h3>
+      <p class="mt-grid text-md-fluid">{text}</p>
     </div>
   </div>
   <div class="gap-gutter grid md:grid-cols-2 lg:col-span-2">
-    {
-      contacts.map((contact) => (
-        <div class="mt-section-sm md:mt-section-md lg:mt-0">
-          <picture>
-            <Image
-              class="aspect-square w-full rounded-md"
-              image={contact}
-              alt={contact.alt}
-              width={1000}
-              height={1000}
-              sizes="(min-width: 105rem) 25vw, (min-width: 50rem) 50vw, 100vw"
-            />
-          </picture>
-          <p class="mt-gap text-md-fluid font-bold">{contact.name}</p>
-          <p class="text-md-fluid">{contact.position}</p>
-          <p class="text-sm-fluid">
-            {contact.phone} ·{" "}
-            <a class="link-underline" href={`mailto:${contact.email}`}>
-              {contact.email}
-            </a>
-          </p>
-        </div>
-      ))
-    }
+    {contacts.map((contact) => (
+      <div class="mt-section-sm md:mt-section-md lg:mt-0">
+        <picture>
+          <Image
+            class="aspect-square w-full rounded-md"
+            image={contact}
+            alt={contact.alt}
+            width={1000}
+            height={1000}
+            sizes="(min-width: 105rem) 25vw, (min-width: 50rem) 50vw, 100vw"
+          />
+        </picture>
+        <p class="mt-gap text-md-fluid font-bold">{contact.name}</p>
+        <p class="text-md-fluid">{contact.position}</p>
+        <p class="text-sm-fluid">
+          {contact.phone} ·{" "}
+          <a class="link-underline" href={`mailto:${contact.email}`}>
+            {contact.email}
+          </a>
+        </p>
+      </div>
+    ))}
   </div>
 </CardLayout>

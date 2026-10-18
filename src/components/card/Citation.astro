@@ -30,12 +30,10 @@ const { buttonText, citation, class: className, href, title } = Astro.props;
       subtitle={citation.position}
       image={citation.picture}
     />
-    {
-      href && buttonText && (
-        <Button class="my-grid" href={href}>
-          {buttonText}
-        </Button>
-      )
-    }
+    {href && buttonText && (
+      <Button class="my-grid" href={href}>
+        {buttonText}
+      </Button>
+    )}
   </CardRightColumn>
 </CardLayout>

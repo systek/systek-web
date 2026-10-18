@@ -2,7 +2,7 @@ import { defineField, defineType } from "sanity";
 import { stats } from "./shared/stats";
 import { contentField } from "./shared/content";
 import { citationField } from "./shared/citation";
-import { CaseIcon } from "@sanity/icons";
+import { CaseIcon } from "@sanity/icons/Case";
 
 export const workType = defineType({
   name: "work",

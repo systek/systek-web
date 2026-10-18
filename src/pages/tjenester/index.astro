@@ -32,17 +32,11 @@ const [servicesInfo, serviceItems] = await Promise.all([
     id="main-content"
     class="mx-grid mt-section grid scroll-mt-(--height-header) lg:grid-cols-2"
   >
-    <div
-      class="flex max-h-48 flex-col items-start justify-end md:max-h-80 lg:order-2 lg:max-h-none lg:flex-row-reverse lg:items-center"
-    >
-      <h1
-        class="text-4xl-fluid ml-[80%] -translate-x-1/1 rounded-sm bg-yellow px-1 py-1 font-light md:ml-[70%] md:px-3 md:py-2 lg:ml-0 lg:translate-x-0 lg:-translate-y-1/2"
-      >
+    <div class="flex max-h-48 flex-col items-start justify-end md:max-h-80 lg:order-2 lg:max-h-none lg:flex-row-reverse lg:items-center">
+      <h1 class="text-4xl-fluid ml-[80%] -translate-x-1/1 rounded-sm bg-yellow px-1 py-1 font-light md:ml-[70%] md:px-3 md:py-2 lg:ml-0 lg:translate-x-0 lg:-translate-y-1/2">
         Tjenester
       </h1>
-      <div
-        class="h-2/5 w-8/10 self-start p-1 md:w-7/10 lg:h-1/2 lg:w-1/2 lg:self-end"
-      >
+      <div class="h-2/5 w-8/10 self-start p-1 md:w-7/10 lg:h-1/2 lg:w-1/2 lg:self-end">
         <svg
           class="pointer-events-none h-full w-full stroke-blue-dark"
           viewBox="0 0 402 362"
@@ -55,7 +49,8 @@ const [servicesInfo, serviceItems] = await Promise.all([
             y2="0"
             stroke="inherit"
             stroke-width="2"
-            vector-effect="non-scaling-stroke"></line>
+            vector-effect="non-scaling-stroke"
+          />
         </svg>
       </div>
     </div>
@@ -76,9 +71,7 @@ const [servicesInfo, serviceItems] = await Promise.all([
 
   <CardLayout class="mt-section mx-grid">
     <CardRightColumn>
-      <h2
-        class="text-2xl-fluid max-w-260 font-light md:mr-[4.7619vw] lg:max-w-[61.905vw]"
-      >
+      <h2 class="text-2xl-fluid max-w-260 font-light md:mr-[4.7619vw] lg:max-w-[61.905vw]">
         {servicesInfo.description}
       </h2>
 
@@ -104,44 +97,38 @@ const [servicesInfo, serviceItems] = await Promise.all([
       </div>
 
       <GridList class="mt-section">
-        {
-          serviceItems.map((item) => (
-            <GridListItem
-              href={`/tjenester/${item.slug.current}`}
-              title={item.title}
-            >
-              <p class="text-sm-fluid">{item.description}</p>
-            </GridListItem>
-          ))
-        }
+        {serviceItems.map((item) => (
+          <GridListItem
+            href={`/tjenester/${item.slug.current}`}
+            title={item.title}
+          >
+            <p class="text-sm-fluid">{item.description}</p>
+          </GridListItem>
+        ))}
       </GridList>
     </CardRightColumn>
   </CardLayout>
 
-  {
-    servicesInfo.citations && (
-      <Citation
-        href="/tjenester/design-og-brukeropplevelse"
-        title="Tjenester"
-        citation={servicesInfo.citations as unknown as CitationType}
-        buttonText="Les om tjenesten"
-        title="Design og brukeropplevelse"
-      />
-    )
-  }
+  {servicesInfo.citations && (
+    <Citation
+      href="/tjenester/design-og-brukeropplevelse"
+      title="Tjenester"
+      citation={servicesInfo.citations as unknown as CitationType}
+      buttonText="Les om tjenesten"
+      title="Design og brukeropplevelse"
+    />
+  )}
 
-  {
-    servicesInfo.contact && (
-      <Contact
-        button={`Send ${servicesInfo.contact.name} en e-post`}
-        email={servicesInfo.contact.email}
-        label="Kontakt"
-        title={servicesInfo.contact.title}
-        text={servicesInfo.contact.description}
-        image={servicesInfo.contact.image}
-      />
-    )
-  }
+  {servicesInfo.contact && (
+    <Contact
+      button={`Send ${servicesInfo.contact.name} en e-post`}
+      email={servicesInfo.contact.email}
+      label="Kontakt"
+      title={servicesInfo.contact.title}
+      text={servicesInfo.contact.description}
+      image={servicesInfo.contact.image}
+    />
+  )}
 
   <Footer />
 </Layout>

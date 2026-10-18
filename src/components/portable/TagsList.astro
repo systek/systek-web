@@ -13,13 +13,11 @@ const {
 <div class="my-grid">
   <p class="text-sm-fluid font-bold">Stikkord</p>
   <div class="text-sm-fluid flex flex-wrap gap-x-2">
-    {
-      items?.map((item, index) => (
-        <>
-          <span>{item}</span>
-          {index < items?.length - 1 && <span>·</span>}
-        </>
-      ))
-    }
+    {items?.map((item, index) => (
+      <>
+        <span>{item}</span>
+        {index < items?.length - 1 && <span>·</span>}
+      </>
+    ))}
   </div>
 </div>

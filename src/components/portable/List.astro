@@ -7,21 +7,19 @@ const { node, index, isInline, ...attrs } = Astro.props;
 const listItemIs = (listItem: string) => listItem === node.listItem;
 ---
 
-{
-  listItemIs("menu") ? (
-    <menu {...attrs}>
-      <slot />
-    </menu>
-  ) : listItemIs("number") ? (
-    <ol {...attrs}>
-      <slot />
-    </ol>
-  ) : (
-    <ul
-      class="my-grid text-md-fluid my-grid list-inside list-disc break-words"
-      {...attrs}
-    >
-      <slot />
-    </ul>
-  )
-}
+{listItemIs("menu") ? (
+  <menu {...attrs}>
+    <slot />
+  </menu>
+) : listItemIs("number") ? (
+  <ol {...attrs}>
+    <slot />
+  </ol>
+) : (
+  <ul
+    class="my-grid text-md-fluid my-grid list-inside list-disc break-words"
+    {...attrs}
+  >
+    <slot />
+  </ul>
+)}

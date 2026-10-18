@@ -15,10 +15,8 @@ interface Props {
 const { node } = Astro.props;
 ---
 
-{
-  node.variant === "right" ? (
-    <ImageOneRight node={node} />
-  ) : (
-    <ImageOneCentered node={node} />
-  )
-}
+{node.variant === "right" ? (
+  <ImageOneRight node={node} />
+) : (
+  <ImageOneCentered node={node} />
+)}

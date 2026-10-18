@@ -1,4 +1,4 @@
-import { SearchIcon } from "@sanity/icons";
+import { SearchIcon } from "@sanity/icons/Search";
 import { defineField } from "sanity";
 
 export const tagList = defineField({

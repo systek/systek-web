@@ -6,13 +6,15 @@ export type ImageWithAlt = SanityImage & {
   alt: string;
 };
 
+export type Gallery = {
+  first: ImageWithAlt;
+  second: ImageWithAlt;
+  third: ImageWithAlt;
+  fourth: ImageWithAlt;
+};
+
 interface Props {
-  node?: {
-    first: ImageWithAlt;
-    second: ImageWithAlt;
-    third: ImageWithAlt;
-    fourth: ImageWithAlt;
-  };
+  node?: Gallery;
 }
 
 const { node } = Astro.props;
@@ -24,9 +26,7 @@ if (!node?.first || !node.second || !node.third || !node.fourth) {
 const { first, second, third, fourth } = node;
 ---
 
-<div
-  class="mt-section gap-gutter grid grid-cols-2 lg:col-span-4 lg:grid-cols-2"
->
+<div class="mt-section gap-gutter grid grid-cols-2 lg:col-span-4 lg:grid-cols-2">
   <div class="gap-gutter flex flex-col lg:flex-row">
     <picture>
       <Image

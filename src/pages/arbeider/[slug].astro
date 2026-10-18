@@ -92,31 +92,27 @@ const workItems = _workItems
             <p class="text-sm-fluid font-bold">Kunde</p>
             <p class="text-sm-fluid">{work.title}</p>
           </div>
-          {
-            work.startDate && (
-              <div>
-                <p class="text-sm-fluid font-bold">Periode</p>
-                <p class="text-sm-fluid">
-                  {work.startDate && formatDate(work.startDate, "MMM yyyy")}
-                  {work.startDate && work.endDate ? " - " : ""}
-                  {work.endDate && formatDate(work.endDate, "MMM yyyy")}
-                </p>
-              </div>
-            )
-          }
+          {work.startDate && (
+            <div>
+              <p class="text-sm-fluid font-bold">Periode</p>
+              <p class="text-sm-fluid">
+                {work.startDate && formatDate(work.startDate, "MMM yyyy")}
+                {work.startDate && work.endDate ? " - " : ""}
+                {work.endDate && formatDate(work.endDate, "MMM yyyy")}
+              </p>
+            </div>
+          )}
         </div>
         <div class="gap-gap flex flex-col items-start">
-          {
-            work.services.map((item) => (
-              <Button
-                color="grey"
-                href={`/tjenester/${item.slug.current}`}
-                size="sm"
-              >
-                {item.title}
-              </Button>
-            ))
-          }
+          {work.services.map((item) => (
+            <Button
+              color="grey"
+              href={`/tjenester/${item.slug.current}`}
+              size="sm"
+            >
+              {item.title}
+            </Button>
+          ))}
         </div>
       </div>
     </div>
@@ -137,48 +133,46 @@ const workItems = _workItems
 
   {work.citation && <Citation title="Tjenester" citation={work.citation} />}
 
-  {
-    work.contactTwo && (
-      <CardLayout class="mt-page mx-grid pt-grid border-t border-stroke">
-        <CardRightColumn title={work.contactTwo.label}>
-          <CardTitle>{work.contactTwo.title}</CardTitle>
-          <div class="gap-gutter mt-section grid">
-            {work.contactTwo.contacts.map((item: Staff, index) => (
-              <>
-                <div class="gap-gutter flex">
-                  <picture>
-                    <Image
-                      class="aspect-square size-28 rounded-md md:size-40 lg:size-[9.5238vw]"
-                      alt=""
-                      width={400}
-                      height={400}
-                      image={item.image}
-                      sizes={`(min-width: 105rem) ${vw(10)}, 10rem`}
-                    />
-                  </picture>
-                  <div class="flex flex-col items-start">
-                    <p class="text-md-fluid font-bold">{item.name}</p>
-                    <p class="text-md-fluid">{item.position}</p>
-                    {item.email && (
-                      <a
-                        href={`mailto:${item.email}`}
-                        class="text-xs-fluid link-underline mt-auto"
-                      >
-                        Send {item.name.split(" ")[0]} en e-post
-                      </a>
-                    )}
-                  </div>
+  {work.contactTwo && (
+    <CardLayout class="mt-page mx-grid pt-grid border-t border-stroke">
+      <CardRightColumn title={work.contactTwo.label}>
+        <CardTitle>{work.contactTwo.title}</CardTitle>
+        <div class="gap-gutter mt-section grid">
+          {work.contactTwo.contacts.map((item: Staff, index) => (
+            <>
+              <div class="gap-gutter flex">
+                <picture>
+                  <Image
+                    class="aspect-square size-28 rounded-md md:size-40 lg:size-[9.5238vw]"
+                    alt=""
+                    width={400}
+                    height={400}
+                    image={item.image}
+                    sizes={`(min-width: 105rem) ${vw(10)}, 10rem`}
+                  />
+                </picture>
+                <div class="flex flex-col items-start">
+                  <p class="text-md-fluid font-bold">{item.name}</p>
+                  <p class="text-md-fluid">{item.position}</p>
+                  {item.email && (
+                    <a
+                      href={`mailto:${item.email}`}
+                      class="text-xs-fluid link-underline mt-auto"
+                    >
+                      Send {item.name.split(" ")[0]} en e-post
+                    </a>
+                  )}
                 </div>
-                {index < work.contactTwo.contacts.length - 1 && (
-                  <hr class="border-stroke" />
-                )}
-              </>
-            ))}
-          </div>
-        </CardRightColumn>
-      </CardLayout>
-    )
-  }
+              </div>
+              {index < work.contactTwo.contacts.length - 1 && (
+                <hr class="border-stroke" />
+              )}
+            </>
+          ))}
+        </div>
+      </CardRightColumn>
+    </CardLayout>
+  )}
 
   <CardLayout class="mt-page mx-grid pt-grid border-t border-stroke">
     <CardRightColumn title="Arbeider">
@@ -186,43 +180,41 @@ const workItems = _workItems
         Les om hvordan vi har bistått kunder med vår kompetanse
       </CardTitle>
 
-      <Button class="mt-grid" href="/arbeider">Se alle arbeider</Button>
+      <Button class="mt-grid" href="/arbeider">
+        Se alle arbeider
+      </Button>
     </CardRightColumn>
   </CardLayout>
 
-  <div
-    class="mx-grid gap-x-gutter gap-y-section mt-section grid grid-cols-2 items-start md:grid-cols-4"
-  >
-    {
-      workItems.map((item, index) => (
-        <a
-          class={clsx("group", index % 3 === 0 && "col-span-2")}
-          href={`/arbeider/${item.slug.current}`}
-        >
-          <picture>
-            <Image
-              class={clsx(
-                "w-full rounded-md",
-                index % 3 === 2 ? "aspect-square" : "aspect-4/3",
-              )}
-              image={item.image}
-              alt={item.image.alt}
-              width={index % 3 === 0 ? 2000 : 1000}
-              height={index === 0 ? 1500 : index === 1 ? 750 : 1000}
-              sizes={
-                index % 3 === 0
-                  ? "(min-width: 50rem) 50vw, 100vw"
-                  : "(min-width: 50rem) 25vw, 50vw"
-              }
-            />
-          </picture>
-          <p class="mt-gap text-md-fluid group-link-underline font-bold break-words">
-            {item.title}
-          </p>
-          <p class="text-md-fluid">{item.description}</p>
-        </a>
-      ))
-    }
+  <div class="mx-grid gap-x-gutter gap-y-section mt-section grid grid-cols-2 items-start md:grid-cols-4">
+    {workItems.map((item, index) => (
+      <a
+        class={clsx("group", index % 3 === 0 && "col-span-2")}
+        href={`/arbeider/${item.slug.current}`}
+      >
+        <picture>
+          <Image
+            class={clsx(
+              "w-full rounded-md",
+              index % 3 === 2 ? "aspect-square" : "aspect-4/3",
+            )}
+            image={item.image}
+            alt={item.image.alt}
+            width={index % 3 === 0 ? 2000 : 1000}
+            height={index === 0 ? 1500 : index === 1 ? 750 : 1000}
+            sizes={
+              index % 3 === 0
+                ? "(min-width: 50rem) 50vw, 100vw"
+                : "(min-width: 50rem) 25vw, 50vw"
+            }
+          />
+        </picture>
+        <p class="mt-gap text-md-fluid group-link-underline font-bold break-words">
+          {item.title}
+        </p>
+        <p class="text-md-fluid">{item.description}</p>
+      </a>
+    ))}
   </div>
 
   <Footer />

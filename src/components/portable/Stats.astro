@@ -9,25 +9,19 @@ const { stats } = Astro.props;
 ---
 
 <div class="my-section lg:mx-[calc(50%-50vw+(var(--width-scrollbar)/2))]">
-  <div
-    class="gap-gutter px-gutter py-gutter grid rounded-lg bg-yellow lg:mx-grid-lg lg:grid-cols-4"
-  >
-    <div></div>
+  <div class="gap-gutter px-gutter py-gutter grid rounded-lg bg-yellow lg:mx-grid-lg lg:grid-cols-4">
+    <div />
     <div class="lg:col-span-3">
-      <h2 class="text-2xl-fluid mx-1 font-light lg:mx-0">
-        {stats?.title}
-      </h2>
+      <h2 class="text-2xl-fluid mx-1 font-light lg:mx-0">{stats?.title}</h2>
       <div class="gap-gutter mt-section grid lg:grid-cols-3">
-        {
-          stats?.items?.map((item) => (
-            <div class="p-grid gap-grid grid rounded-lg bg-off-white lg:aspect-4/3">
-              <span class="text-4xl-fluid hyphen-auto font-light">
-                {item.value}
-              </span>
-              <span class="text-sm-fluid mt-auto">{item.label}</span>
-            </div>
-          ))
-        }
+        {stats?.items?.map((item) => (
+          <div class="p-grid gap-grid grid rounded-lg bg-off-white lg:aspect-4/3">
+            <span class="text-4xl-fluid hyphen-auto font-light">
+              {item.value}
+            </span>
+            <span class="text-sm-fluid mt-auto">{item.label}</span>
+          </div>
+        ))}
       </div>
     </div>
   </div>

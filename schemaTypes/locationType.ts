@@ -1,5 +1,5 @@
 import { defineField, defineType } from "sanity";
-import { MarkerIcon } from "@sanity/icons";
+import { MarkerIcon } from "@sanity/icons/Marker";
 
 export const locationType = defineType({
   name: "location",

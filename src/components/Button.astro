@@ -36,14 +36,12 @@ const buttonClasses = [
 ];
 ---
 
-{
-  href ? (
-    <a class:list={buttonClasses} href={href} {...props}>
-      <slot />
-    </a>
-  ) : (
-    <button class:list={buttonClasses} {...props}>
-      <slot />
-    </button>
-  )
-}
+{href ? (
+  <a class:list={buttonClasses} href={href} {...props}>
+    <slot />
+  </a>
+) : (
+  <button class:list={buttonClasses} {...props}>
+    <slot />
+  </button>
+)}

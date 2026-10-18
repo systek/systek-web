@@ -1,8 +1,9 @@
 ---
+import type { Image as SanityImage } from "sanity";
 import Image from "../Image.astro";
 
 interface Props {
-  image: any; // todo: no any
+  image: SanityImage;
   alt?: string;
 }
 

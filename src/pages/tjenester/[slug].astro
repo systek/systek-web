@@ -82,66 +82,61 @@ const vacancies: VacanciesType[] = await sanityClient.fetch(
     <PortableText value={service.content} />
   </Article>
 
-  {
-    service.citation && (
-      <Citation
-        title="Tjenester"
-        citation={service.citation as unknown as CitationType}
-      />
-    )
-  }
+  {service.citation && (
+    <Citation
+      title="Tjenester"
+      citation={service.citation as unknown as CitationType}
+    />
+  )}
 
-  {
-    service.works && (
-      <CardLayout class="mt-page mx-grid pt-grid border-t border-stroke">
-        <CardRightColumn title="Arbeider">
-          <CardTitle>
-            Relaterte arbeider innen {service.title.toLowerCase()}
-          </CardTitle>
-          <Button class="mt-grid" href="/arbeider">
-            Se alle arbeider
-          </Button>
-        </CardRightColumn>
+  {service.works && (
+    <CardLayout class="mt-page mx-grid pt-grid border-t border-stroke">
+      <CardRightColumn title="Arbeider">
+        <CardTitle>
+          Relaterte arbeider innen {service.title.toLowerCase()}
+        </CardTitle>
+        <Button class="mt-grid" href="/arbeider">
+          {" "}
+          Se alle arbeider{" "}
+        </Button>
+      </CardRightColumn>
 
-        <div />
-        <div class="gap-gutter mt-section grid md:grid-cols-2 lg:col-span-3">
-          {service.works.map((item) => (
-            <a class="group" href={`/arbeider/${item.slug.current}`}>
-              <picture>
-                <Image
-                  class="aspect-4/3 w-full rounded-md"
-                  image={item.image}
-                  alt={item.image.alt}
-                  width={1000}
-                  height={750}
-                  sizes="(min-width: 105rem) 37.5vw, (min-width: 50rem) 50vw, 100vw"
-                />
-              </picture>
-              <p class="mt-gap text-md-fluid group-link-underline font-bold">
-                {item.title}
-              </p>
-              <p class="text-md-fluid">{item.description}</p>
-            </a>
-          ))}
-        </div>
-      </CardLayout>
-    )
-  }
+      <div />
+      <div class="gap-gutter mt-section grid md:grid-cols-2 lg:col-span-3">
+        {service.works.map((item) => (
+          <a class="group" href={`/arbeider/${item.slug.current}`}>
+            <picture>
+              <Image
+                class="aspect-4/3 w-full rounded-md"
+                image={item.image}
+                alt={item.image.alt}
+                width={1000}
+                height={750}
+                sizes="(min-width: 105rem) 37.5vw, (min-width: 50rem) 50vw, 100vw"
+              />
+            </picture>
+            <p class="mt-gap text-md-fluid group-link-underline font-bold">
+              {item.title}
+            </p>
+            <p class="text-md-fluid">{item.description}</p>
+          </a>
+        ))}
+      </div>
+    </CardLayout>
+  )}
 
   {vacancies.length > 0 && <Vacancies vacancies={vacancies} />}
 
-  {
-    service.contact && (
-      <Contact
-        button={`Send ${service.contact.name} en e-post`}
-        email={service.contact.email}
-        label="Kontakt"
-        title={service.contact.title}
-        text={service.contact.description}
-        image={service.contact.image}
-      />
-    )
-  }
+  {service.contact && (
+    <Contact
+      button={`Send ${service.contact.name} en e-post`}
+      email={service.contact.email}
+      label="Kontakt"
+      title={service.contact.title}
+      text={service.contact.description}
+      image={service.contact.image}
+    />
+  )}
 
   <Footer />
 </Layout>

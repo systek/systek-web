@@ -17,6 +17,7 @@ import {
 import Image from "../../components/Image.astro";
 import PageHeader from "../../components/PageHeader.astro";
 import ImageGallery from "../../components/image/ImageGallery.astro";
+import type { Gallery } from "../../components/image/ImageGallery.astro";
 import WorkHere from "../../components/card/WorkHere.astro";
 import CardTitle from "../../components/card/layout/CardTitle.astro";
 
@@ -46,50 +47,40 @@ const staffByInitial = staffItems.reduce(
   <PageHeader image={staffPage.heroImage}>
     <CardLayout>
       <CardRightColumn title="Folka" titleAs="h1">
-        <h2
-          class="text-3xl-fluid max-w-288 font-light md:mr-20 lg:mr-[4.7619vw] lg:max-w-[68.571vw]"
-        >
+        <h2 class="text-3xl-fluid max-w-288 font-light md:mr-20 lg:mr-[4.7619vw] lg:max-w-[68.571vw]">
           {staffPage.title}
         </h2>
       </CardRightColumn>
     </CardLayout>
   </PageHeader>
 
-  <div
-    class="gap-section mt-section mx-grid lg:pb-section relative grid lg:min-h-dvh"
-  >
-    <div
-      class="lg:absolute lg:top-0 lg:right-[calc(75%+16px)] lg:bottom-0 lg:z-(--z-filter) lg:w-auto lg:min-w-[15.298vw]"
-    >
+  <div class="gap-section mt-section mx-grid lg:pb-section relative grid lg:min-h-dvh">
+    <div class="lg:absolute lg:top-0 lg:right-[calc(75%+16px)] lg:bottom-0 lg:z-(--z-filter) lg:w-auto lg:min-w-[15.298vw]">
       <div class="lg:sticky lg:top-[calc(var(--height-header)+8px)]">
         <div data-filters>
           <Accordion class="lg:border-t-0">
             <AccordionItem open title="Lokasjon">
               <div class="gap-gap flex flex-col">
                 <Radio name="location" label="Vis alle" value="all" checked />
-                {
-                  locations.map((location) => (
-                    <Radio
-                      name="location"
-                      label={location.name}
-                      value={location.slug.current}
-                    />
-                  ))
-                }
+                {locations.map((location) => (
+                  <Radio
+                    name="location"
+                    label={location.name}
+                    value={location.slug.current}
+                  />
+                ))}
               </div>
             </AccordionItem>
             <AccordionItem open title="Avdeling">
               <div class="gap-gap flex flex-col">
                 <Radio name="department" label="Vis alle" value="all" checked />
-                {
-                  services.map((service) => (
-                    <Radio
-                      name="department"
-                      label={service.title}
-                      value={service.slug.current}
-                    />
-                  ))
-                }
+                {services.map((service) => (
+                  <Radio
+                    name="department"
+                    label={service.title}
+                    value={service.slug.current}
+                  />
+                ))}
               </div>
             </AccordionItem>
           </Accordion>
@@ -97,58 +88,54 @@ const staffByInitial = staffItems.reduce(
       </div>
     </div>
 
-    {
-      Object.entries(staffByInitial).map(([initial, staffList]) => (
-        <div class="gap-gutter grid lg:grid-cols-4" data-letter={initial}>
-          <div class="hidden lg:block">
-            <p class="text-4xl-fluid sticky top-[calc(var(--height-header)+8px)] my-4">
-              {initial}
-            </p>
-          </div>
-
-          <div class="gap-x-gutter gap-y-section grid grid-cols-2 md:grid-cols-4 lg:col-span-3">
-            {staffList.map((item) => (
-              <div
-                data-location={item.location?.slug.current || "none"}
-                data-department={item.serviceType?.slug.current || "none"}
-                class="gap-gap group flex flex-col"
-              >
-                <picture class="aspect-square overflow-hidden">
-                  <Image
-                    alt=""
-                    class={clsx(
-                      "aspect-square w-full rounded-md",
-                      item.imageSecondary && "group-hover:hidden",
-                    )}
-                    image={item.image}
-                    width={500}
-                    height={500}
-                    sizes="(min-width: 105rem) 18.75vw, (min-width: 50rem) 25vw, 50vw"
-                  />
-
-                  <Image
-                    alt=""
-                    class="hidden aspect-square w-full rounded-md group-hover:block"
-                    image={item.imageSecondary}
-                    width={500}
-                    height={500}
-                    sizes="(min-width: 105rem) 18.75vw, (min-width: 50rem) 25vw, 50vw"
-                    loading="eager"
-                  />
-                </picture>
-
-                <div>
-                  <p class="text-sm-fluid leading-snug font-bold">
-                    {item.name}
-                  </p>
-                  <p class="text-sm-fluid leading-snug">{item.position}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+    {Object.entries(staffByInitial).map(([initial, staffList]) => (
+      <div class="gap-gutter grid lg:grid-cols-4" data-letter={initial}>
+        <div class="hidden lg:block">
+          <p class="text-4xl-fluid sticky top-[calc(var(--height-header)+8px)] my-4">
+            {initial}
+          </p>
         </div>
-      ))
-    }
+
+        <div class="gap-x-gutter gap-y-section grid grid-cols-2 md:grid-cols-4 lg:col-span-3">
+          {staffList.map((item) => (
+            <div
+              data-location={item.location?.slug.current || "none"}
+              data-department={item.serviceType?.slug.current || "none"}
+              class="gap-gap group flex flex-col"
+            >
+              <picture class="aspect-square overflow-hidden">
+                <Image
+                  alt=""
+                  class={clsx(
+                    "aspect-square w-full rounded-md",
+                    item.imageSecondary && "group-hover:hidden",
+                  )}
+                  image={item.image}
+                  width={500}
+                  height={500}
+                  sizes="(min-width: 105rem) 18.75vw, (min-width: 50rem) 25vw, 50vw"
+                />
+
+                <Image
+                  alt=""
+                  class="hidden aspect-square w-full rounded-md group-hover:block"
+                  image={item.imageSecondary}
+                  width={500}
+                  height={500}
+                  sizes="(min-width: 105rem) 18.75vw, (min-width: 50rem) 25vw, 50vw"
+                  loading="eager"
+                />
+              </picture>
+
+              <div>
+                <p class="text-sm-fluid leading-snug font-bold">{item.name}</p>
+                <p class="text-sm-fluid leading-snug">{item.position}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    ))}
   </div>
 
   <CardLayout class="mt-page mx-grid">
@@ -159,20 +146,18 @@ const staffByInitial = staffItems.reduce(
       </CardTitle>
     </CardRightColumn>
 
-    <ImageGallery node={staffPage.imageGallery as unknown as any} />
+    <ImageGallery node={staffPage.imageGallery as unknown as Gallery} />
   </CardLayout>
 
-  {
-    staffPage.workHere && (
-      <WorkHere
-        title={staffPage.workHere.title}
-        label={staffPage.workHere.label}
-        text={staffPage.workHere.description}
-        points={staffPage.workHere.points}
-        image={staffPage.workHere.image}
-      />
-    )
-  }
+  {staffPage.workHere && (
+    <WorkHere
+      title={staffPage.workHere.title}
+      label={staffPage.workHere.label}
+      text={staffPage.workHere.description}
+      points={staffPage.workHere.points}
+      image={staffPage.workHere.image}
+    />
+  )}
 
   <Footer />
 </Layout>

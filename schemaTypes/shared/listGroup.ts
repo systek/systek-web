@@ -1,5 +1,5 @@
 import { defineField } from "sanity";
-import { OlistIcon } from "@sanity/icons";
+import { OlistIcon } from "@sanity/icons/Olist";
 
 export const listGroup = defineField({
   type: "object",

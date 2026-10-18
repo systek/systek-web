@@ -16,22 +16,18 @@ interface Props {
 const { button, label, title, email, text, image } = Astro.props;
 ---
 
-<CardLayout
-  class="mt-page mx-grid pt-grid gap-y-section border-t border-stroke"
->
+<CardLayout class="mt-page mx-grid pt-grid gap-y-section border-t border-stroke">
   <div class="flex flex-col lg:col-span-2">
     <h2 class="text-sm-fluid font-bold">{label}</h2>
     <div class="mt-auto max-w-148 lg:max-w-[35.238vw]">
       <h3 class="my-gap text-2xl-fluid font-light">{title}</h3>
-      <p class="my-grid text-md-fluid">
-        {text}
-      </p>
+      <p class="my-grid text-md-fluid">{text}</p>
 
       <div class="mt-grid gap-grid flex items-center">
-        <Button href={`mailto:${email}`}>
-          {button}
-        </Button>
-        <a class="text-sm-fluid link-underline" href="/om-oss">Les om oss</a>
+        <Button href={`mailto:${email}`}>{button}</Button>
+        <a class="text-sm-fluid link-underline" href="/om-oss">
+          Les om oss
+        </a>
       </div>
     </div>
   </div>

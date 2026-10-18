@@ -1,6 +1,5 @@
 ---
 import { PortableText as PortableTextInternal } from "astro-portabletext";
-import InternalLink from "./portable/InternalLink.astro";
 import PortableBlock from "./portable/PortableBlock.astro";
 import ListGroup from "./portable/ListGroup.astro";
 import TagsList from "./portable/TagsList.astro";
@@ -29,7 +28,6 @@ const components = {
     citation: Citation,
   },
   mark: {
-    internalLink: InternalLink,
     link: TextLink,
   },
   block: PortableBlock,

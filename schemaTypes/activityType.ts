@@ -1,4 +1,4 @@
-import { ActivityIcon } from "@sanity/icons";
+import { ActivityIcon } from "@sanity/icons/Activity";
 import { defineField, defineType } from "sanity";
 
 export const activityType = defineType({

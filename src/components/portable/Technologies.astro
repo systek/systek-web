@@ -13,13 +13,11 @@ const { technologies, title = "Teknologier brukt gjennom arbeidet" } =
 <div class="my-grid">
   <p class="text-sm-fluid font-bold">{title}</p>
   <div class="text-sm-fluid flex flex-row flex-wrap gap-x-2">
-    {
-      technologies?.map((item, index) => (
-        <>
-          <span>{item}</span>
-          {index < technologies?.length - 1 && <span>·</span>}
-        </>
-      ))
-    }
+    {technologies?.map((item, index) => (
+      <>
+        <span>{item}</span>
+        {index < technologies?.length - 1 && <span>·</span>}
+      </>
+    ))}
   </div>
 </div>
