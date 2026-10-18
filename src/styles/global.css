@@ -93,13 +93,18 @@ body {
 @media (prefers-reduced-motion: no-preference) {
   @supports (animation-timeline: view()) {
     .parallax-image {
-      animation: parallax-image linear both;
+      animation-name: parallax-image;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
       animation-timeline: --parallax;
     }
 
+    /* Moves a whole element against the scroll, offsetting it from its neighbours */
     @variant md {
       .parallax-offset {
-        animation: parallax-offset linear both;
+        animation-name: parallax-offset;
+        animation-timing-function: linear;
+        animation-fill-mode: both;
         animation-timeline: view();
       }
     }
